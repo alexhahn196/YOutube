@@ -1,0 +1,167 @@
+{
+  "style_lock": "cinematic space documentary, deep-space black background, cold blue-teal palette with a single CYAN accent light, high dynamic range, volumetric light, subtle film grain, photoreal, 8k, anamorphic, shallow depth cues, NASA/JWST plate aesthetic, no text, no logos, no watermark, 16:9",
+  "clips": [
+    {
+      "id": "C01",
+      "order": 1,
+      "beat": "cold open: push through deep space to a faint point of light",
+      "image_prompt": "Extreme wide shot of deep interstellar space, a single faint blurry point of light slightly off-center, faint dust and distant stars, sense of vast emptiness, one cold cyan glint on the distant object",
+      "motion_prompt": "very slow forward push toward the faint point of light, subtle parallax on foreground dust, near-still, weighty and quiet, no camera shake",
+      "image_job": "c657dcd1-5011-4c8e-9c97-5e77bfd15c68",
+      "video_job": "3e61b8b1-cd91-4a18-bdb5-7800201e186b"
+    },
+    {
+      "id": "C02",
+      "order": 2,
+      "beat": "object reveal with anti-tail (DONE)",
+      "image_prompt": "REUSED",
+      "motion_prompt": "REUSED",
+      "image_job": "7efb7219-4ba9-4cf3-8d71-b1145d86d4f8",
+      "video_job": "5a033b7c-4cc1-4b4e-9981-b8eaa5ebc18d"
+    },
+    {
+      "id": "C03",
+      "order": 3,
+      "beat": "ominous: rock or engineered? push-in (reuse V2 image)",
+      "image_prompt": "REUSED_V2",
+      "motion_prompt": "slow ominous dolly-in, deep shadow creeps across the ambiguous surface, weighty, no shake",
+      "image_job": "e2316c46-cd5d-4b87-bbd8-7ccf8d0d613d",
+      "video_job": "e9d38b5d-dc59-4448-b83a-4a057bd252e7"
+    },
+    {
+      "id": "C04",
+      "order": 4,
+      "beat": "three interstellar visitors lineup",
+      "image_prompt": "A cosmic lineup of three interstellar objects against deep space: far left a small dark elongated rocky sliver, center a small fuzzy comet with a short tail, right a larger object glowing cold cyan and clearly the strangest, consistent scale, dramatic",
+      "motion_prompt": "slow lateral truck across the three objects, gentle settle on the right glowing object, no shake",
+      "image_job": "df21356b-ea03-4d5b-a987-fb20a8b8f2bd",
+      "video_job": "d0ed5255-8e2c-4993-9e15-42bf4ba2660f"
+    },
+    {
+      "id": "C05",
+      "order": 5,
+      "beat": "hyperbolic open orbit through the solar system",
+      "image_prompt": "Elegant orbital-mechanics view: the Sun at center with faint planetary orbit ellipses, and ONE dramatic open hyperbolic trajectory slicing through and exiting, glowing cyan, clearly not a closed loop, dark space, premium data-visual look",
+      "motion_prompt": "camera slowly orbits the orbital plane, the cyan hyperbola glows and the object travels along it and continues off-frame, calm",
+      "image_job": "7aa6a737-8872-4eba-92f4-0e772c8938ea",
+      "video_job": "fe25aee7-8840-4b49-9cb3-0d680299156d"
+    },
+    {
+      "id": "C06",
+      "order": 6,
+      "beat": "Loeb 0-10 anomaly-scale analyst desk",
+      "image_prompt": "A dark observatory analyst desk mood, a glowing cyan screen showing an abstract 0 to 10 scale with a marker near 4 and faint anomaly markers, clinical and cold, no readable text, no person",
+      "motion_prompt": "slow push toward the glowing screen, the marker gently settles near 4, calm",
+      "image_job": "ca9d73ed-2f77-48ff-912e-c8d7f52cc96f",
+      "video_job": "79f37a3f-db5d-4435-a31c-15ec01240e0e"
+    },
+    {
+      "id": "C07",
+      "order": 7,
+      "beat": "inside-out CO2 chemistry cutaway of frozen nucleus",
+      "image_prompt": "Cross-section cutaway of a frozen comet nucleus far from the sun, dominated by carbon-dioxide ices in cold blue, only a thin water layer, faint sublimation, abstract scientific beauty, cyan accent",
+      "motion_prompt": "slow push into the cutaway, faint cold vapor rising, subtle, no shake",
+      "image_job": "7e93e2e8-dab2-4538-9567-d961130e300b",
+      "video_job": "ef65249e-83db-4c55-b32f-d5316b800930"
+    },
+    {
+      "id": "C09",
+      "order": 8,
+      "beat": "Milky Way thick disk, ancient relic origin",
+      "image_prompt": "Grand view of the Milky Way galaxy seen edge-on, highlighting the older puffed-up thick-disk star population, one cyan trajectory arriving from the ancient region toward the viewer, epic sense of deep time",
+      "motion_prompt": "slow majestic pull-back revealing the galaxy edge-on, the cyan path traces inward, reverent",
+      "image_job": "40476dd1-0591-4820-9d30-0c8376b4c19c",
+      "video_job": "5ea6a336-6e5e-4ea7-8ce7-228b742d96f4"
+    },
+    {
+      "id": "C10",
+      "order": 9,
+      "beat": "orbital chronology: perihelion, closest Earth, Jupiter",
+      "image_prompt": "Solar-system orbital view, a glowing cyan hyperbola passing between the orbits of Earth and Mars at perihelion, with a marked closest-Earth point and a Jupiter flyby further out, Sun as hard light at center, clean premium orbital aesthetic",
+      "motion_prompt": "the object animates along the cyan path passing each marked node in sequence, calm and precise",
+      "image_job": "3fca7aa0-a4b7-4a34-84a4-0969f1b469ba",
+      "video_job": "f004093a-0f1f-4c0d-b6ba-9bbbee007e97"
+    },
+    {
+      "id": "C11",
+      "order": 10,
+      "beat": "anti-tail hero: heavy dust drifts sunward",
+      "image_prompt": "Hero shot of the interstellar comet with a distinct anti-tail of large heavy dust grains drifting off the sunlit side TOWARD a distant bright sun, physically plausible, cyan-lit, cold and cinematic",
+      "motion_prompt": "heavy dust grains slowly stream from the sunlit side toward the sun, tail shape holds, subtle rotation",
+      "image_job": "0d5eaeee-d389-4b7d-ae8f-c3c111128997",
+      "video_job": "1fabdc18-9733-4e32-96d4-32d64b8110d5"
+    },
+    {
+      "id": "C12",
+      "order": 11,
+      "beat": "frozen comet pre-perihelion, quiet",
+      "image_prompt": "A deep-frozen comet far from the sun, mostly dormant, faint cold CO2 jets, very little activity, dark and quiet, cold blue with cyan accent",
+      "motion_prompt": "the frozen comet drifts quietly, faint cold jets barely stirring, near-still",
+      "image_job": "25b24aa1-ff3d-4de4-b16f-f131e076c1c0",
+      "video_job": "ea2d25b5-2060-4b19-92dc-fa66faf803c4"
+    },
+    {
+      "id": "C13",
+      "order": 12,
+      "beat": "active comet post-perihelion, warming, water surges",
+      "image_prompt": "The same comet now close to the sun and fully active, water vapor surging into a bright vigorous coma, jets igniting, warmer active glow but keep the cyan accent, dramatic activation",
+      "motion_prompt": "the comet ignites into a full active coma as it nears the sun, vapor blooms outward, energetic but smooth",
+      "image_job": "a2362f1a-13b5-4d05-81a6-29a943e7d60f",
+      "video_job": "fb5f8b5c-af96-404a-92db-6195f87715ea"
+    },
+    {
+      "id": "C14",
+      "order": 13,
+      "beat": "iron appears alongside nickel (spectral)",
+      "image_prompt": "Abstract spectral visualization around the comet nucleus: glowing emission lines as fine cyan light-streaks, iron lines appearing alongside nickel lines as it warms, elegant scientific light aesthetic, dark background",
+      "motion_prompt": "additional spectral light-lines fade in next to the existing ones, gentle balancing glow, subtle",
+      "image_job": "3acd9b73-b35a-4dd5-9ca8-1ff958d0cf44",
+      "video_job": "e1af14f6-d03a-45f4-9c4b-b8f2dcb3dd99"
+    },
+    {
+      "id": "C16",
+      "order": 14,
+      "beat": "three roughly symmetric jets venting",
+      "image_prompt": "A comet nucleus emitting three roughly symmetric jets about 120 degrees apart, cold cyan glow, striking geometry against deep space, dramatic",
+      "motion_prompt": "the three jets vent steadily and pulse gently, nucleus slowly rotating, cinematic",
+      "image_job": "9373138d-e042-45f4-bd80-c5378e9c8631",
+      "video_job": "36e27398-4676-4eeb-95fb-359add19d5f8"
+    },
+    {
+      "id": "C17",
+      "order": 15,
+      "beat": "radio telescope listens, silence (no signal)",
+      "image_prompt": "A large radio telescope dish under a star-blazing night sky pointed toward a faint distant object, a thin cyan listening-beam reaching across vast space, sense of silence and no reply, premium documentary look",
+      "motion_prompt": "the cyan listening-beam reaches out and scans, nothing returns, stars slowly wheel, calm",
+      "image_job": "286e9e1b-2067-405f-8855-0db89e8b6a87",
+      "video_job": "003e4f2f-aae9-4ad8-a4bc-87af7d0645cd"
+    },
+    {
+      "id": "C19",
+      "order": 16,
+      "beat": "verdict: object receding, most likely natural",
+      "image_prompt": "The interstellar comet now seen leaving, receding toward deep space, still cold and strange but clearly a natural comet with an active coma, the sun behind it, dignified sense of most-likely-but-not-closed",
+      "motion_prompt": "slow pull-back as the comet recedes with a trailing coma, calm and final",
+      "image_job": "d310f0c5-cfdd-48c3-b184-c8f91ecdf6f1",
+      "video_job": "4c5d2c9b-902d-4dc8-b93c-d8c098193127"
+    },
+    {
+      "id": "C20",
+      "order": 17,
+      "beat": "payoff: ancient relic older than the sun vs the galaxy",
+      "image_prompt": "Awe shot: the ancient interstellar comet against the vast Milky Way, emphasis on deep time, a relic older than the sun, humbling scale, cold cyan accent, epic and reverent",
+      "motion_prompt": "slow reverent push toward the comet with the galaxy behind, majestic",
+      "image_job": "e3bdf986-c2e6-4585-8ae2-ec011405d181",
+      "video_job": "5d9a429c-8cde-489c-851b-8f365976fe74"
+    },
+    {
+      "id": "C21",
+      "order": 18,
+      "beat": "outlook: survey observatory, more visitors coming",
+      "image_prompt": "A large modern survey observatory dome under a brilliant star-blazing sky, faint cyan glow, sense that the next discovery is coming, premium and hopeful",
+      "motion_prompt": "slow push toward the observatory dome as stars wheel gently overhead, hopeful",
+      "image_job": "ec47b2b9-31f6-466f-9831-564167d28200",
+      "video_job": "d40abfa0-067d-4b6e-afa4-0bf404a6d7df"
+    }
+  ]
+}

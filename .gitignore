@@ -6,3 +6,11 @@ analyse/channels_d/
 analyse/space/
 __pycache__/
 *.pyc
+
+# Produktions-Medien (regenerierbar ueber Higgsfield job_ids im render-manifest.json)
+*.mp4
+*.png
+*.jpg
+*.webp
+produktion/**/clips/
+produktion/**/norm/
