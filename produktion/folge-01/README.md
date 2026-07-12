@@ -36,8 +36,18 @@ Ton/Sprache (ElevenLabs) + Musik + HUD/Bauchbinden/Untertitel kommen in CapCut d
   fügt Titelkarten ein, mischt VO (voll) + Musik (leise, gefadet) und muxt →
   **`signal_ep01_FINAL.mp4`** (12:07, 1080p, AAC-Stereo).
 
-## Noch offen (bewusst, kommt später)
-- CapCut-Finish: HUD-Overlay, Bauchbinden mit Messdatum/Quelle, Verdict-Meter (Zeiger „Leans Noise"),
-  Untertitel, ggf. Ducking verfeinern (aktuell Musik konstant leise unter der Stimme).
+## Finish-Layer (HIER gebaut, kein CapCut noetig)
+- **`build_subs.py`** — ElevenLabs **Forced Alignment** (`/v1/forced-alignment`) auf die
+  bestehenden `vo_seg*.mp3` → exakte Wort-Zeiten → `subtitles.ass` (294 Cues) + `bauchbinden.json`
+  (13 Quellen-Bauchbinden, Zeitpunkte per Anchor-Phrasen automatisch gefunden).
+- **`make_overlays.py`** — rendert die SIGNAL-Overlays als PNG (Pillow): persistentes **HUD**
+  (Ecken, SIGNAL-Wortmarke + Signal-Strength-Bar, Reticle, Tracking-Tag), **Verdict-Meter**
+  (Zeiger auf „Leans Noise"), 13 **Bauchbinden-Karten** (Quelle + Messdatum je Fakt).
+- **`composite.py`** — legt HUD (immer), Bauchbinden + Meter (zeitgesteuert, mit Fades) drueber
+  und **brennt die Untertitel** (libass `subtitles`-Filter) ein → `signal_ep01_MASTER_final.mp4`.
+  Audio wird kopiert (der gemischte Ducking-Ton bleibt).
+
+## Noch offen (optional)
 - Mehr B-Roll-Shots, damit die Shot-Holds im Evidence-Teil kürzer werden (aktuell ~47 s/Shot).
 - Echte NASA/GBT/ATA-Footage in S17/S22 gegen die KI-Platzhalter tauschen (Vertrauens-/Premium-Hebel).
+- Thumbnail + Titel/Beschreibung + Pinned-Comment fuer den Upload.
