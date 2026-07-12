@@ -1,6 +1,8 @@
 raw/
 raw_d/
+raw_space/
 analyse/channels/
 analyse/channels_d/
+analyse/space/
 __pycache__/
 *.pyc
