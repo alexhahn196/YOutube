@@ -222,5 +222,18 @@ Diese echten Assets heben uns von reinem KI-Slop ab (Vertrauens-/Premium-Hebel).
 
 ---
 
-## 6. Nächster Schritt (Vorschlag)
-Einen **Pilot-Shot** in Higgsfield testen (z. B. **S02** — das Reveal des Objekts mit Anti-Tail), um den SIGNAL-Look zu kalibrieren, bevor wir die ganze Folge durchrendern. Sag Bescheid, dann generiere ich S02 als Standbild (`nano_banana_pro`) + kurzen Motion-Test (`Seedance 2.0`).
+## 6. Pilot-Render-Log (Look-Kalibrierung)
+
+**S02 — Standbild (`nano_banana_pro`, 4K, 16:9, SIGNAL-Style-Lock):**
+- Variante 1 (GEWÄHLT für S02, klarer Reveal): Job `7efb7219-4ba9-4cf3-8d71-b1145d86d4f8` · 5504×3072
+- Variante 2 (empfohlen als S03-Asset, düstere Silhouette): Job `e2316c46-cd5d-4b87-bbd8-7ccf8d0d613d` · 5504×3072
+- Ergebnis: Style-Lock funktioniert — Deep-Space-Schwarz, kühles Blau-Teal, EIN Cyan-Akzent, photoreale NASA-Plate-Anmutung, kein Text. **Look ist kalibriert → Serien-Standard.**
+
+**S02 — Motion-Test (`Seedance 2.0`, 1080p, 6s, `mode=std`, stumm):**
+- Job `5a033b7c-4cc1-4b4e-9981-b8eaa5ebc18d` · Startframe = Variante 1
+- Motion-Prompt bewährt (langsamer Drift, Koma-Schimmer, Anti-Tail zur Sonne). Hinweis: `std`-Queue war langsam (~15 Min) — für Massen-Shots ggf. `mode=fast` (720p) für Vorschau, Finals in `std`.
+
+> **Reproduzierbarkeit:** Assets nicht im Repo (4K-PNGs ~20 MB). Über die Job-IDs jederzeit in Higgsfield abrufbar (`job_display`). Gewinner-Seeds/IDs hier gepflegt für Folge 2ff.
+
+## 7. Nächster Schritt (Vorschlag)
+Look ist kalibriert. Optionen: (a) **restliche Hero-Shots** von Segment 1 (S06 Triptychon, S07 Bahn) rendern, um den Serien-Look über mehrere Motive zu bestätigen; oder (b) direkt **S02 in 4K final** + HUD-Overlay-Vorlage in CapCut bauen. Empfehlung: erst (a) — 2–3 weitere Motive testen, dann Batch-Produktion.
