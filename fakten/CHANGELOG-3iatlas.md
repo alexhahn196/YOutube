@@ -1,7 +1,7 @@
 # CHANGELOG — 3I/ATLAS-Skript v1 → v2 (Faktenkorrektur)
 
 Prüfung 12.07.2026 an Primärquellen. Dramaturgie/Hook/Struktur/Ton **unverändert** — nur Fakten.
-Das **Verdict wurde NICHT gesetzt** (Entscheidung liegt beim Auftraggeber; v2 liefert Belegliste pro/contra + 3 Härtegrade).
+**Verdict-Update (12.07.2026):** Auftraggeber-Vorgabe „mach das Sinnvollste für unsere Ziele" → gesetzt auf **MITTEL / „Leans Noise"** (evidenzbetont, auf das Dossier kalibriert). HART verworfen (überschreitet §E-Offenpunkte = Overclaim, tötet Kommentar-Debatte); WEICH verworfen (zu nah am Konkurrenz-Clickbait). Beleglisten pro/contra bleiben in Segment 3.
 
 ## Korrigierte Fehler
 

@@ -2,14 +2,14 @@
 
 > Änderungen ggü. v1 inline als `[>> KORREKTUR: …]`. Dramaturgie/Hook/Struktur/Ton unverändert.
 > Fakten: Dossier `fakten/3i-atlas.md`, Diff: `fakten/CHANGELOG-3iatlas.md`.
-> **Verdict bewusst NICHT gesetzt** — Segment 3 liefert Belegliste + 3 Härtegrade zur Auswahl.
+> **Verdict gesetzt: MITTEL (Leans Noise)** — evidenzbetont, auf das Dossier kalibriert. Begründung + verworfene Alternativen (HART/WEICH) in Segment 3.
 > Header-Korrektur: Beweislage mit Messdaten; mehrere Werte sind prä-perihel-Momentaufnahmen.
 
 ---
 
 ## 1. Metadaten & Packaging
 
-**Verdict:** ⟨OFFEN — vom Auftraggeber zu setzen; siehe Segment 3⟩. Thumbnail-Meter-Zeiger erst danach fixieren.
+**Verdict:** **MITTEL — „Leans Noise" (most likely natural, wenige echte offene Punkte).** Auf das Dossier kalibriert, kein Overclaim. Thumbnail-Meter-Zeiger: **Leans Noise** (siehe unten).
 
 **Titel-Varianten (unverändert):**
 1. `Is 3I/ATLAS Alien Technology? — What the Evidence Actually Shows`
@@ -18,7 +18,7 @@
 4. `Something From Another Star Just Passed Through Our Solar System`
 5. `The Truth About 3I/ATLAS Nobody on YouTube Is Telling You`
 
-**Thumbnail:** wie v1 (dunkles All, Objekt mit Anti-Tail, `ALIEN?`→`THE TRUTH`, Signal/Noise-Meter) — **Meter-Zeiger erst setzen, wenn Verdict entschieden.**
+**Thumbnail:** wie v1 (dunkles All, Objekt mit Anti-Tail, `ALIEN?`→`THE TRUTH`, Signal/Noise-Meter) — **Meter-Zeiger fixiert auf „Leans Noise"**: Zeiger klar auf der Noise-Hälfte, aber NICHT am Anschlag — der kleine Rest-Abstand zum Vollausschlag ist bewusst (die offenen Anomalien) und hält den Klick-Anreiz „warum nicht ganz?".
 
 **Verdict-Frage (Pinned):** „Natural comet or something engineered? After the evidence — SIGNAL or NOISE? 👇 Which interstellar object should we investigate next?"
 
@@ -107,8 +107,38 @@
 
 ---
 
-### ▐ SEGMENT 3 — THE VERDICT  ⟨NICHT ausformuliert — Entscheidung des Auftraggebers⟩
-*[VISUAL: „THE VERDICT". Signal/Noise-Meter erst nach Wahl fixieren.]*
+### ▐ SEGMENT 3 — THE VERDICT  ⟨GESETZT: MITTEL / „Leans Noise"⟩
+*[VISUAL: „THE VERDICT". Signal/Noise-Meter fährt hörbar/sichtbar auf **Leans Noise** — Zeiger klar auf der Noise-Seite, kurz vor Vollausschlag stehend.]*
+
+**Voiceover (Verdict, Englisch):**
+> So — signal, or noise? Here's the honest answer. Every anomaly we could actually test has turned out to have a natural explanation. The missing water, the missing iron, the strange chemistry — all of it was a snapshot, taken before this thing rounded the Sun. When it warmed up, the water surged, the iron appeared, the chemistry fell in line with an ordinary comet. Two independent searches listened for a transmitter and heard nothing — down to the power of a phone. On the evidence we have today, 3I/ATLAS is most likely natural. But I'm not going to pretend the file is closed: a few anomalies — the way it accelerated, the direction it came from — are still genuinely open. So the meter lands here: **Leans Noise.** Most likely a comet. Not case-closed.
+
+*[Meter-Grafik: **Leans Noise**. Bewusst NICHT am Anschlag — der Rest-Abstand = die offenen Punkte.]*
+
+---
+
+**Beleg-Grundlage (warum MITTEL, nicht HART/WEICH):**
+
+**PRO „nur ein (ungewöhnlicher) natürlicher Komet" (Richtung NOISE):**
+- Zwei unabhängige Technosignatur-Suchen: **0** Signale; Grenze **100 mW** (Handy-Niveau auf 270 Mio. km) + ATA 74 Mio.→alle irdisch. [F1/F2]
+- CO₂-Chemie, fehlendes Eisen, niedrige Wasserrate = **prä-perihel-Momentaufnahmen**, die sich post-perihel **auflösten** (H₂O ~40×, Fe I erscheint, Ni/Fe ≈ Tempel 1, Methan wie bei Kometen). [C1→C2/C3, D1→D2]
+- Anti-Tail hat **Präzedenz** (C/2014 UN271) und gewöhnliche Erklärung (Wright & Keto). [E1]
+- Loeb-Skala **Stufe 4** = „anomal, aber höchstwahrscheinlich natürlich"; wissenschaftl. Konsens: natürlich. [G1/G3]
+
+**CONTRA / offene Anomalien (Richtung SIGNAL) — der Grund, warum NICHT „HART":**
+- Nicht-grav. Beschleunigung mit **transversaler** Komponente nahe Perihel — Deutung nicht abschließend geklärt. [E2]
+- Ankunftsrichtung **9°** vom Wow!-Signal (p ≈ 0,6 %). [E3]
+- Von Loeb berichtete **symmetrische Jet-Struktur**. [E4]
+- Höchstes je gemessenes Ni/Fe (prä-perihel) und extremste Exzentrizität — Rekord-Außenseiter. [A2/D1]
+
+**Warum MITTEL für unsere Ziele optimal ist:**
+- **Vertrauen (Kern-Marke):** landet ehrlich („most likely natural"), überschreitet aber NICHT das eigene Dossier — HART würde die offenen §E-Punkte übergehen und wäre Overclaim.
+- **Kommentare:** die offenen Anomalien geben echten Diskussionsstoff → „SIGNAL or NOISE, you decide" bleibt eine ehrliche Frage, kein rhetorisches Feigenblatt.
+- **Serie/Retention:** „not case-closed" trägt den Cliffhanger „wir tracken 3I/ATLAS, bis es das System verlässt".
+
+**Verworfene Alternativen (archiviert):**
+1. ~~**HART** (Mostly Noise): „The alien-probe claim is not supported. This is a natural comet."~~ → **verworfen:** überschreitet die eigene Faktenlage (§E offen), tötet die Kommentar-Debatte.
+3. ~~**WEICH** (Unresolved): „…the strangest of the three, and some anomalies aren't closed. We keep watching."~~ → **verworfen:** zu nah am Konkurrenz-Clickbait („Mystery offen halten" ohne klare Einlösung).
 
 **Belege PRO „nur ein (ungewöhnlicher) natürlicher Komet" (Richtung NOISE):**
 - Zwei unabhängige Technosignatur-Suchen: **0** Signale; Grenze **100 mW** (Handy-Niveau auf 270 Mio. km) + ATA 74 Mio.→alle irdisch. [F1/F2]
