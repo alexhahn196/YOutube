@@ -43,9 +43,15 @@ Ton/Sprache (ElevenLabs) + Musik + HUD/Bauchbinden/Untertitel kommen in CapCut d
 - **`make_overlays.py`** — rendert die SIGNAL-Overlays als PNG (Pillow): persistentes **HUD**
   (Ecken, SIGNAL-Wortmarke + Signal-Strength-Bar, Reticle, Tracking-Tag), **Verdict-Meter**
   (Zeiger auf „Leans Noise"), 13 **Bauchbinden-Karten** (Quelle + Messdatum je Fakt).
-- **`composite.py`** — legt HUD (immer), Bauchbinden + Meter (zeitgesteuert, mit Fades) drueber
-  und **brennt die Untertitel** (libass `subtitles`-Filter) ein → `signal_ep01_MASTER_final.mp4`.
-  Audio wird kopiert (der gemischte Ducking-Ton bleibt).
+- **`composite.py`** — legt HUD (immer), Bauchbinden + Meter (zeitgesteuert per `-itsoffset`/`-t`,
+  mit Fades) drueber und **brennt die Untertitel** (libass `subtitles`-Filter) ein →
+  `signal_ep01_MASTER_final.mp4`. Audio wird kopiert (der gemischte Ducking-Ton bleibt).
+  **Wichtige Fallstricke (gelöst):** (1) der persistente HUD-Input ist `-loop 1` = unendlich →
+  ohne feste Ausgabe-Länge churnt ffmpeg am Ende endlos → **`-t <master_dauer>` auf den Output setzen**.
+  (2) `+faststart` schreibt die 400-MB-Datei komplett um und ist auf dieser Disk extrem langsam →
+  fuer den Master **weglassen** (nur die kleine Versand-Fassung bekommt faststart).
+  (3) Viele dauerhaft laufende Vollbild-RGBA-Overlays sind zu teuer → jeder Timed-Overlay nur in
+  seinem Zeitfenster (`-itsoffset`/`-t`).
 
 ## Noch offen (optional)
 - Mehr B-Roll-Shots, damit die Shot-Holds im Evidence-Teil kürzer werden (aktuell ~47 s/Shot).
