@@ -24,8 +24,20 @@ Ton/Sprache (ElevenLabs) + Musik + HUD/Bauchbinden/Untertitel kommen in CapCut d
   `xfade` scheitert an der Framerate → stattdessen Ein-/Ausblenden pro Clip + concat-demuxer.
 - **Bild→Video:** Seedance nimmt die Bild-`job_id` direkt als `start_image` (kein lokaler Upload nötig).
 
+## Vertonung (ElevenLabs, per API)
+- **`elevenlabs_pipeline.py`** — Voice Design (erzeugt die einzigartige „SIGNAL Analyst"-Stimme aus
+  einem Text-Prompt) + Text-to-Speech. Liest den API-Key aus `.eleven_key` (NIE committen).
+  Stimme: **Voice-ID `7ATeax5x9LSXQT93oICL`** (Modell `eleven_multilingual_v2`,
+  Settings Stability 0.45 / Similarity 0.75 / Style 0.10 / Speaker-Boost an).
+- **VO-Skript:** `scripts/episode-01-3IATLAS-VO.md` (5 Segmente, ~12 Min gesprochen).
+- **Musik:** 3 Betten über die ElevenLabs Music-API (mysteriös → analytisch → auflösend),
+  je zur Segment-Länge; Prompts ohne Film-/Künstlerreferenzen (ToS-Filter).
+- **`final_assemble.py`** — timt die 18 Shots per **Boomerang-Loop** auf die VO-Segmentlängen,
+  fügt Titelkarten ein, mischt VO (voll) + Musik (leise, gefadet) und muxt →
+  **`signal_ep01_FINAL.mp4`** (12:07, 1080p, AAC-Stereo).
+
 ## Noch offen (bewusst, kommt später)
-- ElevenLabs-Voiceover (feste SIGNAL-Stimme) + Hintergrundmusik.
 - CapCut-Finish: HUD-Overlay, Bauchbinden mit Messdatum/Quelle, Verdict-Meter (Zeiger „Leans Noise"),
-  Untertitel (brauchen VO-Timing), und Shots auf die Erzähl-Länge dehnen (Ziel 15–20 Min).
+  Untertitel, ggf. Ducking verfeinern (aktuell Musik konstant leise unter der Stimme).
+- Mehr B-Roll-Shots, damit die Shot-Holds im Evidence-Teil kürzer werden (aktuell ~47 s/Shot).
 - Echte NASA/GBT/ATA-Footage in S17/S22 gegen die KI-Platzhalter tauschen (Vertrauens-/Premium-Hebel).
