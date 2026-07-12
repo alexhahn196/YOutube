@@ -1,0 +1,6 @@
+raw/
+raw_d/
+analyse/channels/
+analyse/channels_d/
+__pycache__/
+*.pyc
