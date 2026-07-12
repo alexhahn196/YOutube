@@ -163,8 +163,10 @@ print("music_full:", round(dur(mus_full), 1), "s")
 final = os.path.join(HERE, "signal_ep01_FINAL.mp4")
 run([FF, "-y", "-i", silent, "-i", vo_full, "-i", mus_full,
      "-filter_complex",
-     "[1:a]volume=1.0[vo];[2:a]volume=0.12[mu];[vo][mu]amix=inputs=2:normalize=0:duration=first,"
-     "alimiter=limit=0.95[a]",
+     # Sidechain ducking: music dips under the voice, rises in pauses (pro doc/podcast standard)
+     "[1:a]asplit=2[vomix][vosc];[2:a]volume=0.32[mus0];"
+     "[mus0][vosc]sidechaincompress=threshold=0.05:ratio=8:attack=15:release=400[musd];"
+     "[vomix][musd]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[a]",
      "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
      "-movflags", "+faststart", "-shortest", final])
 print("FINAL:", final, "|", round(dur(final), 1), "s")
