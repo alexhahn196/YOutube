@@ -140,23 +140,6 @@
 1. ~~**HART** (Mostly Noise): „The alien-probe claim is not supported. This is a natural comet."~~ → **verworfen:** überschreitet die eigene Faktenlage (§E offen), tötet die Kommentar-Debatte.
 3. ~~**WEICH** (Unresolved): „…the strangest of the three, and some anomalies aren't closed. We keep watching."~~ → **verworfen:** zu nah am Konkurrenz-Clickbait („Mystery offen halten" ohne klare Einlösung).
 
-**Belege PRO „nur ein (ungewöhnlicher) natürlicher Komet" (Richtung NOISE):**
-- Zwei unabhängige Technosignatur-Suchen: **0** Signale; Grenze **100 mW** (Handy-Niveau auf 270 Mio. km) + ATA 74 Mio.→alle irdisch. [F1/F2]
-- CO₂-Chemie, fehlendes Eisen, niedrige Wasserrate = **prä-perihel-Momentaufnahmen**, die sich post-perihel **auflösten** (H₂O ~40×, Fe I erscheint, Ni/Fe ≈ Tempel 1, Methan wie bei Kometen). [C1→C2/C3, D1→D2]
-- Anti-Tail hat **Präzedenz** (C/2014 UN271) und gewöhnliche Erklärung (Wright & Keto). [E1]
-- Loeb-Skala **Stufe 4** = „anomal, aber höchstwahrscheinlich natürlich"; wissenschaftl. Konsens: natürlich. [G1/G3]
-
-**Belege CONTRA / offene Anomalien (Richtung SIGNAL):**
-- Nicht-grav. Beschleunigung mit **transversaler** Komponente nahe Perihel — Deutung nicht abschließend geklärt. [E2]
-- Ankunftsrichtung **9°** vom Wow!-Signal (p ≈ 0,6 %). [E3]
-- Von Loeb berichtete **symmetrische Jet-Struktur**. [E4]
-- Höchstes je gemessenes Ni/Fe (prä-perihel) und extremste Exzentrizität — Rekord-Außenseiter. [A2/D1]
-
-**Drei Härtegrade — du wählst:**
-1. **HART (Richtung NOISE):** „The alien-probe claim is not supported. This is a natural comet." → Meter: *Mostly Noise*.
-2. **MITTEL (offen, evidenzbetont):** „Every testable anomaly so far has a natural explanation — but a few remain genuinely open. On today's evidence: most likely natural." → Meter: *Leans Noise*.
-3. **WEICH (bewusst offen):** „No evidence of technology — but 3I/ATLAS is the strangest of the three, and some anomalies aren't closed. We keep watching." → Meter: *Unresolved*.
-
 *[Danach Payoff-Beat („not aliens ≠ not amazing" — Relikt älter als die Sonne, etc.) + Ausblick Vera Rubin — Ton wie v1, Fakten geprüft.]*
 
 ---
