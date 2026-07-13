@@ -14,25 +14,27 @@ cmd = [FF,"-y","-i",src]
 cmd += ["-loop","1","-t",f"{VD:.2f}","-i",os.path.join(HERE,meta["hud"])]
 timed = []  # (input_index, x, y, st, dur)
 idx = 2
-# lower-thirds
+# lower-thirds (NO -itsoffset; shift via setpts after fade so fade timing stays 0-based)
 for lt in meta["lowerthirds"]:
-    cmd += ["-itsoffset",f"{lt['start']:.2f}","-loop","1","-t",f"{lt['dur']:.2f}","-i",os.path.join(HERE,lt["png"])]
+    cmd += ["-loop","1","-t",f"{lt['dur']:.2f}","-i",os.path.join(HERE,lt["png"])]
     timed.append((idx, lt["x"], lt["y"], lt["start"], lt["dur"])); idx += 1
 # meter
 mt = meta["meter"]
-cmd += ["-itsoffset",f"{mt['start']:.2f}","-loop","1","-t",f"{mt['dur']:.2f}","-i",os.path.join(HERE,mt["png"])]
+cmd += ["-loop","1","-t",f"{mt['dur']:.2f}","-i",os.path.join(HERE,mt["png"])]
 timed.append((idx, mt["x"], mt["y"], mt["start"], mt["dur"])); idx += 1
 
 fc = []
 # HUD overlay (always on)
-fc.append("[1:v]format=rgba[hud]")
+fc.append("[1:v]format=rgba,fps=30[hud]")
 fc.append("[0:v][hud]overlay=0:0:eof_action=pass[b1]")
 last = "b1"
 for n,(i,x,y,st,dur) in enumerate(timed):
     fo = max(0.1, dur-0.35)
-    fc.append(f"[{i}:v]format=rgba,fade=t=in:st=0:d=0.35:alpha=1,fade=t=out:st={fo:.2f}:d=0.35:alpha=1[o{n}]")
-    nxt = f"c{n}"
     en = st+dur
+    # fade on 0-based input timeline, THEN shift PTS to global start
+    fc.append(f"[{i}:v]format=rgba,fps=30,fade=t=in:st=0:d=0.35:alpha=1,"
+              f"fade=t=out:st={fo:.2f}:d=0.35:alpha=1,setpts=PTS+{st:.3f}/TB[o{n}]")
+    nxt = f"c{n}"
     fc.append(f"[{last}][o{n}]overlay={x}:{y}:enable='between(t,{st:.2f},{en:.2f})':eof_action=pass[{nxt}]")
     last = nxt
 
