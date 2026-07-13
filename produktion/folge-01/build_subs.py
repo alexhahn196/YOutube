@@ -1,9 +1,25 @@
 #!/usr/bin/env python3
 """Build subtitles.ass + bauchbinden.json from forced-alignment JSON (fa0..4.json).
 Segment offsets match final_assemble timeline."""
-import json, re, os
+import json, re, os, subprocess
+import imageio_ffmpeg
 HERE = os.path.dirname(os.path.abspath(__file__))
-OFF = [0.4, 67.0, 204.5, 587.0, 699.1]  # absolute start of each segment's audio
+FF = imageio_ffmpeg.get_ffmpeg_exe()
+LEAD, GAP = 0.4, 0.5   # must match final_assemble.py timeline
+
+def _dur(p):
+    o = subprocess.run([FF, "-i", p], capture_output=True, text=True).stderr
+    m = re.search(r"Duration: (\d+):(\d+):(\d+\.\d+)", o)
+    return int(m.group(1))*3600+int(m.group(2))*60+float(m.group(3)) if m else 0.0
+
+# compute absolute start of each segment's audio in the final timeline
+_D = [_dur(os.path.join(HERE, f"vo_seg{i}.mp3")) for i in range(5)]
+OFF = []
+_acc = LEAD
+for i in range(5):
+    OFF.append(round(_acc, 3))
+    _acc += _D[i] + GAP
+print("segment offsets:", OFF)
 
 def words_of(i):
     d = json.load(open(os.path.join(HERE, f"fa{i}.json")))
@@ -70,6 +86,15 @@ with open(os.path.join(HERE, "subtitles.ass"), "w") as f:
     for st, en, txt in lines:
         f.write(f"Dialogue: 0,{sec_to_ass(st)},{sec_to_ass(en)},SIG,,0,0,0,,{txt}\n")
 print("subtitle cues:", len(lines))
+
+# also write an .srt for YouTube caption upload (no burned-in subs)
+def _srt_t(t):
+    h = int(t//3600); m = int((t % 3600)//60); s = int(t % 60); ms = int(round((t-int(t))*1000))
+    return f"{h:02d}:{m:02d}:{s:02d},{ms:03d}"
+with open(os.path.join(HERE, "signal_ep01.srt"), "w") as f:
+    for i, (st, en, txt) in enumerate(lines, 1):
+        f.write(f"{i}\n{_srt_t(st)} --> {_srt_t(en)}\n{txt}\n\n")
+print("wrote signal_ep01.srt")
 for st, en, txt in lines[:4]:
     print(f"  [{st:.1f}-{en:.1f}] {txt}")
 

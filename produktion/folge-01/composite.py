@@ -5,12 +5,15 @@ import json, os, subprocess, sys
 import imageio_ffmpeg
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 HERE = os.path.dirname(os.path.abspath(__file__))
-MASTER = os.path.join(HERE, "signal_ep01_FINAL_ducked.mp4")
+MASTER = os.path.join(HERE, "signal_ep01_FINAL.mp4")
 BB = json.load(open(os.path.join(HERE, "bauchbinden.json")))
 TESTSEC = float(sys.argv[1]) if len(sys.argv) > 1 else 0
 
 BB_DUR = 5.0
-MET_S, MET_E = 636.0, 663.0
+# verdict meter window centered on the "Leans Noise" bauchbinde
+_vt = [b["start"] for b in BB if "VERDICT" in b["title"]]
+MET_S = (_vt[0] - 4.5) if _vt else 600.0
+MET_E = MET_S + 27.0
 
 # timed overlays: (png, x, y, start, end)
 timed = [(os.path.join(HERE, "meter.png"), 490, 420, MET_S, MET_E)]
@@ -31,12 +34,18 @@ for k, (png, x, y, s, e) in enumerate(timed):
     lbl = f"v{k+1}"
     fc.append(f"[{prev}][o{k}]overlay={x}:{y}:eof_action=pass:enable='between(t,{s:.2f},{e:.2f})'[{lbl}]")
     prev = lbl
-subs = os.path.join(HERE, "subtitles.ass").replace(":", "\\:")
-fc.append(f"[{prev}]subtitles='{subs}'[vout]")
+NOSUBS = bool(os.environ.get("NOSUBS"))
+if NOSUBS:
+    vlabel = prev  # no burned subtitles; upload the .srt to YouTube instead
+else:
+    subs = os.path.join(HERE, "subtitles.ass").replace(":", "\\:")
+    fc.append(f"[{prev}]subtitles='{subs}'[vout]")
+    vlabel = "vout"
 
-out = os.path.join(HERE, "signal_ep01_test.mp4" if TESTSEC else "signal_ep01_MASTER_final.mp4")
+base = ("signal_ep01_clean" if NOSUBS else "signal_ep01_MASTER_final")
+out = os.path.join(HERE, "signal_ep01_test.mp4" if TESTSEC else f"{base}.mp4")
 cmd = [FF, "-y"] + inputs + ["-filter_complex", ";".join(fc),
-       "-map", "[vout]", "-map", "0:a", "-c:v", "libx264", "-preset", "veryfast",
+       "-map", f"[{vlabel}]", "-map", "0:a", "-c:v", "libx264", "-preset", "veryfast",
        "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "copy"]  # no +faststart (slow rewrite on this disk)
 # hard output duration so the infinite -loop 1 HUD input can't cause an end-of-stream churn
 def _dur(p):

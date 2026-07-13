@@ -27,8 +27,13 @@ Ton/Sprache (ElevenLabs) + Musik + HUD/Bauchbinden/Untertitel kommen in CapCut d
 ## Vertonung (ElevenLabs, per API)
 - **`elevenlabs_pipeline.py`** — Voice Design (erzeugt die einzigartige „SIGNAL Analyst"-Stimme aus
   einem Text-Prompt) + Text-to-Speech. Liest den API-Key aus `.eleven_key` (NIE committen).
-  Stimme: **Voice-ID `7ATeax5x9LSXQT93oICL`** (Modell `eleven_multilingual_v2`,
+  Stimme (final gewählt): **„SIGNAL Analyst DE" · Voice-ID `LWuqGg44QZ1wFYrHkX98`** — Science-News-
+  Erzähler mit **minimalem deutschen Akzent** (Modell `eleven_multilingual_v2`,
   Settings Stability 0.45 / Similarity 0.75 / Style 0.10 / Speaker-Boost an).
+  (Verworfen: die erste, zu kühl-nüchterne Stimme `7ATeax5x9LSXQT93oICL`.)
+  **Untertitel NICHT eingebrannt** (Longform-Doku-Standard): `build_subs.py` gibt zusätzlich
+  `signal_ep01.srt` aus → bei YouTube als Untertitelspur hochladen (Zuschauer togglen, auto-Übersetzung, SEO).
+  Segment-Offsets werden dynamisch aus den `vo_seg*.mp3`-Längen berechnet (Stimmenwechsel-sicher).
 - **VO-Skript:** `scripts/episode-01-3IATLAS-VO.md` (5 Segmente, ~12 Min gesprochen).
 - **Musik:** 3 Betten über die ElevenLabs Music-API (mysteriös → analytisch → auflösend),
   je zur Segment-Länge; Prompts ohne Film-/Künstlerreferenzen (ToS-Filter).
