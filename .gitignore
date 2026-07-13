@@ -20,3 +20,7 @@ produktion/**/norm/
 *.srt
 produktion/**/work/
 produktion/**/final_work/
+ffmpeg2pass*
+produktion/**/qc/
+produktion/**/qc*/
+produktion/**/ov/
