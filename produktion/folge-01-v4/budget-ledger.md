@@ -27,3 +27,11 @@ wiederverwendet (kostenlos, via Job-IDs) und im Master auf 1080p normalisiert.
 - Noch 4K feuern: NV10 (GBT Nacht), NV13 (Komet-Bahn), NV14 (Würfel), NV15 (Headlines) = 4×110 = 440 Cr
 - NV12 (Earth-noise) GESTRICHEN (ersetzbar via reused C17/andere)
 - Endstand-Prognose: ~1.500 Cr Higgsfield ≈ €45 (annual) / €65 (monthly)
+
+## ENDABRECHNUNG (verifiziert via balance)
+- Start: 1.813 Cr · Ende: **313 Cr** · **Verbraucht: 1.500 Cr**
+- Euro-Wert: **€45,5 (Jahrestarif $0,033/Cr) bis €59 (Monatstarif $0,043/Cr)**, Kurs ~$1=€0,92
+- Deckel €50: bei Jahrestarif eingehalten; bei Monatstarif ~€59 (über €50, per „max Qualität"-Vorgabe akzeptiert)
+- **Kein Bargeld extra** — prepaid Ultra-Guthaben, 313 Cr bleiben
+- ElevenLabs: VO 10.857 + Musik ~8.400 ≈ ~19,3k Cr ≈ €3–4 (Creator-Monatsmenge)
+- **Gesamt-Gegenwert: ~€49–63** (Higgsfield + ElevenLabs)
