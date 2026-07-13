@@ -14,3 +14,9 @@ __pycache__/
 *.webp
 produktion/**/clips/
 produktion/**/norm/
+*.mp3
+*.wav
+*.mov
+*.srt
+produktion/**/work/
+produktion/**/final_work/

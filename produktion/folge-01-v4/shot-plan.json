@@ -1,0 +1,130 @@
+{
+  "style_lock": "cinematic space documentary, deep-space black, cold blue-teal palette, single CYAN accent light, volumetric light, subtle film grain, photoreal, anamorphic, NASA/JWST plate aesthetic, 16:9",
+  "quality": "new shots native 1080p/std (45 cr) from 2k start-image (2-4 cr); 18 Folge-1 clips reused (free, 720p, upscaled in master)",
+  "reuse_from_folge01": {
+    "C01": "hook push to point of light",
+    "C02": "object reveal anti-tail",
+    "C03": "rock or engineered push-in",
+    "C04": "three interstellar objects lineup",
+    "C05": "hyperbolic open orbit",
+    "C06": "Loeb 0-10 scale (twist)",
+    "C07": "CO2 chemistry cutaway (Death1)",
+    "C09": "Milky Way thick disk (relic)",
+    "C10": "orbital chronology (showdown)",
+    "C11": "anti-tail hero (Death3)",
+    "C12": "frozen comet (Death1)",
+    "C13": "active comet water surge (Death1)",
+    "C14": "iron/nickel spectral (Death2)",
+    "C16": "three jets (open anomaly)",
+    "C17": "radio telescope silence (showdown)",
+    "C19": "verdict receding",
+    "C20": "relic older than sun (verdict payoff)",
+    "C21": "survey observatory (einsatz)"
+  },
+  "new_shots": [
+    {
+      "id": "NV01",
+      "beat": "hook/einsatz: Chile survey dome first light",
+      "image_job": "30785702-cccf-4ca5-87da-9a5ffdec932a",
+      "video_job": "f38380db-8452-4647-b26d-c582226ed369",
+      "res": "1080p"
+    },
+    {
+      "id": "NV02",
+      "beat": "payoff: sky filling with incoming visitors",
+      "image_job": "4a5dc0b6-a8b1-498b-a0fe-bcea0a3715c2",
+      "video_job": "5036c1c8-622b-47b0-a879-cf4d0b65df8c",
+      "res": "4k"
+    },
+    {
+      "id": "NV03",
+      "beat": "Loeb: lone scientist vs projected starfield",
+      "image_job": "3648c95e-e705-4bca-ad2c-3639403a9f6c",
+      "video_job": "3a9f0571-750f-4f81-8c4a-3dab50d0df91",
+      "res": "4k"
+    },
+    {
+      "id": "NV04",
+      "beat": "the 22 anomaly markers, one pulsing",
+      "image_job": "ff6c9e1b-628f-4fa2-bab4-d09e8ccc2337",
+      "video_job": "60af8954-36d2-46b6-8ce9-369e018001be",
+      "res": "1080p"
+    },
+    {
+      "id": "NV05",
+      "beat": "Wow! 1977 printout circled in red",
+      "image_job": "6dc2d16d-dac8-4116-9ef0-2a212f4025a1",
+      "video_job": "4d9e0b8d-b20e-4da1-a00a-f6623b7e7afd",
+      "res": "4k"
+    },
+    {
+      "id": "NV06",
+      "beat": "Big Ear radio telescope 1977 night",
+      "image_job": "e03167d8-18b5-4cf2-b171-99d6ba803ca0",
+      "video_job": "d5d6dc3d-bc42-413c-86b2-7612b095a8b9",
+      "res": "4k"
+    },
+    {
+      "id": "NV07",
+      "beat": "the stove general-key diagram",
+      "image_job": "398cf415-5b62-45ee-a314-9df79fde849e",
+      "video_job": "6ea3af1a-ccf7-48a4-8fe5-3173bc7048b0",
+      "res": "4k"
+    },
+    {
+      "id": "NV08",
+      "beat": "Jason Wright investigator at monitors",
+      "image_job": "246fc2e9-4536-4efa-a3d6-0a635cc9fa31",
+      "video_job": "ffd54c99-2a5f-43e0-b6da-e38e226e0923",
+      "res": "4k"
+    },
+    {
+      "id": "NV09",
+      "beat": "Kohoutek historical anti-tail",
+      "image_job": "ea319cb4-4bab-4aae-a35f-c1f2b7a16f11",
+      "video_job": "f38acb63-6a4d-4f62-b31c-e649758a1753",
+      "res": "4k"
+    },
+    {
+      "id": "NV10",
+      "beat": "showdown: Green Bank dish at night",
+      "image_job": "d48e26c6-2d63-4811-a18b-b0892f9bdf58",
+      "video_job": "e5699e17-1d66-4c5a-87b3-ddfc0f8fa0ca",
+      "res": "4k"
+    },
+    {
+      "id": "NV11",
+      "beat": "showdown: Berkeley grad student night",
+      "image_job": "92e9ec0a-b07f-48f4-b818-cfe67f6c9391",
+      "video_job": "4641b6ac-ca62-4a20-a6eb-77bf976a9b18",
+      "res": "4k"
+    },
+    {
+      "id": "NV12",
+      "beat": "our own noise: Earth at night RFI",
+      "image_job": "b76e3112-f59b-4a8e-9880-031ed8aea515",
+      "video_job": "SKIPPED (budget)"
+    },
+    {
+      "id": "NV13",
+      "beat": "it never turned: comet coasting on line",
+      "image_job": "570875dd-e8fb-46fb-aff8-a08da4d2f282",
+      "video_job": "e02cb9a5-342b-4bdf-b14f-e888f0f88898",
+      "res": "4k"
+    },
+    {
+      "id": "NV14",
+      "beat": "the die: probability/look-elsewhere",
+      "image_job": "36d0bf51-003c-47cd-9f04-662379fad5d6",
+      "video_job": "1c95b288-b290-442b-bb2c-d206cbca4216",
+      "res": "4k"
+    },
+    {
+      "id": "NV15",
+      "beat": "twist: wall of ALIEN headlines",
+      "image_job": "6bb20ce0-d2a8-4cf6-8116-315c5b61f9b4",
+      "video_job": "5e656668-000d-4787-a8b1-f4404528fa3a",
+      "res": "4k"
+    }
+  ]
+}
