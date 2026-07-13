@@ -1,0 +1,86 @@
+[
+  {
+    "seg": 1,
+    "title": "AKT 1 \u00b7 COLD OPEN / HOOK \u2014 DER EINSATZ (0:00\u20130:45)",
+    "chars": 961,
+    "file": "vo_seg01.mp3"
+  },
+  {
+    "seg": 2,
+    "title": "AKT 1 \u00b7 LOEB & THE 22 (0:45\u20133:00)",
+    "chars": 1068,
+    "file": "vo_seg02.mp3"
+  },
+  {
+    "seg": 3,
+    "title": "AKT 1 \u00b7 THE WOW! SIGNAL (3:00\u20134:00)",
+    "chars": 426,
+    "file": "vo_seg03.mp3"
+  },
+  {
+    "seg": 4,
+    "title": "AKT-BRUCH \u00b7 SUB-CTA (4:00\u20134:30)",
+    "chars": 259,
+    "file": "vo_seg04.mp3"
+  },
+  {
+    "seg": 5,
+    "title": "AKT 2 \u00b7 THE STOVE (Generalschl\u00fcssel) (4:30\u20135:15)",
+    "chars": 679,
+    "file": "vo_seg05.mp3"
+  },
+  {
+    "seg": 6,
+    "title": "AKT 2 \u00b7 DEATH ONE \u2014 THE CHEMISTRY (5:15\u20137:00)",
+    "chars": 780,
+    "file": "vo_seg06.mp3"
+  },
+  {
+    "seg": 7,
+    "title": "AKT 2 \u00b7 DEATH TWO \u2014 THE METAL (7:00\u20137:25 \u00b7 NUR 25 SEK)",
+    "chars": 248,
+    "file": "vo_seg07.mp3"
+  },
+  {
+    "seg": 8,
+    "title": "AKT 2 \u00b7 DEATH THREE \u2014 THE BACKWARDS TAIL (Jason Wright) (7:25\u20139:00)",
+    "chars": 887,
+    "file": "vo_seg08.mp3"
+  },
+  {
+    "seg": 9,
+    "title": "AKT 2 \u00b7 DEATH FOUR \u2014 THE WOW! SIGNAL (der W\u00fcrfel) (9:00\u201310:00)",
+    "chars": 537,
+    "file": "vo_seg09.mp3"
+  },
+  {
+    "seg": 10,
+    "title": "AKT 3 \u00b7 THE SHOWDOWN \u2014 ONE NIGHT, TWO QUESTIONS (10:00\u201313:30)",
+    "chars": 1963,
+    "file": "vo_seg10.mp3"
+  },
+  {
+    "seg": 11,
+    "title": "AKT 3 \u00b7 THE TWIST \u2014 LOEB'S FOUR (13:30\u201314:30)",
+    "chars": 463,
+    "file": "vo_seg11.mp3"
+  },
+  {
+    "seg": 12,
+    "title": "AKT 3 \u00b7 THE VERDICT \u27e8GESETZT: MOSTLY NOISE\u27e9 (14:30\u201316:30)",
+    "chars": 1567,
+    "file": "vo_seg12.mp3"
+  },
+  {
+    "seg": 13,
+    "title": "AKT 3 \u00b7 DER EINSATZ ZAHLT SICH AUS (16:30\u201317:30)",
+    "chars": 630,
+    "file": "vo_seg13.mp3"
+  },
+  {
+    "seg": 14,
+    "title": "OUTRO / CTA",
+    "chars": 389,
+    "file": "vo_seg14.mp3"
+  }
+]
