@@ -25,11 +25,11 @@ Status: **belegt** · **Quellenkonflikt** (dem Zuschauer erzählt, neuere gewinn
 | 18 | Keine sauberen Line-Lists; 2004-Querschnitte, 1 Temp, N₂ | Tsai et al. 2026 (Motivation); mehrfach zitiert | belegt |
 | 19 | CNN-Zitat Juni 2025: „at or below 3σ … not a strong detection" | CNN 2025 (Madhusudhan) | belegt |
 | 20 | Er zieht sich nicht zurück; Mid-IR-Wette mit Datum | Madhusudhan öff. Position 2025 | belegt |
-| 21 | VLA+MeerKAT-Radiosuche; Madhusudhan Co-Autor | Tremblay et al. 2026 (AJ 171, 210) | **⚠️ Live-Check** (arXiv-ID + Epochen) |
+| 21 | VLA+MeerKAT-Radiosuche; Madhusudhan Letztautor | Tremblay et al. 2026, arXiv 2602.09553 | belegt [verifiziert] · Epochen ab Dez. 2023 → „had already" (Seg. 5) |
 | 22 | 544 MHz–9,8 GHz, ≥33 Tage, Millionen Signale, alle irdisch, nichts von K2-18b | Tremblay et al. 2026 | belegt |
 | 23 | Erde 4 Mrd. Jahre radio-still trotz Leben | Allgemeinwissen | belegt |
-| 24 | Tsai 2026 Labor-Opazitäten → Daten passen zu gewöhnlichem Sub-Neptun, kein DMS nötig | Tsai et al. 2026 (arXiv 2603.19803) | **⚠️ Live-Check** (Abstract-Wortlaut) |
-| 25 | NASA/Hu → wasserreiches Inneres ↔ Tsai 2026 sieht es nicht | Hu et al. 2025 ↔ Tsai et al. 2026 | **Quellenkonflikt** (erzählt; neuere=Tsai; ⚠️ Tsai-Seite Live-Check) |
+| 24 | Tsai 2026 Labor-Opazitäten → Daten passen zu gewöhnlichem Sub-Neptun, kein DMS nötig; kein starker Hinweis auf wasserreiches Inneres | Tsai et al. 2026, arXiv 2603.19803 | belegt [verifiziert] |
+| 25 | NASA/Hu → wasserreiches Inneres ↔ Tsai 2026 sieht es nicht | Hu et al. 2025 ↔ Tsai et al. 2026 (arXiv 2603.19803) | **Quellenkonflikt** (erzählt; neuere = Tsai [verifiziert]) |
 | 26 | Menge zu groß für tote Quellen (Komet/Labor) | Madhusudhan-Argument; Hänni et al. 2024 (nur Spuren) | belegt |
 | 27 | Menge zu groß für Leben: ~20× Erd-Ozean-Fluss, müsste Ethan erzeugen — fehlt | Tsai et al. 2024 | belegt |
 | 28 | Verdict Frage 1 (Leben=NOISE): Signal weicht auf, viele Moleküle passen, Selbstwiderspruch, fehlende Opazität zeigt jetzt gewöhnlich | Synthese #10–17, #24, #27 | belegt |
@@ -38,10 +38,10 @@ Status: **belegt** · **Quellenkonflikt** (dem Zuschauer erzählt, neuere gewinn
 | 31 | Blitz-Initiation bei ~½ Erd-Durchschlagsfeld | Fangel-Lloyd et al. 2026 (Sci. Reports) | belegt |
 | 32 | 1977 Ohio Wow!-Signal, 72 s, „Wow" handschriftlich (Next-Ep-Teaser) | Historisch (Big Ear, Ehman 1977) | belegt |
 
-## Offene Punkte vor Vertonung (3)
-1. **#21 Tremblay 2026** — arXiv-ID (v2 nannte „AJ 171, 210"; Auftrag nannte „arXiv 2602.09553") und Beobachtungsepochen final abgleichen. *Für den VO irrelevant, weil der NASA-Silence-Loop gestrichen ist und keine Epochen-Aussage im Sprechtext steht — nur die Co-Autor-Tatsache, die unstrittig ist.*
-2. **#24/#25 Tsai 2026** — Abstract-Formulierung „gewöhnlicher Sub-Neptun / kein wasserreiches Inneres" wörtlich am Paper bestätigen. Trägt den Verdict-Beat in Segment 6.
-3. **#30** — „Webb-Zeit ist bereits geplant" verifizieren; falls nicht belegbar, auf „weitere Beobachtungen sind geplant" abschwächen (ändert die Dramaturgie nicht).
+## Offene Punkte vor Vertonung (nur noch 1 — ⚠️-Regel!)
+- **✅ #21 Tremblay 2026** — verifiziert: arXiv 2602.09553, Madhusudhan Letztautor. Epochen ab Dez. 2023 → in v4 durch „had already turned" (Segment 5) korrekt abgebildet.
+- **✅ #24/#25 Tsai 2026** — verifiziert: arXiv 2603.19803; Abstract stützt Sub-Neptun ohne DMS, kein starker Hinweis auf wasserreiches Inneres.
+- **⚠️ #30 (verbleibend, ship-blocking)** — „Webb-Zeit ist bereits geplant" (Segment 7) ist noch NICHT belegt. Per ⚠️-Regel: vor Vertonung belegen ODER auf „more Webb observations are planned" abschwächen. Segment 7 war in diesem Patch „wird nicht angefasst" → in `DIFF-v3-v4.md` als Editorial-Anmerkung geflaggt.
 
 ## Acid Test
-Ein Zuschauer, der danach die Papers liest, findet keinen Widerspruch — **sofern** die 3 ⚠️-Punkte vor der Vertonung bestätigt oder (bei #30) abgeschwächt sind. Kein VO-Satz behauptet etwas, das nicht in §4 steht; der einzige Quellenkonflikt (#25) wird dem Zuschauer offen erzählt statt still aufgelöst.
+Ein Zuschauer, der danach die Papers liest, findet keinen Widerspruch — **sofern der letzte ⚠️-Punkt (#30) vor der Vertonung** belegt oder abgeschwächt ist. Zwei ⚠️ aus v3 sind aufgelöst. Der einzige Quellenkonflikt (#25) wird dem Zuschauer offen erzählt statt still aufgelöst.

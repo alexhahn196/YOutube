@@ -110,6 +110,15 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 6. **Emotion vor Information** — Ehrfurcht + Unbehagen erzeugen, nicht Fakten dozieren. Der Zuschauer soll FÜHLEN, nicht lernen.
 7. **Offenes Ende — ABER als Zwei-Fragen-Prinzip** (verbindlich ab v3): „offen" ≠ „unresolved / wir wissen nichts" (das ist Slop). Die **Overclaim-Frage** („Ist es Leben/Aliens?") bekommt ein **klares Urteil** (meist NOISE, mit Nachdruck) = Anti-Slop-Rückgrat + Payoff. Die **echte offene Frage** („Was IST es dann?") trägt Offenheit + Cliffhanger + **Datum**, wann wir es wissen. Ein falscher Overclaim wird immer zugeschlagen; nur das echte Rätsel bleibt offen.
 
+### Schaufenster-Regel (verbindlich ab v4)
+**Das Schaufenster verkauft die FRAGE. Das Video liefert die ANTWORT.** Thumbnail, Titel, Beschreibung (Zeile 1–2) und Cold Open versprechen, DASS ein Urteil fällt — sie verraten NICHT, welches.
+- **Verboten im Schaufenster:** das Verdict, Verneinungen („NOT LIFE", „it wasn't life", „noise").
+- **Pflicht im Schaufenster:** Neugier-Lücke + Versprechen einer klaren Antwort („we say the number out loud", „here's what it actually was").
+- Auf Verneinungen klickt niemand. Auf ein angekündigtes Urteil schon. Das Urteil selbst fällt hart IM Video.
+
+### ⚠️-Regel (verbindlich)
+**⚠️ = ship-blocking.** Keine mit ⚠️ (unverifiziert) markierte Behauptung geht ins VO/Vertonung, bevor die Markierung aufgelöst ist (belegt → Quelle/arXiv-ID eintragen, oder Behauptung streichen). Kein „später prüfen".
+
 ---
 
 ## 6. Produktions-Pipeline (voll-KI)
