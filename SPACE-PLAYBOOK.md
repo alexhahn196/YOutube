@@ -153,9 +153,9 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 
 ---
 
-## 8. Wochen-Plan
-- **2–4 Uploads/Woche**, englisch, 15–30 Min.
-- Themen-Rotation pro Woche: 1× aktuelle Space-News (Modell A) + 1–2× Evergreen-Explainer/„Scariest/Biggest"-Thema (Modell B).
+## 8. Wochen-Plan (datenkorrigiert 14.07.2026)
+- **1–2 polierte Uploads/Woche in FESTEM Slot** (TheSpaceRace-Modell: exakter Wochenrhythmus, Longform-only). Englisch, **13–15 Min** (ab Folge 3). NICHT 2–4/Woche — Masse tötet den Median (§ Regel 7 + `research/konkurrenz-muster.md`).
+- Themen-Rotation: ~**1× News-Riding (Modell A) : 1× Evergreen (Modell B)** — Evergreen zahlt langfristig die Miete (M7), News gibt den Anfangsschub.
 - Wöchentlicher News-Check: NASA-Ankündigungen, JWST/Voyager-Updates, interstellare Objekte (z. B. 3I/ATLAS).
 
 ---
@@ -180,3 +180,18 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 - **esa.int / ESA Hubble & Webb** (esawebb.org, esahubble.org) — Nutzungsbedingungen beachten (meist CC BY)
 - **jpl.nasa.gov/images** — JPL/Rover/Mission-Aufnahmen
 - Hinweis: NASA-Material ist überwiegend gemeinfrei, ESA meist CC BY 4.0 (Namensnennung). Immer die konkrete Lizenz des Assets prüfen.
+
+---
+
+## 12. Muster-Regeln aus der Konkurrenz-Analyse (VERBINDLICH ab 14.07.2026)
+> Datenbasis: eigene Video-für-Video-Scrapes über 17 Kanäle + 104-Agenten-Web-Verifikation. Vollreport + Belege: **`research/konkurrenz-muster.md`**. Jede kommende Folge gegen diese Liste prüfen.
+
+1. **Median-Views ist der KPI, nicht der Ausreißer-Hit.** Ziel: dass Folge 5 noch 10k+ macht — nicht ein 2M-Zufallstreffer bei totem Rest (Proof: 1 Hit 2M, Median 13k = Lotterie; TheSpaceRace: Median 431k = System). Nach jedem Upload gegen den eigenen Median reviewen.
+2. **Länge 13–15 Min** (ab Folge 3). Hit-Sweetspot; 20–27 Min ist die Todeszone der jungen KI-Kanäle. (→ Regel 6)
+3. **1–2 polierte Folgen/Woche in festem Slot.** Konsistenz schlägt Kadenz; 19–34 Uploads/Mon produzieren nachweislich tote Mediane. (→ Regel 7/8)
+4. **Titel-Formel ist Hygiene, kein Motor — Rotation Pflicht.** Nie zweimal dieselbe Formel hintereinander. Formel-Dauerfeuer („JUST NOW!" + Autorität in jedem Titel) ist ein **Slop-Marker** (Eternityinspace: 67 % Urgency → Median 115). Autoritäts-Anker (NASA/JWST) ja, aber dosiert.
+5. **Neugier skaliert, Angst nicht.** Reine Neugier-Lücken gewinnen („What NASA Found on Io" 4,9M); Schock-/Angstwörter bleiben unter ~5 %. Fragen-Titel („What/How/Why/Can") sind das System-Werkzeug — deckt sich mit der Schaufenster-Regel (§5b).
+6. **Themen-Mix ~1 News-Riding : 1 Evergreen.** Evergreen so schneiden, dass es auch in 12 Monaten trägt (keine „this week"-Datteln außer nötig). Backlog + Serien/Playlists ab Kanal-Start (Binge-Pfad = Systemkanal-Fundament).
+7. **Sichtbare menschliche Redaktionsleistung = Überlebensversicherung.** YouTubes „inauthentic content"-Policy (07/2025) demonetarisiert Template-Spam, schützt aber ausdrücklich KI-Kanäle mit echtem Autoren-/Schnitt-/Bildungsanteil. Unser Fakten-Gate + sichtbares Verdict + On-Screen-Quellen sind wörtlich die geschützte Kategorie — nie wegoptimieren.
+8. **KI-Label einplanen, nicht verstecken.** YouTube labelt fotorealistische KI-Visuals seit 05/2026 automatisch (ohne Reichweiten-Malus). Eigendisclosure setzen + reale NASA/ESA-Footage beimischen (senkt den KI-Anteil sichtbar, stärkt Glaubwürdigkeit).
+9. **Fenster ist offen:** Die KI-Wachstumswelle läuft bislang an Space-Doku vorbei (Musik/Tier/Meme-Slop) — „KI-Space-Doku mit Substanz" ist NICHT übersättigt.

@@ -30,7 +30,8 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 - **Folge 1 (3I/ATLAS) bleibt wie sie ist** (kein Re-Render) — die Regel gilt ab Folge 2.
 
 ## Wo steht was
-- **`SPACE-PLAYBOOK.md`** — das vollständige Gewinner-Playbook: die 8 Regeln der Top-Performer, Titel-Formel + 15 Beispiel-Titel, Produktions-Pipeline mit Prompts, Do's & Don'ts, Referenz-Kanäle, NASA-Footage-Quellen. **Bei Umsetzung immer hiernach richten.**
+- **`SPACE-PLAYBOOK.md`** — das vollständige Gewinner-Playbook: Regeln der Top-Performer, Titel-Formel, Fessel-Mechanik §5b (7 Hebel + Zwei-Fragen-Prinzip + Schaufenster-Regel + ⚠️-Regel), Produktions-Pipeline, Do's & Don'ts. **Bei jeder Umsetzung §12 (Muster-Regeln) durchgehen — verbindlich.**
+- **`research/konkurrenz-muster.md`** — Konkurrenz-Analyse (17 Kanäle Erstdaten + Web-Verifikation): die 8 Muster + 6 Web-Findings, Belege pro Kanal. Grundlage für Playbook §12, Regel 6/7/8.
 - **`research/niche-analysis.md`** — Belegdaten: Nischen-Ranking, Einkommens-Schätzungen, Top/Mid/Low-Kanal-Tiers.
 
 ## Arbeitsstand
