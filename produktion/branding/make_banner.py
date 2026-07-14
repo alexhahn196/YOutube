@@ -1,137 +1,135 @@
 #!/usr/bin/env python3
-"""SIGNAL YouTube channel banner. 2560x1440 with all key content inside the
-1546x423 always-visible safe area. Backdrop from Higgsfield (letterbox cropped),
-center scrim for legibility, ping-glyph + SIGNAL wordmark + tagline + kicker.
-Exports banner.png + banner.jpg (<6MB) + _qc_banner_safe.png (safe-area guide)."""
+"""SIGNAL YouTube banner — professional layout, measured vertical rhythm (no overlap).
+2560x1440; all content inside the 1546x423 safe area. Backdrop from Higgsfield (letterbox
+cropped) + center scrim. Stack: [Saturn glyph + SIGNAL] · cyan divider · tagline · format line,
+each row measured via textbbox and spaced with real gaps, block vertically centered."""
 import os
-from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps, ImageChops
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SCRATCH = "/tmp/claude-0/-home-user-YOutube/49ca386a-7ebb-5a62-a8e4-ca474812989b/scratchpad"
 ANTON = os.path.join(SCRATCH, "fonts", "Anton-Regular.ttf")
-ARCHIVO = os.path.join(SCRATCH, "fonts", "ArchivoBlack-Regular.ttf")
 FM = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
 FMB = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"
 CY = (46, 224, 232)
 INK = (233, 239, 247)
-MUT = (150, 175, 195)
-NOISE = (242, 178, 76)
+MUT = (156, 182, 200)
 W, H = 2560, 1440
 SAFE_W, SAFE_H = 1546, 423
+CX, CY_ = W // 2, H // 2
 BG = os.path.join(HERE, "plates", "banner_bg_B.png")
 
-
-def f(p, s): return ImageFont.truetype(p, s)
-
-
-def line_w(d, t, fo, tr=0):
-    b = d.textbbox((0, 0), t, font=fo); return (b[2]-b[0]) + tr*max(0, len(t)-1)
+_d = ImageDraw.Draw(Image.new("RGB", (4, 4)))
 
 
-def track(d, xy, t, fo, fill, tr):
-    x, y = xy
+def font(p, s): return ImageFont.truetype(p, s)
+
+
+def measure(t, fo, tr=0):
+    """returns (width, top, bottom) — top/bottom are y-extent relative to draw origin."""
+    b = _d.textbbox((0, 0), t, font=fo)
+    w = (b[2] - b[0]) + tr * max(0, len(t) - 1)
+    return w, b[1], b[3]
+
+
+def track_draw(d, x, y, t, fo, fill, tr):
     for ch in t:
         d.text((x, y), ch, font=fo, fill=fill)
-        b = d.textbbox((0, 0), ch, font=fo); x += (b[2]-b[0]) + tr
+        bb = d.textbbox((0, 0), ch, font=fo)
+        x += (bb[2] - bb[0]) + tr
 
 
 def prep_backdrop():
     im = Image.open(BG).convert("RGB")
-    # crop baked letterbox: trim ~12% top and bottom, keep full width
     w, h = im.size
-    cut = int(h*0.12)
-    im = im.crop((0, cut, w, h-cut))
-    im = ImageOps.fit(im, (W, H), method=Image.LANCZOS, centering=(0.5, 0.5))
-    return im
+    cut = int(h * 0.12)                 # trim baked letterbox
+    im = im.crop((0, cut, w, h - cut))
+    return ImageOps.fit(im, (W, H), method=Image.LANCZOS, centering=(0.5, 0.5))
 
 
-def center_scrim(im, cx, cy, rw, rh, power=150):
+def center_scrim(im, rw, rh, power=175):
     m = Image.new("L", (W, H), 0)
-    d = ImageDraw.Draw(m)
-    d.ellipse([cx-rw, cy-rh, cx+rw, cy+rh], fill=power)
-    m = m.filter(ImageFilter.GaussianBlur(220))
-    dark = Image.new("RGB", (W, H), (3, 6, 10))
-    return Image.composite(dark, im, m)
+    ImageDraw.Draw(m).ellipse([CX - rw, CY_ - rh, CX + rw, CY_ + rh], fill=power)
+    m = m.filter(ImageFilter.GaussianBlur(230))
+    return Image.composite(Image.new("RGB", (W, H), (3, 6, 10)), im, m)
 
 
 def build():
-    im = prep_backdrop()
-    cx, cy = W//2, H//2
-    im = center_scrim(im, cx, cy-10, 760, 300, power=165)
-    base = im.convert("RGBA")
+    im = center_scrim(prep_backdrop(), 820, 320).convert("RGBA")
+    d = ImageDraw.Draw(im)
 
-    # --- lockup: planet glyph + SIGNAL, centered ---
+    # ---- type specs ----
+    word_fo = font(ANTON, 150)
+    tag_fo = font(FMB, 31); tag_tr = 7
+    fmt_fo = font(FM, 27); fmt_tr = 12
+    tagline = "THE EVIDENCE BEHIND SPACE'S BIGGEST CLAIMS"
+    fmt = "CLAIM     ·     EVIDENCE     ·     VERDICT"
+
+    # ---- glyph ----
     glyph = Image.open(os.path.join(HERE, "mark_only.png")).convert("RGBA")
-    g = 224
-    glyph = glyph.resize((g, g), Image.LANCZOS)
-    fo = f(ANTON, 176)
-    d = ImageDraw.Draw(base)
+    G = 168
+    glyph = glyph.resize((G, G), Image.LANCZOS)
+
+    # ---- measure rows ----
     word = "SIGNAL"
-    ww = line_w(d, word, fo)
-    gap = 30
-    wy = cy - 150
-    # center the WORDMARK optically; hang glyph to its left
-    tx = cx - ww//2 + 20
-    x0 = tx - gap - g
-    # align glyph CENTER to the wordmark's optical (cap) center
-    wb = d.textbbox((0, 0), word, font=fo)
-    word_mid = wy + (wb[1] + wb[3]) / 2
-    gy = int(word_mid - g/2)
-    # glow for glyph
-    gl = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    gl.alpha_composite(glyph, (x0, gy))
-    gl = gl.filter(ImageFilter.GaussianBlur(16))
-    base.alpha_composite(gl)
-    base.alpha_composite(glyph, (x0, gy))
-    # wordmark with glow + stroke
-    tgl = Image.new("RGBA", base.size, (0, 0, 0, 0))
-    ImageDraw.Draw(tgl).text((tx, wy), word, font=fo, fill=CY+(255,))
-    tgl = tgl.filter(ImageFilter.GaussianBlur(18))
-    base.alpha_composite(tgl)
-    d.text((tx, wy), word, font=fo, fill=INK+(255,), stroke_width=4, stroke_fill=(6, 8, 12, 255))
+    ww, wtop, wbot = measure(word, word_fo)
+    wh = wbot - wtop                       # visual cap height
+    lockup_h = max(G, wh)
+    tw, ttop, tbot = measure(tagline, tag_fo, tag_tr); th = tbot - ttop
+    fw, ftop, fbot = measure(fmt, fmt_fo, fmt_tr); fh = fbot - ftop
 
-    # --- tagline ---
-    tag = "THE EVIDENCE BEHIND SPACE'S BIGGEST CLAIMS"
-    tfo = f(FMB, 40)
-    tr = 4
-    tw = line_w(d, tag, tfo, tr)
-    ty = wy + 200
-    # divider rule
-    d.line([(cx-tw//2-40, ty-26), (cx-tw//2-18, ty-26)], fill=CY+(255,), width=4)
-    d.line([(cx+tw//2+18, ty-26), (cx+tw//2+40, ty-26)], fill=CY+(255,), width=4)
-    track(d, (cx-tw//2, ty), tag, tfo, INK+(255,), tr)
+    GAP1 = 60      # lockup -> divider/tagline (generous, kills the old overlap)
+    GAP2 = 30      # tagline -> format
+    total = lockup_h + GAP1 + th + GAP2 + fh
+    top = CY_ - total // 2                  # vertically center the whole block
 
-    # --- kicker: format + cadence, with signal/noise cue ---
-    kick = "CLAIM   ·   EVIDENCE   ·   VERDICT"
-    kfo = f(FM, 34); ktr = 6
-    kw = line_w(d, kick, kfo, ktr)
-    ky = ty + 70
-    track(d, (cx-kw//2, ky), kick, kfo, MUT+(255,), ktr)
-    # tiny SIGNAL(cyan)->NOISE(amber) bar under kicker
-    bw, bh = 360, 8
-    bx = cx-bw//2; by = ky+62
-    for i in range(bw):
-        t = i/bw
-        r = int(46+(242-46)*t); gg = int(224+(178-224)*t); b = int(232+(76-232)*t)
-        d.line([(bx+i, by), (bx+i, by+bh)], fill=(r, gg, b, 255))
-    d.text((bx-96, by-8), "SIGNAL", font=f(FM, 22), fill=CY+(230,))
-    d.text((bx+bw+18, by-8), "NOISE", font=f(FM, 22), fill=NOISE+(230,))
+    # ---- row 1: lockup (glyph + wordmark), horizontally centered ----
+    gap_gw = 34
+    lock_w = G + gap_gw + ww
+    lx = CX - lock_w // 2
+    row1_mid = top + lockup_h // 2
+    # glyph centered on the row
+    gy = int(row1_mid - G / 2)
+    gl = Image.new("RGBA", im.size, (0, 0, 0, 0)); gl.alpha_composite(glyph, (lx, gy))
+    im.alpha_composite(gl.filter(ImageFilter.GaussianBlur(16)))
+    im.alpha_composite(glyph, (lx, gy))
+    # wordmark: draw so its visual top sits at row top; align vertical center to row_mid
+    tx = lx + G + gap_gw
+    wy = int(row1_mid - wh / 2 - wtop)
+    tgl = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    ImageDraw.Draw(tgl).text((tx, wy), word, font=word_fo, fill=CY + (255,))
+    im.alpha_composite(tgl.filter(ImageFilter.GaussianBlur(20)))
+    d.text((tx, wy), word, font=word_fo, fill=INK + (255,), stroke_width=4, stroke_fill=(6, 8, 12, 255))
 
-    out = base.convert("RGB")
+    # ---- divider rule (in the gap, centered) ----
+    div_y = top + lockup_h + GAP1 // 2
+    d.line([(CX - 90, div_y), (CX - 26, div_y)], fill=CY + (230,), width=3)
+    d.line([(CX + 26, div_y), (CX + 90, div_y)], fill=CY + (230,), width=3)
+    d.ellipse([CX - 4, div_y - 4, CX + 4, div_y + 4], fill=CY + (255,))
+
+    # ---- row 2: tagline ----
+    ty = top + lockup_h + GAP1 - ttop
+    track_draw(d, CX - tw // 2, ty, tagline, tag_fo, INK + (255,), tag_tr)
+
+    # ---- row 3: format line ----
+    fy = top + lockup_h + GAP1 + th + GAP2 - ftop
+    track_draw(d, CX - fw // 2, fy, fmt, fmt_fo, MUT + (255,), fmt_tr)
+
+    out = im.convert("RGB")
     out.save(os.path.join(HERE, "banner.png"))
-    q = 92
-    jp = os.path.join(HERE, "banner.jpg")
+    q = 92; jp = os.path.join(HERE, "banner.jpg")
     out.save(jp, "JPEG", quality=q, optimize=True)
     while os.path.getsize(jp) > 6_000_000 and q > 70:
         q -= 4; out.save(jp, "JPEG", quality=q, optimize=True)
-    # QC with safe-area guides
+
+    # QC: safe-area guide + a tight center crop to verify no overlap
     qc = out.copy(); qd = ImageDraw.Draw(qc)
-    sx, sy = (W-SAFE_W)//2, (H-SAFE_H)//2
-    qd.rectangle([sx, sy, sx+SAFE_W, sy+SAFE_H], outline=(255, 80, 80), width=3)
-    qd.text((sx+8, sy+8), "SAFE AREA 1546x423 (always visible)", font=f(FMB, 26), fill=(255, 120, 120))
-    # tv/desktop visible ~2560x423 center band
+    sx, sy = (W - SAFE_W) // 2, (H - SAFE_H) // 2
+    qd.rectangle([sx, sy, sx + SAFE_W, sy + SAFE_H], outline=(255, 90, 90), width=3)
+    qd.text((sx + 8, sy + 8), "SAFE AREA 1546x423", font=font(FMB, 24), fill=(255, 120, 120))
     qc.resize((1280, 720), Image.LANCZOS).save(os.path.join(HERE, "_qc_banner_safe.png"))
-    print(f"banner.png {out.size}  jpg {os.path.getsize(jp)//1024}KB q{q}")
+    out.crop((CX - 660, CY_ - 210, CX + 660, CY_ + 210)).save(os.path.join(HERE, "_qc_center.png"))
+    print(f"banner rebuilt {out.size}  jpg {os.path.getsize(jp)//1024}KB  block_h={total} in safe {SAFE_H}")
 
 
 build()
