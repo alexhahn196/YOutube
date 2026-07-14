@@ -71,7 +71,7 @@ Footage: Higgsfield AI visuals + public-domain NASA/ESA imagery. Script & analys
 - **Die ersten 3 Hashtags** (stehen über dem Titel) sind schon in der Beschreibung: `#space #3IATLAS #astronomy`.
 - **Tag-Feld** (kopieren, komma-getrennt):
 ```
-3I/ATLAS, interstellar object, is 3I/ATLAS alien, avi loeb, alien technology, comet, JWST, NASA, oumuamua, interstellar comet, space documentary, astronomy 2026, breakthrough listen, space news, signal vs noise
+3I/ATLAS, 3I ATLAS, interstellar object, interstellar object 3I/ATLAS, is 3I/ATLAS alien, 3I/ATLAS alien technology, 3I/ATLAS aliens, avi loeb, alien technology, interstellar comet, interstellar visitor, oumuamua, third interstellar object, comet, JWST, James Webb Space Telescope, NASA, breakthrough listen, space documentary, astronomy, space news, signal vs noise
 ```
 
 ---
