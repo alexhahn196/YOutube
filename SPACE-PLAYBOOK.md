@@ -97,6 +97,19 @@ Dieses Dokument hält fest, **was die Top-Kanäle konkret anders machen** — da
 4. **Payoff = OFFENES Ende, kein Debunk** (ab Folge 2 verbindlich): Das Mysterium wird **nicht hart zugeschlagen**. Beweise dürfen tendieren, aber genug bleibt offen → das Rätsel lebt weiter. Immer mit **Cliffhanger** enden (offene Fäden + „der nächste Besucher ist schon unterwegs"). Ziel: fesseln, nicht belehren. „Signal vs. Noise" bleibt der Rahmen, das Verdict bleibt Tendenz/offen.
 - **Länge:** 15–30 Min, 2–3 Mid-Roll-Slots.
 
+## 5b. Fessel-Mechanik — die 7 Hebel (jede Folge PFLICHT)
+> **Gewählte Strategie: Weg B — Mystery-first mit befriedigendem Payoff** (SIGNAL-Modell + Cool-Worlds-Beweis).
+> Führe **HART mit dem „Ist es außerirdisch?!"-Mysterium**, reite die Spekulation durch das *ganze* Video, löse am Ende **befriedigend, aber offen** auf. NICHT Weg A (reines Clickbait, nie auflösen → crasht wie officialcosmosprodigy/Eternityinspace).
+
+Jede Folge muss diese 7 Hebel enthalten (Checkliste):
+1. **Neugier-Lücke in den ersten 15 Sek.** — Open Loop / Zeigarnik-Effekt: das Hirn MUSS die offene Frage auflösen. Kein Intro-Geplänkel.
+2. **Mysterium als Motor** — alles als ungelöstes Rätsel verpacken. Spekulation verkauft (datenmäßig eindeutig: selbst fragwürdige „What if Aliens"-Kanäle schlagen seriöse Bildungskanäle).
+3. **Präsens-Dringlichkeit** — „just", „minutes ago", „finally", „right now".
+4. **Autoritäts-Anker** — NASA / JWST / Voyager / benanntes Objekt → Glaubwürdigkeit + Suchbarkeit.
+5. **Open Loops durchs ganze Video** — ständig „später kommt noch…"-Teaser setzen und einlösen.
+6. **Emotion vor Information** — Ehrfurcht + Unbehagen erzeugen, nicht Fakten dozieren. Der Zuschauer soll FÜHLEN, nicht lernen.
+7. **Offenes Ende** — „das entscheidest du" / „zwei Dinge passen immer noch nicht" → Kommentare, Parasozialität, Wiederkommen.
+
 ---
 
 ## 6. Produktions-Pipeline (voll-KI)
