@@ -16,6 +16,10 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 ## Dramaturgie-Regel (ab Folge 2 verbindlich) — „Mystery-first, offenes Ende"
 **Ziel ist FESSELN, nicht belehren.** Das Mysterium ist der Motor, nicht die Wissenschaft. Entschieden (User, Juli 2026):
 - **Gewählte Strategie: Weg B — Mystery-first mit befriedigendem Payoff.** Hart mit dem „Ist es außerirdisch?!"-Mysterium führen, Spekulation durchs ganze Video reiten, am Ende befriedigend **aber offen** auflösen. Die **7 Pflicht-Fessel-Hebel** stehen in `SPACE-PLAYBOOK.md` §5b — jede Folge muss alle 7 erfüllen.
+- **PRÄZISIERUNG (Zwei-Fragen-Prinzip, verbindlich ab v3):** „Offenes Ende" heißt NICHT „wir wissen nichts / unresolved". Das entwertet das Format und liest sich wie Slop. Trenne pro Folge sauber:
+  - **Die Overclaim-Frage** (z. B. „Ist es Leben / eine Sonde?") bekommt ein **klares Urteil** (meist NOISE), mit Nachdruck — das ist das Anti-Slop-Rückgrat + Retention-Payoff.
+  - **Die echte offene Frage** (z. B. „Was IST dieses Objekt dann?") trägt die **Offenheit + den Cliffhanger + ein Datum, wann wir es wissen.**
+  Ein falscher Overclaim wird IMMER zugeschlagen — nur das echte Rätsel bleibt offen. So bleiben Fesseln UND Glaubwürdigkeit zusammen.
 - **Das Ende NICHT hart zuschlagen.** Kein „ist halt ein Komet / MOSTLY NOISE"-Debunk, der das Rätsel tötet. Die Beweise dürfen in eine Richtung deuten, aber **genug bleibt offen**, damit das Mysterium lebt.
 - **Spekulation hochdrehen**: die aufregende Möglichkeit („Was, wenn es WIRKLICH eine Sonde ist? Dann würde das bedeuten…") erst voll auskosten, bevor (weich) aufgelöst wird.
 - **Immer mit Cliffhanger enden**: offene Fäden + „der nächste Besucher ist schon unterwegs" → Kommentar-Köder, Abo-Treiber, Brücke zur nächsten Folge.

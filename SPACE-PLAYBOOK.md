@@ -108,7 +108,7 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 4. **Autoritäts-Anker** — NASA / JWST / Voyager / benanntes Objekt → Glaubwürdigkeit + Suchbarkeit.
 5. **Open Loops durchs ganze Video** — ständig „später kommt noch…"-Teaser setzen und einlösen.
 6. **Emotion vor Information** — Ehrfurcht + Unbehagen erzeugen, nicht Fakten dozieren. Der Zuschauer soll FÜHLEN, nicht lernen.
-7. **Offenes Ende** — „das entscheidest du" / „zwei Dinge passen immer noch nicht" → Kommentare, Parasozialität, Wiederkommen.
+7. **Offenes Ende — ABER als Zwei-Fragen-Prinzip** (verbindlich ab v3): „offen" ≠ „unresolved / wir wissen nichts" (das ist Slop). Die **Overclaim-Frage** („Ist es Leben/Aliens?") bekommt ein **klares Urteil** (meist NOISE, mit Nachdruck) = Anti-Slop-Rückgrat + Payoff. Die **echte offene Frage** („Was IST es dann?") trägt Offenheit + Cliffhanger + **Datum**, wann wir es wissen. Ein falscher Overclaim wird immer zugeschlagen; nur das echte Rätsel bleibt offen.
 
 ---
 
