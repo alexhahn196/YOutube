@@ -5,3 +5,6 @@ v4_video_silent_4k.mp4
 v4_FINAL_4k.mp4
 v4_MASTER_4K.mp4
 v4_UPLOAD.mp4
+*.log
+*.m4a
+_mixed_audio.m4a
