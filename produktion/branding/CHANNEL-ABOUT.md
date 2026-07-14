@@ -3,36 +3,36 @@
 ## 1) Kanalbeschreibung  (YouTube: Anpassen → Basisinfo → Beschreibung)
 
 ```
-SIGNAL investigates the biggest claims in space — and tells you which ones actually hold up.
+Something is falling through our solar system — and it didn't come from here.
 
-Every episode takes one story from the cosmos and runs it through the same test: Claim → Evidence → Verdict. No hype. No "scientists are STUNNED." No fear-farming for clicks. Just the real science — what the data from NASA, the James Webb Space Telescope, and the world's great observatories actually shows — walked through step by step, until we can call it: signal, or noise.
+SIGNAL turns the universe's strangest discoveries into cinematic investigations you can't look away from. Every episode is a mystery: we chase one real cosmic anomaly through the evidence, the dead ends, and the twist you never saw coming — all the way to the final verdict. A breakthrough… or a beautiful illusion?
 
-Interstellar visitors. Black holes. Exoplanets and the search for life. Mars, Europa, Titan — and the discoveries making headlines right now, fact-checked and explained in cinematic documentaries.
+Interstellar visitors. Black holes. Alien-life claims. NASA missions and James Webb discoveries that rewrite what we thought we knew — told like the thrillers they actually are, in 15–25 minutes that feel like five.
 
-If you love the awe of the universe but you're tired of being misled for views, you're home.
+The cosmos is stranger than fiction. We take you to the edge of what we know — then reveal what's really out there.
 
-🔭 A new investigation every week.
-🔔 Subscribe — and learn to tell the signal from the noise.
+🔭 New investigation every week.
+🔔 Subscribe — the next signal is already here.
 
 📩 Business: your@email.com
 ```
 
-## 2) Kurz-Tagline  (die eine Zeile, z. B. für Banner-Link / Social / Bio)
+## 2) Kurz-Tagline  (die eine Zeile, für Banner-Link / Social / Bio)
 
 ```
-The evidence behind space's biggest claims — signal vs. noise, every week.
+Cinematic space mysteries — investigated to the final verdict. New episode weekly.
 ```
 
 ## 3) Kanal-Keywords  (YouTube Studio → Einstellungen → Kanal → Grundlegende Infos → Keywords)
 
 ```
-space, astronomy, space documentary, NASA, James Webb Space Telescope, JWST, black holes, exoplanets, interstellar objects, search for alien life, cosmos, universe, astrophysics, deep space, science explained
+space, astronomy, space documentary, NASA, James Webb Space Telescope, JWST, black holes, exoplanets, interstellar objects, alien life, cosmos, universe, space mysteries, astrophysics, deep space
 ```
 
 ---
 
 **Hinweise**
-- Die **erste Zeile** ist das Wichtigste — sie erscheint in der YouTube-Suche und der Kanal-Vorschau. Deshalb steht der Hook + „space" gleich vorne.
-- **NASA / James Webb / black holes / exoplanets** usw. sind bewusst als Such-Keywords eingestreut (natürlich lesbar, nicht gespammt).
-- **Business-Mail:** `your@email.com` ersetzen — am besten eine eigene Adresse nur für den Kanal (nicht die private), z. B. `signal.cosmos@gmail.com`, falls frei.
-```
+- **Erste Zeile = Sog** (nicht Disclaimer): zieht in der Suche/Vorschau sofort rein, „solar system" liefert das Keyword.
+- Verkauft **Spannung + Binge** („cinematic investigations", „thrillers", „twist", „feel like five") — das bringt Abos, nicht die Nüchternheit.
+- Seriosität steckt als **Payoff** drin („final verdict", „what's really out there"), nicht als Bremse.
+- **Business-Mail:** `your@email.com` durch eine eigene Kanal-Adresse ersetzen (nicht die private).
