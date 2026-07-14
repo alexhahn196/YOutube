@@ -7,26 +7,27 @@ Alles copy-paste-fertig. Reihenfolge = wie im YouTube-Upload-Dialog.
 ## 1) TITEL  (Empfehlung — passt zum Thumbnail „ALIEN?")
 
 ```
-Is 3I/ATLAS Alien Technology? What the Evidence Actually Shows
+Is 3I/ATLAS Alien Technology? What the Evidence Really Shows
 ```
 
 **Alternativen** (falls du testen willst):
 ```
-A Harvard Astronomer Says 3I/ATLAS Might Be Alien. Here's the Data
-The Interstellar Visitor That Made Astronomers Ask: Is It Alien?
+A Harvard Astronomer Says 3I/ATLAS Could Be Alien. Here's the Truth
+Something From Another Star Is in Our Solar System — Is It Alien?
+3I/ATLAS Isn't Acting Like a Comet — Is It Alien Technology?   (→ Thumbnail #03)
 ```
-> Warum die Empfehlung: konkretes Objekt (3I/ATLAS) + Neugier-Frage + „evidence" = ehrlich gegen dein „Mostly Noise"-Verdict. Das Thumbnail liefert das Reizwort, der Titel die Substanz.
+> Warum: Objekt (3I/ATLAS, Such-Trend) + Neugier-Frage (ergänzt „ALIEN?") + „Evidence" (Glaubwürdigkeit, ehrlich gegen „Mostly Noise"). 59 Zeichen, wird voll angezeigt.
 
 ---
 
 ## 2) BESCHREIBUNG  (komplett kopieren)
 
 ```
-A telescope in Chile caught something falling through our solar system that did NOT come from here — and it may be older than the Sun itself. When Harvard astronomer Avi Loeb asked out loud whether 3I/ATLAS could be alien technology, the internet lit up.
+A telescope in Chile caught something falling through our solar system that did not come from here — an object older than the Sun itself. Then Harvard's Avi Loeb asked the question that split astronomy in two: what if it isn't a rock at all?
 
-So we did the boring thing: we followed the evidence, one anomaly at a time.
+This is the story of 3I/ATLAS — only the third interstellar visitor we've ever found — and one night when scientists aimed everything they had at it to settle a single question: signal, or noise?
 
-This is SIGNAL — where space's biggest claims get walked through Claim → Evidence → Verdict. No hype, no hand-waving. Just what the data actually says.
+We walk the "alien technology" claim through every piece of evidence — the impossible chemistry, the backwards tail, the metal, the radio silence — all the way to the verdict. No hype. Just what the data actually shows… and the two anomalies that still don't add up.
 
 ⏱ CHAPTERS
 00:00 The Visitor That Isn't From Here
