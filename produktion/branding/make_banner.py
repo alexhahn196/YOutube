@@ -60,21 +60,23 @@ def build():
     im = center_scrim(im, cx, cy-10, 760, 300, power=165)
     base = im.convert("RGBA")
 
-    # --- lockup: ping glyph + SIGNAL, centered ---
+    # --- lockup: planet glyph + SIGNAL, centered ---
     glyph = Image.open(os.path.join(HERE, "mark_only.png")).convert("RGBA")
-    g = 190
+    g = 224
     glyph = glyph.resize((g, g), Image.LANCZOS)
     fo = f(ANTON, 176)
     d = ImageDraw.Draw(base)
     word = "SIGNAL"
     ww = line_w(d, word, fo)
-    gap = 40
+    gap = 30
     wy = cy - 150
     # center the WORDMARK optically; hang glyph to its left
     tx = cx - ww//2 + 20
     x0 = tx - gap - g
-    # glyph vertically centered to the wordmark cap height
-    gy = wy - 6
+    # align glyph CENTER to the wordmark's optical (cap) center
+    wb = d.textbbox((0, 0), word, font=fo)
+    word_mid = wy + (wb[1] + wb[3]) / 2
+    gy = int(word_mid - g/2)
     # glow for glyph
     gl = Image.new("RGBA", base.size, (0, 0, 0, 0))
     gl.alpha_composite(glyph, (x0, gy))
