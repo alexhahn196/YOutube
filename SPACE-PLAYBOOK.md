@@ -93,8 +93,8 @@ Dieses Dokument hält fest, **was die Top-Kanäle konkret anders machen** — da
 ## 5. Video-Struktur (pro Episode)
 1. **Cold-Open-Hook (0–15 Sek):** die dramatischste Aussage/Frage zuerst („In 2024 sendete Voyager 1 etwas, das die NASA nicht erklären kann…"). Kein Intro-Geplänkel.
 2. **Setup (15–90 Sek):** worum es geht + Einsatz erhöhen.
-3. **Hauptteil (Akte mit steigender Spannung):** Enthüllung um Enthüllung, jede öffnet die nächste Frage. Mid-Rolls an natürlichen Spannungspunkten.
-4. **Payoff + Cliffhanger-Ausblick:** Auflösung + Teaser auf das nächste Thema / offene Frage.
+3. **Hauptteil (Akte mit steigender Spannung):** Enthüllung um Enthüllung, jede öffnet die nächste Frage. Mid-Rolls an natürlichen Spannungspunkten. **Spekulation voll auskosten** („Was, wenn es WIRKLICH X ist? Dann würde das bedeuten…") vor jeder Teil-Auflösung.
+4. **Payoff = OFFENES Ende, kein Debunk** (ab Folge 2 verbindlich): Das Mysterium wird **nicht hart zugeschlagen**. Beweise dürfen tendieren, aber genug bleibt offen → das Rätsel lebt weiter. Immer mit **Cliffhanger** enden (offene Fäden + „der nächste Besucher ist schon unterwegs"). Ziel: fesseln, nicht belehren. „Signal vs. Noise" bleibt der Rahmen, das Verdict bleibt Tendenz/offen.
 - **Länge:** 15–30 Min, 2–3 Mid-Roll-Slots.
 
 ---
