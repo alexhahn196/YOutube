@@ -8,7 +8,7 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 - **Nische:** Space-KI-Doku (Modell A „NASA/JWST just…" + Modell B „Explainer"). Begründung: höchste $10k-Wahrscheinlichkeit + leichteste KI-Produktion (keine Gesichter nötig) + gemeinfreie NASA-Footage + sauberes IP.
 - **Sprache:** Englisch (US-Publikum, höchste RPM).
 - **Tools:** Claude (Skript/Titel) → Higgsfield (Kosmos-Visuals) + gemeinfreie NASA/ESA-Footage → KI-TTS-Voiceover → CapCut (Schnitt).
-- **Video-Länge:** 15–30 Min, 2–3 Mid-Rolls. Keine Shorts (niedrige RPM), keine 2h-Sleep-Docs.
+- **Video-Länge (AKTUALISIERT 14.07.2026, User-Entscheid):** **ab Folge 3 Ziel 13–15 Min** (Daten: Hit-Sweetspot 10–16 Min, Median 1,3M vs. 19k in der 20–27-Min-Zone — `research/konkurrenz-muster.md` M2). Folge 1 (13:12) ✓, Folge 2 bleibt wie gebaut ~19–20 Min (Bestandsschutz). 2 Mid-Rolls reichen. Keine Shorts (niedrige RPM), keine 2h-Sleep-Docs.
 
 ## Die wichtigste Regel
 **NIEMALS die Nische verlassen.** Themen-Drift ist der #1-Grund, warum Space-Kanäle abstürzen (InsaneCuriosity → Wetter, beyonddiscovery → Autos, Starlight_Ai → Vögel). 100 % Space, immer.

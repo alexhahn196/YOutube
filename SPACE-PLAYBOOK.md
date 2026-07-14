@@ -43,15 +43,16 @@ Dieses Dokument hält fest, **was die Top-Kanäle konkret anders machen** — da
 - **Warnung:** Eternityinspace & NSpaceNews spammen EIN Template („James Webb Just Detected…"), teils mit **doppelten Titeln** → Ø-Views nahe null trotz hoher Frequenz.
 - **Regel für uns:** nie dasselbe Template zweimal hintereinander, nie Dubletten.
 
-### Regel 6 — Video-Länge im Sweet Spot: 15–30 Min
-- Lang genug für **2–3 Mid-Rolls**, kurz genug für Retention.
-- Beweis: TheSpaceRace 15:44 → Ø 526k/Video; Space_Chip 15:17 → Ø 234k.
+### Regel 6 — Video-Länge: **13–15 Min** (datenkorrigiert 14.07.2026)
+- Eigene Datenanalyse über 131 Videos (`research/konkurrenz-muster.md` M2): **10–15 Min → Median 1,3M Views**; 20–27 Min → 19k; 27–40 → 11k. ALLE Mega-Hits (26M/17M/4,9M) sind 11–17 Min.
+- **Ziel ab Folge 3: 13–15 Min** (User-Entscheid; Folge 2 bleibt ~19–20 als Bestandsschutz). 2 Mid-Rolls reichen (ab 8 Min möglich).
+- Alternatives belegtes Modell (später prüfbar): Premium-Doku 60–90 Min à la Kosmo/Astrum (Mediane 213k–668k) — bewusst anderes Spiel, nicht mischen.
 - NICHT: 2h-Sleep-Docs (anderes Publikum) oder Shorts (niedrige RPM).
 
-### Regel 7 — Konsistenz MIT Qualität (nicht Frequenz allein)
-- Cosmicus: **15 Uploads/Monat UND** frische, saubere Themen → 3,6M/Mon.
-- NSpaceNews: 15/Monat, aber Dubletten → Ø 5,2k. **Menge ohne Qualität hilft nicht.**
-- **Regel für uns:** KI-Tempo für **2–4 frische, saubere Videos/Woche** nutzen — jede Episode neu & poliert.
+### Regel 7 — Konsistenz schlägt Kadenz (datenkorrigiert 14.07.2026)
+- Eigene Datenanalyse (`research/konkurrenz-muster.md` M1): Die **gesunden** Kanäle (Median 50k–670k) laden **1,5–7,6×/Monat**; die **toten** laden 19–34×/Monat (Eternityinspace: 30,5/Mon → Median **115 Views**). Auch Cosmicus (16,8/Mon) ist gekippt: Median der letzten 40 Videos nur 2.416.
+- Web-verifizierter Benchmark: TheSpaceRace fährt einen **exakten 7-Tage-Wochenslot** (RSS-belegt), Longform-only, 0 Shorts.
+- **Regel für uns: 1–2 polierte Folgen/Woche in festem Slot** — Median-Views ist der KPI, nicht der Ausreißer-Hit. Nie Masse auf Kosten von Fakten-Gate/Politur.
 
 ### Regel 8 — An reale Weltraum-Ereignisse andocken (Trend-Riding)
 - Top reiten reale Ereignisse: **3I/ATLAS** (interstellares Objekt), **Artemis II**, Voyager-Status, JWST-Funde → Such-Traffic + Aktualität.
