@@ -1,0 +1,36 @@
+[
+ {
+   "name": "01_ALIEN",
+   "bg": "/tmp/claude-0/-home-user-YOutube/49ca386a-7ebb-5a62-a8e4-ca474812989b/scratchpad/thumb_ref/frame_C02.jpg",
+   "out": "thumb_01_ALIEN.jpg",
+   "pos": "tr", "scrim": "tr", "scrim_frac": 0.6, "vignette": 0.5,
+   "hook_text": "ALIEN?", "hook_color": "cyan", "glow_color": "cyan",
+   "subtext": "OLDER THAN THE SUN",
+   "use_meter": true, "meter_corner": "bl",
+   "extras": []
+ },
+ {
+   "name": "02_WRONGWAY",
+   "bg": "/tmp/claude-0/-home-user-YOutube/49ca386a-7ebb-5a62-a8e4-ca474812989b/scratchpad/thumb_ref/frame_C11.jpg",
+   "out": "thumb_02_WRONGWAY.jpg",
+   "pos": "tl", "scrim": "tl", "scrim_frac": 0.58, "vignette": 0.5,
+   "hook_text": "WRONG WAY", "hook_color": "cyan", "glow_color": "cyan",
+   "subtext": "IT POINTS AT THE SUN",
+   "use_meter": true, "meter_corner": "br",
+   "extras": [
+     {"type": "arrow", "x1": 372, "y1": 442, "x2": 812, "y2": 262, "color": "cyan"}
+   ]
+ },
+ {
+   "name": "03_NOTFROMHERE",
+   "bg": "plates/fresh_incoming_A.png",
+   "out": "thumb_03_NOTFROMHERE.jpg",
+   "pos": "tl", "scrim": "left", "scrim_frac": 0.6, "vignette": 0.55,
+   "hook_text": "NOT FROM HERE", "hook_color": "cyan", "glow_color": "cyan",
+   "subtext": "3I/ATLAS · TRACKED",
+   "use_meter": true, "meter_corner": "bl",
+   "extras": [
+     {"type": "circle", "cx": 576, "cy": 459, "r": 66, "color": "cyan"}
+   ]
+ }
+]
