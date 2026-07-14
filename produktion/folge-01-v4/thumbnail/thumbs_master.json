@@ -1,0 +1,32 @@
+[
+ {
+   "name": "M1_ALIEN_scale",
+   "bg": "plates_master/scale_A.png",
+   "out": "master_01_ALIEN.jpg",
+   "pos": "tl", "scrim": "tl", "scrim_frac": 0.6, "vignette": 0.55,
+   "hook_text": "ALIEN?", "hook_color": "cyan", "glow_color": "cyan",
+   "subtext": "IT CAME FROM ANOTHER STAR",
+   "use_meter": true, "meter_corner": "bl",
+   "extras": []
+ },
+ {
+   "name": "M2_NOTFROMHERE_scale",
+   "bg": "plates_master/scale_A.png",
+   "out": "master_02_NOTFROMHERE.jpg",
+   "pos": "tl", "scrim": "tl", "scrim_frac": 0.6, "vignette": 0.55,
+   "hook_text": "NOT FROM HERE", "hook_color": "cyan", "glow_color": "cyan",
+   "subtext": "124 LIGHT-YEARS · NOT OURS",
+   "use_meter": true, "meter_corner": "bl",
+   "extras": []
+ },
+ {
+   "name": "M3_MADE_built",
+   "bg": "plates_master/built_A.png",
+   "out": "master_03_MADE.jpg",
+   "pos": "left", "scrim": "left", "scrim_frac": 0.6, "vignette": 0.5,
+   "hook_text": "IT'S NOT A COMET", "hook_color": "cyan", "glow_color": "cyan",
+   "subtext": "IS 3I/ATLAS ALIEN TECH?",
+   "use_meter": true, "meter_corner": "bl",
+   "extras": []
+ }
+]

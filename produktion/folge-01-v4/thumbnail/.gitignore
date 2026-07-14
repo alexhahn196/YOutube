@@ -1,3 +1,5 @@
 plates/*.png
 _smoke_*
 _qc_*
+plates_master/*.png
+master_0*.jpg
