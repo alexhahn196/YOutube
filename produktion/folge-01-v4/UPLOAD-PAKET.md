@@ -46,7 +46,7 @@ We walk the "alien technology" claim through every piece of evidence — the imp
 
 🔭 SOURCES (peer-reviewed papers & preprints)
 • Orbit (e = 6.143, v∞ = 57.99 km/s): Seligman et al. 2025 — arXiv:2507.02757
-• Age > 7.6 Gyr, thick-disk origin: Hopkins et al. 2025
+• Age over 7.6 billion years, thick-disk origin: Hopkins et al. 2025
 • Pre-perihelion chemistry (JWST NIRSpec, CO₂/H₂O = 7.6): arXiv:2508.18209
 • Post-perihelion chemistry (SPHEREx): arXiv:2601.06759 · DOI 10.3847/2515-5172/ae3f95
 • Iron & nickel (Fe I + Ni I): arXiv:2605.07652 · DOI 10.3847/2041-8213/ae73fe
