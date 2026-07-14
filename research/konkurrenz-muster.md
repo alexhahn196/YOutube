@@ -96,4 +96,15 @@ YouTube demotet/löscht „AI slop" aktiv (Forbes 01/2026; ein 3I/ATLAS-Fake-Kan
 
 ---
 
-*Anhang: Web-Recherche-Layer (Top-30-Außensicht, 2025/26-Schnellwachser, verifizierte Wachstumszahlen) wird nach Abschluss der laufenden Deep-Research ergänzt.*
+## 4. Web-Layer (Deep-Research, adversarial verifiziert — 104 Agenten, 14.07.2026)
+
+Ehrlicher Rahmen: Von der erhofften 30-Kanal-Außensicht überlebten nur **2 Kanäle mit harten Primärdaten** die adversariale Verifikation (The Space Race, Ridddle) — der Rest der öffentlichen „Fastest-Growing"-Listen ist entweder nicht space-spezifisch oder kontaminiert (s. W3). Unsere eigene 17-Kanal-Tabelle (§1) bleibt die beste verfügbare Evidenz. Verifiziert kam dazu:
+
+- **W1 · TheSpaceRace-Benchmark (hoch):** exakt **wöchentliche** Kadenz (15 Uploads in präzisen 7-Tage-Intervallen, Apr–Jul 2026, RSS-primärverifiziert), **100 % Longform, 0 Shorts** (genau 1 Short auf dem ganzen Kanal), ~831k Abos, ~$17,5k/Monat (vidIQ-Modellschätzung). → Der direkt kopierbare Fahrplan für uns: **fester Wochenslot, Longform-only.** Bestätigt M1.
+- **W2 · Ridddle-Modell (hoch):** kein Fast-Grower, sondern Incumbent — historisch **~1 Upload/Monat bei ~3,6M Views/Video** (2019: 2,57M Abos aus nur 56 Uploads). → Low-Frequency/High-Impact ist die belegte Alternative zum Wochenslot. Bestätigt M1/M2 (Premium-Pfad).
+- **W3 · Bot-Warnung (hoch):** „Fastest-Growing"-Rankings sind durch Bot-Inflation kontaminiert (Masters of Prophecy: <300 → 100k+ Abos an EINEM Tag ohne Upload). → Wachstumszahlen von Konkurrenten immer gegen Median-Views + Engagement sanity-checken — genau unsere §1-Methode.
+- **W4 · KI-Kohorte real, aber nicht Space (mittel):** 2025 waren 4 der Top-10-Abo-Gainer Voll-KI-Kanäle, ~10 % der Playboard-Top-100 rein KI — aber ausnahmslos Musik/Tier/Meme-Slop, **kein einziger Space-Doku-Kanal**. → Das Format-Fenster „KI-Space-Doku mit Substanz" ist NICHT übersättigt; die KI-Welle beweist Skalierbarkeit, nicht Konkurrenzdichte.
+- **W5 · Policy-Rückenwind (hoch):** YouTubes „inauthentic content"-Policy (15.07.2025) demonetarisiert massenproduzierte Template-Kanäle — **explizit geschützt** sind KI-gestützte Kanäle mit signifikantem menschlichem Autoren-/Schnitt-/Bildungsanteil (Creator-Liaison Rene Ritchie). → Unser Substanz-Skelett (Fakten-Gate, sichtbares Verdict, On-Screen-Quellen) ist wörtlich die geschützte Kategorie. M8 bestätigt + verschärft.
+- **W6 · Auto-KI-Label seit Mai 2026 (hoch):** YouTube labelt fotorealistische KI-Visuals automatisch (C2PA + eigene Detektion) — **ohne Reichweiten-/Monetarisierungs-Malus.** → Unsere Higgsfield-Segmente werden voraussichtlich gelabelt; einplanen statt verstecken: Eigendisclosure setzen + echte NASA-Footage beimischen (steht ohnehin im Playbook).
+
+**Konsolidiertes Fazit (Erstdaten + Web):** Fester **Wochenslot** (oder bewusst Low-Frequency/High-Impact), **12–16 Min Longform-only**, Median als KPI, Titel-Rotation statt Formel-Spam, sichtbare menschliche Redaktionsleistung — und das Space-Doku-Fenster ist offen, weil die KI-Welle bislang an Space vorbeiläuft.
