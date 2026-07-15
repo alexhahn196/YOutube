@@ -1,0 +1,112 @@
+{
+ "style_lock": "cinematic space documentary, deep-space black, cold blue-teal palette, single CYAN accent light, volumetric light, subtle film grain, photoreal, anamorphic, NASA/JWST plate aesthetic, 16:9",
+ "budget_plan": "13 neue Shots: 1x 4K hero (110 Cr) + 12x 1080p std (45 Cr = 540) + Bilder (~28 Cr) ≈ 680 Cr ≈ 32 EUR. Ziel <= 35 EUR eingehalten. Start-Balance 2307 Cr.",
+ "reuse_from_folge01": {
+  "NV01": "Chile Observatorium (Teleskop-Beats)",
+  "NV03": "einsamer Forscher vor Sternenfeld (= Madhusudhan Traum/Steelman)",
+  "NV08": "Ermittler an Monitoren (= Taylor/Stevenson/Investigators)",
+  "NV10": "Green Bank Dish Nacht (= Radio-Suche)",
+  "NV11": "Radioastronom Nacht (= Radio-Suche)",
+  "C17": "Radioteleskop-Stille",
+  "NV14": "Wuerfel/Wahrscheinlichkeit (= Sigma/Statistik)",
+  "NV15": "Wand voller ALIEN-Schlagzeilen (= April-2025-Headline-Welle)",
+  "NV05": "Wow!-1977-Printout rot umkreist (= Outro-Cliffhanger)",
+  "C19": "Verdict receding",
+  "C20": "Relikt aelter als Sonne (= Closing-Stimmung)",
+  "NV13": "Komet zieht Linie (= gewoehnlicher Sub-Neptun-Beat)"
+ },
+ "new_shots": [
+  {
+   "id": "NW01",
+   "beat": "HERO: K2-18b Hycean-Ozeanwelt unter rotem Zwerg (Thumbnail + Dream)",
+   "res": "4k",
+   "img_res": "2k",
+   "image_job": "8c0da2ec-8c2a-483f-b380-055d8b0aceb3",
+   "video_job": "200757a7-f7fd-4692-8736-1ebe3e7b252c"
+  },
+  {
+   "id": "NW02",
+   "beat": "Cold Open: Erdozean, leuchtendes Plankton (smell of the sea)",
+   "res": "1080p",
+   "image_job": "7bb7d617-7ac5-408b-8618-7f3a24803f5b",
+   "video_job": "0b32ed00-b0d2-431a-9f02-80e8c43d8628"
+  },
+  {
+   "id": "NW03",
+   "beat": "JWST schwenkt auf roten Stern (April 2025)",
+   "res": "1080p",
+   "image_job": "289786af-f3c7-4792-b252-809192a43dd3",
+   "video_job": "0c111b0e-11ef-439f-a9ab-dfbaafab91ed"
+  },
+  {
+   "id": "NW04",
+   "beat": "Roter Zwerg nah + Transit-Punkt (Setup)",
+   "res": "1080p",
+   "image_job": "3a5e7ce3-d968-41fa-b82b-a0970ce05840",
+   "video_job": "8f0439b0-8b5e-4b8f-b753-b523113e3f4c"
+  },
+  {
+   "id": "NW05",
+   "beat": "Wackelnde Spektrum-Linie auf dunklen Screens (War/Binning)",
+   "res": "1080p",
+   "image_job": "f8b55dd3-755a-43e5-b7e7-73f934095706",
+   "video_job": "f1f59a58-c4b5-485c-8ca8-b9a0f96b26cf"
+  },
+  {
+   "id": "NW06",
+   "beat": "DMS-Molekuel-Render ueber dunklem Ozean (der Whisper)",
+   "res": "1080p",
+   "image_job": "af4ad8ee-a706-40bf-8be4-5f1cde9c91a2",
+   "video_job": "0f7af360-a315-4d5d-9571-5cf060db9238"
+  },
+  {
+   "id": "NW07",
+   "beat": "Titan-artiger Dunstmond orange (Ethan-Doppelgaenger)",
+   "res": "1080p",
+   "image_job": "32da4634-a47d-4848-bef9-f560e7cadd73",
+   "video_job": "79bd8c11-29e4-4403-9afa-1e7fc7afcf47"
+  },
+  {
+   "id": "NW08",
+   "beat": "Toter dunkler Komet taumelt (67P, abiotisches DMS)",
+   "res": "1080p",
+   "image_job": "1bad5ff3-4377-4b77-a289-a4a1df9fb7b2",
+   "video_job": "d4505fde-a8af-480d-9b1d-acd24314f4a5"
+  },
+  {
+   "id": "NW09",
+   "beat": "Laser-Spektroskopie-Labor, Gaszelle (Tsai/FELIX 2026)",
+   "res": "1080p",
+   "image_job": "3bea5ff3-5c4f-4109-8766-bc9f2888cac6",
+   "video_job": "393e92bb-685a-4872-91ee-344147966e6e"
+  },
+  {
+   "id": "NW10",
+   "beat": "DIE GABELUNG: Triptychon Ozean/Gasball/Magma (Signature-Shot)",
+   "res": "1080p",
+   "image_job": "6e51fdf8-e547-4cbb-abd9-2e1589299619",
+   "video_job": "6ff4e7ef-1ab1-4b47-a59c-de4dd82e7b1d"
+  },
+  {
+   "id": "NW11",
+   "beat": "Magma-Welt nah, gluehende Lava-Adern (Fork-Detail)",
+   "res": "1080p",
+   "image_job": "39765a0d-7857-4426-8ba0-b9d5bbf3c3e0",
+   "video_job": "2f9935f3-be35-4536-acc0-6518a4beb683"
+  },
+  {
+   "id": "NW12",
+   "beat": "Blitzsturm im Wasserstoffhimmel ueber dunklem Meer (Closing)",
+   "res": "1080p",
+   "image_job": "660549df-7654-4b02-915b-7310e06e5b78",
+   "video_job": "9a00fe30-19cf-4235-92c9-d2000689f38d"
+  },
+  {
+   "id": "NW13",
+   "beat": "Gasreicher Mini-Neptun, konturlos (Fork-Detail)",
+   "res": "1080p",
+   "image_job": "81ae8622-d589-46e4-9daf-5accc3850b3a",
+   "video_job": "bbd87bb1-1ce2-4a11-9199-a49f913683dd"
+  }
+ ]
+}

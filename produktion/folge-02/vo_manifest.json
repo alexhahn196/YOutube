@@ -1,0 +1,80 @@
+[
+  {
+    "seg": 1,
+    "title": "SEG 1 \u00b7 COLD OPEN",
+    "chars": 863,
+    "file": "vo_seg01.mp3"
+  },
+  {
+    "seg": 2,
+    "title": "SEG 2 \u00b7 THE DREAM",
+    "chars": 712,
+    "file": "vo_seg02.mp3"
+  },
+  {
+    "seg": 3,
+    "title": "SEG 3 \u00b7 THE CLAIM",
+    "chars": 848,
+    "file": "vo_seg03.mp3"
+  },
+  {
+    "seg": 4,
+    "title": "SEG 4 \u00b7 SUB-CTA",
+    "chars": 226,
+    "file": "vo_seg04.mp3"
+  },
+  {
+    "seg": 5,
+    "title": "SEG 5 \u00b7 THE WAR BEGINS",
+    "chars": 1394,
+    "file": "vo_seg05.mp3"
+  },
+  {
+    "seg": 6,
+    "title": "SEG 6 \u00b7 THE DOPPELG\u00c4NGER",
+    "chars": 1698,
+    "file": "vo_seg06.mp3"
+  },
+  {
+    "seg": 7,
+    "title": "SEG 7 \u00b7 THE THING NO ONE EXPECTED",
+    "chars": 691,
+    "file": "vo_seg07.mp3"
+  },
+  {
+    "seg": 8,
+    "title": "SEG 8 \u00b7 THE MAN WHO LISTENED FOR ALIENS",
+    "chars": 1087,
+    "file": "vo_seg08.mp3"
+  },
+  {
+    "seg": 9,
+    "title": "SEG 9 \u00b7 THE FORK",
+    "chars": 1469,
+    "file": "vo_seg09.mp3"
+  },
+  {
+    "seg": 10,
+    "title": "SEG 10 \u00b7 THE VERDICT",
+    "chars": 2185,
+    "file": "vo_seg10.mp3"
+  },
+  {
+    "seg": 11,
+    "title": "SEG 11 \u00b7 THE THREE TOOLS",
+    "chars": 760,
+    "file": "vo_seg11.mp3"
+  },
+  {
+    "seg": 12,
+    "title": "SEG 12 \u00b7 CLOSING IMAGE",
+    "chars": 521,
+    "file": "vo_seg12.mp3"
+  },
+  {
+    "seg": 13,
+    "title": "SEG 13 \u00b7 OUTRO",
+    "chars": 745,
+    "file": "vo_seg13.mp3"
+  }
+]
