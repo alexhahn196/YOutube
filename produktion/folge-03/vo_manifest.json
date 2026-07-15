@@ -1,0 +1,62 @@
+[
+  {
+    "seg": 1,
+    "title": "SEG 1 \u00b7 COLD OPEN",
+    "chars": 920,
+    "file": "vo_seg01.mp3"
+  },
+  {
+    "seg": 2,
+    "title": "SEG 2 \u00b7 THE MACHINE",
+    "chars": 1323,
+    "file": "vo_seg02.mp3"
+  },
+  {
+    "seg": 3,
+    "title": "SEG 3 \u00b7 THE EDGE",
+    "chars": 1580,
+    "file": "vo_seg03.mp3"
+  },
+  {
+    "seg": 4,
+    "title": "SEG 4 \u00b7 THE GLITCH",
+    "chars": 1260,
+    "file": "vo_seg04.mp3"
+  },
+  {
+    "seg": 5,
+    "title": "SEG 5 \u00b7 THE WAVE",
+    "chars": 496,
+    "file": "vo_seg05.mp3"
+  },
+  {
+    "seg": 6,
+    "title": "SEG 6 \u00b7 THE VERDICT",
+    "chars": 1948,
+    "file": "vo_seg06.mp3"
+  },
+  {
+    "seg": 7,
+    "title": "SEG 7 \u00b7 THE REAL MYSTERY",
+    "chars": 949,
+    "file": "vo_seg07.mp3"
+  },
+  {
+    "seg": 8,
+    "title": "SEG 8 \u00b7 THE ENDGAME",
+    "chars": 1271,
+    "file": "vo_seg08.mp3"
+  },
+  {
+    "seg": 9,
+    "title": "SEG 9 \u00b7 CLOSING",
+    "chars": 963,
+    "file": "vo_seg09.mp3"
+  },
+  {
+    "seg": 10,
+    "title": "SEG 10 \u00b7 OUTRO",
+    "chars": 820,
+    "file": "vo_seg10.mp3"
+  }
+]

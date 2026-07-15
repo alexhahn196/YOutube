@@ -24,3 +24,6 @@ ffmpeg2pass*
 produktion/**/qc/
 produktion/**/qc*/
 produktion/**/ov/
+
+# Build-/TTS-Logs (fluechtig)
+produktion/**/*.log
