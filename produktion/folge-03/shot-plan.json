@@ -1,0 +1,114 @@
+{
+ "style_lock": "cinematic space documentary, deep-space black, cold blue-teal palette, single CYAN accent light, volumetric light, subtle film grain, photoreal, NASA plate aesthetic, 16:9",
+ "budget_plan": "12 neue Shots: 1x 4K hero (110 Cr + 4 Cr img) + 11x 1080p std (45 Cr + 2 Cr img = 517) = 631 Cr ≈ 30 EUR. Deckel 50 EUR (=1052 Cr) klar eingehalten; Puffer fuer Re-Rolls + F3-Thumbnail-Extras. Start-Balance 1631 Cr.",
+ "reuse_from_pool": {
+  "NV03": "einsamer Forscher vor Sternenfeld (= Sagan/Druyan-Beat, Seg 2)",
+  "NV15": "Wand voller Schlagzeilen (= Viral-Welle, Seg 1/5)",
+  "NW05": "wackelnde Spektrum-Linien auf Screens (= Telemetrie-Garble, Seg 4)",
+  "NV08": "Ermittler an Monitoren (= JPL-Debug, Seg 4)",
+  "NV10": "Green-Bank-Dish Nacht (= DSN-Uplink, Seg 4/8)",
+  "NV11": "Radioastronom Nacht (= DSN, Seg 8)",
+  "C17": "Radioteleskop-Stille (= Outro/2036)",
+  "NV14": "Wuerfel/Wahrscheinlichkeit (= Verdict-Statistik, Seg 6)",
+  "C19": "Verdict receding (= Verdict, Seg 6)",
+  "C20": "Relikt aelter als Sonne (= Closing, Seg 9)",
+  "NV05": "Wow!-Printout rot umkreist (= Outro-Tease, Seg 10)"
+ },
+ "new_shots": [
+  {
+   "id": "NX01",
+   "beat": "HERO 4K: Voyager-Silhouette winzig vor gluehender Heliopausen-Grenze (Thumbnail + Cold Open + Closing)",
+   "res": "4k",
+   "img_res": "2k",
+   "image_job": "9d4d338b-a31f-418f-84bf-921cbdf94341",
+   "image_job_v1_rejected": "8fdef08f-be24-4a71-bf07-ac616a02d4e4",
+   "note": "img v1 hatte Fake-NASA-Text; video: erster Call mit '4K' -> 720p-Downgrade (2e687009, verworfen), korrekt mit '4k'",
+   "video_job": "239afd8b-26f0-4330-b26d-537570eaaecd"
+  },
+  {
+   "id": "NX02",
+   "beat": "1977: Titan-Centaur-Start, Feuersaeule, 70s-Archiv-Look (Seg 2)",
+   "res": "1080p",
+   "image_job": "1d7f381e-3d20-4443-bb72-4cb855d055e1",
+   "image_job_v1_rejected": "4f80c52c-8c4a-4a55-beea-e9e4a95e6081",
+   "note": "v1 Timestamp-Text, v2 falsche Rakete (SLS-Look) -> v3 Titan IIIE korrekt",
+   "video_job": "0749077d-6b7a-422a-8bf9-791ec8cab5e7"
+  },
+  {
+   "id": "NX03",
+   "beat": "Golden Record Makro, gravierte Alu-Huelle glaenzt (Seg 2/9)",
+   "res": "1080p",
+   "image_job": "7c855a57-efc1-4987-a76d-d4d1d2d0bf39",
+   "video_job": "ef6d0b2d-fdb4-4015-9df8-fc655f201bcb"
+  },
+  {
+   "id": "NX04",
+   "beat": "Pale Blue Dot: Sonnenstrahl-Band, blasser Punkt (Seg 6/9)",
+   "res": "1080p",
+   "image_job": "ef7aa9ac-e246-4721-93c8-bfe074475a99",
+   "image_job_v1_rejected": "0e20e539-a765-4acd-8db7-3117340ec692",
+   "note": "re-roll: v1 hatte eingebrannten Text/Badge (NX12: v1 failed)",
+   "video_job": "668b5ae8-5a8b-4878-9e17-271d347acdca"
+  },
+  {
+   "id": "NX05",
+   "beat": "Heliopausen-'Wand': durchscheinender Plasma-Vorhang, Sonde winzig (Seg 3/6)",
+   "res": "1080p",
+   "image_job": "7619e44b-a614-48be-b74a-9405c9f301c8",
+   "image_job_v1_rejected": "bb66e8e4-8b74-4630-8c5c-961e4dcf2423",
+   "note": "video-retry nach 429 rate-limit",
+   "video_job": "b8eb0b48-63b9-4060-9784-86bcfe07d6fa"
+  },
+  {
+   "id": "NX06",
+   "beat": "Magnetfeld-Linien drapieren sich um dunkle Heliosphaeren-Blase (Seg 3/7)",
+   "res": "1080p",
+   "image_job": "cf166675-3f72-4119-aeb0-1ce61737ddfe",
+   "video_job": "121d91e2-b8ab-45b6-8768-cf2f55362b3f"
+  },
+  {
+   "id": "NX07",
+   "beat": "Der Hum: duenne Cyan-Wellenform oszilliert auf Schwarz, Oszilloskop (Seg 3/7)",
+   "res": "1080p",
+   "image_job": "9053e012-850f-4c55-bcd5-fa574bc7c418",
+   "video_job": "13940b46-51d7-4e9c-8998-2b9a0963b786"
+  },
+  {
+   "id": "NX08",
+   "beat": "Toter Chip: Makro 70er-Speicherplatine, ein Chip dunkel, rotes Pruflicht (Seg 4)",
+   "res": "1080p",
+   "image_job": "a218ac9e-aeb0-4eff-9b40-64604f5a6098",
+   "video_job": "14b3df9a-13da-41a2-b08b-43d883044dc6"
+  },
+  {
+   "id": "NX09",
+   "beat": "JPL-Nacht: Ingenieure als Silhouetten vor Konsolen, Garble-Screen (Seg 4/8)",
+   "res": "1080p",
+   "image_job": "e2f35ef0-8ef8-4e4d-a392-5ecee8c8b283",
+   "video_job": "fe109c14-9c4a-4af2-9ccb-b39cf102eb51"
+  },
+  {
+   "id": "NX10",
+   "beat": "Thruster-Puff: Millisekunden-Gasstoss an der Sonde, Frostpartikel (Seg 6)",
+   "res": "1080p",
+   "image_job": "0775eef6-e37c-47ab-95d6-ca09e9b25573",
+   "video_job": "b720aa35-ffdc-4a4f-94e4-d1e6227b71ea"
+  },
+  {
+   "id": "NX12",
+   "beat": "Roter Zwerg fern, Sonde glitzert vorbeidriftend — 40.000 Jahre (Seg 9)",
+   "res": "1080p",
+   "image_job": "906bcafc-898a-4ab8-b367-1add8adb9abe",
+   "image_job_v1_rejected": "4a097e6e-a160-4d66-b001-7f1ad94bcf8f",
+   "note": "img v1 failed, v2 Text -> v3 sauber",
+   "video_job": "1408ffd2-91c4-49d7-989d-c1786e1e41e1"
+  },
+  {
+   "id": "NX13",
+   "beat": "Heizleitungen im Sondeninneren: warmes Orange dimmt Leitung fuer Leitung — Big Bang (Seg 8)",
+   "res": "1080p",
+   "image_job": "f1f77d5e-c8c3-42d0-9d2e-fe98c140db42",
+   "video_job": "325b8a33-460b-4d2e-9383-51e66e4b1f0d"
+  }
+ ]
+}
