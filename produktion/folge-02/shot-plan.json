@@ -57,7 +57,8 @@
    "beat": "DMS-Molekuel-Render ueber dunklem Ozean (der Whisper)",
    "res": "1080p",
    "image_job": "af4ad8ee-a706-40bf-8be4-5f1cde9c91a2",
-   "video_job": "0f7af360-a315-4d5d-9571-5cf060db9238"
+   "video_job": "7d9f309a-b727-49af-b536-86d31f745b76",
+   "note": "re-roll nach NSFW-Fehlalarm (erster Job 0f7af360)"
   },
   {
    "id": "NW07",
