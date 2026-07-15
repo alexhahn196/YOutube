@@ -3,7 +3,7 @@
 > **Regel-Compliance (verbindlich):**
 > **Schaufenster-Regel:** Titel/Thumbnail/Beschreibung/Cold Open verkaufen die FRAGE („Was sendet Voyager 1 wirklich?") und versprechen ein Urteil — sie verraten es NICHT. Das Urteil fällt hart IM Video (Segment 6).
 > **Zwei-Fragen-Prinzip:** **(1) Hat Voyager 1 umgedreht / eine Feuerwand / einen Verfolger gefunden?** → Urteil: **NOISE, mit Nachdruck** (Segment 6). **(2) Was misst die Sonde da draußen WIRKLICH — und wo endet die Sonne?** → **offen** (Feld-Rätsel, Hum, aufgeblähte Störzone) + **Daten**: „Big Bang"-Manöver (frühestens diesen Monat), 18.11.2026 (ein Lichttag), 05.09.2027 (50. Geburtstag), ~2030 (Feld-Prognose), ~2036 (letztes Flüstern).
-> **Länge (Regel 6):** ~1.930 Wörter ≈ **~14:30 @133 wpm** (13–15-Min-Sweetspot). 2 Mid-Rolls.
+> **Länge (Regel 6):** 2.035 Wörter ≈ **~13:30 Video @152 wpm** (152 wpm = real gemessene ElevenLabs-Rate aus F2: 2.401 Wörter / 947,5 s — nicht die 133-wpm-Schätzung). 13–15-Min-Sweetspot ✓. 2 Mid-Rolls.
 > **Titel-Rotation (Regel 4):** F2 = Statement+Twist → F3 = **Claim-Ride/Frage-Form** (neue Formel).
 > **⚠️-Regel:** 2 Live-Check-Punkte am Vertonungstag (siehe `FAKTEN-GATE-F3.md`). Alle übrigen Behauptungen verifiziert (112-Fakten-Basis, 51 dokumentierte Fallen vermieden).
 > **Panel-Status:** 4-Auditoren-Panel + adversariale Refutation durchlaufen — 14 bestätigte Funde + 17 Minors eingearbeitet (Änderungsliste am Ende).
@@ -339,7 +339,7 @@ You decide.
 5. **Open Loops:** Heat/Field/Hum-Versprechen (Seg 3) → Heat eingelöst Seg 6, Feld+Hum Seg 7 · 10-Sekunden-Frage (Seg 1 → Seg 6) · „date this story ends" (Seg 1 → Seg 9, ~2036) · Re-Hook vor Mid-Roll 2 → Seg 7 ✓
 6. **Emotion vor Information:** 1977-Romantik (Druyan), Sterben in Etappen, „the power dies, the messenger doesn't" ✓
 7. **Zwei-Fragen-Ende:** Q1 NOISE hart (Seg 6, mit „So. Signal, or noise?"-Ritual) · Q2 offen + Daten (Seg 7/8/9) · Cliffhanger: Big-Bang-Ausgang + 18.11. + Wow!-Tease ✓
-§12: Länge ~14:30 ✓ · Titel-Rotation ✓ · Neugier statt Angst ✓ · News-Riding (F4 = Evergreen Wow! → Rotation 1:1) ✓ · On-Screen-Quellen (7 Quellen-Direktiven von 9 ON-SCREEN gesamt) = sichtbare Redaktionsleistung ✓
+§12: Länge ~13:30 ✓ · Titel-Rotation ✓ · Neugier statt Angst ✓ · News-Riding (F4 = Evergreen Wow! → Rotation 1:1) ✓ · On-Screen-Quellen (7 Quellen-Direktiven von 9 ON-SCREEN gesamt) = sichtbare Redaktionsleistung ✓
 
 ---
 
