@@ -34,14 +34,14 @@ Status: **belegt** · **Quellenkonflikt** (dem Zuschauer erzählt, neuere gewinn
 | 27 | Menge zu groß für Leben: ~20× Erd-Ozean-Fluss, müsste Ethan erzeugen — fehlt | Tsai et al. 2024 | belegt |
 | 28 | Verdict Frage 1 (Leben=NOISE): Signal weicht auf, viele Moleküle passen, Selbstwiderspruch, fehlende Opazität zeigt jetzt gewöhnlich | Synthese #10–17, #24, #27 | belegt |
 | 29 | Drei Planet-Optionen: Hycean / Mini-Neptun / Magma | Madhusudhan 2023 · Wogan et al. 2024 · Shorttle et al. 2024 | belegt |
-| 30 | Was das Urteil umkehrt: 5σ + zweites Gas + Opazitäten; „Webb-Zeit schon geplant, 1–2 Jahre" | Madhusudhan (1–2 J.); Folge-Beobachtung | **⚠️ Live-Check** („bereits geplant" bestätigen, sonst → „weitere Beobachtungen geplant") |
+| 30 | Was das Urteil umkehrt: 5σ + zweites Gas + Opazitäten; „vier weitere Transits bereits aufgenommen, Analysen laufen; 1–2 Jahre" | Hu et al. 2025 (GO 2372: 4 Transits 2024, NIRSpec) + Madhusudhan BBC (1–2 J.) | belegt [aufgelöst 15.07.2026 — Formulierung abgeschwächt auf Belegbares] |
 | 31 | Blitz-Initiation bei ~½ Erd-Durchschlagsfeld | Fangel-Lloyd et al. 2026 (Sci. Reports) | belegt |
 | 32 | 1977 Ohio Wow!-Signal, 72 s, „Wow" handschriftlich (Next-Ep-Teaser) | Historisch (Big Ear, Ehman 1977) | belegt |
 
-## Offene Punkte vor Vertonung (nur noch 1 — ⚠️-Regel!)
+## Offene Punkte vor Vertonung: KEINE (alle ⚠️ aufgelöst)
 - **✅ #21 Tremblay 2026** — verifiziert: arXiv 2602.09553, Madhusudhan Letztautor. Epochen ab Dez. 2023 → in v4 durch „had already turned" (Segment 5) korrekt abgebildet.
 - **✅ #24/#25 Tsai 2026** — verifiziert: arXiv 2603.19803; Abstract stützt Sub-Neptun ohne DMS, kein starker Hinweis auf wasserreiches Inneres.
-- **⚠️ #30 (verbleibend, ship-blocking)** — „Webb-Zeit ist bereits geplant" (Segment 7) ist noch NICHT belegt. Per ⚠️-Regel: vor Vertonung belegen ODER auf „more Webb observations are planned" abschwächen. Segment 7 war in diesem Patch „wird nicht angefasst" → in `DIFF-v3-v4.md` als Editorial-Anmerkung geflaggt.
+- **✅ #30 aufgelöst (15.07.2026)** — „already scheduled/booked" an 4 Stellen ersetzt durch belegte Form: „four fresh transits already taken / more Webb data already in hand" (GO 2372, Hu et al. 2025; Ergebnisse laufen 2026 ein). VO ist damit ⚠️-frei → Vertonung freigegeben.
 
 ## Acid Test
-Ein Zuschauer, der danach die Papers liest, findet keinen Widerspruch — **sofern der letzte ⚠️-Punkt (#30) vor der Vertonung** belegt oder abgeschwächt ist. Zwei ⚠️ aus v3 sind aufgelöst. Der einzige Quellenkonflikt (#25) wird dem Zuschauer offen erzählt statt still aufgelöst.
+Ein Zuschauer, der danach die Papers liest, findet keinen Widerspruch — alle drei ⚠️ aus v3 sind aufgelöst; das VO enthält nur noch belegte Aussagen. Der einzige Quellenkonflikt (#25) wird dem Zuschauer offen erzählt statt still aufgelöst.

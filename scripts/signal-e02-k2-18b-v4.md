@@ -30,7 +30,7 @@ Basis-Plate für alle: **K2-18b als blaue Ozeanwelt unter roter Zwergsonne** (ar
 > We're calling it: on the evidence we have, the DMS "biosignature" is noise — not life. But *what K2-18b actually is* is wide open: warm ocean world, boring mini-Neptune, or magma hell.
 > So: what would it take to change YOUR mind about the LIFE question?
 > (A) A strong hint like this already counts. (B) Five-sigma AND a second gas. (C) No telescope ever — only a probe.
-> A, B, or C — and why. 👇 The measurement that settles it is already scheduled. Sources + DOIs below.
+> A, B, or C — and why. 👇 More Webb data on this world is already in hand — the answer is coming. Sources + DOIs below.
 
 ---
 
@@ -297,7 +297,7 @@ An ocean, a gas ball, or a sea of lava. Same point of light. We do not know whic
 
 [BEAT]
 
-So here's what would swing the life needle back — and when. It would take a clean detection, above five-sigma, of DMS *and* a second independent gas, with real opacity data underneath it. And Webb time on this exact world is already scheduled. Not "someday." Next look. One to two years. That is when this stops being an argument and becomes an answer.
+So here's what would swing the life needle back — and when. It would take a clean detection, above five-sigma, of DMS *and* a second independent gas, with real opacity data underneath it. And more Webb observations of this exact world have already been taken — four fresh transits, with the analyses landing now. One to two years. That is when this stops being an argument and becomes an answer.
 
 [SCORE — turn, powerful]
 
@@ -337,7 +337,7 @@ Is anything alive under that sky?
 
 On the evidence we have — no. Not from this data.
 
-But *what that world is* — we are one clean measurement away from knowing. Closer than any human who ever lived. And the look is already booked.
+But *what that world is* — we are one clean measurement away from knowing. Closer than any human who ever lived. And the next results are already on their way.
 
 [BEAT]
 
@@ -407,7 +407,7 @@ You decide.
 ## 6. VIER SHORTS
 
 **Short A — „a gas only life makes" (Mystery):**
-> There's a gas on Earth made almost only by living things — the smell of the sea. In 2025, Webb saw it 124 light-years away, and a team called it the strongest sign of alien life ever recorded. Then a dozen teams took the data apart. On the evidence we have: it isn't life. But what that planet actually IS — ocean world, gas ball, or magma — nobody can tell you yet. And the measurement that settles it is already booked. SIGNAL.
+> There's a gas on Earth made almost only by living things — the smell of the sea. In 2025, Webb saw it 124 light-years away, and a team called it the strongest sign of alien life ever recorded. Then a dozen teams took the data apart. On the evidence we have: it isn't life. But what that planet actually IS — ocean world, gas ball, or magma — nobody can tell you yet. And more Webb data is already in hand. SIGNAL.
 
 **Short B — „the alien might be ethane" (Mystery):**
 > This was the "strongest evidence of alien life yet" — a gas called DMS on planet K2-18b. One problem: the feature Webb saw could just as easily be ethane, the most boring gas in the universe. It wears the biosignature like a borrowed coat. When your alien fingerprint and your exhaust fumes look identical, you don't have a fingerprint. On the life question, the honest verdict is noise. SIGNAL — the full story.
