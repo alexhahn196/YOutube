@@ -27,3 +27,5 @@ produktion/**/ov/
 
 # Build-/TTS-Logs (fluechtig)
 produktion/**/*.log
+produktion/**/work4k/
+produktion/**/work/
