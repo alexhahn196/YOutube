@@ -97,6 +97,8 @@ A, B, or C — and why. 👇 Sources with DOIs in the description.
 | Sichtbarkeit | Premiere, US-Abend (18–20 Uhr ET) — **3–7 Tage nach Folge 1** |
 
 ## Dateien
-- Video: `f2_MASTER.mp4` (1080p, 15:52, 579 MB)
-- Untertitel: `signal_f2.srt` (188 Cues)
+- **Video (HOCHLADEN): `f2_MASTER_4K.mp4` (4K 3840×2160, 15:52, 1,96 GB)** — Download: https://d2ol7oe51mr4n9.cloudfront.net/user_3FnulfGnhLwm9N6gYIO0RIxe7RB/c87b18a8-f84f-41d5-98bb-bc12c3b372b1.mp4
+- Fallback: `f2_MASTER.mp4` (1080p, 579 MB) — https://d2ol7oe51mr4n9.cloudfront.net/user_3FnulfGnhLwm9N6gYIO0RIxe7RB/edb4ac25-8ded-41b4-a43d-9014185f0789.mp4
+- Untertitel: `signal_f2.srt` (188 Cues) — Timing identisch für beide Master
 - Endscreen: Abo + „Folge 1" verlinken (Binge-Pfad!)
+- 4K-Re-Render: 0 Higgsfield-Credits (lokal; NW01 + alle NV-Reuse-Shots nativ 4K, Rest lanczos-upscaled)
