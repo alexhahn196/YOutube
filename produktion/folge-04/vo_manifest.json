@@ -14,8 +14,9 @@
   {
     "seg": 3,
     "title": "SEG 3 \u00b7 WHY DIFFERENT",
-    "chars": 1759,
-    "file": "vo_seg03.mp3"
+    "chars": 1728,
+    "file": "vo_seg03.mp3",
+    "note": "Re-TTS 16.07.: Regieanweisung [BEAT \u2014 3 sec] war mitgesprochen worden; Filter-Regex gefixt"
   },
   {
     "seg": 4,
