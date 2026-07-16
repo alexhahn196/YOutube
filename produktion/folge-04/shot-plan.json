@@ -1,0 +1,113 @@
+{
+ "style_lock": "cinematic space documentary, deep-space black, cold blue-teal palette, single CYAN accent light, volumetric light, subtle film grain, photoreal, 16:9 — plus 1977-Archiv-Aesthetik (16mm-Grain, warmes Licht) fuer die Ohio-Beats",
+ "budget_plan": "12 neue Shots: 1x 4k hero (110+4) + 11x 1080p (45+2) = 631 Cr ~ 30 EUR. Plus F3-Thumb-Plate 4 Cr. Deckel 50 EUR (=1052 Cr) klar eingehalten. Start-Balance 967.5 Cr.",
+ "visual_rule": "Big Ear ist KEIN Dish! Kraus-Typ: flacher kippbarer Reflektor + feste Parabolwand + Aluminium-Bodenebene (Gate #7). Arecibo IST ein Dish (NY09/NY10 ok).",
+ "reuse_from_pool": {
+  "NV05": "Wow!-Printout rot umkreist (F1) — Sekundaer-Shots zum Hero",
+  "NV03": "einsamer Forscher vor Sternenfeld (= Ehman-Beat)",
+  "NV10": "Green-Bank-Dish Nacht (= Follow-up-Jagd)",
+  "NV11": "Radioastronom Nacht (= Follow-ups)",
+  "C17": "Radioteleskop-Stille (= 49 Jahre nichts)",
+  "NV08": "Ermittler an Monitoren (= BLC1-Forensik)",
+  "NV15": "Schlagzeilen-Wand (= Claim-Wave Seg 5)",
+  "NV14": "Wuerfel/Statistik (= Verdict)",
+  "NW05": "Spektrum-Linien wackeln (= Schmalband-Beat)",
+  "NX07": "Oszilloskop-Wellenform (= das Signal selbst!)",
+  "NX09": "JPL/Kontrollraum Nacht (= Verifikations-Maschine)",
+  "C19": "Verdict receding",
+  "C20": "Relikt (= Closing)"
+ },
+ "new_shots": [
+  {
+   "id": "NY01",
+   "beat": "HERO 4k: Fanfold-Printout-Makro, 6EQUJ5 vertikal rot umkreist + handschriftlich 'Wow!' (diegetischer Text ERLAUBT; auch F4-Thumb-Base)",
+   "res": "4k",
+   "img_res": "2k",
+   "image_job": "91e2f760-c7dc-4045-ba9a-093a7d848c52",
+   "video_job": "e0a9cf0a-84d0-45f7-9c70-6aad5b7816d2"
+  },
+  {
+   "id": "NY02",
+   "beat": "Big Ear bei Nacht 1977: Kraus-Typ (flacher Reflektor + Parabolwand + Bodenebene), KEIN Dish (Seg 2)",
+   "res": "1080p",
+   "image_job": "f04ab983-c9b2-46b0-beaa-8201722e38ca",
+   "video_job": "32ba048c-ad3d-4e0b-bf92-0b68a9855ade"
+  },
+  {
+   "id": "NY03",
+   "beat": "Nadeldrucker druckt im dunklen Raum, Endlospapier quillt (Cold Open/Seg 2)",
+   "res": "1080p",
+   "image_job": "55e8a38a-cfac-4329-bf09-7018bc3907dd",
+   "video_job": "68f3977d-a20a-4520-9cd4-dad41e91319e"
+  },
+  {
+   "id": "NY04",
+   "beat": "Sagittarius-Sternfeld Richtung galaktisches Zentrum, zwei schwache Beam-Ellipsen-Glows, KEINE Labels (Seg 3/6)",
+   "res": "1080p",
+   "image_job": "4c6a604c-9140-499b-893e-bddc726bf816",
+   "video_job": "77a89623-8eb1-409f-b96b-50c52b227ff4"
+  },
+  {
+   "id": "NY05",
+   "beat": "Wasserstoff-Linie abstrakt: dunkles Spektrum, EINE schmale gleissende Linie (Seg 3)",
+   "res": "1080p",
+   "image_job": "250457e9-4315-4e86-9a41-9364471f9afb",
+   "video_job": "24c34027-c56f-46e1-88c4-eda52f698807"
+  },
+  {
+   "id": "NY06",
+   "beat": "Kalte dunkle Wasserstoffwolke, wispy, zwischen Sternen (Seg 8)",
+   "res": "1080p",
+   "image_job": "d7048c37-60f3-4d30-a4bd-441b986c6ec8",
+   "video_job": "523fba95-00ab-46b0-9b26-e5f34a8f8051"
+  },
+  {
+   "id": "NY07",
+   "beat": "Magnetar: Neutronenstern mit gewaltsamen Magnetfeldlinien, Flare-Eruption (Seg 8)",
+   "res": "1080p",
+   "image_job": "bf01fffa-1d6f-428c-8ef3-7e7ba1d4f90e",
+   "video_job": "b159fb5e-3761-4b2d-8856-842125d44e7e"
+  },
+  {
+   "id": "NY08",
+   "beat": "Die Wolke LEUCHTET AUF: dunkle H-Wolke von Flash dahinter gepumpt, wie natuerlicher Laser (Seg 8 Signature)",
+   "res": "1080p",
+   "image_job": "1538e0dd-6424-4f17-b5be-e03256c70f12",
+   "video_job": "b8c76fb1-d741-4e20-99e4-d02e2e2181ab"
+  },
+  {
+   "id": "NY09",
+   "beat": "Arecibo majestaetisch: 305-m-Schuessel + haengende Plattform, Daemmerung (Seg 5/6)",
+   "res": "1080p",
+   "image_job": "d0efd23f-3bf9-4fef-86e8-b189aacd97fd",
+   "video_job": "40e12c02-85e4-4238-8e84-7f3b4feff38d"
+  },
+  {
+   "id": "NY10",
+   "beat": "Arecibo-Ruine: eingestuerzte Plattform in der Schuessel, melancholisch (Seg 9)",
+   "res": "1080p",
+   "image_job": "02c56015-2405-4bf6-964b-b470b07fa66f",
+   "video_job": "472d8214-3ddb-4979-a8c5-a2e5e30f78be"
+  },
+  {
+   "id": "NY11",
+   "beat": "Golfplatz im Morgennebel, Fairway, wo das Teleskop stand (Seg 4 Killer-Beat)",
+   "res": "1080p",
+   "image_job": "9c789e4e-cc0d-4cdd-981c-3042b3b1157e",
+   "video_job": "7834bfed-ec5a-45a4-853f-bd84577c6ba3"
+  },
+  {
+   "id": "NY12",
+   "beat": "Archivraum: Regale mit Endlospapier-Boxen + Lochkarten, warmes Funzellicht (Seg 8/9 — 40.000 Blips)",
+   "res": "1080p",
+   "image_job": "955211d9-d89a-42e6-9dfd-95ab3f693643",
+   "video_job": "87e51e80-d590-4107-820f-b7e41e9a0238"
+  }
+ ],
+ "f3_thumbnail_plate": {
+  "id": "TH-F3",
+  "beat": "Voyager-Sonde GROSS rechts, warmes Amber-Rimlight + Teal-Vorhang, HELL (>=85/255), Textzone links frei",
+  "res": "2k",
+  "image_job": "48a2c745-55ba-45db-9b81-e8f99f462c7e"
+ }
+}

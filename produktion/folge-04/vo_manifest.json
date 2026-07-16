@@ -1,0 +1,62 @@
+[
+  {
+    "seg": 1,
+    "title": "SEG 1 \u00b7 COLD OPEN",
+    "chars": 982,
+    "file": "vo_seg01.mp3"
+  },
+  {
+    "seg": 2,
+    "title": "SEG 2 \u00b7 THE NIGHT 1977",
+    "chars": 1079,
+    "file": "vo_seg02.mp3"
+  },
+  {
+    "seg": 3,
+    "title": "SEG 3 \u00b7 WHY DIFFERENT",
+    "chars": 1759,
+    "file": "vo_seg03.mp3"
+  },
+  {
+    "seg": 4,
+    "title": "SEG 4 \u00b7 THE HUNT",
+    "chars": 971,
+    "file": "vo_seg04.mp3"
+  },
+  {
+    "seg": 5,
+    "title": "SEG 5 \u00b7 THE CLAIM WAVE",
+    "chars": 815,
+    "file": "vo_seg05.mp3"
+  },
+  {
+    "seg": 6,
+    "title": "SEG 6 \u00b7 VERDICT Q1",
+    "chars": 1902,
+    "file": "vo_seg06.mp3"
+  },
+  {
+    "seg": 7,
+    "title": "SEG 7 \u00b7 Q2 EXPLANATIONS DIE",
+    "chars": 1639,
+    "file": "vo_seg07.mp3"
+  },
+  {
+    "seg": 8,
+    "title": "SEG 8 \u00b7 THE NEW SUSPECT",
+    "chars": 1653,
+    "file": "vo_seg08.mp3"
+  },
+  {
+    "seg": 9,
+    "title": "SEG 9 \u00b7 CLOSING",
+    "chars": 971,
+    "file": "vo_seg09.mp3"
+  },
+  {
+    "seg": 10,
+    "title": "SEG 10 \u00b7 OUTRO",
+    "chars": 741,
+    "file": "vo_seg10.mp3"
+  }
+]
