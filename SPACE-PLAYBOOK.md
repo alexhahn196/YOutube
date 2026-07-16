@@ -195,3 +195,33 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 7. **Sichtbare menschliche Redaktionsleistung = Überlebensversicherung.** YouTubes „inauthentic content"-Policy (07/2025) demonetarisiert Template-Spam, schützt aber ausdrücklich KI-Kanäle mit echtem Autoren-/Schnitt-/Bildungsanteil. Unser Fakten-Gate + sichtbares Verdict + On-Screen-Quellen sind wörtlich die geschützte Kategorie — nie wegoptimieren.
 8. **KI-Label einplanen, nicht verstecken.** YouTube labelt fotorealistische KI-Visuals seit 05/2026 automatisch (ohne Reichweiten-Malus). Eigendisclosure setzen + reale NASA/ESA-Footage beimischen (senkt den KI-Anteil sichtbar, stärkt Glaubwürdigkeit).
 9. **Fenster ist offen:** Die KI-Wachstumswelle läuft bislang an Space-Doku vorbei (Musik/Tier/Meme-Slop) — „KI-Space-Doku mit Substanz" ist NICHT übersättigt.
+
+---
+
+## 13. Thumbnail-System (VERBINDLICH ab 16.07.2026 — Basis: 5-Agenten-Panel + M3/M4-Daten + F1-Autopsie)
+
+### Die Schock-Frage, ein für alle Mal beantwortet
+**Schock-Alien-Bilder sind der schnellste Weg, den Kanal zu töten.** Eigene Daten (17 Kanäle):
+- Angst-/Schockwörter bei GEWINNERN: TheSpaceRace 3 %, Kosmo 0 %, Space_Chip 0 %, Ridddle 3 %. Bei VERLIERERN: RealHyperspeed 30 %, Eternityinspace 23 % (Median 115 Views!). → **M4: Angst skaliert nicht.**
+- Die größten Hits der Nische sind reine NEUGIER-Lücken: „What NASA Found on Io" (4,9M) · „Real Images From Our Solar System" (17M) · „First Minutes The Dinosaurs Went Extinct" (26M). Kein einziges Monster.
+- Der Mechanismus: CTR × Retention = Reichweite. Ein Schock-Alien holt +CTR bei einem Segment, aber das Video liefert das Alien nicht → Absprung in Sek. 30 → Algorithmus dreht die Impressionen ab. Bait zahlt einmal, Vertrauen zahlt jede Woche (M1: Median-KPI).
+- Plattform-Risiko: YouTube demotet/löscht „inauthentic content" aktiv (dokumentiert: 3I/ATLAS-Fake-Kanal komplett entfernt). Ein Monster-Thumb auf einem Debunk-Kanal = genau dieses Muster.
+- Marken-Risiko: UNSER Produkt ist „der Kanal, dem man trauen kann". Ein Fake-Alien-Thumb zerstört das Kapital von 3 Folgen an einem Tag.
+
+### Was die Gewinner WIRKLICH machen (und wir ab jetzt)
+**„Ehrfurcht + Anomalie" statt „Schock + Monster":** Ein helles Motiv, in dem EIN Detail *falsch/rätselhaft* ist (grünes Gas über einem Ozean, ein Objekt, das zu regelmäßig aussieht, eine Struktur, die nicht natürlich wirkt). Das Hirn klickt auf „da stimmt was nicht" genauso stark wie auf Schock — ohne den Retention-Crash.
+
+**Die 9 Pflicht-Regeln (jedes Thumbnail gegen diese Liste):**
+1. **EIN Fokusobjekt**, 35–65 % der Framebreite, auf Drittel-Linie; Text in der freien Zone.
+2. **Hell:** mittlere Luminanz ≥85/255, ≤35 % Fast-Schwarz (F1-Fehler: 41/255, 61 % schwarz → 0 Klicks).
+3. **Max. 3–4 Wörter**, Cap-Height des größten Worts ≥25 % der Framehöhe, Anton/fett, 6–10 px dunkler Stroke.
+4. **Blau-Orange-Komplementär** (+22–25 % CTR belegt): Frame kühl-dominant, EIN warmer Akzent — reserviert für das Reizwort.
+5. **Text ≠ Titel-Wiederholung** — Thumb stellt die visuelle Frage, Titel liefert den Autoritäts-Anker.
+6. **NIEMALS das Verdict/Verneinungen im Thumb** (Schaufenster-Regel; F1 zeigte „MOSTLY NOISE" = Klickgrund vernichtet).
+7. **Anomalie ehrlich:** Das rätselhafte Detail muss im Video vorkommen und verhandelt werden. Kein Monster, kein Fake-„Foto", keine roten Kreise/Pfeile (Slop-Marker toter Kanäle, M3).
+8. **Squint-Test Pflicht:** Export auf 168×94 + Graustufen; Motiv-Silhouette und Text müssen bestehen, sonst iterieren.
+9. **System-Look (M6):** Anton + Cyan-Brand-Chip + ein Akzent, gleiche Grid-Logik jede Folge — der Backkatalog muss auf einen Blick als SIGNAL erkennbar sein.
+
+**Alien-Bildsprache — wann erlaubt:** Wenn die Folge einen Alien-CLAIM verhandelt, darf das Thumb die *Möglichkeit* zeigen (Silhouette, Artefakt, zu-perfekte Struktur, „artist's impression"-Ästhetik) — als offene Frage inszeniert, nie als „Beweisfoto", nie als Horror-Gesicht. Referenz: F2 „SIGNS OF LIFE?" (Gas-Plume = ehrliche Anomalie).
+
+**A/B-Pflicht:** YouTube „Testen & Vergleichen" mit 2–3 Varianten bei jedem Upload; Verlierer-Varianten dokumentieren (eigene CTR-Datenbank aufbauen).
