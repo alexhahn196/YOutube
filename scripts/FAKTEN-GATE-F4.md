@@ -1,0 +1,45 @@
+# FAKTEN-GATE — Folge 4 (Wow!-Signal) · v1
+
+Regel: ⚠️ = ship-blocking. Basis: ~100-Fakten-Recherche (5 Agenten, 16.07.2026) + 52 dokumentierte Fallen + 13 aufgelöste Quellen-Konflikte. Status: ✅ verifiziert · 🔁 Live-Check am Vertonungstag.
+
+| # | VO-Behauptung (Segment) | Quelle / Konflikt-Auflösung | Status |
+|---|---|---|---|
+| 1 | „late on the night of August 15th, 1977, Ohio" — KEINE Minuten-Uhrzeit (S2) | Ehman 30th Anniversary Report; Konflikt EST/EDT bewusst umgangen (Falle: „22:16"-Dramatisierung) | ✅ |
+| 2 | Telescope „ran unattended… nobody was listening" ; Fund „days after the fact" „at his home" (S1/S2) | Ehman-Report: Printouts kamen zu ihm nach Hause, Fund „probably Aug 19"; Falle vermieden: kein „hörte es live", kein hartes „Aug 18", kein „Küchentisch" (Lore, nicht Primärquelle) | ✅ |
+| 3 | Ehman = „unpaid volunteer" (S2/S6) | Ehman-Report: NSF-Kürzung 1972, danach Volunteer | ✅ |
+| 4 | 6EQUJ5 = „a code for loudness, rising and falling", je Zeichen ~12 s (S2) | Ehman-Report (Skala 0–9, A–Z; 10 s Integration + 2 s Processing); Falle vermieden: keine „Botschaft" | ✅ |
+| 5 | „more than thirty times louder than the background" (S2) | Ehman: „U" = 30,0–30,999 (truncated S/N); Konflikt-Auflösung: konservative Formulierung statt „30,5σ" | ✅ |
+| 6 | 72 s = Beam-Transit eines Fixpunkts; 36 s Anstieg + 36 s Abfall; Gauß-Fit „better than ninety-nine percent" (S2/S3) | Ehman-Report (Gauß + (sin x/x)²-Fit, 99–100 % Korrelation) | ✅ |
+| 7 | „larger than three football fields", zwei Reflektoren, fest, kein Tracking (S2) | NAAPO/Big-Ear-Memorial (offizielle Formulierung „larger than", nicht „Sammelfläche gleich"); Kraus-Design — Falle: KEIN Dish (Visual-Regel!) | ✅ |
+| 8 | Elvis † 16.08.1977; Voyager 2 Start 5 Tage nach Signal (20.08.1977) + F3-Callback (S2) | Allgemein verifiziert; V2-Startdatum bereits in FAKTEN-GATE-F3 #5 verifiziert | ✅ |
+| 9 | Hydrogen-Line-Logik, Vorhersage 1959 „two physicists" (S3) | Cocconi & Morrison, Nature 1959 | ✅ |
+| 10 | Band „protected… no one was ALLOWED to transmit there" (S3/S7) | Ehman-Report wörtlich („should have been"); Falle vermieden: nicht „physikalisch unmöglich" — deshalb S7 „stray transmitter" als Restverdacht behandelt | ✅ |
+| 11 | Schmalband: „single receiver channel just ten kilohertz wide", „pinprick" (S3) | Ehman-Report: Kanal 2 von 50 à 10 kHz | ✅ |
+| 12 | Frequenz nur als „next to fourteen-twenty megahertz" (S3) — KEINE Dezimalstellen im VO | **Konflikt-Auflösung #1 (größter):** Ehman 1420,4556 vs. Méndez-2025 1420,726 → VO nennt bewusst keine exakte Zahl; „revised" in S8 erzählt die Revision. Doppler/„10 km/s blueshift" KOMPLETT weggelassen (stirbt unter 2025-Wert) | ✅ |
+| 13 | Zwei Hörner, Signal nur in einem, zweites „minutes later: silence", zwei Positionen für immer (S3/S6) | Ehman-Report; Konflikt-Auflösung: Timing vage („minutes"), keine Koordinaten im VO (J2000-vs-2025-Revision kollidiert) | ✅ |
+| 14 | Follow-ups alle null: 60 Tage Big Ear, META '87/'89, Green-Bank-12m '95, VLA '95–96, Hobart '99 (6×14 h), Breakthrough Listen '22 (S4) | Gray & Marvel ApJ 2001; Gray & Ellingsen ApJ 2002; BL 2022; Ehman-Zitat („close to two months") → „roughly sixty days" | ✅ |
+| 15 | Survey „more than two decades… longest SETI search ever run"; „one moment in ten million" (S4) | **Konflikt-Auflösung:** 1973–1998 (25 J., arXiv 2606.11102) vs. „1973–95"-Guinness → „more than two decades"; Ratio als „roughly" (Arithmetik, kein Zitat) | ✅ |
+| 16 | Big Ear 1998 abgerissen — „to expand a golf course" (S4) | NAAPO/Standard-Quellen (Falle vermieden: kein „housing development") | ✅ |
+| 17 | 2012 Wow! Reply: Arecibo, ~10.000 Crowd-Botschaften, 3 Ziel-Sterne — keiner in der Signalregion; Transmitter überhitzte („partway into the first transmission") (S5) | NatGeo/Arecibo; Kerr-Aussage; **Konflikt-Auflösung:** „aimed at three… overheated partway" (nicht „an alle drei gesendet"); Falle: nicht „20.000 Botschaften" | ✅ |
+| 18 | BLC1: 2019 Parkes/Proxima-Detektion, 2021 Verdict Interferenz, „months of forensics, thirty-nine hours of re-observation" (S6) | Sheikh et al., Nature Astronomy 2021 (2 Papers); Falle vermieden: nicht „2020 detektiert" | ✅ |
+| 19 | „proof has a definition": Wiederholung + unabhängige Bestätigung; „the rules… rewritten just last year" (S6) | IAA SETI Declaration of Principles — erste große Revision Okt. 2025 („last year" ab Upload 08/2026 ✓) | ✅ |
+| 20 | Ehman-Zitat: „he chose not to draw ‚vast conclusions from half-vast data'" (S6) | **Wörtlich nach Primärquelle** (30th-Report: „I choose not to…"); Falle vermieden: das kursierende Falschzitat „I refuse to draw…" | ✅ |
+| 21 | Kometen-Widerlegung: „fifty-five minutes away from the beam", keine 21-cm-Emission von Kometen je gesehen, Zwei-Horn-Fail, „observatory's own director took the idea apart" (S7) | Dixon-Rechnung (55 min); Fitzsimmons/Shostak; Paris' eigenes Eingeständnis zum Horn-Problem; Falle: 2017er „mystery solved"-Headlines = falsch | ✅ |
+| 22 | Ehman schlug Reflexions-Idee selbst vor (90er) und zog sie zurück („unrealistic" requirements) (S7) | Ehman 1994 + spätere Analyse (Report) | ✅ |
+| 23 | Kandidaten-Stern: „Searched… 2022 Breakthrough Listen… ruled out as an ongoing transmitter" (S7) | BL 2022 Targeted Search; Falle vermieden: Stern nie als Quelle etabliert (Caballero 2020 nur Kandidat) | ✅ |
+| 24 | Arecibo-Scans 2020 „weeks before that great dish collapsed"; Méndez fand „ghosts… about a hundred times weaker", passend zu kalten H-Wolken (S8) | Arecibo Wow! I (arXiv 2408.08513); Scans Feb–Mai 2020, Kollaps 01.12.2020 → „weeks/months before" konservativ „weeks before" — prüfen: Scans bis Mai, Kollaps Dez = 6–7 Monate → **korrigiert auf „months before"** (siehe Panel) | ✅ |
+| 25 | Hypothese: H-Wolke von transientem Ereignis „perhaps a flare from a magnetar" gepumpt „like a natural laser"; „a hypothesis, not a verdict" (S8) | Méndez et al. 2024/25 — ausdrücklich als Hypothese markiert; Magnetar-Beschreibung generisch-sicher („dead star with the strongest magnetic fields we know of") | ✅ |
+| 26 | 2025-Reanalyse: „brighter than the old estimates", „position narrowed", „frequency revised" (S8) | Arecibo Wow! II (arXiv 2508.10657, Preprint): >250 Jy, Position ±3s, 1420,726 MHz; **Konflikt-Auflösung Flux:** „brighter than the old estimates" statt „4–5×" (Ehmans eigene Werte 54 vs. 212 Jy ungelöst) | ✅ |
+| 27 | „what the signal said": 1 Loudness-Zahl je 12 s → „we saved the volume… and lost the words" (S8) | Ehman-Report (Datenformat); Gapcheck-Punkt eingelöst | ✅ |
+| 28 | Ohio-Archiv-Paper „this June": Veteranen von 1977 (Dixon, Childers), ~70 % des Radiohimmels, „more than forty thousand" unerforschte Transient-Events, „none so far match Wow!'s full fingerprint" (S8) | Méndez, Dixon & Childers, arXiv 2606.11102 (Juni 2026); Abgrenzungs-Satz löst Gapcheck-Kollision („never repeated" vs. 40k Events) | ✅ |
+| 29 | Signaldauer: „from seventy-two seconds… to seventy-seven minutes" (S9) | Kipping & Gray 2022; Falle vermieden: „lasted exactly 72 s then stopped" | ✅ |
+| 30 | „one team says the archive may yield a complete answer within the next year or two" (S9) | Méndez-Aussage (08/2025: „next two years") — als „one team says" attribuiert; konkreter Test (Hintergrundobjekte) in Basis verifiziert | ✅ |
+| 31 | Ehman durchgehend in Vergangenheitsform; KEINE Aussage lebend/tot (gesamt) | ⚠️-Auflösung: Status unverifizierbar (geb. 1939, kein Obituary gefunden Stand 16.07.2026) | 🔁 **Live-Check am Vertonungstag** — falls Nachricht inzwischen: S6-Formulierung („said it best, in his own words") bleibt korrekt; nur Pinned ggf. ergänzen |
+| 32 | F5-Tease: „biggest map… structures so large they shouldn't exist… a dozen teams fighting right now" (S10) | DESI/Nature (Sylos Labini/Galoppo) + Gegen-Paper arXiv 2607.01172 — bereits in `research/themen-pipeline-f3-f5.md` verifiziert; Deep-Gate folgt mit F5 | ✅ |
+
+## 🔁 Live-Check am Vertonungstag (~3 Min)
+1. **Ehman-Status:** News-Sweep. Skript braucht KEINE Änderung (durchgehend Vergangenheit/Zitat) — nur Pinned-Comment ggf. um Würdigung ergänzen.
+2. Kurz-Sweep „Wow signal" News (falls Méndez-Team zwischen 16.07. und Vertonung Neues publiziert → S8 ggf. 1 Satz aktualisieren).
+
+## Bewusst NICHT im VO (Fallen/Konflikte)
+- Exakte Frequenz-Dezimalen (1420,4556 vs. 1420,726 — Revision nur erzählt, nie beziffert) · Doppler/„10 km/s" (stirbt unter 2025-Wert) · Koordinaten (J2000 vs. 2025-Revision) · Flux-Jansky-Zahlen (54/212/>250 ungelöst) · Minuten-Uhrzeit · „strongest signal ever received by radio astronomy" (nur „Big Ears stärkstes") · Sekunden-genauer Horn-Abstand · „Küchentisch" · das Falschzitat „I refuse…" · „2,2-GW-Sender"-Zahl (gilt nur für Schmalstrahl von 220 ly; Feld hat tausende Sterne) · Chi Sagittarii als Quelle (nur Region) · Comet „P/2008 Y2 vs 335P"-Bezeichnungschaos (Kometen im VO namenlos).
