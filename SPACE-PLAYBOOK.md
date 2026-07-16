@@ -218,7 +218,7 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 4. **Blau-Orange-Komplementär** (+22–25 % CTR belegt): Frame kühl-dominant, EIN warmer Akzent — reserviert für das Reizwort.
 5. **Text ≠ Titel-Wiederholung** — Thumb stellt die visuelle Frage, Titel liefert den Autoritäts-Anker.
 6. **NIEMALS das Verdict/Verneinungen im Thumb** (Schaufenster-Regel; F1 zeigte „MOSTLY NOISE" = Klickgrund vernichtet).
-7. **Anomalie ehrlich:** Das rätselhafte Detail muss im Video vorkommen und verhandelt werden. Kein Monster, kein Fake-„Foto", keine roten Kreise/Pfeile (Slop-Marker toter Kanäle, M3).
+7. **Anomalie ehrlich:** Das rätselhafte Detail muss im Video vorkommen und verhandelt werden. Kein Monster, kein Fake-„Foto", keine roten Kreise/Pfeile (Slop-Marker toter Kanäle, M3). **Diegetische Ausnahme (Präzedenz F4, Judge-bestätigt):** Historisch ECHTE Annotationen sind erlaubt, wenn sie selbst das Artefakt sind (Ehmans roter Kugelschreiber-Kreis auf dem Wow!-Printout = Kern der Folge, handgekritzelt auf Papier, liest sich als Dokument). Ein nachträglich draufgelegter Grafik-/Vektor-Kreis bleibt verboten — die Ausnahme gilt NUR für Annotationen, die in der realen Quelle existieren.
 8. **Squint-Test Pflicht:** Export auf 168×94 + Graustufen; Motiv-Silhouette und Text müssen bestehen, sonst iterieren.
 9. **System-Look (M6):** Anton + Cyan-Brand-Chip + ein Akzent, gleiche Grid-Logik jede Folge — der Backkatalog muss auf einen Blick als SIGNAL erkennbar sein.
 
