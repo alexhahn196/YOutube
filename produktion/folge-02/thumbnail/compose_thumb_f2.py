@@ -89,7 +89,7 @@ print("3 Kandidaten + Feed-Mocks + Graustufen gebaut")
 
 # ---- FINAL: V1 + Judge-Fixes ----
 def final_master():
-    im = load_plate("plate_A.png", brighten=1.06, sat=1.12)
+    im = load_plate("plate_A.png", brighten=1.10, sat=1.14, gamma=0.74)
     # Fix 3a: Orange-Flare oben rechts ~30% dimmen (radialer Dunkel-Verlauf)
     ov = Image.new("L", (W, H), 0)
     dov = ImageDraw.Draw(ov)
@@ -97,12 +97,12 @@ def final_master():
         a = int(80 * (1 - r/420))
         dov.ellipse([W-180-r, -160-r, W-180+r, -160+r+320], fill=a)
     dark = Image.new("RGB", (W, H), (5, 8, 14))
-    im = Image.composite(dark, im, ov.point(lambda x: min(x, 75)))
+    im = Image.composite(dark, im, ov.point(lambda x: min(x, 58)))
     # Fix 3b: Plume-Region leicht aufhellen (radial um x=800,y=180)
     glow = Image.new("L", (W, H), 0)
     dg = ImageDraw.Draw(glow)
     for r in range(300, 0, -8):
-        a = int(38 * (1 - r/300))
+        a = int(50 * (1 - r/300))
         dg.ellipse([800-r, 170-int(r*1.3), 800+r, 170+int(r*1.3)], fill=a)
     bright = ImageEnhance.Brightness(im).enhance(1.28)
     im = Image.composite(bright, im, glow)
@@ -110,7 +110,7 @@ def final_master():
     scrim = Image.new("L", (W, H), 0)
     ds = ImageDraw.Draw(scrim)
     for x in range(0, 560):
-        a = int(58 * (1 - x/560))
+        a = int(48 * (1 - x/560))
         ds.line([(x, 140), (x, 640)], fill=a)
     im = Image.composite(Image.new("RGB", (W, H), (3, 5, 9)), im, scrim)
     d = ImageDraw.Draw(im)
