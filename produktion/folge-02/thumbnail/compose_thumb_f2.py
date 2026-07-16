@@ -86,3 +86,45 @@ for i,(name,im) in enumerate(outs.items()):
     im.convert("L").resize((168,94)).save(os.path.join(HERE, f"gray_{name}.jpg"), quality=90)
 feed.save(os.path.join(HERE, "feedmock_all.jpg"), quality=92)
 print("3 Kandidaten + Feed-Mocks + Graustufen gebaut")
+
+# ---- FINAL: V1 + Judge-Fixes ----
+def final_master():
+    im = load_plate("plate_A.png", brighten=1.06, sat=1.12)
+    # Fix 3a: Orange-Flare oben rechts ~30% dimmen (radialer Dunkel-Verlauf)
+    ov = Image.new("L", (W, H), 0)
+    dov = ImageDraw.Draw(ov)
+    for r in range(420, 0, -6):
+        a = int(80 * (1 - r/420))
+        dov.ellipse([W-180-r, -160-r, W-180+r, -160+r+320], fill=a)
+    dark = Image.new("RGB", (W, H), (5, 8, 14))
+    im = Image.composite(dark, im, ov.point(lambda x: min(x, 75)))
+    # Fix 3b: Plume-Region leicht aufhellen (radial um x=800,y=180)
+    glow = Image.new("L", (W, H), 0)
+    dg = ImageDraw.Draw(glow)
+    for r in range(300, 0, -8):
+        a = int(38 * (1 - r/300))
+        dg.ellipse([800-r, 170-int(r*1.3), 800+r, 170+int(r*1.3)], fill=a)
+    bright = ImageEnhance.Brightness(im).enhance(1.28)
+    im = Image.composite(bright, im, glow)
+    # Fix 2: Links-Scrim hinter Textzone (0 -> 20% schwarz)
+    scrim = Image.new("L", (W, H), 0)
+    ds = ImageDraw.Draw(scrim)
+    for x in range(0, 560):
+        a = int(58 * (1 - x/560))
+        ds.line([(x, 140), (x, 640)], fill=a)
+    im = Image.composite(Image.new("RGB", (W, H), (3, 5, 9)), im, scrim)
+    d = ImageDraw.Draw(im)
+    # Fix 1: Textblock ~+9%
+    f1 = ImageFont.truetype(ANTON, 140)
+    f2 = ImageFont.truetype(ANTON, 228)
+    stroke_text(d, (48, 182), "SIGNS OF", f1, INK, 7)
+    stroke_text(d, (44, 334), "LIFE?", f2, AMBER, 10)
+    brand_chip(d)
+    return im
+
+m = final_master()
+m.save(os.path.join(HERE, "master_f2_SIGNSOFLIFE.jpg"), quality=93)
+mean, nb = metrics(m)
+print(f"MASTER: mean_lum={mean:.0f}/255 near_black={nb*100:.0f}%  size={os.path.getsize(os.path.join(HERE,'master_f2_SIGNSOFLIFE.jpg'))//1024}KB")
+m.resize((168, 94), Image.LANCZOS).save(os.path.join(HERE, "feed_master_f2.jpg"), quality=90)
+m.convert("L").resize((168, 94)).save(os.path.join(HERE, "gray_master_f2.jpg"), quality=90)
