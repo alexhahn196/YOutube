@@ -96,6 +96,8 @@ A, B, or C — and why. 👇 Sources in the description.
 | Endscreen | Abo + Folge 1 + Folge 2 (Binge-Pfad) |
 
 ## Dateien
-- **Video: `f3_MASTER_4K.mp4` (4K 3840×2160, 13:17.92, 1,97 GB)** — Download: https://d2ol7oe51mr4n9.cloudfront.net/user_3FnulfGnhLwm9N6gYIO0RIxe7RB/cf7605f3-e4d0-4951-87d1-8ee2a5402c4e.mp4
+- **Video (HOCHLADEN — v2, QC-Fix 17.07.): `f3_MASTER_4K.mp4` (4K 3840×2160, 13:17.92, 1,90 GB)** — Download: https://d2ol7oe51mr4n9.cloudfront.net/user_3FnulfGnhLwm9N6gYIO0RIxe7RB/529fb13f-5840-4f4b-8088-e10a9019a194.mp4
+  - **v2-Änderungen (QC-Gate rückwirkend):** NX09 („DATA STREAM CORRUPTED"/„BJERAM"-Slop) → NZ01 sauberer Forensik-Raum (Seg 1/4/8) · Outro NV05 („ERR 404") → NY01 echter 6EQUJ5-Printout · C20-Fake-Schild weggecroppt (Seg 9). Länge/Audio/Kapitel unverändert.
+- ~~v1 (NICHT verwenden, enthält Fake-Text):~~ …cf7605f3….mp4
 - Untertitel: `signal_f3.srt`
 - Länge 13:18 = Regel-6-Sweetspot ✓ · 2 Mid-Rolls (bei ~4:20 und ~8:35 setzen — nach Sub-CTA-Beat und nach Verdict-Re-Hook)

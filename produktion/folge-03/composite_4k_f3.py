@@ -41,4 +41,4 @@ if r.returncode:
     print("ERR\n", r.stderr[-2500:]); raise SystemExit(1)
 o = subprocess.run([FF,"-i",out],capture_output=True,text=True).stderr
 d = re.search(r"Duration: (\S+),",o); res = re.search(r"(\d{3,4}x\d{3,4})", o)
-print("f2_MASTER_4K done", d.group(1) if d else "?", res.group(1) if res else "?", os.path.getsize(out)//1048576,"MB")
+print("f3_MASTER_4K done", d.group(1) if d else "?", res.group(1) if res else "?", os.path.getsize(out)//1048576,"MB")
