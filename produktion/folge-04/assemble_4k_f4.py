@@ -58,7 +58,7 @@ EDL = [
  ["NV13","NY04","NZ01","NY02","NV14"],           # 7 explanations die (Komet, Stern, RFI-CLEAN, Horn-Fail, Urteil)
  ["NY09","NY06","NY07","NY08","NY12"],           # 8 new suspect (Arecibo-Scans, H-Wolke, Magnetar, Blaze, 40k Blips)
  ["NY11","NY10","NY01","NY12"],                  # 9 closing (Golfplatz, Ruine, Printout, Archiv)
- ["NV05","C19","C20"],                           # 10 outro (A/B/C, Verdict, F5-Tease)
+ ["NY01","C19","C20"],                           # 10 outro (Hero-Printout-Callback, Verdict, F5-Tease) — NV05 raus (ERR-404-Slop)
 ]
 assert len(EDL)==10
 slots=[]; idx=0
