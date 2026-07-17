@@ -29,10 +29,21 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 - Referenz-Beweis „fesseln UND glaubwürdig": Cool Worlds. Warnung „reines Clickbait crasht": officialcosmosprodigy, Eternityinspace.
 - **Folge 1 (3I/ATLAS) bleibt wie sie ist** (kein Re-Render) — die Regel gilt ab Folge 2.
 
+## Prozess-Regeln (verbindlich ab 17.07.2026 — System-Review mit User beschlossen)
+1. **Upload-Tag NUR nach Checkliste:** `produktion/UPLOAD-CHECKLISTE.md` — inkl. Live-News-Check (ship-blocking), `{STATUS}`-Füllung, A/B-Thumbs, KI-Disclosure, „not made for kids".
+2. **Feedback-Loop nach jedem Upload:** Playbook **§14** — Reviews bei +48 h und +7 Tagen; CTR → `research/thumb-ab-log.md`, Retention-Dips auf Fessel-Hebel mappen, Median-KPI führen. Eigene Daten schlagen Konkurrenz-Heuristiken; Regeländerungen nur bei ≥2 Folgen gleichem Muster.
+3. **QC-Gate VOR dem Assemble:** `produktion/pipeline/qc_textscan.py` auf JEDEN Clip (auch Reuse!), Befund in `produktion/clip-katalog.md`. Kein Clip ohne „clean"-Status in den Schnitt. (F4-Lesson: 3 Fake-Text-Clips erst am Master gefunden → 2 Re-Renders.)
+4. **Fakten-Konvention:** Jede Folge hat ihr Dossier in **`fakten/<thema>.md`** mit CHANGELOG; Live-Check-Ergebnisse dort loggen.
+5. **Pipeline-Bibliothek:** Ab F5 gemeinsame Skripte in `produktion/pipeline/` statt Pro-Folge-Kopien (Drift-Risiko); pro Folge nur Config (`shot-plan.json`, `vo_manifest.json`). Erster Baustein: `qc_textscan.py`.
+6. **Reuse nur über den Katalog:** `produktion/clip-katalog.md` (Motiv, Herkunft, Text-Scan-Status) ist die einzige Quelle für Pool-Wiederverwendung.
+
 ## Wo steht was
 - **`SPACE-PLAYBOOK.md`** — das vollständige Gewinner-Playbook: Regeln der Top-Performer, Titel-Formel, Fessel-Mechanik §5b (7 Hebel + Zwei-Fragen-Prinzip + Schaufenster-Regel + ⚠️-Regel), Produktions-Pipeline, Do's & Don'ts. **Bei jeder Umsetzung §12 (Muster-Regeln) durchgehen — verbindlich.**
 - **`research/konkurrenz-muster.md`** — Konkurrenz-Analyse (17 Kanäle Erstdaten + Web-Verifikation): die 8 Muster + 6 Web-Findings, Belege pro Kanal. Grundlage für Playbook §12, Regel 6/7/8.
 - **`research/niche-analysis.md`** — Belegdaten: Nischen-Ranking, Einkommens-Schätzungen, Top/Mid/Low-Kanal-Tiers.
 
-## Arbeitsstand
-Recherche & Strategie abgeschlossen. Nächster Schritt (offen): erste Episode produzieren — Kanal-Name/Branding, konkretes erstes Thema, Skript, Higgsfield-Visuals, Schnitt.
+## Arbeitsstand (17.07.2026)
+Kanal **SIGNAL** — Branding steht (`produktion/branding/`). **F1–F4 fertig produziert** (4K-Master auf CloudFront, Links in den `UPLOAD-PAKET-Fx.md`):
+- **F1** 3I/ATLAS (13:12, live/Bestandsschutz) · **F2** K2-18b → Premiere **Sa 18.07.** · **F3** Voyager → **Sa 25.07.** · **F4** Wow!-Signal → **Sa 01.08.** (fester Slot Sa 14:00 ET / 20:00 DE)
+- Budget: ~32–40 €/Folge (Deckel 50 €); Higgsfield-Restguthaben ~286 Cr → für F5-Vollproduktion (~600 Cr) Nachkauf nötig.
+- **Nächste Schritte:** F2/F3/F4-Uploads nach Checkliste + §14-Reviews · F5-Thema aus `research/themen-pipeline-f3-f5.md` (Outro-Tease F4: Anisotropie) · pipeline/-Migration bei F5.

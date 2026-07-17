@@ -62,7 +62,7 @@ EDL = [
  ["C19","NW05","NW10","NW01","NW11","NW13","NW03","C20"],  # 10 verdict
  ["NV14","NW05","NW06"],                          # 11 tools
  ["NW12","NW01"],                                 # 12 closing
- ["NV05","C17","C19"],                            # 13 outro
+ ["NY01","C17","C19"],                            # 13 outro — NV05 raus (ERR-404/Falschdatum-Slop, QC 17.07.), NY01 = echter 6EQUJ5-Printout passt zum 1977-Tease
 ]
 assert len(EDL)==13
 slots=[]; idx=0

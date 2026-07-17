@@ -122,20 +122,31 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 
 ---
 
-## 6. Produktions-Pipeline (voll-KI)
+## 6. Produktions-Pipeline (voll-KI — IST-Stand ab F4, aktualisiert 17.07.2026)
 
-**Schritt 1 — Claude (Skript & Titel & Shot-List):**
-> „Schreibe eine 18-minütige Space-Doku-Episode (Ich-loser Doku-Erzähler, englisch) zum Thema [X]. Liefere: (a) reißerischen Titel nach der Formel [Autorität]+[Enthüllung]+[Einsatz], (b) Cold-Open-Hook (erste 15 Sek), (c) Voiceover-Skript in Akten mit steigender Spannung + 2–3 markierten Mid-Roll-Punkten, (d) eine Shot-List (je Shot: Bildbeschreibung + Dauer), (e) 3 Thumbnail-Ideen."
+> So entsteht eine Folge wirklich (Referenz: `produktion/folge-04/`). CapCut ist ersetzt durch eine lokale, reproduzierbare ffmpeg-Kette.
 
-**Schritt 2 — Visuals:**
-- **Higgsfield** `generate_image` / `generate_video` für Kosmos-Szenen. Fester Style-Satz, z. B.:
-  > `cinematic space documentary shot, [Motiv: nebula / planet surface / black hole / spacecraft silhouette], volumetric light, ultra-detailed, photoreal astro visuals, dark cosmic background`
-- **Gemeinfreie NASA/ESA-Footage mischen** (siehe Quellen unten) — Missionsaufnahmen, Teleskopbilder, Rover-Footage.
-- Kein Charakter-/Gesichts-Problem → sehr KI-freundlich.
+**Schritt 1 — Thema:** aus `research/themen-pipeline-*.md` (vorrecherchiert: News-Hook + Evergreen-Kern, Zwei-Fragen-Tauglichkeit).
 
-**Schritt 3 — Voiceover:** KI-TTS (ElevenLabs-Stil), eine feste, seriös-neugierige Doku-Stimme = Marken-Wiedererkennung.
+**Schritt 2 — Fakten-Gate (ship-blocking):** Dossier in **`fakten/<thema>.md`** mit Primärquellen (arXiv/DOI) + CHANGELOG. Jede ⚠️-Markierung auflösen (§5b ⚠️-Regel). Live-News-Check am Vertonungstag, Ergebnis ins CHANGELOG.
 
-**Schritt 4 — CapCut:** Clips zur Story montieren, VO drüber, **Auto-Untertitel**, kosmischer Ambient-Score + Spannungs-Sounddesign, Hook-Text in den ersten Sekunden. **16:9 Longform.** Konsistentes Intro/Outro als Branding.
+**Schritt 3 — Skript (Claude):** ~12–13k Zeichen VO in ~10 Segmenten (`skript/signal-XX-VO.md`), Zwei-Fragen-Dramaturgie + 7 Fessel-Hebel (§5b), Regieanweisungen NUR im Format `[BEAT …]` (TTS-Filter-Regex `^\[BEAT\b[^\]]*\]$`).
+
+**Schritt 4 — TTS:** ElevenLabs, feste Kanal-Stimme, pro Segment eine MP3 + `vo_manifest.json` (exakte Längen = Timing-Grundlage für Schnitt & Kapitel).
+
+**Schritt 5 — Visuals:** `shot-plan.json` (~25 Slots). **Reihenfolge: 1. Reuse-Pool** (`produktion/clip-katalog.md` — nur Clips mit Text-Scan-Status „clean") **→ 2. Higgsfield neu** (`generate_image` → `generate_video`; 1080p-Standard @45 Cr, max. 1 Hero-Shot 4K @110 Cr). Prompts IMMER mit „no text, no letters, no watermark"-Suffix. Rate-Limit ~8 parallele Jobs. Gemeinfreie NASA/ESA-Footage beimischen (§11, senkt KI-Anteil sichtbar).
+
+**Schritt 6 — QC-GATE (VOR dem Assemble, Pflicht seit F4-Lesson):** `produktion/pipeline/qc_textscan.py` → 3 Frames pro Clip als Kontaktbogen → Sichtprüfung auf eingebrannten Fake-Text/Slop-Artefakte. Befund in `clip-katalog.md` eintragen. **Kein Clip ohne „clean"-Status in den Schnitt.** (F4: 3 Fake-Text-Clips erst am Master gefunden → 2 Re-Renders. Nie wieder.)
+
+**Schritt 7 — Schnitt (lokal, ffmpeg):** `warmup_bases` (4K-Bases, Boomerang-Loops) → `assemble` (Silent-Concat nach VO-Timing) → `mix` (Musik-Beds + Ducking) → `make_overlays` + `composite` (Bauchbinden, Source-Chips, HUD — die **sichtbare Redaktionsleistung**, §12.7) → `build_subs` (SRT). Platzsparsam: Zwischenprodukte direkt nach Gebrauch löschen (drei 4K-Dateien sprengen die Disk).
+
+**Schritt 8 — Master-QC:** Frame-Sheets an kritischen Stellen (Verdict, Outro, alle Fix-Stellen) sichten, Dauer/Auflösung/Audio verifizieren.
+
+**Schritt 9 — Upload-Paket** (`UPLOAD-PAKET-Fx.md`): Titel + Alternativen, Beschreibung (Kapitel + Quellen mit DOIs), Tags, Pinned A/B/C-Kommentar mit `{STATUS}`-Platzhalter, Premiere-Slot, Thumb Master + A/B-Challenger (§13).
+
+**Schritt 10 — Budget-Ledger** (`budget-ledger.md`): Verbrauch gegen 50-€-Deckel + **Lessons** (institutionelles Gedächtnis — jede Lesson wird Regel oder stirbt).
+
+**Upload-Tag:** strikt nach **`produktion/UPLOAD-CHECKLISTE.md`**. Danach Feedback-Loop nach **§14**.
 
 ---
 
@@ -224,4 +235,24 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 
 **Alien-Bildsprache — wann erlaubt:** Wenn die Folge einen Alien-CLAIM verhandelt, darf das Thumb die *Möglichkeit* zeigen (Silhouette, Artefakt, zu-perfekte Struktur, „artist's impression"-Ästhetik) — als offene Frage inszeniert, nie als „Beweisfoto", nie als Horror-Gesicht. Referenz: F2 „SIGNS OF LIFE?" (Gas-Plume = ehrliche Anomalie).
 
-**A/B-Pflicht:** YouTube „Testen & Vergleichen" mit 2–3 Varianten bei jedem Upload; Verlierer-Varianten dokumentieren (eigene CTR-Datenbank aufbauen).
+**A/B-Pflicht:** YouTube „Testen & Vergleichen" mit 2–3 Varianten bei jedem Upload; Verlierer-Varianten dokumentieren → **`research/thumb-ab-log.md`** (eigene CTR-Datenbank).
+
+---
+
+## 14. Feedback-Loop (VERBINDLICH ab 17.07.2026 — ab dem ersten Live-Upload)
+
+> Bis F4 war jede Regel aus KONKURRENZ-Daten abgeleitet. Ab dem ersten Upload existieren EIGENE Daten — sie schlagen ab sofort jede Konkurrenz-Heuristik. Ohne definierten Review-Prozess verrotten sie ungenutzt.
+
+**Review 1 — 48 h nach Premiere (~15 Min):**
+1. **CTR je Thumbnail-Variante** aus „Testen & Vergleichen" → `research/thumb-ab-log.md` eintragen (auch Zwischenstände).
+2. **Retention-Kurve auf die Kapitel-Timestamps mappen:** Jeder Dip >5 Prozentpunkte bekommt einen Timestamp + die Frage „welcher der 7 Fessel-Hebel (§5b) hat hier versagt?" — als Notiz festhalten.
+3. **Intro-Überlebensrate** (erste 30 Sek): unter ~70 % → Cold Open der nächsten Folge härter bauen.
+4. Impressionen, Views, AVD notieren.
+
+**Review 2 — 7 Tage nach Premiere (~20 Min):**
+1. Thumb-Gewinner dokumentieren (Log-Eintrag abschließen: Gewinner + Learning-Satz).
+2. **Median-KPI-Tabelle** aktualisieren (alle bisherigen Folgen): Views, AVD, CTR — der Kanal-Median ist DIE Steuergröße (§12.1), nicht der beste Ausreißer.
+3. **1–3 Lessons ableiten** und in den Budget-Ledger der NÄCHSTEN Folge übertragen (gleiches Ritual wie Produktions-Lessons).
+4. Kommentare sichten: A/B/C-Verteilung des Pinned Comment + wiederkehrende Zuschauer-Fragen = Themen-/Cliffhanger-Rohstoff für kommende Folgen.
+
+**Konsequenz-Regel:** Playbook-Regeln werden NUR auf Basis dieser eigenen Daten geändert (nicht auf Bauchgefühl, nicht auf Einzel-Kommentare). Eine Regel kippt erst, wenn ≥2 Folgen dasselbe Muster zeigen. Änderungen wie immer mit Datum im Playbook vermerken.
