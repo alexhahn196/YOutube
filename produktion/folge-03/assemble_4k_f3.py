@@ -49,16 +49,16 @@ print("VO total", round(sum(D),1), "visual total", round(sum(vslot),1), flush=Tr
 
 # EDL: 10 Segmente -> Shot-Listen (NX = neu, NV/C/NW = Pool-Reuse)
 EDL = [
- ["NV15","NX01","NX05","NX09","NX01"],           # 1 cold open (viral wave -> hero -> big bang tease)
+ ["NV15","NX01","NX05","NZ01","NX01"],           # 1 cold open (viral wave -> hero -> big bang tease)
  ["NX02","NX03","NV03","NX03","NX01"],           # 2 machine 1977 (launch, record, druyan, 48 years)
  ["NX01","NX05","NX06","NX07","NV01"],           # 3 edge (crossing, heat, field, hum) + sub-CTA
- ["NW05","NX08","NX09","NV08"],                  # 4 glitch (garble, chip, surgery)
+ ["NW05","NX08","NZ01","NV08"],                  # 4 glitch (garble, chip, surgery)
  ["NV15","NX01"],                                # 5 wave (why we click)
  ["NX10","NX04","NX05","NX07","C19","NV14"],     # 6 verdict (4 claims -> needle -> tool)
  ["NX06","NX07","NX05"],                         # 7 real mystery (field, hum, wake)
- ["NX09","NX13","NV10","NX01"],                  # 8 endgame (feb dip, lecp, big bang now)
+ ["NZ01","NX13","NV10","NX01"],                  # 8 endgame (feb dip, lecp, big bang now)
  ["NX04","NX12","NX03","C20"],                   # 9 closing (light-day, 2036, red dwarf, record)
- ["NV05","C17","C19"],                           # 10 outro (wow tease)
+ ["NY01","C17","C19"],                           # 10 outro (wow tease) — QC-Fix 17.07.: NV05 (ERR-404-Slop) -> NY01 echter 6EQUJ5-Printout; NX09 -> NZ01 (3x); C20 nur Crop-Base
 ]
 assert len(EDL)==10
 slots=[]; idx=0
