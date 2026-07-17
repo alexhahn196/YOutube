@@ -102,6 +102,13 @@
    "res": "1080p",
    "image_job": "955211d9-d89a-42e6-9dfd-95ab3f693643",
    "video_job": "87e51e80-d590-4107-820f-b7e41e9a0238"
+  },
+  {
+   "id": "NZ01",
+   "beat": "CLEAN-Ersatz fuer NX09: Forensik-Kontrollraum, 2 Analysten vor Monitor-Wall mit Wellenform+Spektren, KEIN eingebrannter Text (NX09 hatte 'DATA STREAM CORRUPTED/BJERAM'-Slop). Seg 6/7.",
+   "res": "1080p",
+   "image_job": "60de239f-3193-46bd-a6c7-5905fe9acfa1",
+   "video_job": "1da547e7-041b-4dac-9175-c80baf87e2b7"
   }
  ],
  "f3_thumbnail_plate": {
@@ -109,5 +116,6 @@
   "beat": "Voyager-Sonde GROSS rechts, warmes Amber-Rimlight + Teal-Vorhang, HELL (>=85/255), Textzone links frei",
   "res": "2k",
   "image_job": "48a2c745-55ba-45db-9b81-e8f99f462c7e"
- }
+ },
+ "fix_note": "Post-QC-Fix: NX09 (eingebrannter Fake-Text) durch NZ01 ersetzt; C20-Base gecroppt (Fake-'NASA JWST'-Label entfernt)."
 }
