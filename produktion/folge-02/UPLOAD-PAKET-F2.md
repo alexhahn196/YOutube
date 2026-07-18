@@ -75,11 +75,14 @@ K2-18b, K2 18b, K2-18b alien life, K2-18b DMS, dimethyl sulfide, biosignature, J
 ## 4) ANGEPINNTER KOMMENTAR (nach Upload posten + anpinnen)
 
 ```
+UPDATE (as of upload, July 18, 2026): Two days ago a new NASA/JPL-led reanalysis (Hu et al., posted July 16) folded four fresh Webb transits into a full Bayesian fit — DMS lands at ~2.7σ, still no conclusive detection, and the water-rich atmosphere is confirmed. That's exactly this video's verdict: the LIFE claim stays noise, the "what IS it" question stays open. The needle moved a hair, not the story.
+
 We split the verdict in two — and said both parts out loud. On the LIFE question, the needle isn't in the middle. But what K2-18b actually IS — warm ocean world, boring mini-Neptune, or magma hell — is still wide open, and more Webb data is already in hand.
 So: what would it take to change YOUR mind on the life question?
 (A) A strong hint like this already counts. (B) Five-sigma AND a second gas. (C) No telescope ever — only a probe.
 A, B, or C — and why. 👇 Sources with DOIs in the description.
 ```
+> **Live-Check-Ergebnis 18.07.2026 (ship-blocking, §Checkliste Pkt. 1):** NICHT blockierend. Neue NASA/JPL-Studie (Hu et al., arXiv 16.07.2026, Bayesian, +4 Webb-Transits) findet DMS bei ~2,7σ → **bestätigt** unser NOISE-Verdict, kippt keine Kernaussage. Pflicht-Zusatz oben in den Pinned Comment übernommen (Glaubwürdigkeit auf den Tag genau).
 
 ---
 

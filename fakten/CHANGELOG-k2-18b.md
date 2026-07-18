@@ -1,5 +1,9 @@
 # CHANGELOG — K2-18b-Skript: Blockbuster-Cut → Final Revision (10/10)
 
+## Live-Check am Upload-Tag (18.07.2026, ship-blocking §Checkliste Pkt. 1) — NICHT blockierend ✅
+Web-Sweep vor der 20:00-Premiere. Fund: **neue NASA/JPL-Studie Hu et al.** (arXiv, gepostet **16.07.2026**) — voll-Bayesian, **+4 frische Webb-Transits** aufs Originaldatenset. Ergebnis: **DMS ~2,7σ, kein konklusiver Nachweis**, wasserreiche Atmosphäre bestätigt. → **Bestätigt** das F2-Verdict (LIFE = NOISE, „was ist es" offen), kippt **keine** Kernaussage. Konsequenz: Pflicht-Zusatzzeile oben in den Pinned Comment übernommen (`produktion/folge-02/UPLOAD-PAKET-F2.md` §4). Quellen: astronomy.com „Signs of life on K2-18 b revisited in new NASA study"; space.com; SETI.
+
+
 Prüfung 13.07.2026 an Primärquellen. Packaging, Verdict-Struktur und die drei starken
 Zeilen **unverändert** — chirurgische Fakten-/Zuordnungs-Korrekturen + drei ergänzte Beats.
 **Verdict (fest):** **MOSTLY NOISE** — Signal *schwach* (bis 2,7σ gegen ein Bare-Bones-Modell),
