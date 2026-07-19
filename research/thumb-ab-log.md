@@ -21,8 +21,9 @@
 ## F2 — K2-18b (Premiere Sa 18.07.2026)
 | Variante | Datei | Hypothese | CTR 48 h | CTR 7 d | Gewinner? | Learning |
 |---|---|---|---|---|---|---|
-| Master | folge-02/thumbnail/… | | | | | |
-| Challenger | folge-02/thumbnail/… | | | | | |
+| Master „SIGNS OF LIFE?" | folge-02/thumbnail/master_f2_SIGNSOFLIFE.jpg | Ozeanwelt + Gas-Plume-Anomalie | **2,7 % @ 73 Impr. (~2 Klicks, Tag 1 — Sample zu klein für Urteil)** | | offen | CTR-Richtung soft → A/B mit v2/v3 starten |
+| Challenger „IS IT ALIVE?" | folge-02/thumbnail/cand_v2_ISITALIVE.jpg | Größerer Planet + grüne Plume = stärkere Anomalie (Bauch-Favorit) | | | | |
+| Challenger „LIFE? / Webb's strangest find" | folge-02/thumbnail/cand_v3_LIFE.jpg | Ein-Wort-Wucht + Autoritäts-Anker | | | | |
 
 ## F3 — Voyager (Premiere Sa 25.07.2026)
 | Variante | Datei | Hypothese | CTR 48 h | CTR 7 d | Gewinner? | Learning |
