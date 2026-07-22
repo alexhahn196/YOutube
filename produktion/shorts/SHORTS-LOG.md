@@ -18,7 +18,11 @@ und/oder (b) **Longform-Views** zuführen (Zugriffsquelle „Shorts-Feed" bei de
 | `short_f3_voyager.mp4` (37,7s) | F3 Cold Open | 0–34,66s „…switched off, one by one." | „What did it really find?" | **erst NACH F3-Premiere 25.07.** |
 
 ## Posting-Metadaten (copy-paste)
-**Short F2:** Titel: `A gas only life makes — 124 light-years away #space #jwst #alienlife`
+**Short F2 (FINAL, an User geliefert 22.07.):**
+- Titel: `Webb saw a gas only life should make — 124 light-years away #space #jwst`
+- Beschreibung: „The strongest sign of alien life ever recorded — or the most expensive false alarm in astronomy? Full verdict on the channel ↓ [F2-LINK]" + Quellen-Satz + Footage-Disclosure + Hashtags (#space #jwst #k218b #alienlife #astronomy)
+- Tags: k2-18b, k2 18b, k2-18b alien life, dms, dimethyl sulfide, biosignature, james webb space telescope, jwst, jwst discovery, alien life, signs of alien life, exoplanet, hycean world, ocean world, space shorts, space documentary, astronomy, signal vs noise, alien life evidence
+- Pinned Comment: „Signal, or noise — what's your call? Full 15-min investigation: [F2-LINK]"
 **Short F1:** Titel: `Older than the Sun — and not from here #space #astronomy #interstellar`
 **Short F3:** Titel: `NASA's farthest machine is being switched off #voyager #nasa #space`
 
