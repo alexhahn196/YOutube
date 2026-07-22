@@ -8,7 +8,8 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 - **Nische:** Space-KI-Doku (Modell A „NASA/JWST just…" + Modell B „Explainer"). Begründung: höchste $10k-Wahrscheinlichkeit + leichteste KI-Produktion (keine Gesichter nötig) + gemeinfreie NASA-Footage + sauberes IP.
 - **Sprache:** Englisch (US-Publikum, höchste RPM).
 - **Tools:** Claude (Skript/Titel) → Higgsfield (Kosmos-Visuals) + gemeinfreie NASA/ESA-Footage → KI-TTS-Voiceover → CapCut (Schnitt).
-- **Video-Länge (AKTUALISIERT 14.07.2026, User-Entscheid):** **ab Folge 3 Ziel 13–15 Min** (Daten: Hit-Sweetspot 10–16 Min, Median 1,3M vs. 19k in der 20–27-Min-Zone — `research/konkurrenz-muster.md` M2). Folge 1 (13:12) ✓, Folge 2 bleibt wie gebaut ~19–20 Min (Bestandsschutz). 2 Mid-Rolls reichen. Keine Shorts (niedrige RPM), keine 2h-Sleep-Docs.
+- **Video-Länge (AKTUALISIERT 14.07.2026, User-Entscheid):** **ab Folge 3 Ziel 13–15 Min** (Daten: Hit-Sweetspot 10–16 Min, Median 1,3M vs. 19k in der 20–27-Min-Zone — `research/konkurrenz-muster.md` M2). Folge 1 (13:12) ✓, Folge 2 bleibt wie gebaut ~19–20 Min (Bestandsschutz). 2 Mid-Rolls reichen. Keine 2h-Sleep-Docs.
+- **Shorts (PRÄZISIERT 21.07.2026, User-Entscheid):** Shorts NIE als Monetarisierung/eigener Kanal (RPM 30–100× schlechter, Slop-Policy-Risiko), aber erlaubt als **Discovery-Trichter auf dem SIGNAL-Kanal**: Cold-Open-Cuts aus fertigen Mastern via `produktion/pipeline/make_short.py`. Regeln + Erfolgskriterien + Ergebnis-Log: `produktion/shorts/SHORTS-LOG.md`. Kein Übertrag auf Abos/Longform nach 4–6 Shorts → Experiment beenden.
 
 ## Die wichtigste Regel
 **NIEMALS die Nische verlassen.** Themen-Drift ist der #1-Grund, warum Space-Kanäle abstürzen (InsaneCuriosity → Wetter, beyonddiscovery → Autos, Starlight_Ai → Vögel). 100 % Space, immer.
