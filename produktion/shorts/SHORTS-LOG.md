@@ -23,7 +23,11 @@ und/oder (b) **Longform-Views** zuführen (Zugriffsquelle „Shorts-Feed" bei de
 - Beschreibung: „The strongest sign of alien life ever recorded — or the most expensive false alarm in astronomy? Full verdict on the channel ↓ [F2-LINK]" + Quellen-Satz + Footage-Disclosure + Hashtags (#space #jwst #k218b #alienlife #astronomy)
 - Tags: k2-18b, k2 18b, k2-18b alien life, dms, dimethyl sulfide, biosignature, james webb space telescope, jwst, jwst discovery, alien life, signs of alien life, exoplanet, hycean world, ocean world, space shorts, space documentary, astronomy, signal vs noise, alien life evidence
 - Pinned Comment: „Signal, or noise — what's your call? Full 15-min investigation: [F2-LINK]"
-**Short F1:** Titel: `Older than the Sun — and not from here #space #astronomy #interstellar`
+**Short F1 (FINAL, an User geliefert 23.07.):**
+- Titel: `Older than the Sun — and not from here #space #interstellar #3iatlas`
+- Beschreibung: „It fell through our solar system at a speed the Sun could never have given it. A Harvard astronomer said out loud what everyone was thinking. Full investigation on the channel ↓ [F1-LINK]" + Quellen-Satz + Footage-Disclosure + Hashtags
+- Tags: 3i atlas, 3i/atlas, 3i atlas comet, interstellar object, interstellar visitor, oumuamua, avi loeb, harvard astronomer, alien probe, atlas telescope, interstellar comet, astronomy, space shorts, space documentary, solar system, alien technology, signal vs noise, what is 3i atlas
+- Pinned Comment: „Rock… or something else? Full investigation: [F1-LINK]"
 **Short F3:** Titel: `NASA's farthest machine is being switched off #voyager #nasa #space`
 
 Für alle drei:
