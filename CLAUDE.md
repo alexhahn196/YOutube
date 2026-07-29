@@ -30,6 +30,11 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 - Referenz-Beweis „fesseln UND glaubwürdig": Cool Worlds. Warnung „reines Clickbait crasht": officialcosmosprodigy, Eternityinspace.
 - **Folge 1 (3I/ATLAS) bleibt wie sie ist** (kein Re-Render) — die Regel gilt ab Folge 2.
 
+## ⭐ Sprach-Regel (verbindlich ab F5 — User-Entscheid 28.07.2026, besonders wichtig)
+**Einfache Sprache, nicht wissenschaftlich.** Wir sind eine Doku, kein Seminar — der Zuschauer schaut nebenbei am Handy.
+Kernregeln (Details + Beispiele: `SPACE-PLAYBOOK.md` **§5c**): max. **2 Eigennamen pro Folge** (Rest = Rollen: „ein Team in Chicago") · **keine Fachzahlen im VO** (3σ / ppm / AU → in Alltagssprache übersetzen, exakte Werte nur in Beschreibung + Quellen-Chips) · Sätze 10–13 Wörter, ein Gedanke pro Satz · konkretes Bild statt Abstraktion · Fremdwort-Test vor der Vertonung.
+**Die Substanz bleibt** (Fakten-Gate, Primärquellen, Verdicts, sichtbare Quellen) — wir ändern nur, WIE wir es sagen.
+
 ## Prozess-Regeln (verbindlich ab 17.07.2026 — System-Review mit User beschlossen)
 1. **Upload-Tag NUR nach Checkliste:** `produktion/UPLOAD-CHECKLISTE.md` — inkl. Live-News-Check (ship-blocking), `{STATUS}`-Füllung, A/B-Thumbs, KI-Disclosure, „not made for kids".
 2. **Feedback-Loop nach jedem Upload:** Playbook **§14** — Reviews bei +48 h und +7 Tagen; CTR → `research/thumb-ab-log.md`, Retention-Dips auf Fessel-Hebel mappen, Median-KPI führen. Eigene Daten schlagen Konkurrenz-Heuristiken; Regeländerungen nur bei ≥2 Folgen gleichem Muster.

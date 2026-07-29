@@ -117,6 +117,25 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 - **Pflicht im Schaufenster:** Neugier-Lücke + Versprechen einer klaren Antwort („we say the number out loud", „here's what it actually was").
 - Auf Verneinungen klickt niemand. Auf ein angekündigtes Urteil schon. Das Urteil selbst fällt hart IM Video.
 
+### 5c. SPRACH-REGELN — einfach reden, nicht wissenschaftlich (VERBINDLICH ab F5, User-Entscheid 28.07.2026)
+> **Grundsatz: Wir sind eine Doku, kein Seminar.** Der Zuschauer schaut nebenbei, oft am Handy, oft müde.
+> Jede Vokabel, die er nachschlagen müsste, und jeder Name, den er sich merken soll, kostet Zuschauer.
+> Das ist die strenge Auslegung von §5b Hebel 6 („Emotion vor Information — der Zuschauer soll FÜHLEN, nicht lernen").
+> Messung der ersten drei Folgen: Satzlänge 11–12,5 Wörter = gut · **aber F2 nannte 5 Forschernamen 12×**, F3 kam mit **null** Namen aus und trug dieselbe Beweisführung.
+
+1. **Maximal ZWEI Eigennamen pro Folge.** Alle weiteren Personen werden zu Rollen: „ein Team in Chicago", „die Kritiker", „der Astronom, der es fand". Ausnahme: der eine Name, der die Geschichte trägt (Ehman, Madhusudhan). Namen sind Gedächtnislast ohne Gegenwert — F3 beweist, dass es ohne geht.
+2. **Keine Fachzahlen im Voiceover.** Übersetzen statt zitieren:
+   - „3σ" → „drei Mal schwächer, als es sein müsste, um sicher zu sein"
+   - „250 ppm gegen 663 ppm Rauschen" → „das Signal war leiser als das Rauschen, in dem es steckte"
+   - „121,6 AU" → „viermal weiter als Pluto"
+   Exakte Werte gehören in die **Beschreibung** und die **On-Screen-Quellen-Chips**, nicht ins gesprochene Wort.
+3. **Satzlänge 10–13 Wörter halten.** Aktuell gut — nicht verschlechtern. Im Zweifel Punkt statt Komma.
+4. **Ein Gedanke pro Satz.** Keine Nebensatz-Ketten, keine Einschübe im Einschub.
+5. **Konkretes Bild statt Abstraktion.** „Die Wolke leuchtet auf wie ein natürlicher Laser" schlägt „stimulierte Emission in interstellarem Wasserstoff". Wenn ein Kind es nicht versteht, ist es zu kompliziert formuliert — nicht zu kompliziert gedacht.
+6. **Fremdwort-Test vor der Vertonung:** Skript durchgehen, jedes Fachwort markieren. Bleibt es, muss es **im selben Satz** erklärt werden — sonst streichen.
+
+**Wichtig — das ist KEIN Qualitätsverzicht:** Die Substanz (Fakten-Gate, Primärquellen, Verdicts, ⚠️-Regel) bleibt unangetastet. Wir ändern nur, wie wir es *sagen*. Die Quellen bleiben sichtbar auf dem Schirm und in der Beschreibung — das ist unsere Policy-Absicherung (§12.7) und die bleibt.
+
 ### ⚠️-Regel (verbindlich)
 **⚠️ = ship-blocking.** Keine mit ⚠️ (unverifiziert) markierte Behauptung geht ins VO/Vertonung, bevor die Markierung aufgelöst ist (belegt → Quelle/arXiv-ID eintragen, oder Behauptung streichen). Kein „später prüfen".
 
