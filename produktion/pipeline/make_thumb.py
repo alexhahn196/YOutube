@@ -103,6 +103,38 @@ def lift(im, sat=1.15, mean_target=None):
 MARKER_RED = (228, 42, 38)
 
 
+def auto_target(im, half):
+    """Die detailreichste Stelle einer Bildhaelfte einkreisen.
+
+    Zwei Sackgassen vorher: Der Schwerpunkt landete bei ausgedehnten Motiven im Nichts,
+    das Helligkeits-Maximum fand die Milchstuecke statt des Kometen — und bei F4 ist das
+    Motiv sogar DUNKEL auf hellem Papier, da versagt Helligkeit grundsaetzlich.
+    Lokale Streuung trifft beides: Struktur (Sonde, Molekuel, gedruckte Zeichen) hat hohen
+    Kontrast, glatter Nebel und leeres Papier haben keinen.
+    """
+    x0 = 0 if half == "left" else HALF
+    GX, GY = 48, 22
+    g = im.crop((x0, 0, x0 + HALF, IMG_H)).convert("L").resize((GX, GY), Image.LANCZOS)
+    px = list(g.getdata())
+
+    def energy(i):
+        cx_, cy_ = i % GX, i // GX
+        win = [px[(cy_ + dy) * GX + (cx_ + dx)]
+               for dy in (-2, -1, 0, 1, 2) for dx in (-2, -1, 0, 1, 2)
+               if 0 <= cx_ + dx < GX and 0 <= cy_ + dy < GY]
+        m = sum(win) / len(win)
+        return sum((v - m) ** 2 for v in win) / len(win)
+
+    bi = max(range(len(px)), key=energy)
+    rx, ry = HALF * 0.21, IMG_H * 0.25
+    cx = x0 + (bi % GX + 0.5) / GX * HALF
+    cy = (bi // GX + 0.5) / GY * IMG_H
+    # im eigenen Halbbild halten, sonst schneidet der Kreis den Trenner oder den Rand
+    cx = min(max(cx, x0 + rx + 12), x0 + HALF - rx - 12)
+    cy = min(max(cy, ry + 12), IMG_H - ry - 12)
+    return f"circle,{cx/W:.4f},{cy/H:.4f},{rx/W:.4f},{ry/H:.4f}"
+
+
 def draw_marker(d, spec):
     """Roter Kreis/Pfeil — §13.7: NUR auf etwas, das wirklich im Bild ist.
 
@@ -170,7 +202,7 @@ def build(left_path, right_path, main_text, sub_text, out, cx_left=0.5, cx_right
             sy += 52
 
     if mark:
-        draw_marker(d, mark)
+        draw_marker(d, auto_target(im, mark.split(":")[1]) if mark.startswith("auto") else mark)
 
     fc = ImageFont.truetype(MONO, 26)
     d.ellipse([30, 30, 48, 48], fill=CY)
@@ -197,7 +229,7 @@ def main():
     p.add_argument("--out", required=True)
     p.add_argument("--cx-left", type=float, default=0.5)
     p.add_argument("--cx-right", type=float, default=0.5)
-    p.add_argument("--mark", help="circle,cx,cy,rx,ry | arrow,x1,y1,x2,y2 (0..1)")
+    p.add_argument("--mark", help="auto:left | auto:right | circle,cx,cy,rx,ry | arrow,x1,y1,x2,y2")
     a = p.parse_args()
     # Nachziehen, bis das Gesamtziel (>=120) steht — die Regel soll das Skript garantieren,
     # nicht der Mensch von Hand nachjustieren.
