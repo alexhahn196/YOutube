@@ -76,12 +76,37 @@ Bei allen anderen Diagnosen — zu wenig Impressionen, Schaufenster, Cold Open, 
 
 ## Ausfüllen am Checkpoint
 
+### 📌 STAND 28.07.2026 (erster echter Datenpunkt, YouTube-Studio-Export)
+
+| Inhalt | live seit | Impressionen | Impr./Tag | CTR | Aufrufe | Ø Wiedergabe |
+|---|---|---|---|---|---|---|
+| Short F1 „Older than the Sun" | 24.07. | 292 | **73,0** | 1,03 % | 12 | 9,8 s (30 %) |
+| Longform F1 3I/ATLAS | 14.07. | 90 | 6,4 | 2,22 % | 4 | 26 s (3 %) |
+| Longform F3 Voyager | 25.07. | 41 | 13,7 | 0 % | 3 | 147 s (18 %) |
+| Short F2 „Webb saw a gas" | 23.07. | 40 | 8,0 | 2,50 % | 1 | 1,1 s |
+| Longform F2 K2-18b | 18.07. | 57 | 5,7 | 0 % | 1 | 169 s (18 %) |
+| **GESAMT** | | **520** | | **1,15 %** | **256\*** | **1,00 h** |
+
+\* **Wichtig:** Nur **21** dieser Aufrufe sind Videos zugeordnet; **235 Aufrufe kamen ohne Impressionen** — also über externe/geteilte Links (WhatsApp, Direktlink), nicht über YouTube-Empfehlungen. **Organische Klicks aus YouTube-Oberflächen: ~6 im ganzen Monat.**
+
+**Watchstunden: 1,00 von 4.000 (0,025 %)** · **Abos: 2**
+
+### Diagnose (Stand 28.07.)
+- **Longform-CTR 1,06 %** (2 Klicks / 188 Impr.) · **Gesamt-CTR 1,15 %**, 95-%-Intervall **0,5 – 2,5 %** → erstmals statistisch aussagekräftig genug, um zu sagen: **liegt unter dem gesunden Band (4–6 %)**.
+- **Zwei Engpässe gleichzeitig:** (a) sehr wenige Impressionen (Longform 5–14/Tag) UND (b) niedrige Klickrate, wenn gezeigt wird.
+- **Shorts bekommen echte Distribution** (F1-Short: 73 Impr./Tag = 10× Longform-Rate) — der Trichter wird getestet, aber die Klick-/Swipe-Rate konvertiert nicht (1,03 %).
+- **Retention Longform ~18 %** (F2/F3, je 1–3 Aufrufe) — Stichprobe zu klein für ein Urteil.
+- Leichter Lichtblick: F3 startet mit 13,7 Impr./Tag = doppelte Rate von F1/F2.
+
+**Formale Ampel: ⚪ KEIN URTEIL** (alle Videos < 1.000 Impressionen) — **aber** das CTR-Signal zeigt bereits nach unten und ist der erste konkrete Hebel.
+
+---
+
+### Fortschreiben bis Checkpoint
+
 | Folge | Impressionen | CTR | Aufrufe | Ø Dauer | Abos | Hauptquelle |
 |---|---|---|---|---|---|---|
-| F1 | | | | | | |
-| F2 | | | | | | |
-| F3 | | | | | | |
-| F4 | | | | | | |
+| F4 (ab 01.08.) | | | | | | |
 | F5–F8 | | | | | | |
 
 **Median Aufrufe:** ______ · **Gesamt-Abos:** ______ · **Watchstunden:** ______ / 4.000 · **Ampel:** ______
