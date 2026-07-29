@@ -38,13 +38,14 @@ Kernregeln (Details + Beispiele: `SPACE-PLAYBOOK.md` **§5c**): max. **2 Eigenna
 ## Prozess-Regeln (verbindlich ab 17.07.2026 — System-Review mit User beschlossen)
 1. **Upload-Tag NUR nach Checkliste:** `produktion/UPLOAD-CHECKLISTE.md` — inkl. Live-News-Check (ship-blocking), `{STATUS}`-Füllung, A/B-Thumbs, KI-Disclosure, „not made for kids".
 2. **Feedback-Loop nach jedem Upload:** Playbook **§14** — Reviews bei +48 h und +7 Tagen; CTR → `research/thumb-ab-log.md`, Retention-Dips auf Fessel-Hebel mappen, Median-KPI führen. Eigene Daten schlagen Konkurrenz-Heuristiken; Regeländerungen nur bei ≥2 Folgen gleichem Muster.
-3. **QC-Gate VOR dem Assemble:** `produktion/pipeline/qc_textscan.py` auf JEDEN Clip (auch Reuse!), Befund in `produktion/clip-katalog.md`. Kein Clip ohne „clean"-Status in den Schnitt. (F4-Lesson: 3 Fake-Text-Clips erst am Master gefunden → 2 Re-Renders.)
-4. **Fakten-Konvention:** Jede Folge hat ihr Dossier in **`fakten/<thema>.md`** mit CHANGELOG; Live-Check-Ergebnisse dort loggen.
-5. **Pipeline-Bibliothek:** Ab F5 gemeinsame Skripte in `produktion/pipeline/` statt Pro-Folge-Kopien (Drift-Risiko); pro Folge nur Config (`shot-plan.json`, `vo_manifest.json`). Erster Baustein: `qc_textscan.py`.
-6. **Reuse nur über den Katalog:** `produktion/clip-katalog.md` (Motiv, Herkunft, Text-Scan-Status) ist die einzige Quelle für Pool-Wiederverwendung.
+3. **Skript-Gate VOR der Vertonung (neu 29.07.2026):** `produktion/pipeline/skript_lint.py <VO-Datei> --packaging <Upload-Paket>` muss mit Exit-Code 0 durchlaufen. Prüft maschinell, was bisher nur Prosa war: ⚠️-Regel (ship-blocking), Laufzeit 13–15 Min, §5c (Eigennamen/Fachzahlen/Satzlänge/Fremdwörter), Schaufenster-Verneinungen. Erzeugungs-Prozess dazu: Playbook **§15** (6 Durchgänge, nie one-shot; Chat = Urteil, Code = Regel).
+4. **QC-Gate VOR dem Assemble:** `produktion/pipeline/qc_textscan.py` auf JEDEN Clip (auch Reuse!), Befund in `produktion/clip-katalog.md`. Kein Clip ohne „clean"-Status in den Schnitt. (F4-Lesson: 3 Fake-Text-Clips erst am Master gefunden → 2 Re-Renders.)
+5. **Fakten-Konvention:** Jede Folge hat ihr Dossier in **`fakten/<thema>.md`** mit CHANGELOG; Live-Check-Ergebnisse dort loggen.
+6. **Pipeline-Bibliothek:** Ab F5 gemeinsame Skripte in `produktion/pipeline/` statt Pro-Folge-Kopien (Drift-Risiko); pro Folge nur Config (`shot-plan.json`, `vo_manifest.json`). Bausteine: `qc_textscan.py`, `skript_lint.py`, `make_short.py`, `fetch_nasa.py`.
+7. **Reuse nur über den Katalog:** `produktion/clip-katalog.md` (Motiv, Herkunft, Text-Scan-Status) ist die einzige Quelle für Pool-Wiederverwendung.
 
 ## Wo steht was
-- **`SPACE-PLAYBOOK.md`** — das vollständige Gewinner-Playbook: Regeln der Top-Performer, Titel-Formel, Fessel-Mechanik §5b (7 Hebel + Zwei-Fragen-Prinzip + Schaufenster-Regel + ⚠️-Regel), Produktions-Pipeline, Do's & Don'ts. **Bei jeder Umsetzung §12 (Muster-Regeln) durchgehen — verbindlich.**
+- **`SPACE-PLAYBOOK.md`** — das vollständige Gewinner-Playbook: Regeln der Top-Performer, Titel-Formel, Fessel-Mechanik §5b (7 Hebel + Zwei-Fragen-Prinzip + Schaufenster-Regel + ⚠️-Regel), Produktions-Pipeline, **§15 Skript-Werkstatt** (6 Durchgänge, 8 Erzeugungs-Regeln, Modellwahl je Durchgang), Do's & Don'ts. **Bei jeder Umsetzung §12 (Muster-Regeln) durchgehen — verbindlich.**
 - **`research/konkurrenz-muster.md`** — Konkurrenz-Analyse (17 Kanäle Erstdaten + Web-Verifikation): die 8 Muster + 6 Web-Findings, Belege pro Kanal. Grundlage für Playbook §12, Regel 6/7/8.
 - **`research/niche-analysis.md`** — Belegdaten: Nischen-Ranking, Einkommens-Schätzungen, Top/Mid/Low-Kanal-Tiers.
 

@@ -290,3 +290,69 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 4. Kommentare sichten: A/B/C-Verteilung des Pinned Comment + wiederkehrende Zuschauer-Fragen = Themen-/Cliffhanger-Rohstoff für kommende Folgen.
 
 **Konsequenz-Regel:** Playbook-Regeln werden NUR auf Basis dieser eigenen Daten geändert (nicht auf Bauchgefühl, nicht auf Einzel-Kommentare). Eine Regel kippt erst, wenn ≥2 Folgen dasselbe Muster zeigen. Änderungen wie immer mit Datum im Playbook vermerken.
+
+---
+
+## 15. Skript-Werkstatt — wie ein Skript entsteht (VERBINDLICH ab F5, 29.07.2026)
+
+> Anlass: Recherche „wie machen es die Profis". Ergebnis vorweg: Das meiste, was man dazu online findet, ist Tool-Werbung („Skript in 3 Minuten"). Der einzige belastbare Unterschied zwischen Profis und Slop ist **nicht der Prompt, sondern die Arbeitsteilung**: Profis one-shotten nie, sie trennen Rollen, und sie schreiben gegen echte Retention-Daten.
+
+### 15.1 Die Trennlinie Chat ↔ Code (die eigentliche Antwort)
+
+Die Frage ist nicht „Chat oder Code", sondern pro Arbeitsschritt: **Ist das Urteil — oder ist es überprüfbar?**
+
+| | Chat (Modell entscheidet) | Code (Skript entscheidet) |
+|---|---|---|
+| **Gehört hierhin** | Recherche-Synthese, Beat-Sheet, Draft, Umschreiben, adversariale Kritik, Titel/Thumbnail-Text | Wortzahl→Laufzeit, Eigennamen-Zähler, Fachzahlen-Scan, Satzlängen, Fremdwort-Test, ⚠️-Scan, Schaufenster-Verneinungen |
+| **Warum** | Kein Skript kann beurteilen, ob ein Hook fesselt | Kein Mensch und kein Modell prüft dieselbe Liste 20× fehlerfrei |
+| **Werkzeug** | Diese Sitzung (Claude Code = Chat MIT Repo-Zugriff) | `produktion/pipeline/skript_lint.py` |
+
+**Regel: Jede Regel, die wir einmal beschlossen haben, wandert in Code.** Beleg aus eigener Historie: Die QC-Regel für eingebrannten Text war Prosa im Playbook — als sie ein Skript wurde (`qc_textscan.py`), fand sie sofort **3 Slop-Clips in bereits fertigen Mastern (F2/F3)**. Prosa-Regeln werden still übersprungen; Code-Regeln nicht.
+
+**Und: Das Repo IST unser Projekt-Wissen.** Was andere in „Claude Projects" hochladen (Markenleitfaden, Stilregeln, alte Skripte), liegt bei uns versioniert in `CLAUDE.md` + `SPACE-PLAYBOOK.md` + `skript/`. Deshalb wird ein Skript **nie in einem leeren Chat** geschrieben — dort fehlt genau der Kontext, der unsere Folgen von generischen unterscheidet.
+
+### 15.2 Die 6 Durchgänge — nie one-shot
+
+Jeder Durchgang hat eine eigene Fehlerart; deshalb werden sie getrennt und nicht in einem Rutsch erledigt.
+
+| # | Durchgang | Fehlerart, die hier abgefangen wird | Ergebnis-Datei |
+|---|---|---|---|
+| 1 | **Recherche** (Primärquellen, Konflikte auflösen) | falsche Fakten | `fakten/<thema>.md` |
+| 2 | **Beat-Sheet** (Segmente + Timecodes + die 7 Hebel §5b **vor** dem ersten Satz Prosa) | langweilige Mitte | Abschnitt im Skript-Entwurf |
+| 3 | **Draft** (Prosa gegen das Beat-Sheet) | generische KI-Stimme | `scripts/signal-eXX-*.md` |
+| 4 | **Adversariale Prüfung** (Auditoren-Panel: „widerlege jede Behauptung") | ungeprüfte Behauptung, die durchrutscht | `scripts/FAKTEN-GATE-Fx.md` |
+| 5 | **VO-Pass** (laut lesbar machen, §5c anwenden) | unsprechbare Sätze, Fachsprache | `skript/signal-XX-VO.md` |
+| 6 | **Lint** (`skript_lint.py`, ship-blocking) | Regelverstoß, den alle übersehen haben | Exit-Code 0 |
+
+Reihenfolge ist bindend. **Kein Draft vor dem Beat-Sheet** — genau dort entsteht sonst die „Mitte, in der nichts passiert".
+
+### 15.3 Die 8 Regeln für die Skript-Erzeugung
+
+1. **Erst Rohstoff, dann Prosa.** Facts zuerst als Liste sammeln — nie das Modell Fakten *im Fließtext* erfinden lassen. Alles, was im Draft auftaucht und nicht in der Faktenliste steht, ist verdächtig.
+2. **Das Beat-Sheet ist die eigentliche Arbeit.** Segment, Zieldauer, welcher der 7 Hebel greift, welche Frage offen bleibt. Prosa ist danach Handwerk.
+3. **Re-Hooks an die Abbruchstellen setzen**, nicht gleichmäßig verteilt: Sekunde 0–15 (steilster Abfall), vor jedem Themenwechsel, direkt vor beiden Mid-Rolls. Jeder Re-Hook öffnet eine neue Frage, bevor die alte geschlossen wird.
+4. **Ein Auftrag pro Anfrage.** „Schreib Segment 4 neu, härter, gleiche Fakten" schlägt „mach das Skript besser". Vage Aufträge erzeugen Durchschnitt.
+5. **Kritik vor Korrektur.** Erst „was ist die schwächste Stelle und warum", dann in einem zweiten Schritt umschreiben. Beides in einem Zug macht das Modell nachsichtig mit sich selbst.
+6. **Beispiele statt Adjektive.** „Wie Segment 1 von F4" ist eine brauchbare Anweisung, „packender" nicht.
+7. **Die Länge kommt aus der Wortzahl, nicht aus dem Gefühl:** 1.976–2.280 Wörter = 13–15 Min bei unseren real gemessenen **152 wpm**. Wird beim Lint geprüft.
+8. **Nichts geht ohne Lint + Fakten-Gate in die Vertonung.** ⚠️ bleibt ship-blocking (§⚠️-Regel).
+
+### 15.4 Modellwahl je Durchgang
+
+| Durchgang | Modell | Begründung |
+|---|---|---|
+| Recherche, Fakten-Gate, adversariale Prüfung | **Opus 5** (`claude-opus-5`, hoher Effort) | Denkarbeit mit teuren Fehlern — hier zahlt Sorgfalt, nicht Prosa-Glanz |
+| Kreativer Draft, Hooks, Titel | **Opus 5**; optional **Fable 5** (`claude-fable-5`) | Fable 5 ist laut aktueller Modell-Doku Anthropics fähigstes breit verfügbares Modell, kostet aber ~2× Opus (10/50 statt 5/25 $ je Mio. Token). Ob es unsere Hooks messbar besser macht, ist **unbewiesen** → blind gegentesten, nicht auf Verdacht wechseln |
+| Mechanisches (SRT, Umbrüche, Listen, Zusammenfassungen) | **Haiku 4.5** / **Sonnet 5** | Kein Urteil nötig, spart Zeit und Kosten |
+
+Faustregel: **Opus 5 ist der Standard-Fahrer.** Hochschalten nur für den einen kreativen Durchgang, herunterschalten für stumpfe Arbeit.
+
+### 15.5 Was wir NICHT tun
+
+- **Kein „Skript-Generator"-Tool.** Die verkaufen genau das eine, was wir uns nicht leisten können: austauschbare Struktur. YouTube sortiert seit Juli 2025 „inauthentic content" aus — sichtbare eigene redaktionelle Arbeit (Primärquellen, Verdicts, Fakten-Gate) ist unser Schutz.
+- **Kein leerer Chat ohne Repo-Kontext** (siehe 15.1).
+- **Kein Auto-Editor-Loop** („Modell kritisiert sich selbst, bis es zufrieden ist"). Das konvergiert auf glatt und mutlos. Die Entscheidung, was bleibt, trifft der Mensch.
+
+### 15.6 Ehrliche Einordnung (Stand 29.07.2026)
+
+Das Skript ist aktuell **nicht** unser Engpass. Gemessen: 520 Impressionen, Longform-CTR 1,06 %, ~6 organische Klicks im Monat — praktisch niemand kommt bis zum Skript. Reihenfolge der Hebel bleibt: **1. Schaufenster (§13b) · 2. Impressionen/Volumen · 3. Skript.** §15 ist deshalb als *billige Prozess-Absicherung* gebaut (ein Lint-Lauf, ein Beat-Sheet), nicht als großes Umbauprojekt.
