@@ -100,6 +100,37 @@ def lift(im, sat=1.15, mean_target=None):
     return out, gamma, br
 
 
+MARKER_RED = (228, 42, 38)
+
+
+def draw_marker(d, spec):
+    """Roter Kreis/Pfeil — §13.7: NUR auf etwas, das wirklich im Bild ist.
+
+    Bewusst leicht unrund und mit ungleicher Strichstaerke gezeichnet: ein perfekter
+    Vektorkreis liest sich als Grafik-Overlay (= Aggregator-Marker), eine unruhige Linie
+    als Annotation von Hand. Nie um leeren Raum ziehen — der Klick bricht dann nach
+    10 Sekunden ab, und wir brauchen Wiedergabezeit, nicht Klicks.
+
+    spec: "circle,cx,cy,rx,ry" oder "arrow,x1,y1,x2,y2" (alles 0..1 der Gesamtflaeche)
+    """
+    kind, *vals = spec.split(",")
+    v = [float(x) for x in vals]
+    if kind == "circle":
+        cx, cy, rx, ry = v[0] * W, v[1] * H, v[2] * W, v[3] * H
+        for i, (dx, dy, wd) in enumerate([(0, 0, 7), (2, -1, 5), (-2, 2, 4)]):
+            d.ellipse([cx - rx + dx, cy - ry + dy, cx + rx + dx, cy + ry + dy],
+                      outline=MARKER_RED, width=wd)
+            rx, ry = rx * 1.03, ry * 1.02          # jede Lage minimal versetzt
+    elif kind == "arrow":
+        x1, y1, x2, y2 = v[0] * W, v[1] * H, v[2] * W, v[3] * H
+        d.line([x1, y1, x2, y2], fill=MARKER_RED, width=9)
+        import math
+        ang = math.atan2(y2 - y1, x2 - x1)
+        for s in (2.5, -2.5):
+            d.line([x2, y2, x2 - 42 * math.cos(ang + s / 3 * 2),
+                    y2 - 42 * math.sin(ang + s / 3 * 2)], fill=MARKER_RED, width=9)
+
+
 def fit_font(text, max_w, max_h, start=190):
     for size in range(start, 20, -2):
         f = ImageFont.truetype(ANTON, size)
@@ -111,7 +142,7 @@ def fit_font(text, max_w, max_h, start=190):
 
 
 def build(left_path, right_path, main_text, sub_text, out, cx_left=0.5, cx_right=0.5,
-          goal=IMG_MEAN_TARGET):
+          goal=IMG_MEAN_TARGET, mark=None):
     im = Image.new("RGB", (W, H), (8, 10, 14))
     l, gl, bl = lift(fill_crop(left_path, HALF, IMG_H, cx_left), mean_target=goal)
     r, gr, br = lift(fill_crop(right_path, W - HALF, IMG_H, cx_right), mean_target=goal)
@@ -138,6 +169,9 @@ def build(left_path, right_path, main_text, sub_text, out, cx_left=0.5, cx_right
             d.text((W - pad - (b[2] - b[0]) - b[0], sy - b[1]), ln, font=f_sub, fill=AMBER)
             sy += 52
 
+    if mark:
+        draw_marker(d, mark)
+
     fc = ImageFont.truetype(MONO, 26)
     d.ellipse([30, 30, 48, 48], fill=CY)
     d.text((58, 27), "SIGNAL", font=fc, fill=(255, 255, 255),
@@ -163,12 +197,14 @@ def main():
     p.add_argument("--out", required=True)
     p.add_argument("--cx-left", type=float, default=0.5)
     p.add_argument("--cx-right", type=float, default=0.5)
+    p.add_argument("--mark", help="circle,cx,cy,rx,ry | arrow,x1,y1,x2,y2 (0..1)")
     a = p.parse_args()
     # Nachziehen, bis das Gesamtziel (>=120) steht — die Regel soll das Skript garantieren,
     # nicht der Mensch von Hand nachjustieren.
     goal = IMG_MEAN_TARGET
     while True:
-        mean, dark = build(a.left, a.right, a.main, a.sub, a.out, a.cx_left, a.cx_right, goal)
+        mean, dark = build(a.left, a.right, a.main, a.sub, a.out, a.cx_left, a.cx_right,
+                           goal, a.mark)
         if mean >= 120 or dark > 25 or goal >= 130:
             break
         goal += 6

@@ -30,6 +30,7 @@ Alle drei durch v2-Muster ersetzt (`produktion/pipeline/make_thumb.py`): Split-S
 | v1 (ersetzt) | folge-01-v4/thumbnail/master_01_ALIEN.jpg | — (vor §13 entstanden; Autopsie: **41/255 Luminanz, 68 % Fast-Schwarz**, Verdict im Bild) | 2,22 % @ 90 Impr. | — | ⛔ ersetzt | Negativ-Referenz: dunkel + Verdict im Schaufenster = 0-Klick-Beleg (§13) |
 | **v2 A „WHERE'S IT FROM?"** | folge-01-v4/thumbnail/v2master_f1.jpg | Objekt + Bahn durchs Sonnensystem; Frage statt Verdict; Luminanz 122/7 % | | | | |
 | v2 B „WHY IS IT HERE?" | folge-01-v4/thumbnail/v2variantB_f1.jpg | Seiten getauscht — testet, ob die Bahn als Blickfang schlägt; 123/7 % | | | | |
+| v2 C (roter Kreis) | folge-01-v4/thumbnail/v2variantC_f1_mark.jpg | Konkurrenz-Mechanik testen | — | — | ⛔ nicht einsetzen | **Bau-Test 29.07.:** Motiv füllt schon die Bildhälfte → Kreis markiert das Offensichtliche und wirkt im Feed wie ein zufälliges rotes Oval. §13.7 präzisiert |
 
 ## F2 — K2-18b (Premiere Sa 18.07.2026)
 | Variante | Datei | Hypothese | CTR 48 h | CTR 7 d | Gewinner? | Learning |
@@ -46,6 +47,7 @@ Alle drei durch v2-Muster ersetzt (`produktion/pipeline/make_thumb.py`): Split-S
 | Master „TURNED AROUND?" (ersetzt) | folge-03/thumbnail/master_f3_TURNEDAROUND.jpg | | 0 % @ 41 Impr. | | ⛔ ersetzt | Autopsie: 103/255 Luminanz, 31 % Fast-Schwarz |
 | **v2 A „DID IT TURN AROUND?"** | folge-03/thumbnail/v2master_f3.jpg | Sonde + Golden Record (ikonisch, gold = Farbkontrast im Feed); greift den Titel-Claim direkt als Frage auf; 121/18 % | | | | |
 | v2 B „WHAT IS IT SENDING?" | folge-03/thumbnail/v2variantB_f3.jpg | Oszilloskop-Welle = das, was die Folge liefert; testet Neugier-Lücke gegen Claim-Ride; 122/9 % | | | | |
+| v2 C (roter Kreis) | folge-03/thumbnail/v2variantC_f3_mark.jpg | Einziger sauberer Marker-Test: **identischer Crop wie A**, einziger Unterschied ist der Kreis. Gewinnt er, kippt §13.7 — verliert er, ist die Frage beantwortet | | | | |
 
 ## F4 — Wow!-Signal (Premiere Sa 01.08.2026)
 | Variante | Datei | Hypothese | CTR 48 h | CTR 7 d | Gewinner? | Learning |

@@ -249,6 +249,11 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 5. **Text ≠ Titel-Wiederholung** — Thumb stellt die visuelle Frage, Titel liefert den Autoritäts-Anker.
 6. **NIEMALS das Verdict/Verneinungen im Thumb** (Schaufenster-Regel; F1 zeigte „MOSTLY NOISE" = Klickgrund vernichtet).
 7. **Anomalie ehrlich:** Das rätselhafte Detail muss im Video vorkommen und verhandelt werden. Kein Monster, kein Fake-„Foto", keine roten Kreise/Pfeile (Slop-Marker toter Kanäle, M3). **Diegetische Ausnahme (Präzedenz F4, Judge-bestätigt):** Historisch ECHTE Annotationen sind erlaubt, wenn sie selbst das Artefakt sind (Ehmans roter Kugelschreiber-Kreis auf dem Wow!-Printout = Kern der Folge, handgekritzelt auf Papier, liest sich als Dokument). Ein nachträglich draufgelegter Grafik-/Vektor-Kreis bleibt verboten — die Ausnahme gilt NUR für Annotationen, die in der realen Quelle existieren.
+   **PRÄZISIERUNG 29.07.2026 (nach Bau-Test, `make_thumb.py --mark`):** Ein Marker hat genau EINE legitime Aufgabe — *dem Auge sagen, wo das Motiv ist, wenn es klein oder schwer zu finden ist.* Damit gilt:
+   - **Erlaubt**, wenn der Kreis/Pfeil auf etwas Echtes zeigt, das die Folge auch verhandelt, UND das Motiv im Feed sonst untergeht.
+   - **Nicht verwenden**, wenn das Motiv ohnehin groß und mittig ist — dann markiert der Kreis das Offensichtliche und liest sich als Aggregator-Deko. Der Bau-Test zeigte genau das: bei F1 (Komet füllt die Bildhälfte) wurde das Thumbnail durch den Kreis *schlechter*, bei F3 bestenfalls neutral.
+   - **Nie um leeren Raum.** Ein enttäuschter Klick bricht nach ~10 s ab — und wir sammeln Wiedergabezeit, nicht Klicks.
+   - **Und der Reflex zuerst:** Der Fund aus demselben Test war nicht der Kreis, sondern der **Bildausschnitt**. F3 wurde durch `--cx-left 0.78` (Sonde groß statt am Rand) deutlich besser als durch jede Markierung. Erst den Crop reparieren, dann über Marker reden.
 8. **Squint-Test Pflicht:** Export auf 168×94 + Graustufen; Motiv-Silhouette und Text müssen bestehen, sonst iterieren.
 9. **System-Look (M6):** Anton + Cyan-Brand-Chip + ein Akzent, gleiche Grid-Logik jede Folge — der Backkatalog muss auf einen Blick als SIGNAL erkennbar sein.
 
