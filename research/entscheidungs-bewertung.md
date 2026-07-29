@@ -42,8 +42,13 @@ Die Reihenfolge ist wichtig — jede Stufe setzt voraus, dass die vorige in Ordn
 |---|---|---|
 | 🟢 **GRÜN** | Median ≥ 1.000 Aufrufe **UND** steigender Trend (F5–F8 besser als F1–F4) **UND** ≥ 50 Abos | Weitermachen, in F9+ investieren. Es funktioniert, es braucht nur Zeit. |
 | 🟡 **GELB** | Median 200–1.000 **ODER** gemischte Signale (z. B. gute CTR, schwache Retention) | Weitermachen mit EINER gezielten Korrektur aus Schritt 2. 4 weitere Folgen, dann erneut bewerten. |
-| 🔴 **ROT** | Median < 200 **BEI** ≥ 2.000 Impressionen/Folge (= wurde gezeigt, wollte keiner) | These widerlegt. Beenden oder grundlegend neues Konzept — mit unseren eigenen Daten als Grundlage. |
-| ⚪ **KEIN URTEIL** | Impressionen < 500/Folge | Datenlage reicht nicht. Nicht entscheiden — weiterlaufen lassen, Kosten deckeln, in 4 Folgen erneut prüfen. |
+| 🔴 **ROT** | Median < 200 **BEI** ≥ 5.000 Impressionen/Folge (= ausreichend gezeigt, trotzdem abgelehnt) | These widerlegt. Beenden oder grundlegend neues Konzept — mit unseren eigenen Daten als Grundlage. |
+| ⚪ **KEIN URTEIL** | Impressionen < 1.000/Folge | Datenlage reicht statistisch nicht. Nicht entscheiden — weiterlaufen lassen, Kosten deckeln, in 4 Folgen erneut prüfen. |
+
+### Statistische Mindestmengen (korrigiert 25.07.2026)
+Bei ~4 % CTR und 95-%-Konfidenz ist die Messunsicherheit: 100 Impr. = ±3,8 Prozentpunkte (wertlos) · 1.000 = ±1,2 pp (grobe Richtung) · 5.000 = ±0,5 pp (belastbar).
+→ **CTR-Urteil ab 1.000 Impr./Video, Entscheidungsgrundlage ab 5.000.** A/B-Thumbnail-Sieger braucht ~3.000 **pro Variante**.
+Retention-Kurven brauchen nur ~100–300 **Aufrufe** (nicht Impressionen) für eine lesbare Form.
 
 ---
 
