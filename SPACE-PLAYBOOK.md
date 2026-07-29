@@ -237,6 +237,21 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 
 **A/B-Pflicht:** YouTube „Testen & Vergleichen" mit 2–3 Varianten bei jedem Upload; Verlierer-Varianten dokumentieren → **`research/thumb-ab-log.md`** (eigene CTR-Datenbank).
 
+### 13b. Datenkorrektur aus den ERSTEN EIGENEN CTR-Zahlen (verbindlich ab 28.07.2026)
+> Anlass: YouTube-Export 28.07. — **Longform-CTR 1,06 %** (2 Klicks / 188 Impr.), Gesamt 1,15 % bei 520 Impressionen.
+> Gesundes Band ist 4–6 %. Das Schaufenster ist damit unser **erster nachgewiesener Engpass** — vor Nische, Format und Länge.
+> Konkurrenz-Autopsie: die beiden aktuellen Millionen-Hits von „Proof" (2,69M + 1,27M) benutzen ein identisches Template.
+
+**Pflicht-Regeln für jedes künftige Thumbnail (zusätzlich zu den 9 Regeln oben):**
+1. **0,3-Sekunden-Test „Ist das Weltraum?"** — Das Thumbnail muss bei 168×94 SOFORT als Space-Content erkennbar sein. Ein Dokument, ein Innenraum oder ein Makro allein reicht NICHT (F4-v1-Fehler: beiges Printout-Makro = liest sich als Papier, nicht als Kosmos). **Mindestens eine Bildhälfte trägt ein eindeutiges Kosmos-Motiv** (Sternfeld, Planet, Teleskop gegen Himmel).
+2. **Text stellt eine FRAGE oder ein Rätsel — keine Feststellung.** „SIX CHARACTERS" (Feststellung) → schwach; „72 SECONDS / THEN SILENCE" oder „WHO SENT IT?" (Neugier-Lücke) → stark. Zahlen funktionieren, wenn sie seltsam sind („72", „25.000.000.000 KM").
+3. **Text gehört in ein helles Vollflächen-Banner** (schwarz auf near-white), nicht frei ins Bild. Maximaler Kontrast schlägt Eleganz — das ist der einzige Weg, bei 168×94 zu bestehen.
+4. **Split-Screen als Standard-Layout prüfen** (Kosmos | Artefakt, oder vorher | nachher): erzeugt eine Vergleichs-Neugier, die ein Einzelmotiv nicht hat. Trennlinie in Markenfarbe Cyan.
+5. **Luminanz-Ziel angehoben: ≥120/255** (nicht nur ≥85) und ≤25 % Fast-Schwarz. Dunkle Thumbnails verschwinden im Feed.
+
+**Von den Hit-Konkurrenten übernommen (legitime Mechanik):** Split-Screen · helles Text-Banner · ein sättigungsstarkes Fokusobjekt je Hälfte · Zahl + Mysterium im Text.
+**AUSDRÜCKLICH NICHT übernommen (Kanal-Killer):** Fake-„NASA LIVE"-Badge und CNN-Nachbau-Logo (= **Impersonation**, verstößt gegen YouTube-Richtlinien) · identischer Clickbait-Text auf jedem Video („NASA IN PANIC!" = Template-Spam-Marker, M4/Regel 4) · nachträglich gezeichnete rote Kreise (§13.7 — nur diegetische Original-Annotationen wie Ehmans Kreis sind erlaubt). Proofs Median stirbt trotz der Hits (~3k) — das Template kauft Klicks, keinen Kanal.
+
 ---
 
 ## 14. Feedback-Loop (VERBINDLICH ab 17.07.2026 — ab dem ersten Live-Upload)

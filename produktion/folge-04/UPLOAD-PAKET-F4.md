@@ -100,6 +100,8 @@ A, B, or C — and defend it. 👇 Sources in the description.
 ## Dateien
 - **Video: `f4_MASTER_4K.mp4` (4K 3840×2160, 14:48.29, 2,53 GB, ~24,3 Mbps)** — Download: https://d2ol7oe51mr4n9.cloudfront.net/user_3FnulfGnhLwm9N6gYIO0RIxe7RB/8b96f4cd-1a7e-4331-8a4a-17e0a29d9884.mp4
 - Untertitel: `signal_f4.srt` (178 Cues)
-- Thumbnail-Master: `thumbnail/master_f4_SIXCHARACTERS.jpg` + A/B-Challenger `thumbnail/variantB_f4_SIXCHARACTERS_crop.jpg`
+- **Thumbnail (NEU v2, datengetrieben 28.07. — §13b):** Master `thumbnail/v2master_f4_72SECONDS.jpg` + A/B-Challenger `thumbnail/v2variantB_f4_WHOSENTIT.jpg`
+  - Grund: erste eigene CTR-Daten (Longform 1,06 % statt 4–6 %) → Schaufenster ist der Engpass. v2 fixt: liest in 0,3 s als Weltraum (Split-Screen Kosmos|Printout), helles Banner mit schwarzem Text (Feed-Lesbarkeit), Frage statt Feststellung. Luminanz 134/255 (v1: dunkel/beige), Fast-Schwarz 22 %.
+  - ~~v1 (nicht mehr verwenden): `master_f4_SIXCHARACTERS.jpg`~~ — beiges Dokument-Makro, las sich im Feed nicht als Space-Content.
 - Länge ~14:48 = Regel-6-Sweetspot (13–15 Min) ✓ · **2 Mid-Rolls: 4:33** (nach Sub-CTA-Beat, vor „The Hunt") **und 8:48** (nach dem „every single one is about to fail"-Cliffhanger — stärkster Re-Hook der Folge)
 - Cold Open löst das F2/F3-Versprechen ein („the episode we promised you — twice") · Outro teased F5 (Anisotropie / „die größte Karte ist falsch")
