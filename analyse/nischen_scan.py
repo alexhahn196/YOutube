@@ -40,6 +40,10 @@ JUNG_MONATE = 12            # "jung" = Kanalalter <= 12 Monate
 GROSS_ABO_MIN = 200_000     # "grosser Kanal" der Nische
 GROSS_MEDIAN_MIN = 50_000   # grosse Kanaele "holen Views", wenn Median darueber liegt
 SAMPLE_MAX = 15             # Videos pro Kanal (RSS liefert max ~15)
+REIF_TAGE = 30              # Videos unter 30 Tagen zaehlen NICHT in den Median (s. u.)
+AKTIV_TAGE = 120            # Kanal gilt als aktiv, wenn Upload innerhalb 120 Tagen
+NACHFRAGE_MEDIAN_MIN = 50_000   # ab hier "die Nische traegt Reichweite"
+NACHFRAGE_MIN_KANAELE = 2       # so viele aktive Kanaele muessen das schaffen
 
 
 def slug(s):
@@ -175,12 +179,35 @@ def channel_data(cid, handle=None):
         rec["warn"].append(f"rss:{rc}:{rn}")
 
     vids = vids[:SAMPLE_MAX]
+    for v in vids:
+        try:
+            pub = datetime.fromisoformat(v["published"].replace("Z", "+00:00")).date()
+        except Exception:
+            pub = None
+        v["alter_tage"] = (TODAY - pub).days if pub else None
+        v["views_pro_tag"] = (round(v["views"] / max(v["alter_tage"], 1), 1)
+                              if v["alter_tage"] is not None else None)
+
     rec["n_sample"] = len(vids)
     rec["titel"] = [x["title"] for x in vids if x["title"]]
-    views = sorted(x["views"] for x in vids)
-    rec["median_views"] = int(median(views)) if views else None
-    rec["max_views"] = max(views) if views else None
-    rec["top_titel"] = max(vids, key=lambda x: x["views"])["title"] if vids else None
+
+    # Aktivitaet: juengster Upload. Ruhende Archivkanaele verzerren jede Nischen-Diagnose.
+    alter = [v["alter_tage"] for v in vids if v["alter_tage"] is not None]
+    rec["letzter_upload_tage"] = min(alter) if alter else None
+    rec["aktiv"] = (rec["letzter_upload_tage"] is not None
+                    and rec["letzter_upload_tage"] <= AKTIV_TAGE)
+
+    # KERNKORREKTUR: Nur Videos zaehlen, die Zeit hatten, Views zu sammeln.
+    # Sonst bestraft der Median langsame Qualitaetskanaele (frische Uploads = 0 Views)
+    # und bevorzugt Spam-Kanaele mit hoher Kadenz.
+    reif = [v for v in vids if v["alter_tage"] is not None and v["alter_tage"] >= REIF_TAGE]
+    rec["n_reif"] = len(reif)
+    rv = sorted(v["views"] for v in reif)
+    rec["median_views"] = int(median(rv)) if rv else None
+    rec["max_views"] = max(rv) if rv else None
+    rec["median_views_pro_tag"] = (round(median([v["views_pro_tag"] for v in reif]), 1)
+                                   if reif else None)
+    rec["top_titel"] = max(reif, key=lambda x: x["views"])["title"] if reif else None
     rec["views_pro_abo"] = (round(rec["median_views"] / rec["subs"], 2)
                             if rec.get("median_views") and rec.get("subs") else None)
     return rec
@@ -207,60 +234,71 @@ def relevanz(rec, keyword):
 
 # ---------------------------------------------------------------- 3. Diagnose
 def diagnose(kanaele, rpm, kosten, ziel, uploads_mon, min_relevanz=0.2):
+    """Zwei UNABHAENGIGE Fragen, nicht eine.
+
+    NACHFRAGE: Traegt die Nische ueberhaupt Reichweite? (Sonst egal, wie offen sie ist.)
+    FENSTER:   Kommen NEUE/kleine Kanaele noch durch? (Sonst nur Verdraengung.)
+
+    Diese Trennung ist die Korrektur eines Fehlers der ersten Fassung: Space-Doku
+    hat hohe Nachfrage, aber alle Betreiber sind ueber 50k Abos gewachsen. Ein
+    einzelnes 2x2 hat das als "gesaettigt" gelesen und die Nische verworfen,
+    obwohl sie nachweislich traegt.
+    """
     d = {}
     auswertbar = [k for k in kanaele if k.get("median_views") is not None and k.get("subs")]
-    # Themenfremde Treffer aus der Diagnose nehmen (bleiben in der Tabelle sichtbar)
-    valid = [k for k in auswertbar
-             if k.get("relevanz") is None or k["relevanz"] >= min_relevanz]
+    relevant = [k for k in auswertbar
+                if k.get("relevanz") is None or k["relevanz"] >= min_relevanz]
+    aktiv = [k for k in relevant if k.get("aktiv")]
+
     d["n_kanaele"] = len(kanaele)
     d["n_auswertbar"] = len(auswertbar)
-    d["n_relevant"] = len(valid)
+    d["n_relevant"] = len(relevant)
+    d["n_aktiv"] = len(aktiv)
     d["min_relevanz"] = min_relevanz
-    d["ausgeschlossen_themenfremd"] = [
-        (k.get("handle") or k["channel_id"]) for k in auswertbar if k not in valid]
+    d["ausgeschlossen_themenfremd"] = [(k.get("handle") or k["channel_id"])
+                                       for k in auswertbar if k not in relevant]
+    d["ausgeschlossen_ruhend"] = [(k.get("handle") or k["channel_id"])
+                                  for k in relevant if not k.get("aktiv")]
 
-    klein_hits = [k for k in valid
+    # --- Frage 1: NACHFRAGE ---
+    traeger = [k for k in aktiv if k["median_views"] >= NACHFRAGE_MEDIAN_MIN]
+    d["traeger"] = [{"kanal": k.get("handle") or k["channel_id"], "subs": k["subs"],
+                     "median": k["median_views"]} for k in traeger]
+    d["nachfrage"] = len(traeger) >= NACHFRAGE_MIN_KANAELE
+    med_all = sorted(k["median_views"] for k in aktiv)
+    d["nischen_median"] = int(median(med_all)) if med_all else None
+    d["nischen_bestes_median"] = max(med_all) if med_all else None
+
+    # --- Frage 2: FENSTER ---
+    klein_hits = [k for k in aktiv
                   if k["subs"] <= KLEIN_ABO_MAX and (k["max_views"] or 0) >= KLEIN_HIT_MIN]
-    jung = [k for k in klein_hits
-            if k.get("alter_monate") is not None and k["alter_monate"] <= JUNG_MONATE]
+    jung_stark = [k for k in aktiv
+                  if k.get("alter_monate") is not None and k["alter_monate"] <= 18
+                  and k["median_views"] >= NACHFRAGE_MEDIAN_MIN]
     d["klein_mit_hit"] = [k.get("handle") or k["channel_id"] for k in klein_hits]
-    d["davon_jung"] = [k.get("handle") or k["channel_id"] for k in jung]
-    d["kleinkanal_gate"] = len(klein_hits) >= KLEIN_MIN_ANZAHL
-    d["altersignal"] = len(jung) >= 1
+    d["jung_und_stark"] = [k.get("handle") or k["channel_id"] for k in jung_stark]
+    d["fenster"] = (len(klein_hits) >= KLEIN_MIN_ANZAHL) or (len(jung_stark) >= 1)
 
-    gross = [k for k in valid if k["subs"] >= GROSS_ABO_MIN]
-    gross_stark = [k for k in gross if k["median_views"] >= GROSS_MEDIAN_MIN]
-    d["n_gross"] = len(gross)
-    d["n_gross_stark"] = len(gross_stark)
-
-    klein_ja = d["kleinkanal_gate"]
-    gross_ja = len(gross_stark) >= 1
-    if klein_ja and gross_ja:
-        d["feld"] = "SYSTEM-NISCHE"
-        d["urteil"] = "gruen — rein"
-    elif klein_ja and not gross_ja:
-        d["feld"] = "FRUEHE WELLE"
-        d["urteil"] = "gelb — schnell rein, klein testen"
-    elif not klein_ja and gross_ja:
-        d["feld"] = "GESAETTIGT"
-        d["urteil"] = "orange — nur mit Format-Twist"
+    # --- Kombiniertes Urteil ---
+    if d["nachfrage"] and d["fenster"]:
+        d["feld"], d["urteil"] = "SYSTEM-NISCHE", "gruen — rein"
+    elif d["nachfrage"] and not d["fenster"]:
+        d["feld"] = "TRAGFAEHIG, FENSTER ENG"
+        d["urteil"] = "orange — nur mit echtem Format-Unterschied (Verdraengung, kein Selbstlaeufer)"
+    elif not d["nachfrage"] and d["fenster"]:
+        d["feld"] = "FRUEHE WELLE ODER ZU KLEIN"
+        d["urteil"] = "gelb — nur klein testen; unklar, ob die Nische Reichweite traegt"
     else:
-        d["feld"] = "KEINE NACHFRAGE"
-        d["urteil"] = "rot — raus (kein Geheimtipp)"
+        d["feld"], d["urteil"] = "KEINE NACHFRAGE", "rot — raus (kein Geheimtipp)"
 
-    # Arithmetik-Gate (§4)
+    # --- Arithmetik-Gate (Playbook 4) ---
     d["rpm"] = rpm
     d["break_even_views"] = round(kosten / (rpm / 1000))
     d["views_monat_fuer_ziel"] = round((ziel / rpm) * 1000)
     d["noetiger_median"] = round(d["views_monat_fuer_ziel"] / uploads_mon)
-
-    tier = [k for k in valid if 10_000 <= k["subs"] <= 100_000]
-    d["n_tier_10k_100k"] = len(tier)
-    d["tier_median"] = int(median([k["median_views"] for k in tier])) if tier else None
-    if d["tier_median"] is None:
-        d["arithmetik_gate"] = None
-    else:
-        d["arithmetik_gate"] = d["tier_median"] >= d["noetiger_median"]
+    d["arithmetik_gate"] = (None if d["nischen_bestes_median"] is None
+                            else d["nischen_bestes_median"] >= d["noetiger_median"])
+    d["arithmetik_basis"] = "bestes aktives Kanal-Median der Nische"
     return d
 
 
@@ -269,62 +307,80 @@ def report(label, kanaele, d):
     A = L.append
     A(f"# Nischen-Scan: {label}")
     A("")
-    A(f"_Erhoben {TODAY.isoformat()} · {d['n_auswertbar']}/{d['n_kanaele']} Kanäle auswertbar, "
-      f"davon **{d['n_relevant']} themenrelevant** (Titel-Match ≥{d['min_relevanz']:.0%}) · "
-      f"Stichprobe je Kanal ≤{SAMPLE_MAX} Uploads (RSS, exakte Views)_")
+    A(f"_Erhoben {TODAY.isoformat()} · {d['n_auswertbar']}/{d['n_kanaele']} auswertbar → "
+      f"{d['n_relevant']} themenrelevant → **{d['n_aktiv']} aktiv** (Upload ≤{AKTIV_TAGE} T.) · "
+      f"Median nur über Videos ≥{REIF_TAGE} Tage alt_")
     A("")
-    A(f"## Urteil: **{d['feld']}** — {d['urteil']}")
+    A(f"## Urteil: **{d['feld']}**")
+    A(f"{d['urteil']}")
     A("")
-    A("| Prüfung | Ergebnis |")
+    A("| Frage | Ergebnis |")
     A("|---|---|")
-    A(f"| Kleinkanal-Gate (≥{KLEIN_MIN_ANZAHL} Kanäle <{KLEIN_ABO_MAX:,} Abos mit ≥{KLEIN_HIT_MIN:,}-Video) "
-      f"| {'✅' if d['kleinkanal_gate'] else '❌'} {len(d['klein_mit_hit'])} gefunden |")
-    A(f"| Alters-Signal (≥1 davon ≤{JUNG_MONATE} Mon. alt) | {'✅' if d['altersignal'] else '❌'} "
-      f"{len(d['davon_jung'])} |")
-    A(f"| Große Kanäle (≥{GROSS_ABO_MIN:,} Abos) mit Median ≥{GROSS_MEDIAN_MIN:,} | "
-      f"{d['n_gross_stark']} von {d['n_gross']} |")
+    A(f"| **NACHFRAGE** — ≥{NACHFRAGE_MIN_KANAELE} aktive Kanäle mit Median ≥{NACHFRAGE_MEDIAN_MIN:,} "
+      f"| {'✅ ja' if d['nachfrage'] else '❌ nein'} ({len(d['traeger'])} gefunden) |")
+    A(f"| **FENSTER** — ≥{KLEIN_MIN_ANZAHL} Kanäle <{KLEIN_ABO_MAX:,} Abos mit ≥{KLEIN_HIT_MIN:,}-Video "
+      f"**oder** ≥1 Kanal ≤18 Mon. mit starkem Median "
+      f"| {'✅ offen' if d['fenster'] else '❌ eng'} "
+      f"({len(d['klein_mit_hit'])} klein / {len(d['jung_und_stark'])} jung) |")
     ag = d["arithmetik_gate"]
-    A(f"| Arithmetik-Gate (Tier-Median ≥ nötiger Median) | "
-      f"{'✅' if ag else ('❌' if ag is False else '— keine Daten')} |")
+    A(f"| **ARITHMETIK** — bestes Nischen-Median ≥ nötiger Median "
+      f"| {'✅' if ag else ('❌' if ag is False else '— keine Daten')} |")
     A("")
-    A("### Arithmetik (§4)")
-    A(f"- RPM-Annahme: **${d['rpm']}** (unteres Drittel, konservativ)")
-    A(f"- Break-even: **{d['break_even_views']:,} Views/Folge**")
-    A(f"- Für das Ziel: **{d['views_monat_fuer_ziel']:,} Views/Monat** → nötiger Median "
+    if d["traeger"]:
+        A("**Träger der Nachfrage:** "
+          + " · ".join(f"{t['kanal']} ({t['subs']:,} Abos, Median {t['median']:,})"
+                       for t in d["traeger"][:6]))
+        A("")
+    A("### Arithmetik (Playbook §4)")
+    A(f"- RPM-Annahme **${d['rpm']}** · Break-even **{d['break_even_views']:,} Views/Folge**")
+    A(f"- Ziel braucht **{d['views_monat_fuer_ziel']:,} Views/Monat** → nötiger Median "
       f"**{d['noetiger_median']:,}/Folge**")
-    if d["tier_median"] is not None:
-        A(f"- Beobachteter Median der 10k–100k-Abo-Tier ({d['n_tier_10k_100k']} Kanäle): "
-          f"**{d['tier_median']:,}**")
+    if d["nischen_median"] is not None:
+        A(f"- Nischen-Median (aktive Kanäle): **{d['nischen_median']:,}** · "
+          f"bestes Kanal-Median: **{d['nischen_bestes_median']:,}**")
     A("")
     A("### Kanäle")
     A("")
-    A("| Kanal | Abos | Alter (Mon.) | Median | Max | V/Abo | Rel. | Top-Video |")
-    A("|---|---:|---:|---:|---:|---:|---:|---|")
+    A("| Kanal | Abos | Alter M. | Median (reif) | n reif | V/Tag | Max | Rel. | Letzter Upload |")
+    A("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
     for k in sorted(kanaele, key=lambda x: -(x.get("median_views") or 0)):
         if k.get("median_views") is None:
             continue
-        t = (k.get("top_titel") or "")[:52]
+        rel = k.get("relevanz")
+        flags = ""
+        if rel is not None and rel < d["min_relevanz"]:
+            flags += " ⚠︎"
+        if not k.get("aktiv"):
+            flags += " 💤"
+        lu = k.get("letzter_upload_tage")
         subs = f"{k['subs']:,}" if k.get("subs") is not None else "?"
         alter = k["alter_monate"] if k.get("alter_monate") is not None else "?"
-        rel = k.get("relevanz")
-        rels = "—" if rel is None else f"{rel:.0%}"
-        mark = "" if (rel is None or rel >= d["min_relevanz"]) else " ⚠︎"
-        A(f"| {k.get('handle') or k['channel_id']}{mark} | {subs} | {alter} | "
-          f"{k['median_views']:,} | {k['max_views']:,} | {k.get('views_pro_abo') or '?'} | "
-          f"{rels} | {t} |")
+        relstr = "—" if rel is None else f"{rel:.0%}"
+        lustr = f"{lu} T." if lu is not None else "?"
+        A(f"| {k.get('handle') or k['channel_id']}{flags} | {subs} | {alter} "
+          f"| {k['median_views']:,} | {k.get('n_reif') or 0} "
+          f"| {k.get('median_views_pro_tag') or '?'} | {k['max_views']:,} "
+          f"| {relstr} | {lustr} |")
+    A("")
+    legend = []
     if d.get("ausgeschlossen_themenfremd"):
+        legend.append("⚠︎ themenfremd: " + ", ".join(d["ausgeschlossen_themenfremd"]))
+    if d.get("ausgeschlossen_ruhend"):
+        legend.append("💤 ruhend (aus Diagnose ausgeschlossen): "
+                      + ", ".join(d["ausgeschlossen_ruhend"]))
+    for x in legend:
+        A(f"_{x}_")
         A("")
-        A("_⚠︎ = themenfremd, aus der Diagnose ausgeschlossen: "
-          + ", ".join(d["ausgeschlossen_themenfremd"]) + "_")
     skipped = [k for k in kanaele if k.get("median_views") is None]
     if skipped:
-        A("")
-        A(f"_{len(skipped)} Kanäle ohne auswertbare Daten: "
+        A(f"_{len(skipped)} ohne auswertbare Daten: "
           + ", ".join((k.get('handle') or k['channel_id']) for k in skipped[:10]) + "_")
-    A("")
-    A("> Schwellen sind Heuristiken (NISCHEN-PLAYBOOK §1, Beweis-Stufe B) — gegen eigene "
-      "Daten kalibrieren, nicht als Naturgesetz behandeln. RSS liefert nur die letzten ~15 "
-      "Uploads: der Median ist ein **aktueller** Median, kein Lebenszeit-Median.")
+        A("")
+    A("> **Grenzen des Instruments (ehrlich):** RSS liefert nur die letzten ~15 Uploads → "
+      "der Median ist ein *aktueller* Median, kein Lebenszeit-Median. Videos <"
+      f"{REIF_TAGE} Tage sind ausgeschlossen, weil sie noch keine Views gesammelt haben. "
+      "Handle-Auflösung kann fehlgehen (gleichnamige Kanäle) — Abo-Zahl und Top-Titel "
+      "gegenprüfen. Schwellen sind Heuristiken (NISCHEN-PLAYBOOK §1, Stufe B).")
     return "\n".join(L)
 
 
