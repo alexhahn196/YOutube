@@ -51,6 +51,28 @@ NUMBER_JARGON = [
     (r"\b\d\s*[×x]\s*10", "Zehnerpotenz"),
 ]
 
+NUM_WORD = (r"(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|thirty|"
+            r"forty|fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion|"
+            r"[\d.,]+)(?:[\s-]+(?:to|and|point|hundred|thousand|million|billion))?"
+            r"(?:[\s-]+(?:one|two|three|four|five|six|seven|eight|nine|ten|twenty|thirty|forty|"
+            r"fifty|sixty|seventy|eighty|ninety|hundred|thousand|million|billion))*")
+
+# Einheiten, die zusammen mit einer Zahl (Ziffer ODER Zahlwort) eine Fachzahl bilden.
+# Lehre aus F3/F4: "thirty to fifty thousand Kelvin" und "fifty astronomical units" liefen
+# mit Exit-Code 0 durch, weil nur nach Ziffern gesucht wurde.
+UNIT_WORDS = [
+    ("kelvin", "in Alltagswaerme uebersetzen"),
+    ("astronomical units?", "in eine Strecke uebersetzen, die man kennt"),
+    ("mega ?hertz|giga ?hertz|kilo ?hertz", "als Ton/Frequenz beschreiben"),
+    ("jansky|janskys", "als Helligkeitsvergleich"),
+    ("sigma", "als Zufallswahrscheinlichkeit in Worten"),
+    ("parts per (?:million|billion)", "als Anteil in Alltagssprache"),
+    ("cubic centimet(?:er|re)s?", "als Bild statt als Volumenangabe"),
+    ("light[- ]years?", "als Reisedauer/Vergleich"),
+    ("solar mass(?:es)?", "als Vergleich zur Sonne"),
+    ("degrees? (?:celsius|fahrenheit|kelvin)", "in Alltagswaerme"),
+]
+
 # Fremdwoerter: Fachbegriff -> Alltagsformulierung, die wir stattdessen wollen
 JARGON = {
     "spectroscopy": "das Licht in seine Farben zerlegen",
@@ -176,8 +198,11 @@ def lint(path, packaging=None):
         for m in re.finditer(pat, text, re.I):
             ctx = text[max(0, m.start() - 30):m.end() + 25].replace("\n", " ")
             numhits.append(f"{name}: …{ctx.strip()}…")
-    fails += report("§5c: keine Fachzahlen im VO", "FAIL", numhits,
-                    "Exakte Werte gehoeren in Beschreibung + Quellen-Chip, nicht ins Voiceover.")
+    for unit, hint in UNIT_WORDS:
+        for m in re.finditer(rf"{NUM_WORD}\s+(?:{unit})\b", text, re.I):
+            numhits.append(f"Einheit+Zahl: …{m.group(0)[:70]}… ({hint})")
+    fails += report("§5c: keine Fachzahlen im VO (auch ausgeschriebene)", "FAIL", numhits,
+                    "Exakte Werte gehoeren in die Beschreibung, nicht ins Voiceover.")
 
     # 5. §5c Satzlaenge
     lenprob = []

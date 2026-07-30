@@ -33,7 +33,8 @@ Nach ausführlicher Nischen-Recherche (Juli 2026) ist die gewählte Nische: **Sp
 ## ⭐ Sprach-Regel (verbindlich ab F5 — User-Entscheid 28.07.2026, besonders wichtig)
 **Einfache Sprache, nicht wissenschaftlich.** Wir sind eine Doku, kein Seminar — der Zuschauer schaut nebenbei am Handy.
 Kernregeln (Details + Beispiele: `SPACE-PLAYBOOK.md` **§5c**): max. **2 Eigennamen pro Folge** (Rest = Rollen: „ein Team in Chicago") · **keine Fachzahlen im VO** (3σ / ppm / AU → in Alltagssprache übersetzen, exakte Werte nur in Beschreibung + Quellen-Chips) · Sätze 10–13 Wörter, ein Gedanke pro Satz · konkretes Bild statt Abstraktion · Fremdwort-Test vor der Vertonung.
-**Die Substanz bleibt** (Fakten-Gate, Primärquellen, Verdicts, sichtbare Quellen) — wir ändern nur, WIE wir es sagen.
+**Die Substanz bleibt** (Fakten-Gate, Primärquellen, Verdicts) — wir ändern nur, WIE wir es sagen.
+**PRÄZISIERUNG 29.07.2026 (§5d):** §5c gilt auch fürs BILD, nicht nur fürs Voiceover. Quellenliste in der Beschreibung bleibt vollständig (kostet null Bildzeit, ist unser Policy- und Fehler-Schutz). Quellen-Chips im Bild ab F5 **max. 4 pro Folge, Rolle + Ort statt Zitation** — kein DOI, keine arXiv-ID, kein σ/ppm im Bild (F2 hatte 10 Chips = 60 Sek Bildzeit, einer mit vollem DOI). Zuordnung wandert dafür ins gesprochene Wort: „ein Team in Puerto Rico" statt „Méndez et al.".
 
 ## Prozess-Regeln (verbindlich ab 17.07.2026 — System-Review mit User beschlossen)
 1. **Upload-Tag NUR nach Checkliste:** `produktion/UPLOAD-CHECKLISTE.md` — inkl. Live-News-Check (ship-blocking), `{STATUS}`-Füllung, A/B-Thumbs, KI-Disclosure, „not made for kids".

@@ -141,6 +141,30 @@ Jede Folge muss diese 7 Hebel enthalten (Checkliste):
 
 ---
 
+### 5d. Quellen-Sichtbarkeit — drei Orte, drei Urteile (VERBINDLICH ab F5, 29.07.2026)
+
+> Anlass: User-Frage „interessiert den Zuschauer die Quelle überhaupt, oder verwirrt das nur?" — plus der Befund, dass F2 **zehn Quellen-Chips à 6 Sekunden = 60 Sekunden Bildzeit** trägt, einer davon mit dem Text `DOI 10.3847/2041-8213/adc1c8`.
+
+Wir haben drei völlig verschiedene Dinge unter „Quellenarbeit" geführt. Sie werden ab jetzt getrennt bewertet:
+
+| Ort | Zuschauer-Nutzen | Kosten | Regel |
+|---|---|---|---|
+| **Quellenliste in der Beschreibung** | praktisch null (kaum jemand öffnet den Klapptext) | **null** — steht unter dem Falz | **Bleibt vollständig.** Sie ist keine Zuschauer-Funktion, sondern (a) Schutz unter YouTubes „inauthentic content"-Regel, (b) Schutz davor, öffentlich falsch zu liegen, (c) Zwang, wirklich zu prüfen. Kostenlos = keine Diskussion. |
+| **Quellen-Chip im Bild** | gering bis negativ — 6 Sekunden für einen DOI liest niemand am Handy | **hoch:** Bildzeit + Blick weg von der Geschichte | **Ab F5 max. 4 Chips pro Folge**, je ≤ 6 Wörter, **Rolle + Ort statt Zitation**: `EIN TEAM IN PUERTO RICO · 2025` statt `MÉNDEZ ET AL. · arXiv 2508.10657`. **Verboten im Chip:** DOI, arXiv-ID, Journal-Kürzel, σ/ppm/χ². Das ist derselbe §5c-Maßstab wie im VO — er galt nur nie fürs Bild, deshalb ist es uns durchgerutscht. |
+| **Zuordnung im gesprochenen Text** | **hoch** — das ist Geschichte, nicht Apparat | null | **Ausbauen.** Jede tragende Behauptung bekommt einen menschlichen Absender im VO. |
+
+**Der Ton-Unterschied, an dem es hängt:**
+> ⛔ „Méndez et al. 2024, arXiv 2408.08513"
+> ✅ „Ein Team in Puerto Rico ging zurück an fünfundsiebzigtausend abfotografierte Papierseiten."
+
+Das Zweite baut Vertrauen **und** ist ein Erzählbeat. Es kostet keine Bildzeit und erfüllt §5c (Rollen statt Namen) automatisch.
+
+**Was NICHT passiert:** Wir streichen die Substanz nicht. Fakten-Gate, Primärquellen und Verdicts bleiben unangetastet — wir hören nur auf, den Apparat ins Bild zu heben, den niemand liest.
+
+**Offen (billig messbar, sobald wir Retention-Daten haben):** Ob die Chips die Sichtdauer wirklich senken. Test: Retention-Kurve exakt an den Chip-Sekunden gegen die Nachbarsekunden. Bis dahin gilt die Kürzung als Vorsichtsmaßnahme, nicht als belegter Befund.
+
+---
+
 ## 6. Produktions-Pipeline (voll-KI — IST-Stand ab F4, aktualisiert 17.07.2026)
 
 > So entsteht eine Folge wirklich (Referenz: `produktion/folge-04/`). CapCut ist ersetzt durch eine lokale, reproduzierbare ffmpeg-Kette.
