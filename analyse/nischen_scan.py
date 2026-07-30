@@ -18,6 +18,7 @@ Aufruf:
 Ausgabe: Markdown auf stdout + JSON nach analyse/nischen/<slug>.json
 """
 import argparse, json, os, re, sys, html
+from urllib.parse import quote_plus
 from datetime import date, datetime
 from statistics import median
 
@@ -100,12 +101,37 @@ SEARCH_FILTER = {
 
 def discover(keyword, limit=30, mode="video"):
     """YouTube-Suche scrapen -> [(channel_id, handle)], Reihenfolge = Trefferrang."""
+    # quote_plus: ohne Kodierung liefert YouTube bei Umlauten eine 1,5-KB-Fehlerseite
     url = ("https://www.youtube.com/results?search_query="
-           + re.sub(r"\s+", "+", keyword.strip()) + SEARCH_FILTER.get(mode, ""))
+           + quote_plus(keyword.strip()) + SEARCH_FILTER.get(mode, ""))
     txt, code, note = fetch(url, f"nsearch__{mode}__" + slug(keyword) + ".html")
     if code != 200 or len(txt) < 1000:
-        print(f"  ! Suche fehlgeschlagen (code={code}, {note})", file=sys.stderr)
-        return []
+        print(f"  ! Suche fehlgeschlagen (code={code}, {note}, {len(txt)} B)", file=sys.stderr)
+        return [], []
+
+    # Video-Ebene: Nachfrage zeigt sich an den Videos, nicht an dedizierten Kanaelen.
+    # In einem unbesetzten Markt gibt es per Definition keine Nischen-Kanaele -
+    # aber sehr wohl Videos mit Reichweite. Ohne diese Messung liest der Scanner
+    # "unbesetzt" faelschlich als "keine Nachfrage".
+    #
+    # WICHTIG: Titel und Views MUESSEN aus demselben videoRenderer-Block kommen.
+    # Zwei getrennte findall-Listen per zip zu paaren geht schief - die Titel-Regex
+    # trifft auch Kapitelmarken ("Einleitung"), und die Zuordnung verrutscht.
+    treffer = []
+    for blk in txt.split('"videoRenderer":')[1:]:
+        w = blk[:4000]
+        mt = re.search(r'"title":\{"runs":\[\{"text":"((?:[^"\\]|\\.){3,200})"\}\]', w)
+        mv = re.search(r'"viewCountText":\{"simpleText":"([\d.,\u00a0 ]+)\s*(?:views|Aufrufe)"', w)
+        if not (mt and mv):
+            continue
+        try:
+            titel = json.loads('"' + mt.group(1) + '"')
+        except Exception:
+            titel = mt.group(1)
+        ziffern = re.sub(r"[^\d]", "", mv.group(1))
+        if not ziffern:
+            continue
+        treffer.append({"titel": titel, "views": int(ziffern)})
 
     found, seen = [], set()
 
@@ -121,12 +147,13 @@ def discover(keyword, limit=30, mode="video"):
                 r'"browseId":"(UC[\w-]{20,})","canonicalBaseUrl":"/(@[\w.\-]+)"', txt):
             add(m.group(1), m.group(2))
             if len(found) >= limit:
-                return found
+                return found, treffer
         # Fallback: Kanaele ohne Handle
         for m in re.finditer(r'"browseId":"(UC[\w-]{20,})"', txt):
             add(m.group(1), None)
             if len(found) >= limit:
                 break
+        return found, treffer
     else:
         for m in re.finditer(
                 r'"browseId":"(UC[\w-]{20,})"(?:.{0,400}?"canonicalBaseUrl":"/(@[\w.\-]+))?',
@@ -134,7 +161,7 @@ def discover(keyword, limit=30, mode="video"):
             add(m.group(1), m.group(2))
             if len(found) >= limit:
                 break
-    return found
+    return found, treffer
 
 
 # ---------------------------------------------------------------- 2. Erhebung
@@ -226,14 +253,21 @@ def relevanz(rec, keyword):
     toks = [t for t in re.findall(r"[a-zA-Zäöüß]{4,}", (keyword or "").lower())
             if t not in STOP]
     titel = rec.get("titel") or []
-    if not toks or not titel:
+    if not toks:
+        return None
+    # Kanalname zaehlt voll: ein Kanal namens "Erdarchiv" ist thematisch, auch wenn
+    # seine Videotitel die Suchwoerter nicht wiederholen.
+    kname = ((rec.get("title") or "") + " " + (rec.get("handle") or "")).lower()
+    if any(tok in kname for tok in toks):
+        return 1.0
+    if not titel:
         return None
     hits = sum(1 for t in titel if any(tok in t.lower() for tok in toks))
     return round(hits / len(titel), 2)
 
 
 # ---------------------------------------------------------------- 3. Diagnose
-def diagnose(kanaele, rpm, kosten, ziel, uploads_mon, min_relevanz=0.2):
+def diagnose(kanaele, rpm, kosten, ziel, uploads_mon, min_relevanz=0.1, treffer=None):
     """Zwei UNABHAENGIGE Fragen, nicht eine.
 
     NACHFRAGE: Traegt die Nische ueberhaupt Reichweite? (Sonst egal, wie offen sie ist.)
@@ -260,6 +294,17 @@ def diagnose(kanaele, rpm, kosten, ziel, uploads_mon, min_relevanz=0.2):
     d["ausgeschlossen_ruhend"] = [(k.get("handle") or k["channel_id"])
                                   for k in relevant if not k.get("aktiv")]
 
+    # --- Frage 0: THEMEN-NACHFRAGE auf Video-Ebene ---
+    tv = sorted((t["views"] for t in (treffer or [])), reverse=True)
+    d["n_treffer"] = len(tv)
+    d["treffer_top"] = (treffer or [])[:8]
+    d["treffer_median"] = int(median(tv)) if tv else None
+    d["treffer_ueber_100k"] = sum(1 for v in tv if v >= 100_000)
+    d["treffer_ueber_500k"] = sum(1 for v in tv if v >= 500_000)
+    # Thema traegt, wenn mehrere Treffer sechsstellig sind - unabhaengig davon,
+    # ob dedizierte Kanaele existieren.
+    d["thema_traegt"] = d["treffer_ueber_100k"] >= 5
+
     # --- Frage 1: NACHFRAGE ---
     traeger = [k for k in aktiv if k["median_views"] >= NACHFRAGE_MEDIAN_MIN]
     d["traeger"] = [{"kanal": k.get("handle") or k["channel_id"], "subs": k["subs"],
@@ -280,7 +325,12 @@ def diagnose(kanaele, rpm, kosten, ziel, uploads_mon, min_relevanz=0.2):
     d["fenster"] = (len(klein_hits) >= KLEIN_MIN_ANZAHL) or (len(jung_stark) >= 1)
 
     # --- Kombiniertes Urteil ---
-    if d["nachfrage"] and d["fenster"]:
+    if not d["nachfrage"] and d["thema_traegt"]:
+        d["feld"] = "UNBESETZT MIT NACHFRAGE"
+        d["urteil"] = ("gruen-gelb — Thema traegt nachweislich Reichweite, aber es gibt "
+                       "kaum dedizierte Kanaele. Das ist die interessanteste Lage: "
+                       "Nachfrage ohne Angebot. Vor dem Bau per Pilot bestaetigen.")
+    elif d["nachfrage"] and d["fenster"]:
         d["feld"], d["urteil"] = "SYSTEM-NISCHE", "gruen — rein"
     elif d["nachfrage"] and not d["fenster"]:
         d["feld"] = "TRAGFAEHIG, FENSTER ENG"
@@ -289,7 +339,9 @@ def diagnose(kanaele, rpm, kosten, ziel, uploads_mon, min_relevanz=0.2):
         d["feld"] = "FRUEHE WELLE ODER ZU KLEIN"
         d["urteil"] = "gelb — nur klein testen; unklar, ob die Nische Reichweite traegt"
     else:
-        d["feld"], d["urteil"] = "KEINE NACHFRAGE", "rot — raus (kein Geheimtipp)"
+        d["feld"] = "KEINE NACHFRAGE"
+        d["urteil"] = ("rot — raus. Weder tragen die Videos zum Thema Reichweite, "
+                       "noch gibt es Kanaele, die davon leben.")
 
     # --- Arithmetik-Gate (Playbook 4) ---
     d["rpm"] = rpm
@@ -316,6 +368,11 @@ def report(label, kanaele, d):
     A("")
     A("| Frage | Ergebnis |")
     A("|---|---|")
+    if d.get("n_treffer"):
+        A(f"| **THEMA** — tragen Videos zum Thema Reichweite? (Video-Ebene) "
+          f"| {'✅ ja' if d['thema_traegt'] else '❌ nein'} — "
+          f"{d['treffer_ueber_100k']}/{d['n_treffer']} Treffer ≥100k, "
+          f"{d['treffer_ueber_500k']} ≥500k, Median {d['treffer_median']:,} |")
     A(f"| **NACHFRAGE** — ≥{NACHFRAGE_MIN_KANAELE} aktive Kanäle mit Median ≥{NACHFRAGE_MEDIAN_MIN:,} "
       f"| {'✅ ja' if d['nachfrage'] else '❌ nein'} ({len(d['traeger'])} gefunden) |")
     A(f"| **FENSTER** — ≥{KLEIN_MIN_ANZAHL} Kanäle <{KLEIN_ABO_MAX:,} Abos mit ≥{KLEIN_HIT_MIN:,}-Video "
@@ -330,6 +387,14 @@ def report(label, kanaele, d):
         A("**Träger der Nachfrage:** "
           + " · ".join(f"{t['kanal']} ({t['subs']:,} Abos, Median {t['median']:,})"
                        for t in d["traeger"][:6]))
+        A("")
+    if d.get("treffer_top"):
+        A("### Top-Videos zum Thema (Video-Ebene, unabhängig vom Kanal)")
+        A("")
+        A("| Views | Titel |")
+        A("|---:|---|")
+        for t in d["treffer_top"]:
+            A(f"| {t['views']:,} | {t['titel'][:78]} |")
         A("")
     A("### Arithmetik (Playbook §4)")
     A(f"- RPM-Annahme **${d['rpm']}** · Break-even **{d['break_even_views']:,} Views/Folge**")
@@ -397,7 +462,7 @@ def main():
     ap.add_argument("--kosten", type=float, default=38.0, help="$ pro Folge")
     ap.add_argument("--ziel", type=float, default=10000.0, help="$ Monatsziel")
     ap.add_argument("--uploads", type=float, default=8.0, help="Folgen/Monat")
-    ap.add_argument("--min-relevanz", type=float, default=0.2, dest="min_relevanz",
+    ap.add_argument("--min-relevanz", type=float, default=0.1, dest="min_relevanz",
                     help="Mindest-Titel-Match, um in die Diagnose zu zählen (Default 0.2)")
     a = ap.parse_args()
 
@@ -415,11 +480,12 @@ def main():
                 cands.append((s, None))
             else:
                 cands.append((None, s if s.startswith("@") else "@" + s))
+        treffer = []
         print(f"[1/3] {len(cands)} Kanäle aus Datei", file=sys.stderr)
     else:
         print(f"[1/3] Discovery ({a.mode}): '{a.keyword}' …", file=sys.stderr)
-        cands = discover(a.keyword, a.limit, a.mode)
-        print(f"      {len(cands)} Kanäle gefunden", file=sys.stderr)
+        cands, treffer = discover(a.keyword, a.limit, a.mode)
+        print(f"      {len(cands)} Kanäle, {len(treffer)} Video-Treffer", file=sys.stderr)
 
     kanaele = []
     for i, (cid, handle) in enumerate(cands[:a.limit], 1):
@@ -436,7 +502,7 @@ def main():
         kanaele.append(rec)
 
     print("[3/3] Diagnose …", file=sys.stderr)
-    d = diagnose(kanaele, a.rpm, a.kosten, a.ziel, a.uploads, a.min_relevanz)
+    d = diagnose(kanaele, a.rpm, a.kosten, a.ziel, a.uploads, a.min_relevanz, treffer)
     md = report(label, kanaele, d)
     print(md)
 

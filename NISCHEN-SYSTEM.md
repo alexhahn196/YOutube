@@ -199,13 +199,23 @@ Gemessen an Kanälen unter 50k Abos mit einem ≥100k-Video, oder an Kanälen un
 
 Das rote Feld ist der teuerste Irrtum im ganzen Geschäft. Eine leere Nische ist meistens leer, **weil** sie leer sein soll.
 
-### 6c · Die drei Messfehler, die das Ergebnis kippen
+### 6c · Die fünf Messfehler, die das Ergebnis kippen
 
-Wer diese nicht kontrolliert, bekommt vom Scanner eine selbstsichere falsche Antwort:
+Wer diese nicht kontrolliert, bekommt vom Scanner eine **selbstsichere falsche Antwort** — die schlimmste Art von Fehler, weil sie nicht nach Fehler aussieht. Alle fünf wurden an echten Durchläufen gefunden, nicht ausgedacht:
 
 1. **Frische Videos verzerren den Median nach unten.** Ein Upload von letzter Woche hat noch keine Views gesammelt. → Nur Videos ab 30 Tagen zählen. Ohne diese Korrektur bestraft die Messung genau die langsamen Qualitätskanäle, die wir suchen.
 2. **Ruhende Archivkanäle verzerren nach oben.** Ein Kanal mit einem 84-Mio.-Video von 2011 und letztem Upload vor 400 Tagen sagt nichts über die heutige Nische. → Nur Kanäle mit Upload in den letzten 120 Tagen.
-3. **Die Suche liefert themenfremde Großkanäle.** Ein 32-Mio.-Abo-Kanal, der einmal etwas Passendes gemacht hat, kippt jede Statistik. → Relevanzfilter über die Titel der Stichprobe.
+3. **Die Suche liefert themenfremde Großkanäle.** Ein 32-Mio.-Abo-Kanal, der einmal etwas Passendes gemacht hat, kippt jede Statistik. → Relevanzfilter.
+4. **Der Relevanzfilter wirft die richtigen Kanäle raus.** Ein Fachkanal wiederholt die Suchwörter nicht in seinen Titeln — er heißt „Erdarchiv" und betitelt „Was lebte vor der ersten Blüte?". Reiner Titel-Abgleich verwirft ihn. → **Kanalname zählt voll**, Schwelle niedrig (10 %). *Gefunden, als der Filter einen 16k-Kanal mit Median 72k und 428 Views/Tag aussortierte — genau das Profil, das wir suchen.*
+5. **⭐ Nachfrage wird auf der falschen Ebene gemessen.** In einem **unbesetzten** Markt gibt es per Definition keine dedizierten Kanäle — aber sehr wohl Videos mit Reichweite. Wer nur Kanäle zählt, liest „unbesetzt" als „keine Nachfrage" und verwirft die interessanteste Lage überhaupt. → **Nachfrage auf Video-Ebene messen** (Views der Suchtreffer), **Fenster auf Kanal-Ebene**. Daraus ein eigenes Urteilsfeld:
+
+| | Fenster offen | Fenster eng | *kaum dedizierte Kanäle* |
+|---|---|---|---|
+| **Kanäle tragen** | 🟢 System | 🟠 Verdrängung | — |
+| **Nur Videos tragen** | — | — | 🟩 **Unbesetzt mit Nachfrage** |
+| **Nichts trägt** | 🟡 klein testen | 🔴 raus | 🔴 raus |
+
+> **Technischer Hinweis, der eine Stunde kostet, wenn man ihn nicht kennt:** Deutsche Suchbegriffe müssen URL-kodiert werden. Ohne `quote_plus` liefert YouTube bei jedem Umlaut eine 1,5-KB-Fehlerseite — der Scan meldet dann „0 Kanäle" und sieht aus wie ein leerer Markt. Betroffen war jede Suche mit *eingestürzt*, *erklärt*, *Zugunglück*.
 
 ### 6d · Wettbewerbsdichte richtig lesen
 
