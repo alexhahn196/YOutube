@@ -1,8 +1,9 @@
 # 🎯 Nischen-Playbook — wie wir Nischen finden (kanal-unabhängig)
 
 > **Zweck:** `SPACE-PLAYBOOK.md` sagt, wie wir *einen* Kanal bauen. Dieses Dokument sagt, **welchen Kanal wir überhaupt bauen** — reproduzierbar, für jeden künftigen Kanal.
-> **Datenbasis:** 12 Agenten (6 Rechercheure + 6 adversariale Gegenprüfer), ~320 Tool-Calls, 30.07.2026. Rohmaterial + Prüfprotokolle: siehe §11.
-> **Lesereihenfolge bei einer neuen Nischen-Idee:** §1 → §2 (Kill-Gates) → §3 (Nachfrage) → §4 (Arithmetik) → §5 (Papier-Test) → §6 (Geld). Nie überspringen, nie umsortieren.
+> **⚡ Ausführbar:** Der Satz „finde eine perfekte Nische" löst `.claude/skills/nische-finden/` aus. Dieses Dokument ist die **Herleitung**, die Skill die **Prozedur**. Kurzfassung: §12.
+> **Datenbasis:** zwei Recherchewellen à 12 Agenten (je 6 Rechercheure + 6 adversariale Gegenprüfer), ~655 Tool-Calls, 30.07.2026. Welle 1: Methodik/Tooling. Welle 2: *Leute mit nachweisbarem Geld* — Käufer-Ökonomie, benannte Operator, MCN-Aggregate, Post-Mortems. **Welle 2 hat Teile von Welle 1 widerlegt → §1b.**
+> **Lesereihenfolge bei einer neuen Nischen-Idee:** §1 + §1b → §2 (Kill-Gates) → §3 (Nachfrage) → §4 (Arithmetik) → §5 (Packaging) → §6/§10b (Geld). Nie überspringen, nie umsortieren.
 
 ---
 
@@ -33,7 +34,50 @@ Die adversariale Gegenprüfung hat systematisch **dieselbe Struktur** gefunden: 
 
 ---
 
-## 2. Stufe 1 — Die 6 Kill-Gates (binär, VOR jeder Nachfrage-Recherche)
+## 1b. ⭐⭐ Die Korrektur, die schmerzt: Top-Verdiener bewerten Nischen überhaupt nicht
+
+Eine zweite Recherche (12 Agenten, Fokus: *Leute mit nachweisbarem Geld*, nicht Blogger) hat drei Befunde geliefert, die **die erste Fassung dieses Playbooks teilweise widerlegen.** Sie stehen hier vorn, weil alles Folgende davon abhängt.
+
+### Befund 1 — Das Nischen-Scoring ist eine Erfindung der Tool-Branche
+
+- **Das geleakte MrBeast-Produktionshandbuch enthält das Wort „niche" NULL Mal.** Der Prüfer hat das PDF selbst extrahiert (36 Seiten) und gegrept: `niche` 0 · `score` 0 · `greenlight` 0 · `rubric` 0. Echtheit von Ex-Mitarbeitern gegenüber Business Insider bestätigt; das Unternehmen bestreitet sie nicht, bestätigt sie aber auch nicht.
+- **Paddy Galloway wörtlich** (Volltranskript, Creator Science): *„there's no niche where I can't get traction."* Sein verifiziertes Verfahren ist eine **Sichtung**, kein Gate: *„search that term golf, filter it for longer videos … then sort by most viewed."*
+- Was Top-Verdiener stattdessen belegbar tun: **Packaging vor Produktion** (*„THIS IS WHY YOU MUST KNOW THE TITLE AND THUMBNAILS"*), **Format-Rotation** (*„every channel that rehashes formats for years always dies"*), **Ideen-Überschuss** (10×–30× der Produktionsrate).
+
+→ **Konsequenz:** Punktesummen bleiben in diesem Playbook nur als *Kommunikationsmittel*. Entscheidungen fallen an **Kill-Gates** und der **Arithmetik**. Die 40-Punkte-Bewertungen in unseren bisherigen Nischen-Dokumenten (Krimi 12/40, BLACKBOX 29/40) sind als Zusammenfassung brauchbar, als Begründung nicht.
+
+### Befund 2 — Die Streuung INNERHALB einer Nische ist größer als die zwischen Nischen
+
+AIR Media-Tech (echtes MCN, 3.595 monetarisierte Kanal-Monate, *„read straight from Studio"*), Education & Science:
+
+| P25 | Median | P75 | Streuung |
+|---|---|---|---|
+| **$2,31** | $10,22 | $19,50 | **8,4×** — die breiteste aller Nischen |
+
+Alle-Nischen-Median: **$2,30**. → **Wer mit $10 RPM plant, plant auf dem 75. Perzentil.** Der Planwert ist **P25**, nicht der Median. Und: Die Nischenwahl entscheidet weniger als die Ausführung — deshalb zügig durch die Gates statt endlos vergleichen.
+*(Kohorten-Vorbehalt: AIR-Partnerkanäle, 10k–50M Abos, 44 Länder; für Education & Science nennt AIR keine Fallzahl.)*
+
+### Befund 3 — Der einzige geldverifizierte Faceless-Operator macht genau das, was „Qualitäts"-Raster ausschließen
+
+Fortune berichtete (mit vom Betroffenen gelieferten Screenshots, kein Audit) über einen Operator mit **$40.000–60.000/Monat** aus **fünf** aktiven Kanälen. Sein umsatzstärkster: *„a 'Boring History' channel built around six-hour 'history to sleep to' documentaries"* — dazu Tier-Compilations, Prank-Videos, Anime-Edits, Bollywood-Clips, Promi-Klatsch. Seine Strategie in seinen Worten: **„small edges inside formats that already work."** Seine Erwartung: das trägt *„until around 2027."*
+
+Und: **YouTube hat ausdrücklich klargestellt**, dass es *„no change to the reused content policy which reviews … clips, compilations, and reaction videos"* gibt. Compilations und Sleep-Dokus sind also **nicht per Policy verboten** — meine frühere Formulierung, sie seien „strukturell ausgeschlossen", war als Rechtsaussage falsch.
+
+→ **Konsequenz: Es gibt zwei verschiedene Spiele, und die Kriterien invertieren sich.** Das muss VOR der Nischensuche geklärt sein:
+
+| | **Extraktion** | **Equity** |
+|---|---|---|
+| Ziel | Cash jetzt | verkaufbarer Vermögenswert |
+| Beleg | verifiziert profitabel (s. o.) | Broker-Kriterien erfüllbar |
+| Fenster | 1–3 Jahre, dann tot (der Operator sagt das selbst) | offen |
+| Exit-Wert | keiner | 1,2×–2,2× Jahresgewinn |
+| Gate K3 (Originalität) | fällt weg | bindend |
+
+Dieses Playbook ist auf **Equity** ausgelegt — nachhaltiger $10k-Kanal, der eine Policy-Welle übersteht und verkäuflich ist. Das ist eine *Wahl*, keine Naturgesetzlichkeit. Wer Extraktion will, braucht ein anderes Playbook.
+
+---
+
+## 2. Stufe 1 — Die 7 Kill-Gates (binär, VOR jeder Nachfrage-Recherche)
 
 **Die Reihenfolge ist der eigentliche Trick.** Fast alle machen es falsch: erst ein spannendes Thema finden, dann merken, dass es rechtlich oder wirtschaftlich tot ist.
 
@@ -50,7 +94,8 @@ Kein Kanal, dessen Folgen ohne die Nennung/Abbildung identifizierbarer, lebender
 Alle vier Bedingungen: **(i)** API oder Bulk-Download · **(ii)** Bewegtbild oder ≥1.000 verwertbare Stills · **(iii)** Rechtsstatus pauschal klärbar (PD/CC0) · **(iv)** trägt ≥50 Folgenthemen.
 *Warum:* Ohne Pool bricht die KI-Pipeline (Krimi-Lesson: 80–350 €/Folge statt 35 €). Der verifizierte Pool-Katalog steht in §8.
 
-### G3 · Originalitäts-Substrat (der Interchangeability-Test)
+### G3 · Originalitäts-Substrat (der Interchangeability-Test) — *nur im Equity-Spiel bindend*
+> ⚠️ **Korrigiert (§1b, Befund 3):** Dieses Gate ist eine **Equity-Entscheidung** (Verkäuflichkeit + Policy-Robustheit), **keine Rechtspflicht.** YouTube sagt ausdrücklich, dass Compilations/Clips/Reactions weiter zulässig sind, und der eine verifizierte Verdiener lebt von Sleep-Dokus. Wer Extraktion spielt, streicht dieses Gate — und akzeptiert das 1–3-Jahres-Fenster.
 Pro Folge muss **zwingend** mindestens einer dieser menschlichen Beiträge anfallen: eigene Primärquellen-Recherche · eigenes redaktionelles Urteil (Verdict) · eigene Messung/Auswertung.
 *Operationalisierung:* Formuliere den Kanal-Pitch in einem Satz. Findest du ≥5 Kanäle, deren Videos man gegen die eigenen tauschen könnte, ohne dass ein Zuschauer es merkt → **verworfen.**
 *Warum (Stufe A):* YouTubes Policy verlangt wörtlich „**meaningful** difference" und „The substance of each video should be materially varied"; VP Trust & Safety **Matt Halprin** bestätigte (Juli 2026): Bewertung erfolgt auf **Kanalebene**, ist **tool-agnostisch** („regardless of whether AI, CGI, or no additional tools were used"), und die Anzahl der Meldungen ist irrelevant. Einspruchsfrist **21 Tage**. Das Dachprinzip heißt „original, not interchangeable".
@@ -64,8 +109,12 @@ Raus bei: **Made-for-Kids-Verdacht** (Feature-Verlust laut Google-Doc: keine Kom
 *Präzision:* Seit Januar 2026 sind sechs Themen bei **nicht-grafischer** Darstellung monetarisierbar (häusliche Gewalt, Selbstverletzung, Suizid, sexueller Missbrauch Erwachsener, Abtreibung, sexuelle Belästigung) — die Regeln wurden dort **gelockert**, nicht verschärft.
 *Erlaubt bleibt:* hohe-CPM-Themen **ohne** Beratung — Wissenschaft/Doku, Technik-Erklärung, Markt-**Daten** statt Markt-**Tipps**.
 
-### G6 · Trägt ≥50 Folgen
-Wenn der Themenpool nach 20 Folgen leer ist, war es ein Video-Format, keine Nische.
+### G6 · Trägt 150 Folgen à ≥3 Min
+Wenn der Themenpool nach 20 Folgen leer ist, war es ein Video-Format, keine Nische. Die 150 sind als Sanity-Check von Jellysmacks Katalogtiefe-Anforderung übernommen (*„gibt die Nische 150 Titel her?"*) — bewusst hoch, weil ein zu enger Pool der häufigste stille Tod ist.
+
+### G7 · Ohne Person übertragbar
+Der Kanal muss ohne einen benannten Menschen funktionieren und verkäuflich sein.
+*Warum (Geldgrund):* Broker führen *„High personalization/personality-dependent content"* wörtlich als Wertminderer; für die Eigentumsübertragung ist ein **Brand Account** (kein persönliches Google-Konto) Pflicht. Wer eine Personenmarke baut, baut einen Job, kein Asset.
 
 ---
 
@@ -114,6 +163,9 @@ Nötiger Median/Folge    = Views/Monat ÷ Uploads pro Monat
 - $10.000/Monat: **2,5 Mio. Views/Monat** → **~310k Median-Views pro Folge**
 
 **Screening-Gate:** Liegt der beobachtete Nischen-Median der 10k–100k-Abo-Kanäle unter diesem Wert, ist das Umsatzziel in dieser Nische **arithmetisch** nicht erreichbar. Dann: Nische verwerfen, Ziel senken oder Uploads erhöhen — aber nicht weiterhoffen.
+
+> ⚠️ **Korrigiert (§1b, Befund 2):** Der Planwert ist **P25, nicht der Median** — für Doku/Science/Education **$2,31** (AIR, 3.595 Kanal-Monate). Mit RPM $2,31 und den Defaults: Break-even **16.450 Views/Folge**, $10k-Ziel = **4,33 Mio. Views/Monat** → nötiger Median **541.000/Folge**. Das ist die ehrliche Zahl; die $4-Rechnung unten ist das optimistische Szenario.
+> Zusätzlich **Saison-Abschlag**: Januar liegt **34 %** unter November (AIR, 13 Werte wörtlich bestätigt).
 
 **RPM als Band, nie als Punktwert** (Gegenprüfung hat hier hart korrigiert):
 
@@ -257,6 +309,56 @@ Er ist **Eintrittskarte und Kostenboden** — per Definition für jeden Konkurre
 
 ---
 
+## 10b. Die Käufer-Ebene — der einzige Ort, wo Nischenbewertung mit Geld quittiert wird
+
+Wer Kanäle kauft, muss Nischen bewerten und haftet für Fehler. Das ist der härteste verfügbare Maßstab.
+
+### Was tatsächlich bezahlt wird
+
+| Quelle | Multiple | Basis |
+|---|---|---|
+| Flippa, 3 abgeschlossene YouTube-Deals Q1/2026 | **1,19× · 1,48× · 1,71× Jahresgewinn** | ⚠️ alle drei von **einem** Broker, n=3 — ein Maklerbuch, kein Markt |
+| Empire Flippers Scoreboard (tatsächlich verkauft) | **26,3× Monatsgewinn** (typisch) · 28,3× premium · **36,7×** ab $1M · 14,5× distressed | 2.653 Verkäufe, $593.000.849 — aber **alle Asset-Klassen**, nicht YouTube-spezifisch |
+| Flippa-Aggregat 2025 | YouTube 1,8× Ø, 3,9× Top-Quartil; YouTube-Volumen **+155 %** | Basis (annual/monthly, sold/asking) von Flippa **nicht offengelegt** |
+
+**Planwert: 1,2×–2,2× Jahresgewinn** (self-serve bis vetted-brokered), 3,0× nur in der $1M+-Klasse.
+**Ehrliche Lücke:** Für *tatsächlich verkaufte YouTube-Kanäle* existiert **keine veröffentlichte Multiple-Statistik.** Die kursierenden „20–40× Monat" stammen ausschließlich aus Rechner- und SEO-Seiten. 26,3× Monat = 2,19× Jahr ist ein *asset-klassenfremder* Mittelwert — als Größenordnung brauchbar, nicht als YouTube-Zahl.
+
+### Was den Preis zerstört (Broker-Dokumente, wörtlich)
+
+- *„High personalization/personality-dependent content"* → **G1 und G7 haben hier ihren Geldgrund**
+- *„Uneven view distribution (one viral video dominating)"* → deshalb ist der **Median** die Metrik, nicht der Hit
+- Copyright-Strikes: *„Make sure 90 days have passed since your strike was issued before listing"*
+- Pflicht für die Übertragung: **Brand Account** (kein persönliches Google-Konto), 0 aktive Strikes, *„All content is original and owned by the seller (no unlicensed footage or music)"*, 12 Monate AdSense-Exporte, *„Content production process documented"*
+- Red Flag: *„Revenue too high for view count"*
+
+### Die Kapitalseite ist kein Käufer für uns — mit einer nutzbaren Ausnahme
+
+Spotter hat >$940 Mio. an Creator ausgezahlt (Variety 10/2024, Firmenangabe), aber 10/2025 Studio geschlossen und Personal abgebaut; Jellysmacks JellyFi-Katalogprogramm wurde Anfang 2024 zu nicht offengelegten Konditionen verkauft. **Für Kanäle unserer Größe war dieser Markt nie zugänglich.**
+Nutzbar bleiben Spotters **Primärkriterien** (spotter.com/creator-capital): *„long-form YouTube videos are a must"*, Shorts-only disqualifiziert, **Rechte-Vollbesitz Pflicht**. Das deckt sich exakt mit dem Public-Domain-Asset-Setup (§8) — unser Pool-Gate ist damit money-verified, nicht nur bequem.
+*(Nicht tragfähig und daher gestrichen: die kursierende Spotter-Schwelle „1 Mio. Views/Monat" ist von 2022 und gehört zu einer de-priorisierten Produktlinie; „$15.000–$40 Mio." ist unbelegt.)*
+
+### Portfolio-Risiko: Operator-Ansteckung ist die reale Gefahr
+
+Der harte Beleg ist **nicht** das Google-Paper zur Cluster-Terminierung — dessen Zahlen (50k Cluster / 130k Kanäle) sind aus der aktuellen Fassung **herausredigiert**, es ist nicht peer-reviewed, und „YouTube" kommt darin **nicht vor**. Der Mechanismus (Cluster statt Einzelvideo; Titel-/Beschreibungs-Terme, Upload-Pacing, geteilte Infrastruktur) bleibt aber plausibel.
+
+Der empirische Beleg ist **True Crime Case Files: fünf Kanäle EINES Betreibers, alle terminiert nach einer einzigen Aufdeckung** (Grund offiziell *„child safety … sexualization of minors"*, nicht „KI"). Dazu das Zwei-Stufen-Muster von Screen Culture / KH Studio: Demonetisierung → Relabeling → Rückfall → Termination (Dez. 2025).
+
+→ **Regeln:** nichts zwischen eigenen Kanälen teilen (Skript-Skelett, VO-Stimme, Template, Musikbett, Thumbnail-Grammatik, Upload-Rhythmus) · getrennte Marken-/AdSense-Struktur · Beweis-Akte pro Folge.
+
+### Content ID ist Normalbetrieb, kein Nischen-Filter
+
+**2.502.941.368 Claims in 2025**, ~99 % automatisiert, **>90 % monetarisiert der Claimant**, **>6 % „likely false assertion of copyright ownership"** (YouTube-Transparenzbericht, 06.06.2026). Ein Claim ist erwartbar — plane den Widerspruchsweg ein, statt eine Nische deswegen zu verwerfen.
+
+### Haftungs-Deckel: warum G1 Geld wert ist
+
+- **Upchurch, Bundesjury Nashville, 18.05.2026: $17,5 Mio.** — und entscheidend: Kläger wurden als **Privatpersonen** eingeordnet → *actual malice* nicht erforderlich, **Fahrlässigkeit genügt.**
+- **Tokio, 17.11.2022: ¥500 Mio.** für 54 Werke (¥200/View); der Uploader hatte ~¥7 Mio. verdient → Faktor **~71**.
+
+Das sind die Zahlen hinter „keine benannten lebenden Personen" und „keine gerippten Streams".
+
+---
+
 ## 11. Was NICHT gilt (Hygiene-Liste — damit wir nicht rückfällig werden)
 
 Diese Zahlen kursieren breit, sind aber von der Gegenprüfung verworfen. **Nie als Grundlage verwenden:**
@@ -271,38 +373,69 @@ Diese Zahlen kursieren breit, sind aber von der Gegenprüfung verworfen. **Nie a
 - Shorts-RPM „$0,10 vs. $20 = 200×" als Punktwert (Richtung stimmt, Zahl nicht) · alle Tool-Preise außer 1of10
 - Kurzgesagt als Referenz für unsere Kostenstruktur (~70 Mitarbeiter, München)
 
+**Neu aus der Geld-Recherche verworfen:**
+- „Nischenwert = Monatsgewinn × 26" und „unter $2.000/Monat unverkäuflich" — der 26,3×-Wert ist ein **asset-klassenfremder** Mittelwert; die $2.000-Schwelle ist **Empire-Flippers-Hauspolitik**, keine Marktschwelle (Flippa verkauft darunter). Die 91-%-Ablehnungsquote stammt aus **2020/21**
+- Multiples pro Nische aus den Empire-Flippers-Kategorien (7×–36×) — das sind **Angebotspreise**, n=1–4 pro Kategorie
+- „Ziel muss ≤10 % des Nischen-Deckels sein" und „Median der Top-10-Videos" — **im Galloway-Transkript nicht vorhanden**; seine 10 % beschreiben sein eigenes *Headroom*, nicht eine Obergrenze
+- Galloways Trichter als eine Zahl — er spreizt selbst zwischen *„maybe you're left with 3 or 4 videos"* (aus 100) und einem *„100-10-1 framework"*. Bandbreite **10×–30×** ausweisen
+- „30 % / 5 % / 95 % / 80-20-Zeitallokation" (Colin & Samir) — Redaktions-Paraphrase, keine Primäraussage
+- Alle MrBeast-Zahlen (818 Sekunden, „simple") als Norm für einen Kanal ohne Publikum — das Handbuch koppelt sie ausdrücklich an *„our audience is massive"*
+- „16 % Policy-Tod pro Quartal" — Einmalwelle als Rate missdeutet, plus Rechenfehler (17≠16)
+- „50.000 Cluster / 130.000 Kanäle" als Faktum — aus der aktuellen Paper-Fassung entfernt
+- „Education hat die höchsten Shorts-Opportunitätskosten" — abgeleitet aus einer **leeren Zelle** (n=0 Shorts-Kanäle im Education-Sample)
+- Die Upload-U-Kurve als „Gewinnzone" — AIR wörtlich: *„upload count and RPM barely correlate at all"*, und die Achse ist RPM, nicht Umsatz
+- Jede Sponsoring-CPM-Zahl nach Nische — existiert nicht; IZEAs eigene Zahlen widersprechen sich um ~3×
+- Noah Morris' $250k/Monat und alle NexLev-Zahlen — Selbstauskunft eines Kursverkäufers, widersprüchliche Kanalzahl (6 vs. „20+")
+- „CoComelon+Blippi für $120 Mio." — das war eine **Finanzierungsrunde**, kein Kaufpreis; alle Moonbug-Kaufpreise sind unbestätigt
+- BBTV-RPM ($0,53) als Realitätsanker — 2023, Firma delistet, andere Metrik-Definition (Konzernumsatz/alle Netzwerk-Views)
+
 ---
 
 ## 12. Die Kurzfassung — Nischen-Check auf einer Seite
 
+> **Ausführbar als Skill:** `.claude/skills/nische-finden/SKILL.md`. Der Satz „finde eine perfekte Nische" löst die Prozedur aus. Dieses Playbook ist die Herleitung, die Skill ist die Ausführung.
+
 ```
-STUFE 1 · KILL-GATES (binär, ein Nein = Ende)
-  [ ] G1  Keine reale lebende Person im Zentrum
-  [ ] G2  Freier Asset-Pool: API/Bulk + Bewegtbild o. 1.000 Stills + PD/CC0 + 50 Themen
-  [ ] G3  Originalitäts-Substrat: Primärquelle / Verdict / eigene Messung pro Folge
-          → Interchangeability-Test: <5 austauschbare Kanäle?
-  [ ] G4  Englisch (Deutsch = Tonspur, nicht Kanal)
-  [ ] G5  Kein MFK / YMYL-Beratung / ineligible Kategorie
-  [ ] G6  Trägt ≥50 Folgen
+STUFE 0 · WELCHES SPIEL?   Extraktion (Cash, 1-3 J. Fenster) oder Equity (verkäuflich)?
+                            Bei Extraktion faellt G3 weg. Nicht raten - fragen.
+          Parameter: Kosten/Folge · Uploads/Monat · Ziel · RPM = P25 der Nische
 
-STUFE 2 · NACHFRAGE (2×2)
-  [ ] ≥3 Kanäle <50k Abos mit ≥100k-Video in 12 Mon., davon ≥1 unter 12 Mon. alt
-  [ ] 2×2-Feld bestimmt: System / Frühe Welle / Gesättigt / Keine Nachfrage
-      → Rot oder Orange: Ende
+STUFE 1 · KILL-GATES (binär, ein Nein = Ende, keine Aufrechnung)
+  [ ] G1  Keine benannten lebenden Personen      (Upchurch $17,5 Mio., Fahrlässigkeit genügt)
+  [ ] G2  Freier Pool: API/Bulk + PD/CC0 + volle Rechte   (Spotter-Kriterium)
+  [ ] G3  Originalitäts-Substrat  — NUR im Equity-Spiel bindend
+  [ ] G4  Englisch                               (Deutsch = MLA-Tonspur, nicht Kanal)
+  [ ] G5  Kein MFK / YMYL-Rat / KI-Persona zu Gesundheit-Recht-Finanzen-Politik
+  [ ] G6  Trägt 150 Folgen à ≥3 Min
+  [ ] G7  Ohne Person übertragbar                (Broker-Wertminderer)
 
-STUFE 3 · ARITHMETIK
-  [ ] Break-even = Kosten ÷ (RPM/1000)          mit RPM = unteres Drittel × 0,7
-  [ ] Nötiger Median = (Ziel$ ÷ RPM × 1000) ÷ Uploads
-  [ ] Nischen-Median der 10k–100k-Tier liegt DARÜBER?  → sonst Ende
+STUFE 2 · HEADROOM + SCAN
+  [ ] Galloway-Sichtung: Suche → Longform-Filter → nach Views sortieren (Decke lesen)
+  [ ] python3 analyse/nischen_scan.py "<kw>" --limit 25 --rpm 2.31
+      NACHFRAGE (trägt die Nische?)  ×  FENSTER (kommen Neue durch?)
+      🟢 System · 🟠 tragfähig/Fenster eng · 🟡 frühe Welle · 🔴 keine Nachfrage
 
-STUFE 4 · PAPIER-TEST (0 €, 1 Tag)
-  [ ] 30 Themen · 20 Titel in <30 Min · 10 Thumbnail-Skizzen
+STUFE 3 · ARITHMETIK  (P25, nicht Median!)
+  [ ] Break-even        = Kosten ÷ (RPM/1000)
+  [ ] Nötiger Median    = (Ziel$ ÷ RPM × 1000) ÷ Uploads
+  [ ] Liegt das über dem BESTEN aktiven Kanal-Median der Nische?
+      → dann ist das Ziel dort arithmetisch unerreichbar. Ziel senken /
+        Uploads erhöhen / Nicht-AdSense einplanen. Nicht weiterhoffen.
+  [ ] Saison: Januar −34 % gegen November
 
-STUFE 5 · GELD
-  [ ] Stop-Loss 700–1.050 € / 20–30 Folgen, Review bei Folge 10
+STUFE 4 · PACKAGING-TEST (die eigentliche Profi-Methode, 0 €)
+  [ ] 20 Titel in <30 Min · 10 Thumbnail-Konzepte
+  [ ] Jede Folge in Titel+Thumbnail versprechbar, ohne das Verdict zu verraten?
+  [ ] ≥3 unterscheidbare Folgen-Formate (Rotation — "rehashing formats always dies")
+  [ ] Ideen-Backlog 10×–30× der Produktionsrate
+
+STUFE 5 · GELD & PORTFOLIO
+  [ ] Stop-Loss: 20–30 Folgen × Kosten, hart. Abbruch-Review bei Folge 10
   [ ] Nur EINE Test-Nische parallel
-  [ ] Kanal-2-Bedingung erfüllt (Zustand, nicht Datum)
-  [ ] Kein geteiltes Template/Stimme/Rhythmus mit anderen eigenen Kanälen
+  [ ] Kanal-2-Bedingung erfüllt (Zustand, kein Datum)
+  [ ] Nichts geteilt zwischen eigenen Kanälen: Skript-Skelett, Stimme, Template,
+      Musikbett, Thumbnail-Grammatik, Upload-Rhythmus  (Operator-Ansteckung!)
+  [ ] Beweis-Akte pro Folge archiviert
 ```
 
 ---
@@ -318,5 +451,16 @@ STUFE 5 · GELD
 
 ---
 
+## Quellen der Geld-Ebene (§1b, §10b)
+
+**Transaktionen/Aggregate:** [Flippa Closed Deals Q1/2026](https://flippa.com/blog/closed-deals-on-flippa-q1-2026/) · [Flippa M&A Insights 2025](https://flippa.com/blog/2025-online-business-ma-insights-from-flippa/) · [Empire Flippers Scoreboard (verkauft)](https://empireflippers.com/scoreboard/) · [EF Listing-Anforderungen](https://empireflippers.com/business-listing-requirements/) · [EF Kanal verkaufen — Wertminderer](https://empireflippers.com/sell-youtube-channel/) · [Flippa Käufer-DD](https://flippa.com/blog/buy-youtube-channel/) · [Spotter Creator Capital (Primärkriterien)](https://www.spotter.com/creator-capital) · [Variety: Amazon/Spotter $940 Mio.](https://variety.com/2024/digital/news/amazon-invests-spotter-digital-creator-economy-1236194916/) · [Tubefilter: Spotter Studio geschlossen](https://www.tubefilter.com/2025/10/22/spotter-studio-shutdown-layoffs/)
+**RPM-Aggregat:** [AIR: echte RPM-Daten](https://air.io/en/air-data-findings/how-much-does-youtube-really-pay-in-2026-real-rpm-data-from-300-channels) · [AIR: Nischen-Ranking](https://air.io/en/air-data-findings/which-youtube-niche-makes-the-most-money-in-2026-ranked-by-real-rpm-and-cpm) · [AIR: Shorts vs. Longform](https://air.io/en/air-data-findings/youtube-shorts-rpm-vs-long-form-how-much-do-shorts-earn-in-2026)
+**Primäraussagen:** [Galloway-Volltranskript (Creator Science)](https://podcast.creatorscience.com/paddy-galloway-2/) · [MrBeast-Handbuch (Leak-Auswertung)](https://www.tubefilter.com/2024/09/17/mrbeast-internal-production-guide-leaked-key-points/) · [ViewStats Outlier-Doku](https://viewstats.zendesk.com/api/v2/help_center/en-us/articles/22966946776091.json) · [YouTube A/B Test & Compare](https://support.google.com/youtube/answer/16391400)
+**Policy/Recht:** [Inauthentic Content (Primärtext)](https://support.google.com/youtube/answer/1311392) · [YouTube-Klarstellung 07/2025](https://www.socialmediatoday.com/news/youtube-clarifies-monetization-update-inauthentic-repeated-content/752892/) · [Google Research: S-CTS](https://storage.googleapis.com/gweb-research2023-media/pubtools/1039291.pdf) · [COPPAcalypse (Management Science)](https://pubsonline.informs.org/doi/10.1287/mnsc.2024.05295) · [Nielsen Gauge Mai 2026](https://www.nielsen.com/news-center/2026/streaming-embarks-on-annual-summer-ascent-in-nielsens-may-2026-gauge-reports/)
+**Post-Mortems:** [XDA: 16 der Top-100 entfernt](https://www.xda-developers.com/youtube-just-deleted-over-4-7-billion-views-worth-ofai-slop-videos/) · [THR: Faceless Creator & KI-Schaden](https://www.hollywoodreporter.com/business/digital/faceless-creators-youtube-ai-damage-1236617586/)
+
+---
+
 ## CHANGELOG
+- **30.07.2026 (Abend)** — Geld-Ebene ergänzt (12 Agenten, Fokus „Leute mit nachweisbarem Geld statt Blogger", ~335 Tool-Calls). **Drei Befunde widerlegen die Erstfassung:** (1) Top-Verdiener bewerten Nischen überhaupt nicht — MrBeast-Handbuch enthält „niche" null Mal, Galloway sagt *„no niche where I can't get traction"* → Scoring auf Kommunikationsmittel herabgestuft, Entscheidungen fallen an Gates + Arithmetik; (2) Streuung innerhalb einer Nische (8,4× bei Education & Science) übersteigt die zwischen Nischen → Planwert ist **P25 ($2,31)**, nicht der Median; (3) der einzige geldverifizierte Faceless-Operator lebt von Sleep-Dokus und Compilations, und YouTube erlaubt die ausdrücklich → **G3 auf „nur im Equity-Spiel bindend" korrigiert**, Zwei-Spiele-Unterscheidung eingeführt. Neu: §10b Käufer-Ebene (Multiples 1,2×–2,2× Jahresgewinn, Wertminderer wörtlich, Operator-Ansteckung via True Crime Case Files, Content-ID-Realität, Haftungs-Deckel Upchurch $17,5 Mio.), G7 (Übertragbarkeit), G6 auf 150 Folgen. Ausführbar gemacht als `.claude/skills/nische-finden/`.
 - **30.07.2026** — Erstfassung. 12 Agenten (6 Recherche + 6 adversariale Gegenprüfung), ~320 Tool-Calls. Kernergebnis: Die kursierende „Profi-Methode" ist überwiegend Vendor-SEO ohne Primärdaten → Beweis-Hierarchie A/B/C eingeführt, eigene Messung schlägt gekaufte Rubriken. 5-Stufen-Prozess mit 6 binären Kill-Gates VOR der Nachfrage-Recherche (validiert gegen die eigenen Fälle: Krimi stirbt an G1/G2, BLACKBOX an G4). MLA-Fund: deutscher Markt über Tonspur statt Zweitkanal. Asset-Pool-Katalog mit 15 Pools + 4 Rechtsfallen. Zeitkritisch: EU-KI-VO Art. 50 ab 02.08.2026, NASA-Insignia-Regel gegen KI-Bilder.
