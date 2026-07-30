@@ -46,6 +46,7 @@ Kernregeln (Details + Beispiele: `SPACE-PLAYBOOK.md` **§5c**): max. **2 Eigenna
 7. **Reuse nur über den Katalog:** `produktion/clip-katalog.md` (Motiv, Herkunft, Text-Scan-Status) ist die einzige Quelle für Pool-Wiederverwendung.
 
 ## Wo steht was
+- **`NISCHEN-PLAYBOOK.md`** — **wie wir Nischen FINDEN** (kanal-unabhängig, verbindlich für jeden neuen Kanal). 5-Stufen-Prozess: 6 binäre Kill-Gates → 2×2-Nachfrage-Diagnose → Arithmetik-Gate → Papier-Test → Budget-Stop-Loss. Enthält die Beweis-Hierarchie A/B/C (die kursierende „Profi-Methode" ist überwiegend Vendor-SEO ohne Primärdaten), den Asset-Pool-Katalog mit 15 Pools + 4 Rechtsfallen, und die MLA-Regel (deutscher Markt über Tonspur statt Zweitkanal). Werkzeug dazu: `analyse/nischen_scan.py`.
 - **`SPACE-PLAYBOOK.md`** — das vollständige Gewinner-Playbook: Regeln der Top-Performer, Titel-Formel, Fessel-Mechanik §5b (7 Hebel + Zwei-Fragen-Prinzip + Schaufenster-Regel + ⚠️-Regel), Produktions-Pipeline, **§15 Skript-Werkstatt** (6 Durchgänge, 8 Erzeugungs-Regeln, Modellwahl je Durchgang), Do's & Don'ts. **Bei jeder Umsetzung §12 (Muster-Regeln) durchgehen — verbindlich.**
 - **`research/konkurrenz-muster.md`** — Konkurrenz-Analyse (17 Kanäle Erstdaten + Web-Verifikation): die 8 Muster + 6 Web-Findings, Belege pro Kanal. Grundlage für Playbook §12, Regel 6/7/8.
 - **`research/niche-analysis.md`** — Belegdaten: Nischen-Ranking, Einkommens-Schätzungen, Top/Mid/Low-Kanal-Tiers.
