@@ -1,7 +1,8 @@
-# 🎯 Nischen-Playbook — wie wir Nischen finden (kanal-unabhängig)
+# 🎯 Nischen-Playbook — Belegband zum Nischen-System
 
-> **Zweck:** `SPACE-PLAYBOOK.md` sagt, wie wir *einen* Kanal bauen. Dieses Dokument sagt, **welchen Kanal wir überhaupt bauen** — reproduzierbar, für jeden künftigen Kanal.
-> **⚡ Ausführbar:** Der Satz „finde eine perfekte Nische" löst `.claude/skills/nische-finden/` aus. Dieses Dokument ist die **Herleitung**, die Skill die **Prozedur**. Kurzfassung: §12.
+> **➡️ Das operative Verfahren steht in `NISCHEN-SYSTEM.md`.** Wer eine Nische sucht, arbeitet dort — nicht hier.
+> **Dieses Dokument ist der Belegband:** Herleitung, Quellen, Prüfprotokolle, Asset-Pool-Katalog, Käufer-Ökonomie und die Liste dessen, was widerlegt ist. Nachschlagen, wenn eine Regel begründet werden muss.
+> **⚡ Ausführbar:** Der Satz „finde eine perfekte Nische" löst `.claude/skills/nische-finden/` aus.
 > **Datenbasis:** zwei Recherchewellen à 12 Agenten (je 6 Rechercheure + 6 adversariale Gegenprüfer), ~655 Tool-Calls, 30.07.2026. Welle 1: Methodik/Tooling. Welle 2: *Leute mit nachweisbarem Geld* — Käufer-Ökonomie, benannte Operator, MCN-Aggregate, Post-Mortems. **Welle 2 hat Teile von Welle 1 widerlegt → §1b.**
 > **Lesereihenfolge bei einer neuen Nischen-Idee:** §1 + §1b → §2 (Kill-Gates) → §3 (Nachfrage) → §4 (Arithmetik) → §5 (Packaging) → §6/§10b (Geld). Nie überspringen, nie umsortieren.
 

@@ -1,139 +1,135 @@
 ---
 name: nische-finden
-description: Findet und bewertet YouTube-Nischen für einen neuen faceless KI-Kanal nach dem money-verifizierten Verfahren aus NISCHEN-PLAYBOOK.md. Nutze diese Skill, wenn der User eine Nische finden, prüfen, bewerten oder vergleichen will — z. B. "finde eine perfekte Nische", "welche Nische sollen wir nehmen", "prüf mal Nische X", "Ideen für Kanal 2". Führt Kandidatengenerierung, Kill-Gates, Nachfrage-Scan, Arithmetik und Packaging-Test aus und endet mit einer Entscheidung plus Kill-Log.
+description: Führt die Nischen-Recherche für einen neuen YouTube-Automation-Kanal nach dem Trichter in NISCHEN-SYSTEM.md aus. Nutze diese Skill, wenn der User eine Nische finden, prüfen, bewerten oder vergleichen will — z. B. "finde eine perfekte Nische", "welche Nische für Kanal 2", "prüf mal Nische X", "such mir Nischen-Ideen". Erzeugt 80-120 Kandidaten, siebt sie über 8 Disqualifikatoren, liest Nachfrage und Fenster mit analyse/nischen_scan.py, rechnet die Unit Economics, prüft Produzierbarkeit und Packaging und endet mit einem Entscheidungsdokument plus Kill-Log.
 ---
 
-# Nische finden — ausführbares Verfahren
+# Nische finden — Ausführung
 
-Vollständige Begründung, Belege und Beweis-Hierarchie: **`NISCHEN-PLAYBOOK.md`**. Diese Skill ist die *Prozedur*, nicht die Herleitung. Abweichungen vom Playbook sind erlaubt, müssen aber im Ergebnis benannt werden.
+**Das Verfahren steht in `NISCHEN-SYSTEM.md`.** Diese Skill ist die Ausführungsanweisung: was ich in welcher Reihenfolge tue, welche Zwischenergebnisse ich zeige, wann ich abbreche.
 
-## Grundhaltung (aus der Recherche, gegen den Instinkt)
+Vollständige Belege und Prüfprotokolle: `NISCHEN-PLAYBOOK.md`.
 
-1. **Top-Verdiener scoren Nischen nicht.** Das MrBeast-Produktionshandbuch enthält das Wort „niche" **null** Mal (PDF gegrept). Paddy Galloway wörtlich: *„there's no niche where I can't get traction."* Was sie stattdessen tun: Packaging vor Produktion, Format-Rotation, Ideen-Überschuss. **Punktesummen sind Theater — Kill-Gates und Arithmetik sind echt.**
-2. **Die Streuung INNERHALB einer Nische ist größer als die zwischen Nischen.** Education & Science: RPM P25 $2,31 · Median $10,22 · P75 $19,50 = **8,4×** (AIR, 3.595 Kanal-Monate). Die Nischenwahl entscheidet weniger als die Ausführung. Deshalb: schnell durch die Gates, nicht endlos vergleichen.
-3. **Zwei verschiedene Spiele.** Muss vor Schritt 1 geklärt sein — die Kriterien invertieren sich:
+## Grundregeln der Ausführung
 
-| | **Extraktion** | **Equity** |
-|---|---|---|
-| Ziel | Cash jetzt | Verkaufbarer Vermögenswert |
-| Beleg | Der einzige geld­verifizierte Faceless-Operator (Fortune, $40–60k/Mon, 5 Kanäle) macht **6-Stunden-Sleep-Dokus und Compilations** und sagt: *„small edges inside formats that already work"* — er erwartet das Fenster *„until around 2027"* | Broker-Kriterien: übertragbar, 0 Strikes, eigene Rechte, kein Personenbezug |
-| Fenster | 1–3 Jahre, dann tot | offen |
-| Exit | keiner | 1,2×–2,2× Jahresgewinn |
+1. **Reihenfolge ist bindend.** Disqualifikatoren vor Datenerhebung. Nie eine spannende Idee recherchieren, die an einem Gate schon tot ist.
+2. **Ein Nein an einem Gate = Kandidat tot.** Keine Aufrechnung, kein „aber dafür".
+3. **Punkte entscheiden nichts.** Die Scorecard kommt erst bei den Finalisten und macht nur die Wahl nachvollziehbar.
+4. **Absagen werden aufgeschrieben.** Das Kill-Log ist der wertvollste Teil des Ergebnisses.
+5. **Grenzen mitliefern.** Wo die Messung unsicher ist, sage ich es — eine benannte Lücke ist besser als eine glatte Zahl.
 
-**Wenn der User das nicht gesagt hat: einmal fragen.** Nicht raten — bei Extraktion fällt Gate K3 weg, bei Equity ist es bindend.
+## Vor dem Start klären
+
+Nur diese zwei Dinge, und nur wenn der User sie nicht schon gesagt hat:
+
+- **Welches Spiel?** Equity (nachhaltiges Asset, Standard) oder Extraktion (Cash, 1–3-Jahres-Fenster). Bei Extraktion fällt D4 weg und Compilations/Sleep-Content sind erlaubt.
+- **Themen-Vorgabe?** Freie Suche oder ein bestimmtes Feld.
+
+Alles andere sind Defaults, die ich nur nenne: `38 $/Folge · 8 Folgen/Monat · Ziel 10.000 $/Monat · RPM-Planwert 2,31 $ · Englisch`.
 
 ---
 
-## Schritt 0 · Parameter festlegen
+## Stufe 1 · Kandidaten erzeugen → 80–120
 
-Defaults (nur nennen, nicht abfragen, wenn der User nichts anderes sagt):
-`Kosten/Folge 38 $` · `Uploads/Monat 8` · `Ziel 10.000 $/Monat` · `Sprache Englisch` · `Spiel: Equity`
+Fünf Quellen systematisch abarbeiten (`NISCHEN-SYSTEM.md §4`):
 
-**RPM-Planwert = P25 der Nische, nie der Median.** Für Doku/Science/Education: **$2,31**. Alle-Nischen-Median liegt bei $2,30 — wer mit $10 rechnet, plant auf dem 75. Perzentil. Zusätzlich Saison: Januar liegt **34 %** unter November.
+- **A · Materialpool zuerst** — den Pool-Katalog durchgehen (NASA · NOAA · NTSB/CSB/BFU · NARA · Smithsonian · LoC · CREST · CourtListener · USGS · LLNL · Europeana · IA/Prelinger · Commons). Pro Pool 5–15 Kandidaten. Das ist die stärkste Quelle, weil das Bildmaterial unsere bindende Restriktion ist.
+- **B · Sprach-Arbitrage** — was performt auf Russisch/Spanisch/Portugiesisch/Japanisch, das im Englischen fehlt?
+- **C · Format-Transfer** — bewiesenes Format in einen anderen Themenraum setzen.
+- **D · Nachbarschaftssprung** — von einer funktionierenden Nische einen Schritt zur Seite, nicht hinein.
+- **E · Nachfrage-Überhang** — Nachfrage da, Angebot alt oder schwach.
 
-## Schritt 1 · Kandidaten aus Asset-Pools ableiten (nicht aus „was ist gerade heiß")
+Jeder Kandidat wird als **Tripel** notiert, nicht als Thema: `Publikum × Themenraum × Format`.
 
-Für einen KI-Faceless-Kanal ist der freie Materialpool die bindende Restriktion — nicht das Thema. Also **invers vorgehen**: Pool → Nische.
+**Zwischenausgabe:** Tabelle mit `Nische | Publikum | Themenraum | Format | Pool | Quelle`. Zahl nennen.
 
-Gehe den Pool-Katalog in `NISCHEN-PLAYBOOK.md §8` durch (NASA · NOAA · NARA · Smithsonian · LoC · CourtListener · CREST · NTSB · CSB · USGS · LLNL · Europeana · IA/Prelinger · Commons · arXiv/PMC) und leite **20–40 Kandidaten** ab. Pro Kandidat eine Zeile: Nische · Pool · warum spannend.
+## Stufe 2 · Disqualifizieren → ~25
 
-Ergänze 5–10 Kandidaten per Themen-Arbitrage aus fremdsprachigen Märkten (russisch, spanisch, portugiesisch) — Themen sind frei, nur die Ausdrucksform ist geschützt.
+Acht binäre Fragen je Kandidat, ohne Websuche, aus Sachkenntnis (`§5`):
 
-## Schritt 2 · Kill-Gates (binär, ein Nein = raus, keine Aufrechnung)
-
-Schnell, ohne Websuche, aus Sachkenntnis. Ziel: von 30 Kandidaten bleiben 5–8.
-
-| | Gate | Money-Begründung |
+| | Frage | Tötet, wenn |
 |---|---|---|
-| **K1** | Keine benannten lebenden Personen im Zentrum | Upchurch-Urteil 05/2026: **$17,5 Mio.**, Kläger als *Privatpersonen* eingeordnet → nur Fahrlässigkeit nötig, kein *actual malice*. Tokio 11/2022: ¥500 Mio. für 54 Werke |
-| **K2** | Freier Pool mit maschinellem Zugang **und** vollen Rechten | Spotter verlangt wörtlich *„long-form YouTube videos are a must"* + Rechte-Vollbesitz. Broker: „no unlicensed footage or music" |
-| **K3** | Nicht in YouTubes wörtlicher Ausschlussliste *(nur im Equity-Spiel bindend)* | Primärtext: *„AI-generated content made with generic or unoriginal templates giving the impression of mass production"* · *„relies heavily on emotionally manipulative formulas"* · *„designed to shock or surprise viewers for the sole purpose of getting views"* · *„deceptive or misleading imagery or narratives"* |
-| **K4** | Englisch | DE-RPM ~0,6× US bei ~0,25× Marktgröße. Deutsch = **Tonspur** (MLA, Auto-Dubbing mit Expressive Speech inkl. Deutsch), nicht Kanal |
-| **K5** | Kein MFK, kein YMYL-Rat, keine KI-Persona zu Gesundheit/Recht/Finanzen/Politik | MFK: COPPA-Studie *Management Science* — Views −20 %, Output −18 %. KI-Persona zu Sensitivthemen: ausdrücklich nicht monetarisierbar |
-| **K6** | Trägt **150** Folgen à ≥3 Min | Jellysmack-Katalogtiefe als Sanity-Check: gibt die Nische 150 Titel her? Sonst ist es ein Format, keine Nische |
-| **K7** | Ohne Person übertragbar | Broker-Wertminderer wörtlich: *„High personalization/personality-dependent content"* |
+| D1 | Braucht es benannte lebende Personen? | ja |
+| D2 | Freier Pool mit API/Bulk, PD/CC0, ≥50 Folgen tragfähig? | nein |
+| D3 | Werbe-Sperrkategorie (MFK, YMYL-Beratung, Gambling, Adult)? | ja |
+| D4 | Von 5 anderen Kanälen austauschbar? *(nur Equity-Spiel)* | ja |
+| D5 | Trägt 150 Folgen à ≥3 Min? — **20 Titel in 10 Min testen** | nein |
+| D6 | Hält 24 Monate? (Trend-, Policy-, Quellen-Verfall) | nein |
+| D7 | Funktioniert ohne Person vor der Kamera, übertragbar? | nein |
+| D8 | Englisch möglich? | nein |
 
-⚠️ **K3 ist die ehrliche Bruchstelle.** YouTube hat ausdrücklich klargestellt: *„no change to the reused content policy which reviews … clips, compilations, and reaction videos"* — Compilations sind **nicht** per Policy verboten, und der eine verifizierte Verdiener lebt davon. K3 ist eine Equity-Entscheidung (Verkäuflichkeit, Policy-Robustheit), **keine Rechtspflicht**. So auch berichten.
+**Zwischenausgabe:** Überlebende + **Kill-Log** (jeder Tote mit Gate und einem Satz Grund).
 
-## Schritt 3 · Headroom-Sichtung + Nachfrage-Scan
+## Stufe 3 · Nachfrage und Fenster lesen → 6–8
 
-**3a — Galloways verifiziertes Verfahren** (wörtlich: *„search that term golf, filter it for longer videos … then sort by most viewed"*): Pro Überlebenden die Decke sichten. Das ist eine **Sichtung, keine Schwelle** — es zeigt, was in der Nische maximal geht.
+**3a Deckensichtung:** Pro Kandidat YouTube-Suche → Filter Video/über 20 Min → nach Aufrufen sortieren. Zeigt die Decke. Sichtung, keine Schwelle.
 
-**3b — Der Scan.** Für jeden Überlebenden:
-
+**3b Scan:**
 ```bash
 python3 analyse/nischen_scan.py "<keyword>" --limit 25 --rpm 2.31 --kosten 38 --ziel 10000 --uploads 8
 ```
 
-Der Scanner trennt **zwei Fragen** (das ist wichtig, ein einzelnes Raster verwechselt sie):
-- **NACHFRAGE** — trägt die Nische überhaupt Reichweite? (≥2 aktive Kanäle mit Median ≥50k)
-- **FENSTER** — kommen neue/kleine Kanäle noch durch? (≥3 Kanäle <50k Abos mit ≥100k-Video **oder** ≥1 Kanal ≤18 Monate mit starkem Median)
+Zwei getrennte Fragen — Vermischung ist der Kardinalfehler:
 
-| Urteil | Bedeutung |
-|---|---|
-| 🟢 SYSTEM-NISCHE | Nachfrage + Fenster → rein |
-| 🟠 TRAGFÄHIG, FENSTER ENG | Nachfrage ja, aber Verdrängung — nur mit echtem Format-Unterschied |
-| 🟡 FRÜHE WELLE / ZU KLEIN | Fenster offen, Nachfrage unbewiesen — klein testen |
-| 🔴 KEINE NACHFRAGE | raus. **„Unbesetzt" und „keine Nachfrage" sehen identisch aus** |
+| | Fenster offen | Fenster eng |
+|---|---|---|
+| **Nachfrage ja** | 🟢 rein | 🟠 nur mit echtem Format-Unterschied |
+| **Nachfrage nein** | 🟡 klein testen | 🔴 raus |
 
-**Grenzen des Instruments mitberichten:** RSS liefert nur die letzten ~15 Uploads → aktueller, kein Lebenszeit-Median. Handle-Auflösung kann auf gleichnamige Fremdkanäle laufen (Abo-Zahl und Top-Titel gegenprüfen). Ruhende Kanäle und Videos <30 Tage sind ausgeschlossen.
+**Bei jedem Scan die drei Messfehler kontrollieren** (`§6c`): frische Videos verzerren nach unten (nur ab 30 Tagen zählen), ruhende Archivkanäle nach oben (nur Upload ≤120 Tage), themenfremde Großkanäle kippen die Statistik (Relevanzfilter). Der Scanner macht das — ich prüfe die Ausgabe trotzdem auf Plausibilität, besonders Handle-Verwechslungen (Abo-Zahl und Top-Titel gegenlesen).
 
-## Schritt 4 · Arithmetik-Gate
+**3c Konkurrenzdichte:** Nicht Kanäle zählen. Die besten drei anschauen und eine Frage beantworten: **können wir das schlagen oder nur nachmachen?** Nur nachmachen → raus.
+
+## Stufe 4 · Rechnen → 3–4
 
 ```
-Break-even/Folge   = Kosten ÷ (RPM/1000)
-Views/Monat f. Ziel = (Ziel$ ÷ RPM) × 1000
-Nötiger Median     = Views/Monat ÷ Uploads
+Break-even/Folge     = Kosten ÷ (RPM ÷ 1000)
+Nötiger Median/Folge = (Ziel ÷ RPM × 1000) ÷ Folgen pro Monat
 ```
+Mit den Defaults: Break-even **16.450**, nötiger Median **541.000/Folge**.
 
-Bei den Defaults und RPM $2,31: Break-even **16.450 Views/Folge**, Ziel **4,33 Mio. Views/Monat** → nötiger Median **541.000/Folge**.
+**Realitätstest:** nötiger Median gegen den **besten aktiven Kanal-Median der Nische**. Liegt er darüber, ist das Ziel dort arithmetisch unerreichbar — dann eine der drei Konsequenzen benennen (Ziel senken · mehr Folgen · zweite Einnahmeebene), nicht weiterhoffen.
 
-**Der Realitätstest:** Liegt das über dem besten aktiven Kanal-Median der Nische, ist das Ziel dort **arithmetisch unerreichbar** — auch für den Marktführer. Dann eine von drei Konsequenzen benennen, nicht weiterhoffen: Ziel senken · Uploads erhöhen · Nicht-AdSense-Ebene einplanen.
+## Stufe 5 · Produzierbarkeit → 2
 
-*Beispiel aus der Kalibrierung:* Space-Doku — bester Median 220.622 bei nötigen 312.500 (bei RPM $4). Das $10k-Ziel ist über AdSense allein in dieser Nische nicht erreichbar.
+Sechs Fragen je Kandidat (`§8`): konsistente Gesichter? · Fremdschrift im Bild? · Shots pro Minute? · fertiges Bewegtbild vorhanden? · Recherchezeit? · trägt eine KI-Stimme das Thema (Pietät)?
 
-## Schritt 5 · Packaging-Test — das ist die eigentliche Profi-Methode
+**Ergebnis:** belastbare Kostenschätzung pro Folge. Über dem Deckel → raus, egal wie gut die Nachfrage ist.
 
-Vor jeder Produktionsentscheidung, für die 2–3 Finalisten:
+## Stufe 6 · Packaging-Beweis → 1 Sieger
 
-1. **20 Titel** — dauert das länger als 30 Minuten, ist die Nische zu dünn
-2. **10 Thumbnail-Konzepte** (Beschreibung genügt)
-3. **Vermittelbarkeits-Test:** Lässt sich jede Folge in Titel + Thumbnail versprechen, ohne das Verdict zu verraten? (Schaufenster-Regel, `SPACE-PLAYBOOK.md §5b`)
-4. **Format-Rotation prüfen:** Gibt es ≥3 unterscheidbare Folgen-Formate? Das Handbuch wörtlich: *„every channel that rehashes formats for years always dies"*
-5. **Ideen-Überschuss:** Backlog **10×–30×** der Produktionsrate (Galloway spreizt selbst zwischen „3–4 von 100" und einem „100-10-1 framework" — Bandbreite ausweisen, nicht eine Zahl behaupten)
+Für die letzten zwei (`§9`): **20 Titel** (dauert es >30 Min, ist die Nische zu dünn) · **10 Thumbnail-Konzepte** · **Schaufenster-Test** (versprechen ohne verraten) · **≥3 unterscheidbare Folgen-Formate** · **Backlog-Rechnung 10–30×**.
 
-## Schritt 6 · Entscheidung + Artefakt
+Der Sieger hat das bessere **Packaging**, nicht das bessere Thema.
 
-Schreibe `research/nischen-entscheid-<JJJJ-MM-TT>.md` mit:
+## Stufe 7 · Scorecard und Entscheidung
 
-1. **Urteil** — eine Nische empfohlen, mit Begründung in 3–5 Sätzen
-2. **Kill-Log** — jeder Kandidat, der starb, mit Gate und Grund. *Das ist der wertvollste Teil* und verhindert, dieselbe Idee in drei Monaten neu zu prüfen
-3. **Scan-Ergebnisse** der Finalisten (Tabellen aus Schritt 3b)
-4. **Arithmetik** mit dem P25-Planwert und der Konsequenz
-5. **Stop-Loss:** 20–30 Folgen × Kosten = harter Deckel, Abbruch-Review bei Folge 10, **maximal eine Test-Nische parallel**
-6. **Beweis-Stufe pro Behauptung** (A bindend / B Heuristik / C Rauschen — `NISCHEN-PLAYBOOK.md §1`)
-7. **Offene Risiken** — was du nicht belegen konntest
+Scorecard (`§11`, 8 Kriterien × Gewicht, max. 100) **nur für die Finalisten** — zur Nachvollziehbarkeit, nicht zur Findung. Unter 55 nicht bauen. Bei Gleichstand gewinnt die günstigere Nische.
 
-Dann committen und pushen.
+Dann `research/nischen-entscheid-<JJJJ-MM-TT>.md` schreiben:
+
+1. **Urteil** — eine Nische, 3–5 Sätze Begründung
+2. **Kill-Log** — alle Toten mit Gate und Grund
+3. **Scan-Ergebnisse** der Finalisten
+4. **Arithmetik** mit Planwert und Konsequenz
+5. **Kostenschätzung** pro Folge
+6. **Packaging-Belege** (die 20 Titel)
+7. **Scorecard**
+8. **Stop-Loss:** 20–30 Folgen / 760–1.140 $ / Review bei Folge 10 / max. eine Test-Nische parallel
+9. **Offene Risiken** — was ich nicht belegen konnte
+
+Committen und pushen.
+
+## Nach der Entscheidung
+
+Empfehle den **Pilot**: eine Folge, dann A/B-Test (3 Varianten, Sieger nach Wiedergabezeit, bis 14 Tage, kostenlos). Nicht zehn Folgen auf Verdacht.
+
+Wenn ein bestehender Kanal beteiligt ist, die **Portfolio-Regeln** nennen (`§12`): nichts teilen zwischen eigenen Kanälen (Skript-Skelett, Stimme, Template, Musikbett, Thumbnail-Grammatik, Upload-Rhythmus), getrennte Marken-/Abrechnungsstruktur, Beweis-Akte pro Folge, Nischen nicht korrelieren.
 
 ---
 
-## Portfolio-Regeln (gelten ab Kanal 2)
+## Was ich in dieser Skill NICHT tue
 
-**Operator-Ansteckung ist die reale Portfolio-Gefahr.** Der harte Beleg ist nicht das Google-Paper (dessen Zahlen sind aus der aktuellen Fassung herausredigiert und YouTube wird nie genannt), sondern **True Crime Case Files: fünf Kanäle EINES Betreibers, alle terminiert nach einer einzigen Aufdeckung.** Und das Zwei-Stufen-Muster von Screen Culture / KH Studio: Demonetisierung → Relabeling → Rückfall → Termination.
-
-Daraus:
-- Zwischen eigenen Kanälen **nichts teilen**: Skript-Skelett, VO-Stimme, Template, Musikbett, Thumbnail-Grammatik, Upload-Rhythmus. Der beschriebene Erkennungsmechanismus arbeitet über Titel-/Beschreibungs-Terme, Upload-Pacing und geteilte Infrastruktur
-- Getrennte Marken-/AdSense-Struktur pro Kanal
-- Upload-Frequenz menschlich plausibel halten
-- **Beweis-Akte pro Folge** archivieren (Recherche, Skript-Entwürfe, Quellen-Dossier): Reviewer akzeptieren Prozessnachweise, keine Absichtserklärungen
-
-**Content-ID-Realität als Runbook, nicht als Filter:** 2.502.941.368 Claims in 2025, ~99 % automatisiert, **>90 % monetarisiert der Claimant**, >6 % „likely false assertion of copyright ownership". Ein Claim ist Normalbetrieb — plane den Widerspruchsweg ein, statt die Nische deswegen zu verwerfen.
-
-**Kanal 2 erst wenn** (Zustand, kein Datum): Kanal 1 produziert ohne neue Entscheidungen pro Folge (Pipeline + Config), **und** Kanal 2 kostet pro Folge weniger Aufwand — oder es gibt einen bezahlten Editor.
-
-## Was diese Skill NICHT tut
-
-- **Keine Punktesumme als Entscheidung.** Die kursierenden 40-Punkte-/7-Dimensionen-Rubriken stammen aus Tool-Blogs, sind unkalibriert und teils in sich widersprüchlich. Wenn eine Skala hilft, dann als Kommunikationsmittel — nie als Begründung
-- **Keine Zahl aus Tool-/SEO-/Affiliate-Blogs als Schwelle.** Die Hygiene-Liste in `NISCHEN-PLAYBOOK.md §11` sagt, was widerlegt ist
-- **Keine Nische wegen schlechter CTR verwerfen.** CTR <2 % oder Retention <30 % → Packaging ist schuldig, nicht die Nische
+- **Keine Nische wegen schwacher CTR verwerfen.** Diagnose-Reihenfolge: Impressionen → CTR → Cold Open → *dann* Nische (`§10`). Der Fehlschluss „Nische schuldig" ist der teuerste im Geschäft.
+- **Keine Zahl aus Tool-, SEO- oder Affiliate-Blogs als Schwelle.** `§15` sagt, was nicht funktioniert.
+- **Keinen zu kleinen Anfangspool akzeptieren.** Unter ~80 Kandidaten weiche ich die Gates auf statt zu verwerfen — dann liefere ich ein Ergebnis, das gut aussieht und falsch ist. Lieber die Kandidatenerzeugung nachschärfen.
+- **Kein Ergebnis ohne Kill-Log.** Eine Empfehlung ohne die dokumentierten Absagen ist nicht überprüfbar.
