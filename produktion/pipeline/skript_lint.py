@@ -7,14 +7,18 @@ Text war Prosa — erst als sie ein Skript wurde (qc_textscan.py), fand sie 3 Sl
 in bereits FERTIGEN Mastern. Dasselbe Prinzip hier fuer das VO-Skript.
 
 Geprueft werden nur Regeln, die bereits verbindlich sind:
-  §5c  max. 2 Eigennamen · keine Fachzahlen im VO · Satzlaenge · Fremdwort-Test
+  §5c  max. 2 Eigennamen · keine Fachzahlen im VO (auch ausgeschrieben) · Satzlaenge · Fremdwoerter
+  §5d  kein Zitations-Apparat im gesprochenen Wort — Rolle + Ort statt Fundstelle.
+       Mit --chips zusaetzlich die Quellen-Chips im BILD: max. 4 je Folge, kein DOI/arXiv/
+       Journal-Kuerzel/Fachnotation. (F2 hatte 10 Chips = 60 Sek Bildzeit, einer mit vollem DOI.)
   ⚠️   ship-blocking: keine unaufgeloeste Markierung darf in die Vertonung
   R6   Laenge 13-15 Min (bei 152 wpm, unsere real gemessene Sprechrate)
   Schaufenster-Regel (optional, --packaging): kein Verdict/keine Verneinung im Schaufenster
 
 Nutzung:
   python3 skript_lint.py ../../skript/signal-04-VO.md
-  python3 skript_lint.py ../../skript/signal-05-VO.md --packaging ../folge-05/UPLOAD-PAKET-F5.md
+  python3 skript_lint.py ../../skript/signal-05-VO.md \
+      --packaging ../folge-05/UPLOAD-PAKET-F5.md --chips ../folge-05/chips.json
 Exit-Code 1 = ship-blocking (FAIL). WARN blockiert nicht, will aber eine Entscheidung.
 """
 import argparse, re, sys, unicodedata
