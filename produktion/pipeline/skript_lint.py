@@ -100,6 +100,30 @@ JARGON = {
     "paradigm": "Denkmuster",
 }
 
+# §5d: Zitations-Apparat gehoert NICHT ins gesprochene Wort. Im VO steht der menschliche
+# Absender ("ein Team in Puerto Rico"), nicht die Fundstelle ("Mendez et al., arXiv 2508.10657").
+# Das Erste ist ein Erzaehlbeat und baut Vertrauen; das Zweite ist Verwaltung.
+CITATION_IN_VO = [
+    (r"\bet\.? al\b", 'Autorenzitat → Rolle + Ort: „ein Team in …"'),
+    (r"\barxiv\b", "arXiv-ID → gehoert in die Beschreibung"),
+    (r"\bdoi\b", "DOI → gehoert in die Beschreibung"),
+    (r"\bApJL?\b|\bMNRAS\b|\bRNAAS\b|\bPRL\b|\bA&A\b", "Journal-Kuerzel → nicht sprechbar"),
+    (r"\bpreprint\b", 'Fachwort → „eine noch nicht geprueffte Arbeit"'),
+    (r"\bpeer[- ]review(?:ed)?\b", 'Fachwort → „von anderen Forschern geprueft"'),
+]
+
+# §5d: Was im Quellen-Chip im BILD nichts zu suchen hat (F2 hatte 10 Chips = 60 Sek Bildzeit,
+# einer mit vollem DOI — am Handy in 6 Sekunden unlesbar).
+CHIP_FORBIDDEN = [
+    (r"10\.\d{4,}/\S+", "DOI"),
+    (r"arxiv[:\s]*\d{4}\.\d{4,}", "arXiv-ID"),
+    (r"\bApJL?\b|\bMNRAS\b|\bRNAAS\b|\bA&A\b|\bAJ \d", "Journal-Kuerzel"),
+    (r"\bet\.? al\b", "Autorenzitat statt Rolle"),
+    (r"[σχ]|\bppm\b|\bppb\b|\bsigma\b", "Fachnotation"),
+]
+CHIP_MAX = 4          # ab F5, §5d
+CHIP_MAX_WORDS = 6
+
 SHOWCASE_FORBIDDEN = [
     r"\bnot\s+(?:life|alien|aliens|a\s+signal)\b", r"\bwasn'?t\b", r"\bisn'?t\b",
     r"\bno\s+(?:aliens|life|signal)\b", r"\bdebunk\w*\b", r"\bjust\s+noise\b",
@@ -204,6 +228,14 @@ def lint(path, packaging=None):
     fails += report("§5c: keine Fachzahlen im VO (auch ausgeschriebene)", "FAIL", numhits,
                     "Exakte Werte gehoeren in die Beschreibung, nicht ins Voiceover.")
 
+    # 4b. §5d Zitations-Apparat im gesprochenen Wort
+    cites = []
+    for pat, hint in CITATION_IN_VO:
+        for m in re.finditer(pat, text, re.I):
+            ctx = text[max(0, m.start() - 40):m.end() + 30].replace("\n", " ")
+            cites.append(f"…{ctx.strip()}… → {hint}")
+    fails += report("§5d: kein Zitations-Apparat im VO (Rolle statt Fundstelle)", "FAIL", cites)
+
     # 5. §5c Satzlaenge
     lenprob = []
     if median > 15:
@@ -235,12 +267,49 @@ def lint(path, packaging=None):
     return fails
 
 
+def lint_chips(path):
+    """Quellen-Chips im Bild pruefen (§5d): max. 4 pro Folge, kurz, Rolle statt Zitation.
+
+    Nimmt entweder eine chips.json ([{"text":…,"sub":…}]) oder — als Rueckfall — eine
+    beliebige Datei (z. B. make_overlays_*.py); dann werden alle Zeichenketten geprueft.
+    """
+    import json
+    raw = open(path, encoding="utf-8").read()
+    print(f"\n🏷  Quellen-Chips: {path}")
+    fails = 0
+    if path.endswith(".json"):
+        data = json.loads(raw)
+        chips = [" ".join(str(c.get(k, "")) for k in ("text", "sub")) for c in data]
+    else:
+        chips = re.findall(r'"([^"\n]{6,120})"', raw)      # Fallback: alle Strings
+    bad = []
+    for c in chips:
+        for pat, name in CHIP_FORBIDDEN:
+            if re.search(pat, c, re.I):
+                bad.append(f'{name}: „{c[:74]}“')
+                break
+    fails += report(f"§5d: Chip-Inhalt (Rolle + Ort statt Zitation)", "FAIL", bad,
+                    'Beispiel: „EIN TEAM IN PUERTO RICO · 2025" statt „MENDEZ ET AL. · arXiv …".')
+    if path.endswith(".json"):
+        over = ([f"{len(chips)} Chips — erlaubt sind {CHIP_MAX}"] if len(chips) > CHIP_MAX else [])
+        over += [f'zu lang ({len(c.split())} W): „{c[:60]}“' for c in chips
+                 if len(c.split()) > CHIP_MAX_WORDS]
+        fails += report(f"§5d: max. {CHIP_MAX} Chips, je ≤ {CHIP_MAX_WORDS} Woerter", "FAIL", over)
+    else:
+        print(f"  ℹ  {len(chips)} Zeichenketten gescannt (keine chips.json → "
+              f"Anzahl/Laenge nicht pruefbar)")
+    return fails
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("vo", nargs="+", help="VO-Skript(e), z. B. skript/signal-05-VO.md")
+    p.add_argument("--chips", help="chips.json oder make_overlays_*.py (§5d-Bildpruefung)")
     p.add_argument("--packaging", help="Upload-Paket fuer den Schaufenster-Check")
     a = p.parse_args()
     fails = sum(lint(v, a.packaging) for v in a.vo)
+    if a.chips:
+        fails += lint_chips(a.chips)
     print(f"\n{'⛔ SHIP-BLOCKING: ' + str(fails) + ' Regel(n) verletzt' if fails else '✅ keine ship-blocking Verletzung'}")
     sys.exit(1 if fails else 0)
 
