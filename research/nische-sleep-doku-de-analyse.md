@@ -26,19 +26,23 @@ Wer „Doku zum Einschlafen" sucht, findet zwei völlig verschiedene Segmente. N
 | Kanal | Abos | Gesamt-Views | Videos | Ø/Video | Alter | **Median** | **Kadenz/Mon** | **V/Abo** | Land |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|
 | **@Erdarchiv** | 16.500 | 2.440.922 | 31 | 78.739 | **10,8 Mon** | **72.956** | **2,4** | **4,42** | Türkei |
-| @RuheDerZeit | 21.100 | 2.204.658 | 33 | 66.807 | 59 Mon | 24.978 | 1,6 | 1,18 | UK |
-| @weltspace | 55.200 | 19.574.104 | 357 | 54.829 | 102 Mon | 6.619 | 4,4 | 0,12 | DE |
-| @anderegeschichten | 59.200 | — | — | — | 130 Mon | 52.572 | 114,1 | 0,89 | — |
+| @RuheDerZeit | 21.100 | 2.204.658 | 33 | 66.807 | 59,1 Mon | 24.978 | 1,6 | 1,18 | UK |
+| @weltspace | 55.200 | 19.574.104 | 357 | 54.829 | 102,4 Mon | 6.619 | 4,4 | 0,12 | DE |
+| @anderegeschichten2865 | 59.200 | 25.633.920 | 455 | 56.338 | 130,1 Mon | 52.572 | 114,1 ⚠️ | 0,89 | — |
 | @Zeithorizont | 6.530 | 1.117.557 | 81 | 13.797 | 26,8 Mon | 696 | 1,5 | 0,11 | Südkorea |
 | **@Das_Stille_Archiv** | 2.820 | 572.715 | 40 | 14.317 | **9,9 Mon** | 8.962 | 2,7 | **3,18** | DE |
 | @DokuGeschichte1 | 2.700 | 391.541 | 14 | 27.967 | 10,2 Mon | 2.286 | 10,9 | 0,85 | ? |
 | @SchlafloserHistorikerHub | 3.270 | 383.448 | 79 | 4.853 | 13,5 Mon | 3.144 | 4,4 | 0,96 | DE |
 | @GeheimnissederAntike | 6.080 | 432.692 | 46 | 9.406 | 15,6 Mon | 3.037 | 15,7 | 0,50 | DE |
-| @antike.chroniken | 7.960 | — | — | — | 11,2 Mon | 958 | 13,8 | 0,12 | — |
-| @SchlafGeschichten…  | 1.820 | — | — | — | 4,7 Mon | 1.599 | 10,4 | 0,88 | — |
-| @WissenschaftundSchlaf | 1.490 | — | — | — | 8,0 Mon | 661 | **38,1** | 0,44 | — |
-| @WissenschaftzumEinschlafen | 130 | — | — | — | 9,5 Mon | 232 | 2,3 | 1,78 | — |
-| @Physik_Traum | 51 | — | — | — | 7,0 Mon | 183 | **28,5** | 3,59 | — |
+| @antike.chroniken | 7.960 | 1.194.522 | 146 | 8.182 | 11,2 Mon | 958 | 13,8 | 0,12 | — |
+| @SchlafGeschichtenderGeschichte | 1.820 | 167.569 | 24 | 6.982 | 4,7 Mon | 1.599 | 10,4 | 0,88 | — |
+| @WissenschaftundSchlaf | 1.490 | 265.026 | 192 | 1.380 | 8,0 Mon | 661 | **38,1** | 0,44 | — |
+| @WissenschaftzumEinschlafen-68 | 130 | 10.882 | 43 | 253 | 9,5 Mon | 232 | 2,3 | 1,78 | — |
+| @Physik_Traum | 51 | 5.918 | 25 | 237 | 7,0 Mon | 183 | **28,5** | 3,59 | — |
+
+> **Korrektur 31.07.2026 (nachträglich):** In der Erstfassung standen zwei Handles verkürzt — `@anderegeschichten` (richtig: `@anderegeschichten2865`) und `@WissenschaftzumEinschlafen` (richtig: `@WissenschaftzumEinschlafen-68`). Beide verkürzten Formen lösen auf 404 bzw. auf einen **fremden Kanal** auf. Sechs Zeilen, die vorher „—" waren, sind jetzt direkt erhoben. Lehre für den Scanner: **Handles nie kürzen, nie aus dem Titel rekonstruieren** — der numerische Suffix ist Teil der Identität.
+>
+> ⚠️ Die Kadenz 114,1 bei `@anderegeschichten2865` ist ein **Messartefakt**: 455 Videos in 130 Monaten sind 3,5/Monat über die Lebenszeit. Der Wert stammt aus den letzten 15 RSS-Einträgen und misst dort einen Upload-Schub (wahrscheinlich Shorts), nicht die Normalkadenz.
 
 ---
 
@@ -114,15 +118,20 @@ Ein Wert über 1,0 heißt: Der Kanal wird an Menschen ausgespielt, die ihn nicht
 
 Schätzung auf Basis der Gesamt-Views. Der RPM ist bei Zwei-Stunden-Videos der große Unbekannte — viele Midroll-Plätze treiben ihn nach oben, schlafendes Publikum nach unten. Spanne 2–8 $ angesetzt.
 
+Vollständige Fassung: **`research/sleep-doku-kanaele-rangliste.md`** (alle 14 Kanäle, drei Sortierungen).
+
 | Kanal | Views gesamt | Zeitraum | ⌀ Views/Mon | **Geschätzt $/Monat** |
 |---|---:|---|---:|---|
-| **@Erdarchiv** | 2.440.922 | 11 Mon | ~222.000 | **450 – 1.800 $** |
-| @weltspace | 19.574.104 | 102 Mon | ~192.000 | 380 – 1.500 $ |
-| @RuheDerZeit | 2.204.658 | 59 Mon | ~37.000 | 75 – 300 $ |
-| @Das_Stille_Archiv | 572.715 | 10 Mon | ~57.000 | 115 – 460 $ |
-| @Zeithorizont | 1.117.557 | 27 Mon | ~41.000 | 80 – 330 $ |
+| **@Erdarchiv** | 2.440.922 | 10,8 Mon | 226.011 | **452 – 1.808 $** |
+| @anderegeschichten2865 | 25.633.920 | 130,1 Mon | 197.032 | 394 – 1.576 $ |
+| @weltspace | 19.574.104 | 102,4 Mon | 191.153 | 382 – 1.529 $ |
+| @antike.chroniken | 1.194.522 | 11,2 Mon | 106.654 | 213 – 853 $ |
+| @Das_Stille_Archiv | 572.715 | 9,9 Mon | 57.850 | 116 – 463 $ |
+| @Zeithorizont | 1.117.557 | 26,8 Mon | 41.700 | 83 – 334 $ |
+| @RuheDerZeit | 2.204.658 | 59,1 Mon | 37.304 | 75 – 298 $ |
+| übrige 7 | | | 845 – 38.386 | 0 – 307 $ |
 
-**Kein einziger Kanal dieser Nische verdient großes Geld.** Der Beste — Erdarchiv — liegt bei geschätzt 450–1.800 $/Monat, aktuell eher am oberen Rand, weil seine Views stark nach hinten gewichtet sind.
+**Kein einziger Kanal dieser Nische verdient großes Geld.** Der Beste — Erdarchiv — liegt bei geschätzt 452–1.808 $/Monat, aktuell eher am oberen Rand, weil seine Views stark nach hinten gewichtet sind. Die beiden Kanäle direkt dahinter sind **keine Indie-Konkurrenz**: `@weltspace` ist der Space-Kanal von WELT, `@anderegeschichten2865` läuft seit elf Jahren mit 455 Videos.
 
 **weltspace ist das Mahnmal:** 357 Videos, 19,6 Mio. Views, 8,5 Jahre — und ein aktueller Median von 6.619. Volumen hat dort nicht funktioniert.
 
