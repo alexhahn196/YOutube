@@ -3,6 +3,7 @@
 > Drei Sortierungen desselben Datensatzes: **Abos · Kanalalter · Einnahmen.**
 > Basis: `research/nische-sleep-doku-de-analyse.md`. Alle Kanaldaten am **31.07.2026** direkt von der `/about`-Seite erhoben (Abos, Gesamt-Views, Videozahl, Beitrittsdatum); Median und Kadenz aus dem RSS-Feed (Scanner v2).
 > Zwei Handles waren in der Erstfassung verkürzt und sind hier korrigiert — s. Fußnote 2.
+> **Kanal- und Video-Links: `research/sleep-doku-links.md`** — dort auch zwei Ausbrecher, die der Median verdeckt (@DokuGeschichte1 276K bei Median 2.286; @SchlafGeschichten… 107K nach 4,7 Monaten).
 
 ---
 
