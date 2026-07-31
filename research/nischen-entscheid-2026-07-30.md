@@ -1,3 +1,11 @@
+# ⛔ UNGÜLTIG — ersetzt durch `nischen-entscheid-2026-07-31-revidiert.md`
+
+> **Diese Fassung beruht auf Messungen eines Scanners mit vier bestätigten Defekten** (falscher Suchfilter → 7 von 11 Scans ruiniert · invertierter Relevanzfilter · fehlende Längenmessung · nur ein Keyword pro Nische, Streuung Faktor 56).
+> **Der Sieger hat sich in der Revision geändert.** Fünf der hier als „keine Nachfrage" abgeschriebenen Kandidaten tragen tatsächlich Nachfrage.
+> Dokument bleibt als Vorgang erhalten — **nicht als Entscheidungsgrundlage verwenden.**
+
+---
+
 # Nischen-Entscheid Deutschland — 30.07.2026
 
 **Auftrag:** „finde eine perfekte Nische für Deutschland"

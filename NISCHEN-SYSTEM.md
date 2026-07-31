@@ -61,15 +61,33 @@ Zwei Kanäle im selben Themenraum mit unterschiedlichem Format sind verschiedene
 
 ## 3. Stufe 0 — Die Betriebs-Hülle
 
-Bevor irgendeine Nische geprüft wird, stehen fünf Zahlen fest. Sie sind die Messlatte, gegen die alles läuft.
+Bevor irgendeine Nische geprüft wird, stehen diese Werte fest. Sie sind die Messlatte, gegen die alles läuft.
 
 | Parameter | Unser Wert | Wozu |
 |---|---|---|
 | Kosten pro Folge | **38 $** (Deckel 50 €) | Break-even-Rechnung |
-| Folgen pro Monat | **8** | Zielumsatz-Rechnung |
-| Zielumsatz | **10.000 $/Monat** | Arithmetik-Gate |
-| RPM-Planwert | **unteres Viertel der Nische** | nie der Median (Begründung §12) |
+| Folgen pro Monat | **gemessener Ist-Wert der letzten 8 Wochen** | Zielumsatz-Rechnung. **Nicht der Wunschwert** |
+| Produktionsstunden/Woche | **verfügbare Ist-Stunden** | Der Engpass ist Zeit, nicht Geld |
+| Zielumsatz | **10.000 $/Monat** — Portfolio-Ziel, **nicht pro Kanal** | s. u. |
+| RPM-Planwert | **unteres Viertel der Nische** | nie der Median (§12) |
+| Katalogfaktor | **2,0×** | Einnahmen kommen auch aus dem Backkatalog |
 | Sprache | **Englisch** | Zweitsprachen über Tonspur, nicht über Zweitkanal |
+
+> ⚠️ **Kadenz-Regel (nach Audit ergänzt):** „Folgen pro Monat" ist der **gemessene Durchschnitt**, nicht die Absicht. Wer 8 einsetzt und 4 schafft, verdoppelt den nötigen Median nachträglich und merkt es nie. Der Wert wird vor jedem Lauf aus den letzten 8 Wochen neu bestimmt.
+
+> ⚠️ **Ziel-Entkopplung (nach Audit ergänzt):** 10.000 $ ist ein **Portfolio**-Ziel. Ein einzelner Kanal wird gegen **Break-even × Faktor** geprüft, nicht gegen die Gesamtsumme. Sonst produziert das System den Widerspruch „84/100 Punkte und trotzdem gescheitert" — das ist ein Rahmenfehler, kein Nischenfehler.
+
+### Stufe 0b · Der Machbarkeits-Vorcheck (10 Minuten, spart 3 Tage)
+
+Bevor ein einziger Kandidat gesucht wird:
+
+```
+bester bekannter Doku-Median des Zielmarkts × Folgen/Monat × Katalogfaktor × RPM/1000
+```
+
+Liegt das Ergebnis unter dem Ziel, ist **keine** Nische in diesem Markt ausreichend. Dann wird **zuerst Ziel oder Sprachmarkt geändert** — nicht der Trichter gestartet.
+
+*Am Deutschland-Lauf: Terra X liegt bei 132.000 Median. 132.000 × 8 × 2 × 2,00/1000 = 4.224 $. Das Ziel von 10.000 $ war vor dem ersten Kandidaten unerreichbar. Drei Arbeitstage hätten das nicht geändert.*
 
 **Und die Frage, die zuerst geklärt sein muss — welches Spiel:**
 
@@ -173,16 +191,31 @@ Hier hören Meinungen auf. Ziel: von 25 auf 6–8.
 
 ### 6a · Deckensichtung (5 Min je Kandidat)
 
-YouTube-Suche mit dem Nischenbegriff → Filter **Video, über 20 Minuten** → sortieren nach **Aufrufen**. Das zeigt die **Decke**: Was ist in dieser Nische maximal möglich?
+YouTube-Suche mit dem Nischenbegriff → Filter **Video, 4–20 Minuten** → sortieren nach **Aufrufen**. Das zeigt die **Decke**: Was ist in dieser Nische maximal möglich?
+
+*(Längenfilter auf unser Zielformat gesetzt — „über 20 Minuten" widersprach der eigenen Längenregel von 13–15 Min und zeigte die Decke eines Formats, das wir nicht bauen.)*
 
 Das ist eine Sichtung, keine Schwelle. Eine Nische, deren Bestvideo 80k Views hat, hat eine niedrige Decke — unabhängig davon, wie schön das Thema ist.
 
 ### 6b · Der Scan (automatisiert)
 
 ```bash
-python3 analyse/nischen_scan.py "<nischen-keyword>" --limit 25 \
-        --rpm 2.31 --kosten 38 --ziel 10000 --uploads 8
+python3 analyse/nischen_scan.py "kw1" "kw2" "kw3" --label "Nische" \
+        --limit 25 --rpm 2.31 --kosten 38 --ziel 10000 --uploads <Ist-Wert>
 ```
+
+> ⚠️ **Drei Suchbegriffe sind Pflicht.** Im Deutschland-Lauf lagen zwei Formulierungen desselben Themas um **Faktor 56** auseinander (Median 76.544 gegen 1.374). Mit einem Keyword wählt das Verfahren die Formulierung, nicht die Nische. Spannweite über 3× gilt als **instabil** und verlangt einen vierten Begriff.
+
+**Was der Scanner zusätzlich ausgibt — und warum das nötig wurde:**
+
+| Ausgabe | Bedeutung |
+|---|---|
+| **Format der Nachfrage** (Median-Länge, Anteil >40 Min) | Prüft, ob die Nachfrage zu *unserem* Format gehört. Hoher Langanteil = Sleep-/Longplay-Content, ein anderes Geschäft. *Ohne diese Zeile wurde im ersten Lauf ein Sieger gewählt, dessen Nachfrage zu 55 % aus 40-Min-plus-Content bestand* |
+| Median **mit 95-%-Intervall** | Liegt die Schwelle im Intervall, ist das Gate **unentschieden** — nicht bestanden |
+| Benchmark = **Median der besten drei**, dann **÷2** | Winner's-Curse-Korrektur: der Spitzenwert einer verrauschten Stichprobe ist erwartungsgemäß 1,9–2,4× überhöht |
+| **Kadenz/Monat** je Kanal | Zeigt, wie viel Zeit die 15-Video-Stichprobe abdeckt |
+| `UNGEMESSEN` / `UNENTSCHEIDBAR` | Stichprobe zu klein. **Darf nicht ins Kill-Log** |
+| Exit-Code **2** | Messung fehlgeschlagen. Kein Urteil, kein Eintrag |
 
 Der Scanner beantwortet **zwei getrennte Fragen**. Diese Trennung ist der Kern der Stufe — wer sie vermischt, verwirft funktionierende Nischen und kauft tote:
 
