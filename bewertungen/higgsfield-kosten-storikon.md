@@ -136,6 +136,33 @@ Die Credits/Sekunde sind aus je zwei Messpunkten berechnet und über alle Modell
 
 **Konsequenz:** Alle Kernaussagen dieses Dokuments stehen in Credits. Die €-Spalten gelten **ausschließlich für den Top-up-Weg** und sind als Obergrenze zu lesen. Wer die Abo-Credits verbraucht, zahlt effektiv deutlich weniger. Hinweis am Rand: Top-up-Credits verfallen nach 90 Tagen (`topup_expire_days: 90`).
 
+### 3.1 Euro auf einen Blick — realistisches Szenario inkl. Voiceover
+
+Zum Top-up-Kurs **0,0475 €/cr**. Anders als die €-Spalten in §4.3/§4.4 sind hier die Voiceover-Kosten aus §6.2 **enthalten** (60 cr bei 10:00, 72 cr bei 12:12).
+
+| Kombination | 10:00 | 12:12 (Median) |
+|---|---|---|
+| **A Günstigst** | 1.950 cr = **93 €** | 2.380 cr = **113 €** |
+| **B Kanal-realistisch** | 2.475 cr = **118 €** | 3.022 cr = **144 €** |
+| **C Referenz/Konsistenz** | 5.170 cr = **246 €** | 6.314 cr = **300 €** |
+| **D Premium 1080p** | 13.080 cr = **621 €** | 15.975 cr = **759 €** |
+
+**Was dieselbe Produktion in den drei möglichen Kursen kostet** (Beispiel Kombination B):
+
+| Kurs | Herkunft | B / 10:00 | B / 12:12 |
+|---|---|---|---|
+| 0,0475 €/cr | Top-up-Paket 2.000/4.000 — **belegt** | 118 € | 144 € |
+| 0,033 €/cr | Abo ULTRA, falls 99 € je **Monat** — unklar | 82 € | 100 € |
+| 0,00275 €/cr | Abo ULTRA, falls 99 € je **Jahr** — unklar | 7 € | 8 € |
+
+**Praktische Lesart:** Die vorhandenen 3.219,9 Credits sind bereits bezahlt. Ein Durchlauf in Kombination B verursacht daraus **keine zusätzlichen Ausgaben** — er verbraucht rund zwei Drittel bis das gesamte Monatskontingent. Die 118–144 € fallen erst beim **Nachkauf** an.
+
+### 3.2 Einordnung gegen das Projektbudget
+
+Der Kostendeckel dieses Projekts liegt laut `CLAUDE.md` bei **50 €/Folge** (Ist-Stand 32–40 €). Eine Produktion im Storikon-Stil liegt beim Nachkauf-Kurs selbst in der günstigen realistischen Variante bei **118–144 €** — das **2,4- bis 2,9-Fache des Deckels**, ohne Score, Foley und Schnitt (§6).
+
+Der Treiber ist nicht der Preis je Clip, sondern die **Menge**: Storikon animiert praktisch alles (0 Standbilder in 270 s Messmaterial, §1.2), also 140–171 generierte Clips je Folge. Das eigene Format zieht gemeinfreie NASA-/ESA-Footage bei und ersetzt damit einen Teil dieser Clips. **Der Kostenhebel liegt im Anteil generierter Shots, nicht in der Modellwahl** — zwischen den Kombinationen A und B liegen 26 €, zwischen 100 % und 50 % generierten Shots liegt die Hälfte der Summe.
+
 ---
 
 ## 4. Kostenmodell
