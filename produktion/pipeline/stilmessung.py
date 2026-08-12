@@ -119,11 +119,29 @@ def randframes(video, shots, out_dir):
 
 
 # ---------------------------------------------------------------- A3 Messen
-def messe_frame(pfad, k=6):
+def messe_frame(pfad, k=6, maske=None, normpx=None):
+    """maske = (y1, y2): Zeilenband wird ENTFERNT, nicht geschwaerzt.
+    Gebraucht fuer eingebrannte Untertitel — Schwaerzen wuerde kuenstliche
+    Schwarzpixel in Palette und Helligkeitsstatistik einschleusen.
+
+    normpx = Zielpixelzahl (z.B. 2_000_000): Bild wird unter Wahrung des
+    Seitenverhaeltnisses darauf skaliert. ZWINGEND, sobald Bilder
+    unterschiedlicher Groesse verglichen werden — Laplace-Varianz und
+    Kantendichte haengen direkt an der Aufloesung."""
     bgr = cv2.imread(pfad)
     if bgr is None:
         return None
-    # fuer k-means und Statistik verkleinern, Kantenmasse auf Originalgroesse
+    if maske:
+        y1, y2 = maske
+        y1, y2 = max(0, y1), min(bgr.shape[0], y2)
+        if y2 > y1:
+            bgr = np.delete(bgr, np.s_[y1:y2], axis=0)
+    if normpx:
+        h0, w0 = bgr.shape[:2]
+        f = (normpx / (w0 * h0)) ** 0.5
+        bgr = cv2.resize(bgr, (max(1, int(w0 * f)), max(1, int(h0 * f))),
+                         interpolation=cv2.INTER_AREA if f < 1 else cv2.INTER_CUBIC)
+    # fuer k-means und Statistik verkleinern, Kantenmasse auf normierter Groesse
     klein = cv2.resize(bgr, (320, int(320 * bgr.shape[0] / bgr.shape[1]))) if bgr.shape[1] > 320 else bgr
     hsv = cv2.cvtColor(klein, cv2.COLOR_BGR2HSV)
     grau_o = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
@@ -374,10 +392,10 @@ def main():
     a = sub.add_parser("inventar");  a.add_argument("videos", nargs="+")
     b = sub.add_parser("schnitte");  b.add_argument("video"); b.add_argument("--schwelle", type=float, default=27.0); b.add_argument("--out")
     c = sub.add_parser("frames");    c.add_argument("video"); c.add_argument("--out", required=True); c.add_argument("--schwelle", type=float, default=27.0)
-    d = sub.add_parser("messen");    d.add_argument("frame_dir"); d.add_argument("--out", required=True)
+    d = sub.add_parser("messen");    d.add_argument("frame_dir"); d.add_argument("--out", required=True); d.add_argument("--maske", help="Zeilenband y1:y2 entfernen, z.B. eingebrannte Untertitel"); d.add_argument("--normpx", type=int, help="auf N Pixel normieren, z.B. 2000000")
     e = sub.add_parser("bewegung");  e.add_argument("video"); e.add_argument("--out", required=True); e.add_argument("--schwelle", type=float, default=27.0)
     f = sub.add_parser("reuse");     f.add_argument("frame_dir"); f.add_argument("--out", required=True); f.add_argument("--shots")
-    g = sub.add_parser("vergleich"); g.add_argument("kand_dir"); g.add_argument("--ref", required=True); g.add_argument("--out")
+    g = sub.add_parser("vergleich"); g.add_argument("kand_dir"); g.add_argument("--ref", required=True); g.add_argument("--out"); g.add_argument("--maske"); g.add_argument("--normpx", type=int)
     x = ap.parse_args()
 
     if x.cmd == "inventar":
@@ -403,9 +421,12 @@ def main():
 
     if x.cmd == "messen":
         fr = sorted(glob.glob(os.path.join(x.frame_dir, "*.png")) + glob.glob(os.path.join(x.frame_dir, "*.jpg")))
-        einzel = [messe_frame(p) for p in fr]
+        mk = tuple(int(v) for v in x.maske.split(":")) if getattr(x, "maske", None) else None
+        einzel = [messe_frame(p, maske=mk, normpx=x.normpx) for p in fr]
         agg = aggregiere(einzel)
         agg["quelle"] = x.frame_dir
+        agg["maske"] = list(mk) if mk else None
+        agg["normpx"] = x.normpx
         agg["einzelframes"] = [e for e in einzel if e]
         os.makedirs(os.path.dirname(x.out) or ".", exist_ok=True)
         json.dump(agg, open(x.out, "w"), indent=2, ensure_ascii=False)
@@ -443,7 +464,7 @@ def main():
         ref = json.load(open(x.ref))
         rows = []
         for p in sorted(glob.glob(os.path.join(x.kand_dir, "*.png")) + glob.glob(os.path.join(x.kand_dir, "*.jpg"))):
-            e = messe_frame(p)
+            e = messe_frame(p, maske=tuple(int(v) for v in x.maske.split(":")) if x.maske else None, normpx=x.normpx)
             if not e: continue
             agg = aggregiere([e])
             v = vergleiche(agg, ref)

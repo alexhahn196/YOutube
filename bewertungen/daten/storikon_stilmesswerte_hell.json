@@ -1,0 +1,1226 @@
+{
+  "n_frames": 16,
+  "palette": [
+    {
+      "hex": "#191815",
+      "rgb": [
+        25,
+        24,
+        21
+      ],
+      "gewicht": 0.3759
+    },
+    {
+      "hex": "#403E38",
+      "rgb": [
+        64,
+        62,
+        56
+      ],
+      "gewicht": 0.281
+    },
+    {
+      "hex": "#765D44",
+      "rgb": [
+        118,
+        93,
+        68
+      ],
+      "gewicht": 0.1319
+    },
+    {
+      "hex": "#7D827E",
+      "rgb": [
+        125,
+        130,
+        126
+      ],
+      "gewicht": 0.089
+    },
+    {
+      "hex": "#CAA877",
+      "rgb": [
+        202,
+        168,
+        119
+      ],
+      "gewicht": 0.0738
+    },
+    {
+      "hex": "#DDDAC3",
+      "rgb": [
+        221,
+        218,
+        195
+      ],
+      "gewicht": 0.0483
+    }
+  ],
+  "hell_median": {
+    "median": 27.84,
+    "p10": 10.79,
+    "p90": 44.51,
+    "min": 0.0,
+    "max": 72.94
+  },
+  "hell_p10": {
+    "median": 11.77,
+    "p10": 1.18,
+    "p90": 19.21,
+    "min": 0.0,
+    "max": 23.92
+  },
+  "hell_p90": {
+    "median": 65.3,
+    "p10": 21.18,
+    "p90": 92.36,
+    "min": 0.0,
+    "max": 96.08
+  },
+  "satt_median": {
+    "median": 30.79,
+    "p10": 9.41,
+    "p90": 42.55,
+    "min": 0.0,
+    "max": 44.31
+  },
+  "kontrastumfang": {
+    "median": 70.39,
+    "p10": 20.59,
+    "p90": 85.29,
+    "min": 0.0,
+    "max": 92.94
+  },
+  "laplace_varianz": {
+    "median": 617.19,
+    "p10": 280.24,
+    "p90": 1960.3,
+    "min": 246.03,
+    "max": 3131.91
+  },
+  "kantendichte_oben": {
+    "median": 0.08,
+    "p10": 0.01,
+    "p90": 0.2,
+    "min": 0.0,
+    "max": 0.24
+  },
+  "kantendichte_unten": {
+    "median": 0.14,
+    "p10": 0.02,
+    "p90": 0.18,
+    "min": 0.0,
+    "max": 0.22
+  },
+  "quelle": "/tmp/claude-0/-home-user-YOutube/c3aafcb7-9502-5989-a73e-04bf0e40545a/scratchpad/stil/short_XIX_frames",
+  "maske": [
+    1460,
+    1570
+  ],
+  "einzelframes": [
+    {
+      "datei": "shot_0001.png",
+      "farben": [
+        {
+          "hex": "#353739",
+          "rgb": [
+            53,
+            55,
+            57
+          ],
+          "anteil": 0.3897
+        },
+        {
+          "hex": "#262622",
+          "rgb": [
+            38,
+            38,
+            34
+          ],
+          "anteil": 0.2233
+        },
+        {
+          "hex": "#614C3A",
+          "rgb": [
+            97,
+            76,
+            58
+          ],
+          "anteil": 0.1764
+        },
+        {
+          "hex": "#14110E",
+          "rgb": [
+            20,
+            17,
+            14
+          ],
+          "anteil": 0.1368
+        },
+        {
+          "hex": "#83694E",
+          "rgb": [
+            131,
+            105,
+            78
+          ],
+          "anteil": 0.0546
+        },
+        {
+          "hex": "#CB974D",
+          "rgb": [
+            203,
+            151,
+            77
+          ],
+          "anteil": 0.0191
+        }
+      ],
+      "hell_median": 24.31,
+      "hell_p10": 10.98,
+      "hell_p90": 42.35,
+      "satt_median": 28.24,
+      "satt_p10": 15.29,
+      "satt_p90": 60.39,
+      "kontrastumfang": 41.18,
+      "laplace_varianz": 373.51,
+      "kantendichte_oben": 0.06338,
+      "kantendichte_unten": 0.08227
+    },
+    {
+      "datei": "shot_0002.png",
+      "farben": [
+        {
+          "hex": "#30474A",
+          "rgb": [
+            48,
+            71,
+            74
+          ],
+          "anteil": 0.3083
+        },
+        {
+          "hex": "#779191",
+          "rgb": [
+            119,
+            145,
+            145
+          ],
+          "anteil": 0.2313
+        },
+        {
+          "hex": "#1A1E1C",
+          "rgb": [
+            26,
+            30,
+            28
+          ],
+          "anteil": 0.1527
+        },
+        {
+          "hex": "#F3D8A3",
+          "rgb": [
+            243,
+            216,
+            163
+          ],
+          "anteil": 0.13
+        },
+        {
+          "hex": "#666555",
+          "rgb": [
+            102,
+            101,
+            85
+          ],
+          "anteil": 0.1207
+        },
+        {
+          "hex": "#AF9970",
+          "rgb": [
+            175,
+            153,
+            112
+          ],
+          "anteil": 0.0571
+        }
+      ],
+      "hell_median": 39.61,
+      "hell_p10": 18.04,
+      "hell_p90": 94.51,
+      "satt_median": 30.2,
+      "satt_p10": 16.47,
+      "satt_p90": 50.59,
+      "kontrastumfang": 86.27,
+      "laplace_varianz": 901.87,
+      "kantendichte_oben": 0.0566,
+      "kantendichte_unten": 0.14894
+    },
+    {
+      "datei": "shot_0003.png",
+      "farben": [
+        {
+          "hex": "#373229",
+          "rgb": [
+            55,
+            50,
+            41
+          ],
+          "anteil": 0.3176
+        },
+        {
+          "hex": "#241F15",
+          "rgb": [
+            36,
+            31,
+            21
+          ],
+          "anteil": 0.2411
+        },
+        {
+          "hex": "#A95D33",
+          "rgb": [
+            169,
+            93,
+            51
+          ],
+          "anteil": 0.1589
+        },
+        {
+          "hex": "#614F39",
+          "rgb": [
+            97,
+            79,
+            57
+          ],
+          "anteil": 0.1282
+        },
+        {
+          "hex": "#733B2A",
+          "rgb": [
+            115,
+            59,
+            42
+          ],
+          "anteil": 0.1044
+        },
+        {
+          "hex": "#EE9E4E",
+          "rgb": [
+            238,
+            158,
+            78
+          ],
+          "anteil": 0.0498
+        }
+      ],
+      "hell_median": 27.06,
+      "hell_p10": 14.12,
+      "hell_p90": 68.24,
+      "satt_median": 43.53,
+      "satt_p10": 20.0,
+      "satt_p90": 72.16,
+      "kontrastumfang": 65.88,
+      "laplace_varianz": 385.57,
+      "kantendichte_oben": 0.03279,
+      "kantendichte_unten": 0.14126
+    },
+    {
+      "datei": "shot_0004.png",
+      "farben": [
+        {
+          "hex": "#4B412F",
+          "rgb": [
+            75,
+            65,
+            47
+          ],
+          "anteil": 0.2992
+        },
+        {
+          "hex": "#332B1E",
+          "rgb": [
+            51,
+            43,
+            30
+          ],
+          "anteil": 0.2566
+        },
+        {
+          "hex": "#715C40",
+          "rgb": [
+            113,
+            92,
+            64
+          ],
+          "anteil": 0.2209
+        },
+        {
+          "hex": "#19140A",
+          "rgb": [
+            25,
+            20,
+            10
+          ],
+          "anteil": 0.1198
+        },
+        {
+          "hex": "#BA925D",
+          "rgb": [
+            186,
+            146,
+            93
+          ],
+          "anteil": 0.0562
+        },
+        {
+          "hex": "#F6E4B4",
+          "rgb": [
+            246,
+            228,
+            180
+          ],
+          "anteil": 0.0472
+        }
+      ],
+      "hell_median": 28.24,
+      "hell_p10": 14.12,
+      "hell_p90": 62.35,
+      "satt_median": 41.57,
+      "satt_p10": 18.43,
+      "satt_p90": 63.92,
+      "kontrastumfang": 75.29,
+      "laplace_varianz": 662.47,
+      "kantendichte_oben": 0.18175,
+      "kantendichte_unten": 0.15536
+    },
+    {
+      "datei": "shot_0005.png",
+      "farben": [
+        {
+          "hex": "#000000",
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "anteil": 0.9757
+        },
+        {
+          "hex": "#F5F4D2",
+          "rgb": [
+            245,
+            244,
+            210
+          ],
+          "anteil": 0.0207
+        },
+        {
+          "hex": "#7A796D",
+          "rgb": [
+            122,
+            121,
+            109
+          ],
+          "anteil": 0.0012
+        },
+        {
+          "hex": "#151410",
+          "rgb": [
+            21,
+            20,
+            16
+          ],
+          "anteil": 0.0012
+        },
+        {
+          "hex": "#43423A",
+          "rgb": [
+            67,
+            66,
+            58
+          ],
+          "anteil": 0.0007
+        },
+        {
+          "hex": "#B8B6A6",
+          "rgb": [
+            184,
+            182,
+            166
+          ],
+          "anteil": 0.0006
+        }
+      ],
+      "hell_median": 0.0,
+      "hell_p10": 0.0,
+      "hell_p90": 0.0,
+      "satt_median": 0.0,
+      "satt_p10": 0.0,
+      "satt_p90": 0.0,
+      "kontrastumfang": 0.0,
+      "laplace_varianz": 252.91,
+      "kantendichte_oben": 0.00095,
+      "kantendichte_unten": 0.00474
+    },
+    {
+      "datei": "shot_0006.png",
+      "farben": [
+        {
+          "hex": "#CDBB8E",
+          "rgb": [
+            205,
+            187,
+            142
+          ],
+          "anteil": 0.4699
+        },
+        {
+          "hex": "#363124",
+          "rgb": [
+            54,
+            49,
+            36
+          ],
+          "anteil": 0.152
+        },
+        {
+          "hex": "#4E4839",
+          "rgb": [
+            78,
+            72,
+            57
+          ],
+          "anteil": 0.1312
+        },
+        {
+          "hex": "#B4A378",
+          "rgb": [
+            180,
+            163,
+            120
+          ],
+          "anteil": 0.1122
+        },
+        {
+          "hex": "#72654A",
+          "rgb": [
+            114,
+            101,
+            74
+          ],
+          "anteil": 0.071
+        },
+        {
+          "hex": "#998862",
+          "rgb": [
+            153,
+            136,
+            98
+          ],
+          "anteil": 0.0638
+        }
+      ],
+      "hell_median": 72.94,
+      "hell_p10": 23.92,
+      "hell_p90": 81.18,
+      "satt_median": 30.98,
+      "satt_p10": 29.02,
+      "satt_p90": 38.43,
+      "kontrastumfang": 60.39,
+      "laplace_varianz": 246.03,
+      "kantendichte_oben": 0.01199,
+      "kantendichte_unten": 0.02484
+    },
+    {
+      "datei": "shot_0007.png",
+      "farben": [
+        {
+          "hex": "#3F5C64",
+          "rgb": [
+            63,
+            92,
+            100
+          ],
+          "anteil": 0.2836
+        },
+        {
+          "hex": "#658294",
+          "rgb": [
+            101,
+            130,
+            148
+          ],
+          "anteil": 0.2401
+        },
+        {
+          "hex": "#353E3A",
+          "rgb": [
+            53,
+            62,
+            58
+          ],
+          "anteil": 0.1876
+        },
+        {
+          "hex": "#B6C9D5",
+          "rgb": [
+            182,
+            201,
+            213
+          ],
+          "anteil": 0.1214
+        },
+        {
+          "hex": "#131C1A",
+          "rgb": [
+            19,
+            28,
+            26
+          ],
+          "anteil": 0.1078
+        },
+        {
+          "hex": "#98624A",
+          "rgb": [
+            152,
+            98,
+            74
+          ],
+          "anteil": 0.0596
+        }
+      ],
+      "hell_median": 42.35,
+      "hell_p10": 20.0,
+      "hell_p90": 78.82,
+      "satt_median": 36.86,
+      "satt_p10": 16.86,
+      "satt_p90": 59.22,
+      "kontrastumfang": 74.9,
+      "laplace_varianz": 1132.13,
+      "kantendichte_oben": 0.11655,
+      "kantendichte_unten": 0.18948
+    },
+    {
+      "datei": "shot_0008.png",
+      "farben": [
+        {
+          "hex": "#394547",
+          "rgb": [
+            57,
+            69,
+            71
+          ],
+          "anteil": 0.2365
+        },
+        {
+          "hex": "#809095",
+          "rgb": [
+            128,
+            144,
+            149
+          ],
+          "anteil": 0.2102
+        },
+        {
+          "hex": "#192528",
+          "rgb": [
+            25,
+            37,
+            40
+          ],
+          "anteil": 0.1804
+        },
+        {
+          "hex": "#F3EFCE",
+          "rgb": [
+            243,
+            239,
+            206
+          ],
+          "anteil": 0.1552
+        },
+        {
+          "hex": "#5A676C",
+          "rgb": [
+            90,
+            103,
+            108
+          ],
+          "anteil": 0.1381
+        },
+        {
+          "hex": "#B2BDBD",
+          "rgb": [
+            178,
+            189,
+            189
+          ],
+          "anteil": 0.0797
+        }
+      ],
+      "hell_median": 46.67,
+      "hell_p10": 18.43,
+      "hell_p90": 96.08,
+      "satt_median": 18.82,
+      "satt_p10": 8.63,
+      "satt_p90": 48.24,
+      "kontrastumfang": 84.31,
+      "laplace_varianz": 1730.63,
+      "kantendichte_oben": 0.16768,
+      "kantendichte_unten": 0.16095
+    },
+    {
+      "datei": "shot_0009.png",
+      "farben": [
+        {
+          "hex": "#0B0B0A",
+          "rgb": [
+            11,
+            11,
+            10
+          ],
+          "anteil": 0.2982
+        },
+        {
+          "hex": "#2B2C2D",
+          "rgb": [
+            43,
+            44,
+            45
+          ],
+          "anteil": 0.2147
+        },
+        {
+          "hex": "#564538",
+          "rgb": [
+            86,
+            69,
+            56
+          ],
+          "anteil": 0.1881
+        },
+        {
+          "hex": "#82684D",
+          "rgb": [
+            130,
+            104,
+            77
+          ],
+          "anteil": 0.1268
+        },
+        {
+          "hex": "#EDDCB8",
+          "rgb": [
+            237,
+            220,
+            184
+          ],
+          "anteil": 0.1097
+        },
+        {
+          "hex": "#C59661",
+          "rgb": [
+            197,
+            150,
+            97
+          ],
+          "anteil": 0.0626
+        }
+      ],
+      "hell_median": 25.1,
+      "hell_p10": 2.75,
+      "hell_p90": 90.2,
+      "satt_median": 30.59,
+      "satt_p10": 12.55,
+      "satt_p90": 67.06,
+      "kontrastumfang": 92.94,
+      "laplace_varianz": 316.41,
+      "kantendichte_oben": 0.06415,
+      "kantendichte_unten": 0.06988
+    },
+    {
+      "datei": "shot_0010.png",
+      "farben": [
+        {
+          "hex": "#283536",
+          "rgb": [
+            40,
+            53,
+            54
+          ],
+          "anteil": 0.3733
+        },
+        {
+          "hex": "#161513",
+          "rgb": [
+            22,
+            21,
+            19
+          ],
+          "anteil": 0.2366
+        },
+        {
+          "hex": "#3E2A1F",
+          "rgb": [
+            62,
+            42,
+            31
+          ],
+          "anteil": 0.1547
+        },
+        {
+          "hex": "#654C31",
+          "rgb": [
+            101,
+            76,
+            49
+          ],
+          "anteil": 0.1123
+        },
+        {
+          "hex": "#936D42",
+          "rgb": [
+            147,
+            109,
+            66
+          ],
+          "anteil": 0.089
+        },
+        {
+          "hex": "#DAA95E",
+          "rgb": [
+            218,
+            169,
+            94
+          ],
+          "anteil": 0.0341
+        }
+      ],
+      "hell_median": 21.57,
+      "hell_p10": 10.98,
+      "hell_p90": 52.16,
+      "satt_median": 34.12,
+      "satt_p10": 20.0,
+      "satt_p90": 70.59,
+      "kontrastumfang": 59.22,
+      "laplace_varianz": 634.98,
+      "kantendichte_oben": 0.10675,
+      "kantendichte_unten": 0.16755
+    },
+    {
+      "datei": "shot_0011.png",
+      "farben": [
+        {
+          "hex": "#535C5D",
+          "rgb": [
+            83,
+            92,
+            93
+          ],
+          "anteil": 0.2519
+        },
+        {
+          "hex": "#313940",
+          "rgb": [
+            49,
+            57,
+            64
+          ],
+          "anteil": 0.2231
+        },
+        {
+          "hex": "#101619",
+          "rgb": [
+            16,
+            22,
+            25
+          ],
+          "anteil": 0.1974
+        },
+        {
+          "hex": "#6D7475",
+          "rgb": [
+            109,
+            116,
+            117
+          ],
+          "anteil": 0.1536
+        },
+        {
+          "hex": "#C1CFD8",
+          "rgb": [
+            193,
+            207,
+            216
+          ],
+          "anteil": 0.0886
+        },
+        {
+          "hex": "#BEB28D",
+          "rgb": [
+            190,
+            178,
+            141
+          ],
+          "anteil": 0.0855
+        }
+      ],
+      "hell_median": 37.65,
+      "hell_p10": 12.16,
+      "hell_p90": 80.78,
+      "satt_median": 25.1,
+      "satt_p10": 7.45,
+      "satt_p90": 61.18,
+      "kontrastumfang": 80.0,
+      "laplace_varianz": 3131.91,
+      "kantendichte_oben": 0.24087,
+      "kantendichte_unten": 0.22249
+    },
+    {
+      "datei": "shot_0012.png",
+      "farben": [
+        {
+          "hex": "#262827",
+          "rgb": [
+            38,
+            40,
+            39
+          ],
+          "anteil": 0.3597
+        },
+        {
+          "hex": "#603D2B",
+          "rgb": [
+            96,
+            61,
+            43
+          ],
+          "anteil": 0.1794
+        },
+        {
+          "hex": "#414D4A",
+          "rgb": [
+            65,
+            77,
+            74
+          ],
+          "anteil": 0.1467
+        },
+        {
+          "hex": "#747976",
+          "rgb": [
+            116,
+            121,
+            118
+          ],
+          "anteil": 0.1417
+        },
+        {
+          "hex": "#130E0D",
+          "rgb": [
+            19,
+            14,
+            13
+          ],
+          "anteil": 0.1191
+        },
+        {
+          "hex": "#D4B48D",
+          "rgb": [
+            212,
+            180,
+            141
+          ],
+          "anteil": 0.0534
+        }
+      ],
+      "hell_median": 27.45,
+      "hell_p10": 12.16,
+      "hell_p90": 52.94,
+      "satt_median": 27.45,
+      "satt_p10": 11.76,
+      "satt_p90": 61.57,
+      "kontrastumfang": 65.49,
+      "laplace_varianz": 584.0,
+      "kantendichte_oben": 0.09088,
+      "kantendichte_unten": 0.13783
+    },
+    {
+      "datei": "shot_0013.png",
+      "farben": [
+        {
+          "hex": "#000000",
+          "rgb": [
+            0,
+            0,
+            0
+          ],
+          "anteil": 0.9751
+        },
+        {
+          "hex": "#F5F4D4",
+          "rgb": [
+            245,
+            244,
+            212
+          ],
+          "anteil": 0.0194
+        },
+        {
+          "hex": "#C9C8B8",
+          "rgb": [
+            201,
+            200,
+            184
+          ],
+          "anteil": 0.0017
+        },
+        {
+          "hex": "#5F5F52",
+          "rgb": [
+            95,
+            95,
+            82
+          ],
+          "anteil": 0.0016
+        },
+        {
+          "hex": "#2A2921",
+          "rgb": [
+            42,
+            41,
+            33
+          ],
+          "anteil": 0.0011
+        },
+        {
+          "hex": "#979686",
+          "rgb": [
+            151,
+            150,
+            134
+          ],
+          "anteil": 0.001
+        }
+      ],
+      "hell_median": 0.0,
+      "hell_p10": 0.0,
+      "hell_p90": 0.0,
+      "satt_median": 0.0,
+      "satt_p10": 0.0,
+      "satt_p90": 0.0,
+      "kontrastumfang": 0.0,
+      "laplace_varianz": 307.56,
+      "kantendichte_oben": 0.00159,
+      "kantendichte_unten": 0.00555
+    },
+    {
+      "datei": "shot_0014.png",
+      "farben": [
+        {
+          "hex": "#252C2E",
+          "rgb": [
+            37,
+            44,
+            46
+          ],
+          "anteil": 0.3049
+        },
+        {
+          "hex": "#564A43",
+          "rgb": [
+            86,
+            74,
+            67
+          ],
+          "anteil": 0.2616
+        },
+        {
+          "hex": "#18120E",
+          "rgb": [
+            24,
+            18,
+            14
+          ],
+          "anteil": 0.185
+        },
+        {
+          "hex": "#8D7167",
+          "rgb": [
+            141,
+            113,
+            103
+          ],
+          "anteil": 0.1225
+        },
+        {
+          "hex": "#DEBA99",
+          "rgb": [
+            222,
+            186,
+            153
+          ],
+          "anteil": 0.0742
+        },
+        {
+          "hex": "#7998B4",
+          "rgb": [
+            121,
+            152,
+            180
+          ],
+          "anteil": 0.0519
+        }
+      ],
+      "hell_median": 29.02,
+      "hell_p10": 11.37,
+      "hell_p90": 71.37,
+      "satt_median": 36.08,
+      "satt_p10": 14.12,
+      "satt_p90": 70.59,
+      "kontrastumfang": 75.69,
+      "laplace_varianz": 2189.97,
+      "kantendichte_oben": 0.21967,
+      "kantendichte_unten": 0.17403
+    },
+    {
+      "datei": "shot_0015.png",
+      "farben": [
+        {
+          "hex": "#22211B",
+          "rgb": [
+            34,
+            33,
+            27
+          ],
+          "anteil": 0.2535
+        },
+        {
+          "hex": "#453829",
+          "rgb": [
+            69,
+            56,
+            41
+          ],
+          "anteil": 0.2306
+        },
+        {
+          "hex": "#070403",
+          "rgb": [
+            7,
+            4,
+            3
+          ],
+          "anteil": 0.1901
+        },
+        {
+          "hex": "#877456",
+          "rgb": [
+            135,
+            116,
+            86
+          ],
+          "anteil": 0.1543
+        },
+        {
+          "hex": "#625641",
+          "rgb": [
+            98,
+            86,
+            65
+          ],
+          "anteil": 0.0935
+        },
+        {
+          "hex": "#D1B586",
+          "rgb": [
+            209,
+            181,
+            134
+          ],
+          "anteil": 0.078
+        }
+      ],
+      "hell_median": 24.71,
+      "hell_p10": 2.35,
+      "hell_p90": 56.47,
+      "satt_median": 36.86,
+      "satt_p10": 17.65,
+      "satt_p90": 100.0,
+      "kontrastumfang": 81.96,
+      "laplace_varianz": 791.25,
+      "kantendichte_oben": 0.11707,
+      "kantendichte_unten": 0.10956
+    },
+    {
+      "datei": "shot_0016.png",
+      "farben": [
+        {
+          "hex": "#33291C",
+          "rgb": [
+            51,
+            41,
+            28
+          ],
+          "anteil": 0.3093
+        },
+        {
+          "hex": "#5C4630",
+          "rgb": [
+            92,
+            70,
+            48
+          ],
+          "anteil": 0.2176
+        },
+        {
+          "hex": "#181008",
+          "rgb": [
+            24,
+            16,
+            8
+          ],
+          "anteil": 0.1889
+        },
+        {
+          "hex": "#7F6347",
+          "rgb": [
+            127,
+            99,
+            71
+          ],
+          "anteil": 0.1861
+        },
+        {
+          "hex": "#978667",
+          "rgb": [
+            151,
+            134,
+            103
+          ],
+          "anteil": 0.0694
+        },
+        {
+          "hex": "#D7B177",
+          "rgb": [
+            215,
+            177,
+            119
+          ],
+          "anteil": 0.0287
+        }
+      ],
+      "hell_median": 28.63,
+      "hell_p10": 9.8,
+      "hell_p90": 54.51,
+      "satt_median": 44.31,
+      "satt_p10": 26.27,
+      "satt_p90": 69.02,
+      "kontrastumfang": 55.69,
+      "laplace_varianz": 599.4,
+      "kantendichte_oben": 0.06896,
+      "kantendichte_unten": 0.10522
+    }
+  ]
+}
