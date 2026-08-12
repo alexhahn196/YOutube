@@ -165,9 +165,27 @@ Die Messung ergab **rho = 1,00**: null Dubletten, null Ausschnitte, jeder Shot i
 
 ---
 
-## 5. Euro — alle drei Kurse
+## 5. Euro
 
-Der Kurs bleibt mehrdeutig (`monthly_final_price_cents` stand auf 0). **Es wird nicht behauptet, welcher gilt.**
+### 5.0 NACHTRAG: Der Kurs ist aufgelöst — 0,033 €/Credit
+
+Frühere Dokumente führen drei Lesarten mit Faktor 12 dazwischen. **Das war zu vorsichtig — die Preisdaten disambiguieren sich selbst.** Der Schlüssel ist das Rabattfeld, das bisher übersehen wurde.
+
+Aus `show_plans_and_credits` (12.08.2026): `annual_final_price_cents: 9900` · `annual_original_price_cents: 12900` · `annual_discount.amount_off: 36000` · `actual_percent_off: 23.25` · `annual_savings_vs_monthly_cents: 36000` · `credits: 3000`
+
+| Lesart | Prüfung | Ergebnis |
+|---|---|---|
+| 99 € ist der **Jahres**preis | Rabatt wäre 129 − 99 = **30 €**, das Feld sagt **360 €** | ✗ passt nicht |
+| 99 € ist der **Monats**preis, jährlich abgerechnet | Basis 360 / 0,2325 = **1.548 €/Jahr** = 129,03 €/Monat (deckt `annual_original` 129) · rabattiert 1.188 €/Jahr = **99 €/Monat** · Ersparnis 1.548 − 1.188 = **360 €** | ✓ **passt exakt** |
+
+Auch der Rabattsatz stimmt: (129 − 99) / 129 = **23,26 %** gegen `actual_percent_off` 23,25.
+
+**→ 99 € pro Monat für 3.000 Credits = 0,0330 €/Credit.** Die Lesart 0,00275 €/cr ist damit widerlegt, der Faktor 12 ist weg.
+
+**Vorbehalt:** Das ist aus der inneren Stimmigkeit der Preisdaten abgeleitet, nicht von einer Rechnung abgelesen. Ein Blick auf den Kontoauszug bestätigt es in zehn Sekunden. Die drei Spalten unten bleiben deshalb stehen; **maßgeblich ist die mittlere.**
+
+Zwei Kurse gelten weiterhin nebeneinander, je nachdem woher die Credits kommen:
+**0,0330 €/cr** aus dem Monatskontingent · **0,0475 €/cr** beim Nachkauf (4.000 cr = 190 €, belegt).
 
 ### 20:00
 
@@ -310,6 +328,6 @@ Der Ausschussfaktor spannt die Endsumme um **Faktor 2,0** auf (V2/veo: 2.186 bis
 
 ## 11. Zwei Sätze zum Schluss
 
-**Was kostet eine 20-Minuten-Folge realistisch?** In der realistischen Arbeitsweise (V2 — gemessene Aufteilung, `veo3_1_lite`, Standbildshots lokal per ffmpeg) liegt sie bei **2.186 bis 4.265 Credits inklusive Voiceover**, im mittleren Ausschussfall bei rund **2.979 Credits**; in Euro sind das **104 bis 203 €** zum belegten Top-up-Kurs, **72 bis 141 €** zur monatlichen und **6 bis 12 €** zur jährlichen Abo-Lesart — der Kurs ist damit eine größere Unsicherheit als der Ausschuss, weil zwischen seinen Lesarten Faktor 12 liegt, während der Ausschuss nur Faktor 2 aufspannt.
+**Was kostet eine 20-Minuten-Folge realistisch?** In der realistischen Arbeitsweise (V2 — gemessene Aufteilung, `veo3_1_lite`, Standbildshots lokal per ffmpeg) liegt sie bei **2.186 bis 4.265 Credits inklusive Voiceover**, im mittleren Ausschussfall bei rund **2.979 Credits** — zum aufgelösten Abo-Kurs von 0,0330 €/cr sind das **72 bis 141 €, mittlere Lage 98 €**; da 2.979 Credits praktisch das gesamte Monatskontingent aufbrauchen, ist der ehrlichere Satz aber: **eine 20-Minuten-Folge im Monat kostet die vollen 99 € Abogebühr**, weil eine zweite nicht mehr hineinpasst.
 
-**Welche eine Messung verengt die Spanne am stärksten?** Nicht der Ausschusslauf, sondern die **Klärung des Credit-Kurses** — eine Auskunft darüber, welchen Betrag du pro Abrechnungszeitraum zahlst und wie viele Credits er enthält, kostet null Credits und beseitigt den Faktor 12; erst danach lohnt der 120-Credit-Ausschusslauf, der den verbleibenden Faktor 2 auf etwa Faktor 1,3 zusammenzieht.
+**Welche eine Messung verengt die Spanne am stärksten?** Jetzt eindeutig der **Ausschusslauf** — nachdem der Kursfaktor 12 durch die Rabatt-Arithmetik (§5.0) entfallen ist, bleibt der ungemessene Ausschuss mit Faktor 1,95 die einzige große Unbekannte; 20 Clips mit dem festgelegten Anker kosten **120 Credits (4 % einer Folge)** und ziehen ihn auf etwa Faktor 1,3 zusammen.
