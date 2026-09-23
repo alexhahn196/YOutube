@@ -50,6 +50,9 @@ def assemble(clips, out, w, h):
         fc.append(f"[{i}:v]scale={w}:{h}:flags=lanczos,fps=30,format=yuv420p,setpts=PTS-STARTPTS[v{i}]")
     if n == 1:
         last = 'v0'; total = durs[0]
+    elif XF <= 0:
+        fc.append(''.join(f"[v{i}]" for i in range(n)) + f"concat=n={n}:v=1:a=0[vx]")
+        last = 'vx'; total = sum(durs)
     else:
         prev = 'v0'; offset = 0.0
         for i in range(1, n):

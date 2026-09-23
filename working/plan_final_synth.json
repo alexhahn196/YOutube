@@ -1,0 +1,309 @@
+{
+ "shots": [
+  {
+   "order": 1,
+   "start_s": 4.3,
+   "end_s": 7.7,
+   "room": "Flur (Eingangsbereich)",
+   "camera": "Ruhiger Schwenk nach rechts mit leichter Vorwärtsdrift: von der Flurwand auf die zentrierte zweiflügelige Milchglas-Tür zum sonnendurchfluteten Wohnzimmer; bei 7,7 steht die Tür mittig im Bild, Wohnzimmer und Fensterfront dahinter.",
+   "why": "Keine Außenansicht vorhanden, daher eröffnet der Flur ehrlich. Der Einstieg bei 4,3 vermeidet den Blick in die entkernte Küche (Judge-Major bei 1,5), die Küchentür ist nur noch als schmaler Rand ganz links zu sehen. Sehr ruhig (Speed 5–7 px/f, Jitter 0,13–0,49), scharf (Sharp 82–156), keine Personen, keine Installationen im Bild. Endet auf genau der Tür, durch die Shot 2 geht – verifizierte Anschluss-Logik 7,7 → 16,6.",
+   "ai_recommended": true,
+   "ai_note": "Geringes Risiko: matte Wände, Holztür, Fliesenboden; nur Milchglas-Paneele (weich, keine Spiegelungen). Niedrige Stärke, damit die Glaspaneele nicht neu gemalt werden. Hebt die flache WhatsApp-Optik.",
+   "crop16x9_center_pct": 40,
+   "risks": "Küchentür-Kante ganz links in den ersten 0,5 s (harmlos). Nicht vor 4,3 starten (Küchenblick), nicht nach 7,9 enden (Kamera schwenkt auf Sicherungskasten)."
+  },
+  {
+   "order": 2,
+   "start_s": 16.6,
+   "end_s": 22,
+   "room": "Wohnzimmer (Eintritt durch die Glastür, Fensterfront, Sonnenstreifen)",
+   "camera": "Kamera passiert das Türblatt (rechts im Bild bis ~19,5) und gleitet langsam vorwärts (Zoom 1,04–1,08) auf die hohe Holz-Fensterfront und die offene Terrassentür rechts zu; harte Sonnenstreifen auf dem Fliesenboden.",
+   "why": "Hero-Shot: Licht, Raumhöhe, Dachschräge, Terrassenzugang. Ruhigstes Material der Datei (Speed 0,7–4, Jitter 0,12–0,35, Sharp 189–249). Direkte Fortsetzung von Shot 1 (gleiche Tür von der anderen Seite). Endframe 22,0 zeigt Fensterfront + offene Terrassentür rechts – das Ziel von Shot 4.",
+   "ai_recommended": false,
+   "ai_note": "Original lassen: große Verglasung, dünne Holzsprossen, Außenblick durch Glas und harte Schattenkanten – klassische Video-to-Video-Fehlerquellen. Nur Grading (Sonnenflecken-Lichter zurücknehmen).",
+   "crop16x9_center_pct": 42,
+   "risks": "Sonnenflecken nahe Clipping – Highlights im Grade absenken. Nicht vor 16,5 starten (Rest des Fast-Pans, Speed-Max 8,7), nicht nach 22,5 enden (Schärfe fällt, Kamera schwenkt auf leere Wand)."
+  },
+  {
+   "order": 3,
+   "start_s": 43.8,
+   "end_s": 46.8,
+   "room": "Wohnzimmer – Kamin (Kupferkamin unter der Holzdecke)",
+   "camera": "Langsamer Schwenk nach rechts entlang der Holz-Dachschräge mit Sonnenstreifen am Boden, vorbei an der offenen Flurtür, endet auf dem vollständig gerahmten Kupferkamin (Kamin voll im Bild ab ~45,5; bei 46,8 Kamin mittig, Flurtür links).",
+   "why": "Das Alleinstellungsmerkmal der Wohnung (Kupferkamin + Holzschräge) in einer ruhigen Bewegung; sauberste Kamin-Aufnahme (Jitter 0,19–0,39, Sharp 150–240). Ersetzt den dritten Blick auf die Fensterfront (Redundanz-Befund der Judges) – zwei von drei Judges haben genau diesen Tausch empfohlen. Endet neben der Flurtür, der Kamin taucht in Shot 5 rechts wieder auf (Raum-Wiedererkennung).",
+   "ai_recommended": true,
+   "ai_note": "Niedrige Stärke: matte Wände, Holzdecke, patiniertes (nicht spiegelndes) Kupfer, langsame Bewegung. Ergebnis prüfen: Kaminhaube-Geometrie darf nicht verändert werden. Feuerraum mit Wasserflasche liegt bei Crop-Mitte 36 % außerhalb des 16:9-Fensters.",
+   "crop16x9_center_pct": 36,
+   "risks": "Erste ~0,7 s zeigen Decke + Lampe + Flurtür (mit Sonnenstreifen, nicht leer). Wasserflasche im Feuerraum bei ~56–68 % Bildhöhe – Crop-Mitte 36 % (Fenster 20–52 %) schließt sie aus, sonst klonen. Nicht nach 46,8 enden: ab 46,5 beschleunigt der Schwenk (Speed 9,8) auf eine leere Wand."
+  },
+  {
+   "order": 4,
+   "start_s": 53.4,
+   "end_s": 57,
+   "room": "Dachterrasse (Austritt aus dem Wohnzimmer)",
+   "camera": "Kamera tritt durch den offenen Fensterflügel (links im Bild bei 53,4) vorwärts auf die Terrasse (Zoom 1,07–1,13), Glas-Brüstung, Dächer und Horizont vor der Kamera; bei 57,0 beginnt links der Wandpfeiler ins Bild zu kommen.",
+   "why": "Die große Dachterrasse ist neben dem Kamin das stärkste Verkaufsargument; schärfstes Material der Datei (Sharp 360–808), ruhig (Jitter 0,19–0,64), kein Schatten des Filmenden (der kommt erst ab 83,3), keine Besen/Stuhl (die sind bei 80–82,5). Folgt der in Shot 2 gesehenen offenen Terrassentür – 'wir gehen jetzt raus'.",
+   "ai_recommended": false,
+   "ai_note": "Original lassen: offener Glasflügel mit Spiegelungen in der ersten Sekunde, danach Milchglas-Brüstung, dünne Metallpfosten, feine Dachziegel-Struktur, starkes Gegenlicht – alles KI-Risikoflächen; Qualität ist bereits top.",
+   "crop16x9_center_pct": 42,
+   "risks": "Nicht vor 53,4 starten (53,0–53,4 Rest-Schwenkgeschwindigkeit 7,8–10,6 px/f, Glasflügel füllt das Bild). Nicht nach 57,0: dunkler Pfeiler wandert ins Zentrum, Helligkeit fällt auf 87–97. Dachschatten-Linien am Boden sind Gebäudeschatten, nicht der Filmende."
+  },
+  {
+   "order": 5,
+   "start_s": 92,
+   "end_s": 95,
+   "room": "Wohnzimmer → Flur (zurück am Kamin vorbei, durch die Flurtür)",
+   "camera": "Von der Terrassentür aus ruhige Vorwärtsfahrt durch das Wohnzimmer (Zoom 1,05–1,22): Kaminsockel und Haube rechts am Bildrand, die offene Flurtür mit Milchglas-Seitenteil füllt zunehmend das Bild; bei 94,7–95,0 passiert die Kamera den Türrahmen, Flurlampe und Korridor sichtbar.",
+   "why": "Räumliche Brücke, die die Judges am Technik-Plan vermisst haben: von der Terrasse zurück ins Wohnzimmer und hinaus in den Flur, so dass der Schnitt zur Küchentür wie Weitergehen liest (Türrahmen → Türrahmen). Ruhig (Speed 1–6, Jitter 0,36–0,96), Vorwärtsbewegung. In-Punkt 92,0 selbst verifiziert: Kopfschatten-Kerbe im rechten Sonnenstreifen bei 91,4/91,6 noch sichtbar, ab 91,8 weg, 92,0 sauber.",
+   "ai_recommended": true,
+   "ai_note": "Moderat-niedriges Risiko: matte Wände, Holztüren, mattes Kupfer, ein Milchglas-Paneel. Material ist weich und kontrastarm (Sharp 80–110, Luma 105–120) – hier lohnt die Look-Verbesserung am meisten. Ergebnis auf die Wasserflasche im Kamin (rechter Bildrand) prüfen.",
+   "crop16x9_center_pct": 42,
+   "risks": "KEINESFALLS vor 92,0 starten (Schatten des Filmenden bis 91,7). Kleine Wasserflasche im Kaminsockel am rechten Rand bis ~93 (klein, bei Crop 42 % am unteren Fensterrand) – Klon-Out empfohlen. 93–95 Jitter 0,76–0,96 (leichte Warp-Stabilisierung über den freien Crop-Rand). Nicht nach 95,2 enden (95,5+ Jitter 1,4, Fast-Pan in die Küche)."
+  },
+  {
+   "order": 6,
+   "start_s": 101,
+   "end_s": 105.5,
+   "room": "Küche (entkernt: alte Wandfliesen, Dachfenster, Heizkörper)",
+   "camera": "Türrahmen gerade am linken Bildrand, dann ruhige Vorwärtsfahrt (Zoom 1,11–1,17) in die Küche auf das Dachfenster und den Heizkörper zu; alte Wandfliesen links, Mosaik-Bodenfliesen.",
+   "why": "Käufer erwarten die Küche; zeigt ihren ehrlichen Zustand, führt aber mit Dachfenster und Tageslicht. Ruhigstes Küchen-Fenster (Jitter 0,18–0,71, Sharp 136–231). In-Punkt 101,0 statt 100,0: Fast-Pan-Rest und großer Türrahmen links vermieden (Judge-Befund). Türrahmen → Türrahmen-Anschluss an 95,0.",
+   "ai_recommended": true,
+   "ai_note": "Niedrig-moderates Risiko: matte Fliesen, Putz, kleines Dachfenster, ruhige Vorwärtsbewegung. Nur leichte Bereinigung/Grade – KI darf KEINE Küchenmöbel erfinden und Fliesenmuster/Rohrstutzen nicht entfernen (Ehrlichkeit). Neutral graden, nicht wärmen.",
+   "crop16x9_center_pct": 40,
+   "risks": "Grüne Ventilkappen an der Wand (klein) und grüner Anschluss unten links ab ~104,3 – liegt bei ~80 % Bildhöhe, außerhalb des 40-%-Fensters. Nicht nach 105,5: 105,5–106 Jitter p90 2,1, dann Fast-Pan auf Besen/Kehrblech."
+  },
+  {
+   "order": 7,
+   "start_s": 176.3,
+   "end_s": 178.7,
+   "room": "Schlafzimmer (Dachfenster, Heizkörper, Balkontür)",
+   "camera": "Ruhige Seitwärts-/Vorwärtsbewegung vom schrägen Dachfenster mit Heizkörper an der Wand entlang zur offenen Balkontür, hinter der Brüstung und Balkonboden sichtbar werden; bei 178,7 Balkontür rechts im Bild.",
+   "why": "Einzige präsentable Schlafzimmer-Passage (Jitter 0,5–0,77, Sharp 108–181); alles davor (170–175,9) und danach (179+) sind leere Wände mit Fast-Pans/Shaky (Jitter bis 5,7). Endet auf der Balkontür und motiviert damit Shot 8. In-Punkt 176,3 liegt hinter dem Schwenk-Auslauf (176,0–176,5 Speed 11,8), Out 178,7 vor dem Speed-11-Schwenk auf die Blankwand.",
+   "ai_recommended": false,
+   "ai_note": "Original lassen: Fenster- und Balkontür-Glas mit dünnen Rahmen, dazu leichter Jitter (~0,7), den V2V verstärken würde. Stattdessen leichte Warp-Stabilisierung und Weißabgleich (leichter Blaustich).",
+   "crop16x9_center_pct": 42,
+   "risks": "Kürzester Shot (2,4 s) – nicht verlängerbar: 175,5–176,0 Speed 15/Jitter 2,1 (verschmiert), 179,0+ Jitter 5,7. Leichte Rest-Schwenkgeschwindigkeit am Anfang (Speed 9 bei 176,5). Kabel am Boden liegt außerhalb des Crops."
+  },
+  {
+   "order": 8,
+   "start_s": 192,
+   "end_s": 194.9,
+   "room": "Balkon am Schlafzimmer (Blick über die Stadt)",
+   "camera": "Langsame Drift (Speed 1,7–7,5) unter den Holzbalken heraus zur Brüstung; das Bild öffnet sich über den Marktplatz mit Bäumen, Sonnenschirmen, roten Dächern und Kirchturm, wird zum Ende hin fast statisch (Jitter 0,2).",
+   "why": "Finale mit dem einzigen echten Ausblick – emotionaler Schlusspunkt 'raustreten und schauen'. Folgt direkt der in Shot 7 gezeigten Balkontür. Scharf (Sharp 247–461 steigend), gute Belichtung. In-Punkt 192,0 liegt hinter den WhatsApp-Blockartefakten (190,0–191,0) und hinter dem Jitter-1,8-Band (191,5–192,0); Out 194,9 vor dem Fast-Pan zum Dach (ab 195,0 Speed 12,5).",
+   "ai_recommended": false,
+   "ai_note": "Original lassen: dünnes Metallgeländer, Milchglas-Paneele, Holzsparren, feine Stadt-Details (Bäume, Schirme, Personen) – KI würde das neu malen. Nur Grade; erste 0,5 s leicht stabilisieren.",
+   "crop16x9_center_pct": 48,
+   "risks": "192,0–192,5 Jitter ~1,15 (leichte Warp-Stabilisierung über den freien Crop-Rand). Nicht vor 191,8 starten (Jitter 1,8, Rest-Blockartefakte), nicht nach 194,9 enden (Fast-Pan zu Antenne/Dach). Schatten des Filmenden liegt bei 187–188 – nicht im Fenster."
+  }
+ ],
+ "total_s": 28.2,
+ "rationale": "AUSGANGSPUNKT: Summe der Judge-Scores: editor-technical 111, editor-flow 110, editor-marketing 103, claude-draft 80 → Basis ist editor-technical. Alle verifizierten Blocker/Major-Befunde wurden angewendet: (1) Jump-Cut 215,2 → 16,6 (zwei Judges, major): Shot 1 durch den Flur-Take 4,3–7,7 ersetzt (Marketing-Opener; Tür-Anschluss 7,7 → 16,6 von zwei Judges verifiziert, zugleich kein Küchenblick wie bei 1,5). (2) Schlafzimmer-Grenzen in Schwenk-Ausläufen (alle Judges): 176,3–178,7. (3) Balkon-Endpunkt 195,1 im Fast-Pan und Jitter-Band vor 192,0: 192,0–194,9. (4) Fehlende Brücke Terrasse → Küche: Rückweg 92,0–95,0 aus editor-flow gegraftet, In-Punkt selbst auf den Kopfschatten geprüft (Kerbe im Sonnenstreifen bei 91,4/91,6, sauber ab 91,8). (5) Küche 101,0 statt 100,3 (Türrahmen, Fast-Pan-Rest), Terrasse 53,4–57,0 (Pfeiler ab 57,0). SCHNITT-ENTSCHEIDUNG: Von den drei Wohnzimmer-Kandidaten (Fensterfront-Schwenk 36,6–40,3, Kamin-Schwenk 43,8–46,8, Rückweg 92–95) passen bei 8 Shots nur zwei. Der Fensterfront-Schwenk wäre der dritte Blick auf dieselbe Fensterfront (Ende Shot 2, Schwenk, Terrassen-Austritt) – von den Judges als Redundanz markiert; der Kupferkamin ist dagegen das Alleinstellungsmerkmal und wäre im Rückweg nur als Rand-Sliver zu sehen. Also: Kamin-Schwenk rein, Fensterfront-Schwenk raus (Empfehlung von Judge 1 und Judge 2). Der Terrassen-Austritt folgt trotzdem logisch, weil Shot 2 mit der offenen Terrassentür rechts im Bild endet und Shot 3 nur ein kurzer Blick durch den Raum ist. REIHENFOLGE: Flur → Wohnzimmer (Eintritt) → Kamin → Dachterrasse → zurück durchs Wohnzimmer in den Flur → Küche → Schlafzimmer → Balkon-Ausblick. Weicht von der Kunden-Wunschreihenfolge nur dort ab, wo es die Geometrie verlangt: Die Dachterrasse liegt am Wohnzimmer und wird dort besucht; der Balkon am Schlafzimmer liefert trotzdem das 'Raustreten mit Aussicht' als Finale. Jeder Schnitt ist entweder dieselbe Tür von beiden Seiten (1→2), ein Raum-Rundblick (2→3), ein Raus/Rein-Paar (3→4→5), Türrahmen zu Türrahmen (5→6) oder Tür → dahinterliegender Raum (7→8). BAD/GAST-WC: bewusst weggelassen (2 von 3 Judges, Brief: 'nicht erzwingen'). Jede nutzbare Bad-Sekunde ist dunkel (Luma 79–99), verwackelt (Jitter 1,0–7,5), spiegelbehaftet, mit Schuh bei 166; das einzige Fenster 152,0–153,2 ist 1,2 s lang und verschmiert danach. Gast-WC: Spiegelung des Filmenden 144–148. HÄRTE-CHECKS: Keine Außenansicht existiert (nichts erfunden). Vermieden: Filmer-Schatten (83,3–90,5 und 91,0–91,7 und ~187), WC-Spiegel (144–148), Schuh (166), Besen/Kehrblech (106–110, 124–126), Flasche in Wanne, Dachziegel/Himmel (64–77, 195–199), leere Wände (24–35, 170–175, 179–187), Doppel-Takes (211–216 = Duplikat von 16–22; 117–121 = Duplikat der Küche; 221–224 = Duplikat des Kamins, verwackelt). LÄNGEN: 3,4 + 5,4 + 3,0 + 3,6 + 3,0 + 4,5 + 2,4 + 2,9 = 28,2 s, 8 Shots. Schlafzimmer (2,4 s) und Balkon (2,9 s) liegen knapp unter 3 s – die umgebenden Frames sind nachweislich unbrauchbar, alle Judges akzeptieren das als ehrliches Maximum. Bei Bedarf +0,3 s: Küche bis 105,8 und Flur ab 4,2. SCHNITTE: Harte Schnitte durchgehend; ein 4–6-Frame-Crossfade ist nur bei 7→8 (beide Seiten langsam) unauffällig. KI (Higgsfield V2V) nur für Shots 1, 3, 5, 6 (matte Innenräume, niedrige Stärke, Ergebnis auf erfundene Möbel/Geometrie prüfen); Shots 2, 4, 7, 8 bleiben Original (Glas, Sprossen, dünnes Geländer, Außendetails). Leichte Warp-Stabilisierung auf 5 (93–95), 7 und 8 (192,0–192,5) – Reserve ist da, weil das 16:9-Fenster nur 31,6 % der Bildhöhe nutzt (478×850 → 478×269). Grade: Sonnenflecken in Shot 2 absenken, Blaustich in Shot 7 neutralisieren, Küche neutral; Wasserflasche im Kamin per Crop (36 %) ausschließen bzw. in Shot 5 klonen. VERIFIKATION: Alle 16 In/Out-Frames als Einzelbilder extrahiert und gesichtet, Halbsekunden-Metriken für jedes Fenster geprüft; Prüfbogen und Einzelframes unter /tmp/claude-0/-home-user-YOutube/12f6f61c-2660-5403-bf3f-cf4173c19aa4/scratchpad/synth/ (final_check_sheet.jpg, g_shadow.jpg für den Schatten-Zoom, g_block.jpg für die Balkon-Artefakte).",
+ "room_timeline_consensus": [
+  {
+   "start_s": 0,
+   "end_s": 4.3,
+   "room": "Flur",
+   "notes": "Blick durch die offene Küchentür in die entkernte Küche (alte Fliesen sichtbar); 0–1,5 fast statisch, dann langsam vorwärts und Schwenk nach rechts. Ruhig, aber unvorteilhafter Inhalt – vermeiden."
+  },
+  {
+   "start_s": 4.3,
+   "end_s": 8,
+   "room": "Flur → Wohnzimmer-Doppeltür",
+   "notes": "Ruhiger Schwenk/Drift auf die zentrierte Milchglas-Doppeltür, sonniges Wohnzimmer dahinter. Sauber (Jitter 0,13–0,49, Sharp 82–156). Bester Opener."
+  },
+  {
+   "start_s": 8,
+   "end_s": 16,
+   "room": "Flur (Rundschwenk: Sicherungskasten, Sprechanlage, Wohnungstür, Heizkörper)",
+   "notes": "Technische Einbauten, leere Wände; 14–15,5 FAST-PAN, verwackelt, weich. Vermeiden."
+  },
+  {
+   "start_s": 16,
+   "end_s": 22.5,
+   "room": "Wohnzimmer (Eintritt durch die Doppeltür)",
+   "notes": "Bestes Material der Datei: Türblatt rechts bis ~19,5, dann ruhige Vorwärtsfahrt auf Fensterfront und offene Terrassentür, Sonnenstreifen am Boden. Speed 0,7–4, Jitter 0,12–0,35, Sharp 189–249."
+  },
+  {
+   "start_s": 22.5,
+   "end_s": 35,
+   "room": "Wohnzimmer (leere Wände, Dachschräge)",
+   "notes": "Schwenk über weiße Wände, Kaminkante kurz bei 29–30; weich (Sharp 9–46), 28–33 shaky-. Vermeiden."
+  },
+  {
+   "start_s": 35,
+   "end_s": 41,
+   "room": "Wohnzimmer (Fensterfront → offene Terrassentür)",
+   "notes": "Sehr sauberer Schwenk nach rechts über die Holz-Fensterfront (Dächer im Blick), landet 39,5–40,5 auf der offenen Terrassentür. Jitter 0,18–0,49, Sharp 217–420. Gut, aber zweiter/dritter Blick auf die Fensterfront."
+  },
+  {
+   "start_s": 41,
+   "end_s": 47,
+   "room": "Wohnzimmer (Holzdecke → Flurtür → Kupferkamin)",
+   "notes": "Langsamer Schwenk nach rechts (Speed 3–5, Jitter 0,19–0,39, Sharp 180–247): 41–43,5 Decke/Lampe, 44 Flurtür, 45,5–46,8 Kamin voll im Bild. Wasserflasche im Feuerraum (in jedem Kamin-Take)."
+  },
+  {
+   "start_s": 47,
+   "end_s": 53,
+   "room": "Wohnzimmer (leere Wand, Kamin zweiter Take, FAST-PAN zur Terrassentür)",
+   "notes": "47–48 weich, 48–49 Wand/Kaminkante, 50–53 FAST-PAN (Speed 11–13) mit schwingendem Glasflügel. Vermeiden."
+  },
+  {
+   "start_s": 53,
+   "end_s": 57.5,
+   "room": "Dachterrasse (Austritt aus dem Wohnzimmer)",
+   "notes": "53,0–53,4 Schwenk-Rest mit Glasflügel-Spiegelung, ab 53,4 ruhige Vorwärtsbewegung (Zoom 1,07–1,13) zur Milchglas-Brüstung, Dächer und Horizont. Schärfstes Material (Sharp 360–808), Jitter 0,19–0,64, kein Schatten, kein Gerümpel. Ab 57,0 Pfeiler links."
+  },
+  {
+   "start_s": 57.5,
+   "end_s": 64,
+   "room": "Dachterrasse (Pfeiler, Nachbarhäuser, verglaste Gaubenwand)",
+   "notes": "Pfeiler/Wand füllt 57–58,5 das Zentrum, danach Nachbarhäuser, Bäume, rotes Objekt hinter Milchglas, Stange/Kies am Boden; 59,5–60,5 FAST-PAN; 61–64 Glasreflexe. Bedingt brauchbar, wandlastig."
+  },
+  {
+   "start_s": 64,
+   "end_s": 69,
+   "room": "Dachterrasse (Holz-Untersicht, Himmel)",
+   "notes": "Dachkasten-Bretter und Himmel, 64–66 shaky-/SHAKY. Vermeiden."
+  },
+  {
+   "start_s": 69,
+   "end_s": 77,
+   "room": "Dachterrasse (Dachziegel, Terrassenplatten)",
+   "notes": "Technisch exzellent (Sharp ~1000), aber Inhalt Dachziegel – laut Brief ausgeschlossen. 75–77 Straße/Häuser."
+  },
+  {
+   "start_s": 77,
+   "end_s": 81,
+   "room": "Dachterrasse (Blick über die Straße)",
+   "notes": "77 ok, 78–79 FAST-PAN (Speed 12–17,5), shaky-. Zu kurz nutzbar."
+  },
+  {
+   "start_s": 81,
+   "end_s": 89.5,
+   "room": "Dachterrasse (Rückblick auf die Wohnzimmer-Fensterfront)",
+   "notes": "80–82,5 Besen und Stuhl unten rechts, 81–83 ruhig und schön; ab 83,3 bis 90,5 SCHATTEN des Filmenden auf den Terrassenplatten. Saubere Lücke 82,5–83,3 zu kurz. Vermeiden."
+  },
+  {
+   "start_s": 89.5,
+   "end_s": 95,
+   "room": "Wohnzimmer (von der Terrassentür zurück, Kamin rechts, zur Flurtür)",
+   "notes": "89,5–90,5 volle Schattensilhouette im Sonnenstreifen, 91,0–91,7 Kopfschatten-Kerbe am rechten Streifen; ab 92,0 sauber: Kaminsockel rechts, ruhige Vorwärtsfahrt zur offenen Flurtür, 94,7–95,0 Durchgang durch den Türrahmen. Speed 1–6, Jitter 0,36–0,96, weich (Sharp 80–245)."
+  },
+  {
+   "start_s": 95,
+   "end_s": 100,
+   "room": "Flur / Korridor Richtung Küche",
+   "notes": "Flur mit Heizkörper und Wohnungstür, 98–100 FAST-PAN + SHAKY in die Küche (Jitter 1,0–1,8). Vermeiden."
+  },
+  {
+   "start_s": 100,
+   "end_s": 105.5,
+   "room": "Küche (entkernt)",
+   "notes": "Türrahmen links bis ~101,0, dann ruhige Vorwärtsfahrt: alte Wandfliesen, Dachfenster, Heizkörper, Mosaik-Bodenfliesen. Jitter 0,18–0,71, Sharp 136–231. Grüner Anschluss unten links ab ~104,3."
+  },
+  {
+   "start_s": 105.5,
+   "end_s": 117,
+   "room": "Küche → Hauswirtschaftsraum (Besen, Kehrblech, Warmwasserboiler)",
+   "notes": "106 FAST-PAN (Jitter 6,6), 107–110 Besen und Kehrblech, 110–116 Boiler-Nahaufnahme, sehr verwackelt, verschwommene weiße Wände. Vermeiden."
+  },
+  {
+   "start_s": 117,
+   "end_s": 122,
+   "room": "Küche (Dachfenster-Ecke, zweiter Take, Kamera nach oben gekippt)",
+   "notes": "117–121 mäßig ruhig (Jitter 0,46–0,78), aber Duplikat von 100–105,5; 122–123 FAST-PAN/SHAKY (Jitter 14)."
+  },
+  {
+   "start_s": 122,
+   "end_s": 130,
+   "room": "Hauswirtschaftsraum / Küche zurück",
+   "notes": "Boiler und Besen 124–126, Küchenfliesen 127–129, 125–129 FAST-PAN/SHAKY. Vermeiden."
+  },
+  {
+   "start_s": 130,
+   "end_s": 137,
+   "room": "Flur (Wohnungstür, Sicherungskasten, Gäste-WC-Tür)",
+   "notes": "Speed 12–15, Jitter 1,2–2,1, Toilette durch die Tür sichtbar ab 134. Vermeiden."
+  },
+  {
+   "start_s": 137,
+   "end_s": 151,
+   "room": "Gäste-WC",
+   "notes": "Toilette mit Toilettenpapier/Flaschen auf dem Spülkasten, kleines Waschbecken, SPIEGEL mit Reflexion des Filmenden 144–148. Dunkel (Luma 87–109), SHAKY (Jitter 2–10). Komplett ausschließen."
+  },
+  {
+   "start_s": 151,
+   "end_s": 152,
+   "room": "Flur → Badtür",
+   "notes": "Blick Richtung Schlafzimmertür, dann Badtür. FAST-PAN, verschwommen."
+  },
+  {
+   "start_s": 152,
+   "end_s": 168,
+   "room": "Bad (beige Fliesen, Doppelwaschtisch mit Spiegelschränken, Dusche, Badewanne)",
+   "notes": "Dunkel (Luma 79–100), Jitter 1,0–7,5 überall, starke Kompression; 152,0–152,6 Türblatt deckt 40 % ab, 153,0+ Jitter 1,5–1,8 und Sharp bricht auf 5–12 ein; Spiegelschränke 153,5–158 (keine Personenreflexion gefunden); Schuh bei 166, Flasche in der Wanne 166–167. Einziges Fenster 152,0–153,2 (1,2 s). Weggelassen."
+  },
+  {
+   "start_s": 168,
+   "end_s": 170,
+   "room": "Korridor Richtung Schlafzimmer",
+   "notes": "169 Blick zum Schlafzimmer/Balkontür, FAST-PAN/SHAKY (Jitter 2–7)."
+  },
+  {
+   "start_s": 170,
+   "end_s": 176,
+   "room": "Schlafzimmer (leere Wände, Dachschräge)",
+   "notes": "Weiße Wände, wenig Detail, Jitter 0,9–3,1; 175–176 Schwenk-Auslauf (Speed 15, Jitter 2,1). Vermeiden."
+  },
+  {
+   "start_s": 176,
+   "end_s": 179,
+   "room": "Schlafzimmer (Dachfenster + Heizkörper → Balkontür)",
+   "notes": "Einziges präsentables Schlafzimmer-Material: ruhige Bewegung vom Fenster zur offenen Balkontür (Jitter 0,49–0,77, Sharp 108–181). 176,0–176,3 noch Speed 11,8; ab 178,7 Schwenk auf leere Wand, 179,0+ Jitter 5,7."
+  },
+  {
+   "start_s": 179,
+   "end_s": 187.5,
+   "room": "Schlafzimmer (leere Wände, Kabel am Boden, Tür zum Korridor)",
+   "notes": "FAST-PAN/SHAKY, leere Wände. Vermeiden."
+  },
+  {
+   "start_s": 187.5,
+   "end_s": 190,
+   "room": "Balkon am Schlafzimmer (Austritt)",
+   "notes": "187,5 Schatten des Filmenden auf dem Balkonboden, 188,5–189,9 statische Haltung mit schweren WhatsApp-Blockartefakten (trotz hohem Sharp-Wert). Vermeiden."
+  },
+  {
+   "start_s": 190,
+   "end_s": 195,
+   "room": "Balkon am Schlafzimmer (Blick über die Stadt)",
+   "notes": "190,0–191,0 Rest-Blockartefakte an Wand/Sparren, 190,5–192,0 Geh-Jitter 1,4–1,8; ab 192,0 ruhig werdend (Jitter 1,15 → 0,2), Sharp 247–461: Marktplatz mit Bäumen, Sonnenschirmen, Kirchturm, rote Dächer; dünnes Geländer mit Milchglas. Ab 195,0 FAST-PAN nach oben."
+  },
+  {
+   "start_s": 195,
+   "end_s": 199,
+   "room": "Balkon (Dach, Antenne, Himmel)",
+   "notes": "FAST-PAN (Speed 13–16) nach oben, uninteressant. Vermeiden."
+  },
+  {
+   "start_s": 199,
+   "end_s": 211,
+   "room": "Schlafzimmer (zurück durch die Balkontür) → leere Wände → Korridor",
+   "notes": "Glastür mit Reflexen, 201–205 SHAKY (Jitter 1,6–9,2), 206–210 weich/schnell, 210–211,5 FAST-PAN. Vermeiden."
+  },
+  {
+   "start_s": 211,
+   "end_s": 217,
+   "room": "Flur → Wohnzimmer durch die Doppeltür (zweiter Take)",
+   "notes": "Ruhige Vorwärtsfahrt (Speed 1,2–2,6, Jitter 0,35–0,8, Sharp 143–236) mit Sicherungskasten/Sprechanlage rechts bis ~213; ab ~214,5 in der Türöffnung mit derselben Fensterfront wie 16,6 – Duplikat der Route 4–22, als Fallback für Shot 1+2 geeignet."
+  },
+  {
+   "start_s": 217,
+   "end_s": 225.9,
+   "room": "Wohnzimmer (Dachschräge, Kamin frontal, Fenster) – Ende",
+   "notes": "217–221 SHAKY Decke/Wände, 221,5–224 frontale Kamin-Komposition (schönste Rahmung, aber Jitter 0,9–2,9, Rückwärtsdrift, Sharp-Min 33), 224–225,9 SHAKY zum Fenster. Duplikat von 44–47, technisch unterlegen."
+  }
+ ],
+ "open_concerns": "1) Zwei Shots liegen knapp unter 3 s (Schlafzimmer 2,4 s, Balkon 2,9 s) – die angrenzenden Frames sind nachweislich verwackelt/verschmiert bzw. blockartig; verlängern ist nicht möglich, ohne die Regeln 'keine Wackler / keine Artefakte' zu brechen. Falls der Kunde strikt ≥3 s verlangt: Balkon 191,8–194,9 (3,1 s) mit Stabilisierung der ersten 0,3 s ist der einzige vertretbare Kompromiss; das Schlafzimmer bleibt bei 2,4 s oder entfällt (dann 7 Shots, Küche/Flur je +0,5 s). 2) Bad und Gäste-WC fehlen im Film. Das ist eine bewusste Entscheidung nach Brief ('nicht erzwingen'), aber eine Marketing-Frage: Wenn der Kunde Bad-Abdeckung um jeden Preis will, ist 152,0–153,2 (1,2 s, stark stabilisiert, +1 Blende) die am wenigsten schlechte Option – sie fällt optisch klar ab. 3) Gesamtlänge 28,2 s liegt am unteren Rand des Bandes; +0,3–0,5 s sind gefahrlos über Küche bis 105,8 und Flur ab 4,2 zu holen. 4) Die Wasserflasche im Kamin ist in jedem Kamin-Take vorhanden; Shot 3 schließt sie per Crop (36 %) aus, in Shot 5 sitzt sie klein am rechten Rand – Klon-Out empfohlen, sonst bleibt sie im Bild. 5) Shot 3 (Kamin) beginnt mit ~0,7 s Holzdecke/Flurtür; das ist die Dachschräge mit Sonnenstreifen, nicht 'leere Decke', aber wer es strenger sieht, startet bei 44,2 (2,6 s). 6) Der Schnitt Kamin (46,8) → Terrasse (53,4) hat keinen exakten Tür-Match; die offene Terrassentür ist zuletzt in Shot 2 (bis 22,0 rechts im Bild) zu sehen. Wer den Match höher gewichtet als den Kamin, tauscht Shot 3 gegen 36,6–40,3 (Fensterfront-Schwenk endet auf der offenen Tür) – das ist die einzige Stelle, an der die Judges uneins waren. 7) Der Rückweg (Shot 5) ist das weichste Material im Schnitt (Sharp 80–110); die KI-Look-Verbesserung ist hier bewusst empfohlen, das Ergebnis muss aber auf halluzinierte Details (Türgriffe, Kaminsockel) geprüft werden. 8) Bei Higgsfield-V2V auf Shot 6 (Küche) unbedingt kontrollieren, dass keine Küchenmöbel erfunden werden – das wäre rechtlich/ethisch ein Problem bei einer Immobilienanzeige."
+}
