@@ -1,0 +1,14 @@
+{
+ "source": "working/source_video.mp4", "root": ".", "xfade_s": 0.2,
+ "out_9x16": "preview_draft_9x16.mp4", "out_16x9": "preview_draft_16x9.mp4", "out_16x9_pillar": "preview_draft_16x9_pillarbox.mp4",
+ "shots": [
+  {"id": "01", "name": "view_balcony", "start_s": 190.0, "end_s": 194.5, "room": "Balkon-Ausblick", "crop16x9_center_pct": 45, "stab_zoom": 1.05},
+  {"id": "02", "name": "entrance_hall", "start_s": 211.5, "end_s": 215.5, "room": "Flur -> Wohnzimmer", "crop16x9_center_pct": 50},
+  {"id": "03", "name": "living_sun", "start_s": 16.5, "end_s": 21.5, "room": "Wohnzimmer", "crop16x9_center_pct": 42},
+  {"id": "04", "name": "fireplace", "start_s": 44.0, "end_s": 47.0, "room": "Kamin", "crop16x9_center_pct": 50},
+  {"id": "05", "name": "kitchen", "start_s": 100.5, "end_s": 104.0, "room": "Kueche", "crop16x9_center_pct": 45},
+  {"id": "06", "name": "bedroom", "start_s": 176.0, "end_s": 179.0, "room": "Schlafzimmer", "crop16x9_center_pct": 50, "stab_zoom": 1.06},
+  {"id": "07", "name": "bathroom", "start_s": 152.0, "end_s": 154.5, "room": "Bad", "crop16x9_center_pct": 45, "stab_zoom": 1.08, "stab_sigma": 10},
+  {"id": "08", "name": "terrace", "start_s": 52.5, "end_s": 57.5, "room": "Dachterrasse", "crop16x9_center_pct": 45}
+ ]
+}
