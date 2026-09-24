@@ -60,7 +60,7 @@ except ImportError as exc:  # pragma: no cover - reine Nutzerhilfe
     )
     sys.exit(2)
 
-__version__ = "1.3.0"
+__version__ = "1.3.1"
 
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 DEFAULT_OUTPUT_DIRNAME = "output_expose"
@@ -729,7 +729,7 @@ def estimate_verticals(gray_u: np.ndarray, f_n: float, s: Settings):
             # Verkippung sein -> keine Drehung daraus ableiten.
             return None, "Senkrechten nur am Bildrand", False
         if abs(roll_d) > s.max_roll_deg:
-            return None, f"Roll {roll_d:.1f}° unplausibel groß"
+            return None, f"Roll {roll_d:.1f}° unplausibel groß", True
         # Gegenprobe mit ALLEN fast senkrechten Linien: Eine echte Korrektur macht
         # sie insgesamt deutlich gerader. Schräge Dachkanten o. Ä. können einen
         # Schein-Fluchtpunkt liefern - dann würden andere Senkrechten schiefer.
@@ -1069,7 +1069,11 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
                                         interp=cv2.INTER_LINEAR)
         focal35 = s.focal35 or loaded.focal35 or 24.0
         f_n = 2.0 * focal35 / 43.27
-        vinfo = estimate_verticals(small_u, f_n, s)
+        try:
+            vinfo = estimate_verticals(small_u, f_n, s)
+        except Exception as exc:  # noqa: BLE001 - lieber keine Korrektur als kein Bild
+            vinfo = {"ok": False, "roll": 0.0, "pitch": 0.0, "lines": 0, "mode": "",
+                     "reason": f"interne Schätzung fehlgeschlagen ({type(exc).__name__})"}
         if vinfo["ok"]:
             roll, pitch = math.radians(vinfo["roll"]), math.radians(vinfo["pitch"])
             if abs(vinfo["roll"]) < 0.2:
@@ -1183,7 +1187,7 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
             f"{keep_pct} % des Bildinhalts erhalten")
     if max(plan["losses"]) > s.max_side_loss + 0.005:
         roll_loss = max(base_loss - lens_loss, 0.0) if r_eff else 0.0
-        if roll_loss > s.max_side_loss - 0.02:
+        if roll_loss > s.max_side_loss:
             note += (f" – ACHTUNG: mehr als {s.max_side_loss:.0%} je Seite, weil der Horizont "
                      f"{abs(math.degrees(roll)):.1f}° schief war; bitte prüfen (mit --max-crop "
                      f"{s.max_side_loss:.2f} wird er nur teilweise ausgerichtet)")
@@ -1352,7 +1356,11 @@ def highlight_shoulder(lin: np.ndarray, knee: float = 0.8) -> np.ndarray:
     out = lin * scale[:, :, None]
     # Stark komprimierte Spitzlichter laufen wie bei einer Kamera ins Weiße aus,
     # statt farbig zu bleiben (sonst wirken z. B. Fliesenreflexe wie Flecken).
-    wdes = smoothstep(0.85, 1.0, m_new) * np.clip(2.0 * (1.0 - scale), 0.0, 1.0)
+    # Kräftig farbige Flächen (sonnenbeschienenes Holz, Ziegel) aber nicht: die würden
+    # sonst zu weißen Flecken ausbleichen.
+    sat = 1.0 - lin.min(axis=2) / np.maximum(m, 1e-6)
+    wdes = (smoothstep(0.85, 1.0, m_new) * np.clip(2.0 * (1.0 - scale), 0.0, 1.0)
+            * (1.0 - smoothstep(0.35, 0.6, sat)))
     out = out + (m_new[:, :, None] - out) * wdes[:, :, None]
     return np.clip(out, 0, 1)
 
@@ -1385,9 +1393,15 @@ def _limit_gain_in_bright_areas(lin: np.ndarray, gain: np.ndarray) -> np.ndarray
     # (Ziegeldächer ja, warm angestrahlte cremefarbene Decken und beige Fliesen
     # nein - sonst entstehen dort graue Flecken), bläuliche schon ab mäßiger
     # (Himmel hinter Glas oder Dunst).
+    # Rottöne (Dachziegel, Klinker) zählen schon ab mittlerer Buntheit - gelbliche
+    # Töne wie beige Fliesen dagegen nicht.
     chroma_b = np.hypot(lab_b[..., 1], lab_b[..., 2])
-    sat_w = np.maximum(smoothstep(25.0, 40.0, chroma_b),
-                       smoothstep(10.0, 20.0, chroma_b) * smoothstep(-3.0, -10.0, lab_b[..., 2]))
+    sat_lin = 1.0 - blur.min(axis=2) / np.maximum(blur.max(axis=2), 1e-4)
+    hue_b = np.degrees(np.arctan2(lab_b[..., 2], lab_b[..., 1]))
+    red = smoothstep(-40.0, -20.0, hue_b) * (1.0 - smoothstep(40.0, 55.0, hue_b))
+    sat_w = np.maximum.reduce([smoothstep(25.0, 40.0, chroma_b),
+                               smoothstep(10.0, 20.0, chroma_b) * smoothstep(-3.0, -10.0, lab_b[..., 2]),
+                               smoothstep(0.25, 0.45, sat_lin) * smoothstep(14.0, 20.0, chroma_b) * red])
     region = np.maximum(region, over * sat_w)
     cap = np.maximum(math.log2(0.85) - log_mx_base, 0.0)      # hellster Kanal max. ~0.85 linear
     # Satte Flächen (Himmel, Aussicht) nur wenig anheben - sonst werden sie flau und flach.
@@ -1504,7 +1518,7 @@ def finish_lab(srgb: np.ndarray, is_gray: bool, s: Settings,
     # Nahe am Kanal-Maximum (sonnige Ziegeldächer, helle Fassaden) weder S-Kurve
     # noch Dynamik noch Schärfung - sonst brennt dort ein einzelner Farbkanal aus.
     sat_s = 1.0 - srgb.min(axis=2) / np.maximum(srgb.max(axis=2), 1e-4)
-    calm = 1.0 - smoothstep(0.88, 0.97, srgb.max(axis=2)) * smoothstep(0.05, 0.15, sat_s)
+    calm = 1.0 - smoothstep(0.88, 0.97, srgb.max(axis=2)) * smoothstep(0.03, 0.08, sat_s)
     x = L0 / 100.0
     L = L0 + (100.0 * (x + s.contrast * x * (1 - x) * (2 * x - 1)) - L0) * calm
 
@@ -2207,6 +2221,19 @@ def main(argv=None) -> int:
             log.debug(payload)
 
     manifest_before = dict(manifest)
+    # Einträge, die in diesem Lauf neu geschrieben werden, vorübergehend auf die
+    # Herkunft reduzieren: Bricht der Lauf ab oder scheitert ein Bild, nachdem das
+    # Ergebnis schon ersetzt wurde, gilt die Datei sonst beim nächsten Lauf als
+    # "nachbearbeitet". Unberührte Einträge werden am Ende wiederhergestellt.
+    inflight = {}
+    for job in work:
+        rel = Path(job[1]).relative_to(output_dir).as_posix()
+        entry = manifest.get(rel)
+        if isinstance(entry, list) and len(entry) >= 5:
+            inflight[rel] = entry
+            manifest[rel] = entry[:3]
+    if inflight:
+        _save_manifest(output_dir, manifest)
     finished = True
     if workers == 1:
         try:
@@ -2216,6 +2243,10 @@ def main(argv=None) -> int:
             finished = False
     else:
         finished = _run_parallel(work, workers, threads, report)
+    for rel, old in inflight.items():
+        cur = manifest.get(rel)
+        if isinstance(cur, list) and len(cur) < 5 and _matches_manifest(output_dir / rel, old):
+            manifest[rel] = old
     if manifest != manifest_before:
         _save_manifest(output_dir, manifest)
     if not finished:

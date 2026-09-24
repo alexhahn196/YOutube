@@ -734,3 +734,15 @@ def test_noise_estimate_ignores_blown_areas():
     g[:, :300] = 255                                                    # großes ausgebranntes Fenster
     blown = P.estimate_noise_sigma(g.astype(np.uint8))
     assert abs(blown - clean) < 0.3, (clean, blown)
+
+
+@pytest.mark.parametrize("angle", [10.0, -12.0])
+def test_implausibly_large_roll_is_rejected_cleanly(angle):
+    img = synthetic_room(1400, 1050)
+    h, w = img.shape[:2]
+    M = cv2.getRotationMatrix2D(((w - 1) / 2, (h - 1) / 2), angle, 1.35)
+    tilted = cv2.warpAffine(img, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+    out, info = P.correct_geometry(tilted.astype(np.float32) / 255, loaded_from(tilted), P.Settings())
+    assert not info["applied"] and info["roll"] == 0.0
+    assert any("unplausibel groß" in n for n in info["notes"]), info["notes"]
+    assert out.shape == tilted.shape
