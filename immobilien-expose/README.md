@@ -114,7 +114,8 @@ Die Reihenfolge ist bewusst gewählt.
    - **Zuschnitt**: nur so weit, dass keine leeren Ränder entstehen. Das Seitenverhältnis
      bleibt, damit alle Bilder einheitlich wirken. Für das Begradigen der Senkrechten
      gehen an der ungünstigsten Stelle jeder Bildkante (meist einer Ecke) höchstens 10 %
-     verloren, typischerweise bleiben rund 80 % des Bildinhalts. Würde die volle Korrektur
+     verloren (muss zusätzlich der Horizont ausgerichtet werden, bis zu 2,5 Prozentpunkte
+     mehr), typischerweise bleiben rund 80 % des Bildinhalts. Würde die volle Korrektur
      mehr kosten, wird sie abgeschwächt; das Protokoll nennt dann den gemessenen Wert und
      den korrigierten Anteil. Einen schiefen Horizont auszurichten kostet zwangsläufig die
      Bildecken: bei starker Schräglage (über ca. 4°) bis etwa 15 % je Seite. Das Protokoll
@@ -128,12 +129,17 @@ Die Reihenfolge ist bewusst gewählt.
      Tageslicht-Flächen nicht ins Blaue geschoben. Ein gleichmäßiger, starker
      Kunstlichtstich wird kräftiger korrigiert.
    - Belichtung auf eine einheitliche Zielhelligkeit; helle neutrale Flächen (Wände,
-     Decken) werden auf ein einheitlich freundliches Weiß gebracht. Abgedunkelt wird nur,
-     wenn wirklich Lichter ausbrennen.
+     Decken) werden zusätzlich (höchstens +0,6 Blenden) Richtung freundliches Weiß
+     gebracht. Maßgeblich sind die hellen Wandflächen, nicht graue Böden – so hängt die
+     Belichtung nicht vom Bildausschnitt ab. Deutlich hellere Bereiche (Fensteraussicht,
+     Lampenschein) bekommen diese Zusatzaufhellung weich weniger, ohne dass sich die
+     Helligkeitsreihenfolge umkehrt. Abgedunkelt wird nur, wenn wirklich Lichter ausbrennen.
    - Schatten aufhellen und echte Lichter absenken, nur großflächig und kantenerhaltend.
      Feine Details bleiben unverändert, deshalb entsteht kein HDR-Look. Himmel und
      andere helle, farbige Flächen werden so geschützt, dass kein Farbkanal ausbrennt.
-     Glänzende Reflexe laufen wie bei einer Kamera ins Weiße aus.
+     Glänzende Reflexe laufen wie bei einer Kamera ins Weiße aus, ausgebrannte Fenster
+     bleiben reinweiß. Neutrale helle Flächen werden erst sehr spät komprimiert, damit
+     Flecken, Risse und Spuren an hellen Wänden sichtbar bleiben.
    - Schwarz- und Weißpunkt, sanfte S-Kurve für Kontrast, Dynamik (Vibrance):
      blasse Farben werden etwas kräftiger, satte Farben bleiben, wie sie sind. Die
      Buntheit darf gegenüber dem Original nur maßvoll steigen.
@@ -166,6 +172,9 @@ Die Reihenfolge ist bewusst gewählt.
 - **Objektivverzeichnung ohne Profil**: Smartphones korrigieren die Verzeichnung meist
   schon selbst. Die blinde Schätzung greift nur bei eindeutigem Befund. Bei bekanntem
   Objektiv lässt sich der Wert mit `--lens-k` vorgeben.
+- **Stark aufgehellte Räume**: Sehr helle Bereiche (Fensteraussicht, Lampenschein,
+  Glanz auf Fliesen) können nicht im gleichen Maß heller werden wie die Wände und
+  wirken dann etwas flacher. Die Zusatzaufhellung ist deshalb begrenzt.
 - **Mischlicht** (Glühlampe und Tageslicht): Ein Weißabgleich für das ganze Bild kann
   nur einen Kompromiss finden. Das Skript korrigiert einen Kunstlichtstich deshalb
   bewusst nur teilweise; ein Rest Wärme bleibt.
@@ -183,6 +192,7 @@ und die übrigen Bilder werden trotzdem verarbeitet. Das gilt auch, wenn bei `-j
 ein Prozess abstürzt: Die betroffenen Bilder werden dann einzeln wiederholt.
 Rückgabewert: `0` = alles in Ordnung, `1` = mindestens ein Bild fehlgeschlagen,
 `2` = Eingabe fehlt, ungültige Option oder keine Bilder gefunden, `130` = mit Strg+C abgebrochen.
+`1` gibt es auch, wenn ein Ziel blockiert war (siehe unten) oder ein Unterordner nicht lesbar war.
 
 Dateinamen bleiben erhalten. JPEGs behalten ihren Namen exakt, PNGs werden zu
 `.jpg`. Gibt es `foto.jpg` und `foto.png`, heißt das zweite `foto_png.jpg`.
@@ -193,8 +203,10 @@ Bilder mit weniger als 320 px an der kürzeren Kante und Bilder über 120 Megapi
 **Schutz der Originale:** Originale werden nie überschrieben – auch nicht, wenn der
 Ausgabeordner versehentlich der Eingabeordner, ein Unterordner davon oder eine
 Verknüpfung darauf ist. Im Ausgabeordner überschreibt das Skript nur Dateien, die es
-selbst erzeugt hat; fremde Dateien mit gleichem Namen bleiben unangetastet (das
-Protokoll meldet sie).
+selbst erzeugt hat und die seitdem unverändert sind. Fremde oder nachbearbeitete
+Dateien mit gleichem Namen bleiben unangetastet; das Protokoll meldet sie als
+„BLOCKIERT“. Ergebnisse des Skripts werden nicht versehentlich ein zweites Mal
+bearbeitet, wenn sie wieder in einem Eingabeordner landen.
 
 ## Tests
 

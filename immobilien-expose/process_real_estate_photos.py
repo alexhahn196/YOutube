@@ -60,7 +60,7 @@ except ImportError as exc:  # pragma: no cover - reine Nutzerhilfe
     )
     sys.exit(2)
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 DEFAULT_OUTPUT_DIRNAME = "output_expose"
@@ -321,6 +321,8 @@ def load_image(path: Path, settings: Settings) -> LoadedImage:
         fmt = im.format
         if fmt not in ("JPEG", "MPO", "PNG"):
             raise SkipImage(f"Dateiinhalt ist {fmt or 'unbekannt'}, kein JPEG/PNG")
+        if OUTPUT_MARKER in (im.info.get("comment") or b""):
+            raise SkipImage("ist bereits ein Ergebnis dieses Skripts (würde doppelt bearbeitet)")
         megapixels = im.width * im.height / 1e6
         if megapixels > MAX_MEGAPIXELS:
             raise SkipImage(f"Bild ist zu groß ({megapixels:.0f} Megapixel, maximal {MAX_MEGAPIXELS})")
@@ -416,7 +418,11 @@ def estimate_noise_sigma(gray_u8: np.ndarray) -> float:
     kernel = np.array([[1, -2, 1], [-2, 4, -2], [1, -2, 1]], np.float32)
     resp = cv2.filter2D(g, -1, kernel, borderType=cv2.BORDER_REFLECT)
     mag = cv2.magnitude(cv2.Sobel(g, cv2.CV_32F, 1, 0), cv2.Sobel(g, cv2.CV_32F, 0, 1))
-    flat = mag <= np.percentile(mag, 50)
+    # ausgebrannte/abgesoffene Flächen haben kein Rauschen und würden den Wert verfälschen
+    valid = cv2.erode(((gray_u8 > 5) & (gray_u8 < 247)).astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+    if valid.mean() < 0.05:
+        valid = np.ones_like(valid)
+    flat = valid & (mag <= np.percentile(mag[valid], 50))
     return float(math.sqrt(math.pi / 2) * np.abs(resp[flat]).mean() / 6.0)
 
 
@@ -698,14 +704,15 @@ def estimate_verticals(gray_u: np.ndarray, f_n: float, s: Settings):
         info["lines"] = int(inl.sum())
         wts = lv[inl]
         if inl.sum() < 4 or float(wts.sum()) < 0.5:
-            return None, "zu wenige verlässliche senkrechte Linien"
+            return None, "zu wenige verlässliche senkrechte Linien", False
         mean_x = float((midv[inl, 0] * wts).sum() / wts.sum())
         if spread >= 0.12:
             roll_d, pitch_d = angles(v)
             mode = "Fluchtpunkt"
             delta = _vp_instability(p1v, p2v, lv, midv, inl, angles, (roll_d, pitch_d))
             if delta > 2.5:
-                return None, f"Fluchtpunkt instabil (hängt an einzelnen Linien, Abweichung {delta:.1f}°)"
+                return None, f"Fluchtpunkt instabil (hängt an einzelnen Linien, Abweichung {delta:.1f}°)", True
+            pitch_gate = pitch_d
             if abs(pitch_d) > s.max_pitch_deg:
                 # Der Roll-Winkel hängt nicht von der angenommenen Brennweite ab.
                 pitch_d, mode = 0.0, "Fluchtpunkt, Neigung zu groß – nur Horizont"
@@ -716,20 +723,22 @@ def estimate_verticals(gray_u: np.ndarray, f_n: float, s: Settings):
             mean = (dd * wts[:, None]).sum(axis=0)
             roll_r, _ = _rotation_from_up(np.array([mean[0], mean[1], 0.0]))
             roll_d, pitch_d, mode = math.degrees(roll_r), 0.0, "nur Horizont (Linien zu einseitig)"
+            pitch_gate = 0.0
         else:
             # Linien nur am Bildrand: ihre Schräge kann Perspektive statt
             # Verkippung sein -> keine Drehung daraus ableiten.
-            return None, "Senkrechten nur am Bildrand"
+            return None, "Senkrechten nur am Bildrand", False
         if abs(roll_d) > s.max_roll_deg:
             return None, f"Roll {roll_d:.1f}° unplausibel groß"
         # Gegenprobe mit ALLEN fast senkrechten Linien: Eine echte Korrektur macht
         # sie insgesamt deutlich gerader. Schräge Dachkanten o. Ä. können einen
         # Schein-Fluchtpunkt liefern - dann würden andere Senkrechten schiefer.
-        before, after = _verticality(p1v, p2v, lv, f_n, roll_d, pitch_d)
+        # (geprüft wird der gemessene Fluchtpunkt, auch wenn nur der Horizont korrigiert wird)
+        before, after = _verticality(p1v, p2v, lv, f_n, roll_d, pitch_gate)
         if after > 0.85 * before:
             return None, (f"Korrektur würde die Senkrechten nicht verbessern "
-                          f"(mittlere Schräge {before:.1f}° -> {after:.1f}°)")
-        return {"roll": roll_d, "pitch": pitch_d, "mode": mode}, ""
+                          f"(mittlere Schräge {before:.1f}° -> {after:.1f}°)"), True
+        return {"roll": roll_d, "pitch": pitch_d, "mode": mode}, "", False
 
     candidates = []
     res1 = _vp_ransac(p1v, p2v, dv, lv) if len(lv) >= 3 else None
@@ -746,15 +755,21 @@ def estimate_verticals(gray_u: np.ndarray, f_n: float, s: Settings):
                 full = np.zeros(len(lv), dtype=bool)
                 full[np.nonzero(rest)[0][res2[1]]] = True
                 if (abs(angles(res2[0])[1]) <= s.max_pitch_deg and full.sum() >= 4
-                        and lv[full].sum() >= max(0.5, 0.5 * lv[res1[1]].sum()) and res2[2] >= 0.12):
+                        and lv[full].sum() >= 0.5 and res2[2] >= 0.12):
                     candidates.append((res2[0], full, res2[2]))
         candidates.append(res1)
+    hard = False
     for res in candidates:
-        result, reason = evaluate(res)
+        result, reason, rejected = evaluate(res)
         if result is not None:
             info.update(ok=True, **result)
             return info
         info["reason"] = info["reason"] or reason
+        hard = hard or rejected
+    if hard:
+        # Ein Fluchtpunkt wurde gefunden, aber als unplausibel verworfen: dann auch
+        # nicht über waagrechte Linien drehen (die sind dann meist ebenso trügerisch).
+        return info
 
     # Rückfall: lange, fast waagrechte Linien nahe der Bildmitte (Horizont)
     horiz = (tilt >= 84.0) & (length >= 0.25) & (np.abs((p1[:, 1] + p2[:, 1]) / 2) <= 0.25)
@@ -1100,12 +1115,16 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
 
     # 0) Objektiv: extreme (z. B. manuelle) Werte nur so weit, wie der Beschnitt es erlaubt
     kf = 1.0
+    lens_loss = 0.0
     if k and not keep_ok(attempt(0.0, 0.0, s.max_side_loss)):
         kf = bisect(lambda f: attempt(0.0, 0.0, s.max_side_loss, f), keep_ok,
                     attempt(0.0, 0.0, s.max_side_loss, 0.0))["kf"]
         info["notes"].append(f"Objektivkorrektur nur zu {kf:.0%} angewendet (Beschnittgrenze)")
         k = k * kf
         info["k"] = round(k, 4)
+    if k:
+        lens_plan = attempt(0.0, 0.0, s.max_side_loss)["plan"]
+        lens_loss = max(lens_plan["losses"]) if lens_plan is not None else 0.0
 
     # 1) Horizont: Drehen kostet zwangsläufig die Ecken. Begrenzt wird es über den
     #    erhaltenen Bildinhalt - bzw. über --max-crop, wenn ausdrücklich gesetzt.
@@ -1163,12 +1182,15 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
     note = (f"Zuschnitt: oben {t:.0%}, unten {b:.0%}, links {l:.0%}, rechts {r:.0%}; "
             f"{keep_pct} % des Bildinhalts erhalten")
     if max(plan["losses"]) > s.max_side_loss + 0.005:
-        if r_eff:
+        roll_loss = max(base_loss - lens_loss, 0.0) if r_eff else 0.0
+        if roll_loss > s.max_side_loss - 0.02:
             note += (f" – ACHTUNG: mehr als {s.max_side_loss:.0%} je Seite, weil der Horizont "
                      f"{abs(math.degrees(roll)):.1f}° schief war; bitte prüfen (mit --max-crop "
                      f"{s.max_side_loss:.2f} wird er nur teilweise ausgerichtet)")
         else:
-            note += f" – mehr als {s.max_side_loss:.0%} je Seite (Objektivkorrektur)"
+            causes = [c for c, on in (("Objektiv", bool(k)), ("Horizont", bool(r_eff)),
+                                      ("Senkrechten", bool(p_eff))) if on]
+            note += f" – etwas mehr als {s.max_side_loss:.0%} je Seite ({' + '.join(causes)} zusammen)"
     info["notes"].append(note)
 
     rect = plan["rect"]
@@ -1357,8 +1379,15 @@ def _limit_gain_in_bright_areas(lin: np.ndarray, gain: np.ndarray) -> np.ndarray
     # Satte Farben (Himmelsblau) auch in schmalen Flächen schützen, z. B. Himmel
     # zwischen Dachbalken: dort würde sonst ein einzelner Kanal ausbrennen.
     # Blasse Glanzlichter dürfen dagegen hell werden - wie bei einer Kamera.
-    sat = 1.0 - lin.min(axis=2) / np.maximum(lin.max(axis=2), 1e-4)
-    sat_w = smoothstep(0.25, 0.45, cv2.GaussianBlur(sat.astype(np.float32), (0, 0), max(1.0, max(h, w) / 400.0)))
+    blur = cv2.GaussianBlur(np.clip(lin, 0, 1).astype(np.float32), (0, 0), max(1.0, max(h, w) / 400.0))
+    lab_b = cv2.cvtColor(blur, cv2.COLOR_LRGB2Lab)
+    # Wahrnehmungsgerechte Buntheit. Warme Töne zählen erst ab hoher Buntheit
+    # (Ziegeldächer ja, warm angestrahlte cremefarbene Decken und beige Fliesen
+    # nein - sonst entstehen dort graue Flecken), bläuliche schon ab mäßiger
+    # (Himmel hinter Glas oder Dunst).
+    chroma_b = np.hypot(lab_b[..., 1], lab_b[..., 2])
+    sat_w = np.maximum(smoothstep(25.0, 40.0, chroma_b),
+                       smoothstep(10.0, 20.0, chroma_b) * smoothstep(-3.0, -10.0, lab_b[..., 2]))
     region = np.maximum(region, over * sat_w)
     cap = np.maximum(math.log2(0.85) - log_mx_base, 0.0)      # hellster Kanal max. ~0.85 linear
     # Satte Flächen (Himmel, Aussicht) nur wenig anheben - sonst werden sie flau und flach.
@@ -1366,17 +1395,27 @@ def _limit_gain_in_bright_areas(lin: np.ndarray, gain: np.ndarray) -> np.ndarray
     return gain - region * np.maximum(gain - cap, 0.0)
 
 
-def _wall_exposure(lin: np.ndarray) -> Optional[float]:
+def _wall_exposure(lin: np.ndarray):
     """Belichtung (EV), die helle neutrale Flächen (Wände, Decken) auf ein
-    freundliches Weiß (L* ≈ 82) bringen würde - oder None ohne solche Flächen."""
+    freundliches Weiß bringen würde, und deren Helligkeit - oder None ohne
+    solche Flächen.
+
+    Maßgeblich sind die helleren 30 % dieser Flächen (70. Perzentil), damit
+    graue Böden oder Fliesen nicht mitzählen und der Bildausschnitt die
+    Belichtung nicht verschiebt. "Neutral" wird relativ zum vorherrschenden
+    Wandton bestimmt, damit auch ein Rest Kunstlichtstich nicht stört."""
     small, _ = resize_long_edge(lin, 512)
     px = small.reshape(-1, 3)
     lab = cv2.cvtColor(np.clip(px, 0, 1).reshape(1, -1, 3).astype(np.float32), cv2.COLOR_LRGB2Lab).reshape(-1, 3)
-    m = (np.hypot(lab[:, 1], lab[:, 2]) < 8) & (lab[:, 0] > 45) & (px.max(axis=1) < 0.9)
+    chroma = np.hypot(lab[:, 1], lab[:, 2])
+    base = (lab[:, 0] > 45) & (px.max(axis=1) < 0.9)
+    near = base & (chroma < 20)
+    ca, cb = (float(np.median(lab[near, 1])), float(np.median(lab[near, 2]))) if near.mean() >= 0.05 else (0.0, 0.0)
+    m = base & (np.hypot(lab[:, 1] - ca, lab[:, 2] - cb) < 8)
     if m.mean() < 0.05:
         return None
-    wall = float(np.median(px[m] @ LUMA_REC709))
-    return math.log2(0.60 / max(wall, 1e-4))
+    wall = float(np.percentile(px[m] @ LUMA_REC709, 70))
+    return math.log2(0.70 / max(wall, 1e-4)), wall
 
 
 def local_tone_map(lin: np.ndarray, protect: np.ndarray, s: Settings, noise_sigma=None):
@@ -1392,18 +1431,22 @@ def local_tone_map(lin: np.ndarray, protect: np.ndarray, s: Settings, noise_sigm
     lo, hi = np.percentile(small, [5, 95])
     key = float(small[(small >= lo) & (small <= hi)].mean())
     e = s.target_key_ev - key
+    e_key = None
     if e < 0:
         # Abdunkeln nur, wenn wirklich Lichter ausbrennen - weich eingeblendet,
         # damit ähnliche Bilder nicht sprunghaft verschieden hell werden.
         near_clip = float((small > math.log2(0.95)).mean())
         e = max(min(0.0, (e + 0.4) * 0.6), -s.max_ev_down) * float(smoothstep(0.02, 0.08, near_clip))
     # Helle neutrale Flächen (Wände, Decken) sollen einheitlich freundlich hell
-    # werden - auch wenn die Durchschnittshelligkeit schon passt (max. +1 EV mehr).
-    e_wall = _wall_exposure(lin)
-    if e_wall is not None and e_wall > e:
-        e = min(e_wall, e + 1.0)
-    clean = noise_sigma is not None and noise_sigma < 1.0
-    e = min(e, s.max_ev_up_clean if clean else s.max_ev_up)
+    # werden - auch wenn die Durchschnittshelligkeit schon passt (max. +0.6 EV mehr).
+    # Bis 0.8 Rauschen darf stärker aufgehellt werden, darüber weich weniger.
+    max_up = s.max_ev_up_clean - (s.max_ev_up_clean - s.max_ev_up) * float(
+        smoothstep(0.8, 1.4, noise_sigma if noise_sigma is not None else 99.0))
+    e_key = min(max(e, 0.0), max_up) if e > 0 else e
+    wall = _wall_exposure(lin)
+    if wall is not None and wall[0] > e:
+        e = min(wall[0], e + 0.6)       # mehr würde Lampenschein und Aussichten verfälschen
+    e = min(e, max_up)
 
     base = fast_guided_filter(logY, radius=int(0.03 * max(h, w)), eps=0.3)
     d = base + e - s.target_key_ev
@@ -1413,13 +1456,28 @@ def local_tone_map(lin: np.ndarray, protect: np.ndarray, s: Settings, noise_sigm
     cut = s.max_highlight_cut_ev * np.tanh(np.maximum(d - s.highlight_knee_ev, 0)
                                            * (1 - s.highlight_compress) / s.max_highlight_cut_ev)
     gain = e + lift - cut
+    extra = e - e_key
+    if extra > 0 and wall is not None:
+        # Die zusätzliche Aufhellung für die Wände wird auf Flächen, die deutlich
+        # heller als die Wände sind (Fensteraussichten, Lampenschein), weich
+        # zurückgenommen - sonst werden sie flau. Die Rücknahme hängt nur von der
+        # (großflächigen) Helligkeit ab und steigt über >= 1.5 EV an: So bleibt die
+        # Helligkeitsreihenfolge erhalten, nichts wird dunkler als seine Umgebung.
+        t0 = math.log2(max(wall[1], 1e-4)) + 0.3
+        gain = gain - extra * smoothstep(t0, t0 + max(1.5 * extra, 0.5), base)
     gain = gain * (1 - protect) + np.maximum(gain, 0) * protect
     # Aufhellen dort zurücknehmen, wo ein Farbkanal großflächig schon fast voll
     # ist (blauer Himmel, Sonnenflecken, helle Fenster) - sonst brennt dieser
     # Kanal aus.
     gain = _limit_gain_in_bright_areas(lin, gain)
     out = lin * np.exp2(gain)[:, :, None]
-    out = highlight_shoulder(out)
+    # Neutrale helle Flächen erst später komprimieren (Knie 0.9 statt 0.8), damit
+    # Flecken, Risse und Spuren an hellen Wänden ihren Kontrast behalten.
+    sat_out = 1.0 - out.min(axis=2) / np.maximum(out.max(axis=2), 1e-4)
+    out = highlight_shoulder(out, knee=0.8 + 0.1 * (1.0 - smoothstep(0.05, 0.15, sat_out)))
+    # Ausgebrannte Flächen (Fenster, Oberlichter) sauber weiß statt hellgrau.
+    blown = protect * smoothstep(0.90, 0.98, lin.min(axis=2))
+    out = out + (1.0 - out) * blown[:, :, None]
     return out.astype(np.float32), {"key": round(key, 2), "ev": round(_z(e), 2)}
 
 
@@ -1445,7 +1503,8 @@ def finish_lab(srgb: np.ndarray, is_gray: bool, s: Settings,
     L0 = lab[:, :, 0].copy()
     # Nahe am Kanal-Maximum (sonnige Ziegeldächer, helle Fassaden) weder S-Kurve
     # noch Dynamik noch Schärfung - sonst brennt dort ein einzelner Farbkanal aus.
-    calm = 1.0 - smoothstep(0.88, 0.97, srgb.max(axis=2))
+    sat_s = 1.0 - srgb.min(axis=2) / np.maximum(srgb.max(axis=2), 1e-4)
+    calm = 1.0 - smoothstep(0.88, 0.97, srgb.max(axis=2)) * smoothstep(0.05, 0.15, sat_s)
     x = L0 / 100.0
     L = L0 + (100.0 * (x + s.contrast * x * (1 - x) * (2 * x - 1)) - L0) * calm
 
@@ -1466,8 +1525,11 @@ def finish_lab(srgb: np.ndarray, is_gray: bool, s: Settings,
             limit = np.maximum(c_ref * 1.2, c_ref + 2.0)
             f = np.where(c_out > limit, limit / np.maximum(c_out, 1e-6), 1.0)
             # Aufgehellte, vorher dunkle Schatten mit blau-violettem Himmelslicht dämpfen.
+            # nur bei Außenaufnahmen (sichtbarer Himmel) - blaue/lila Möbel innen bleiben
+            sky = float(((ref[:, :, 0] > 50) & (ref[:, :, 2] < -15)).mean())
             violet = (smoothstep(40.0, 25.0, ref[:, :, 0]) * smoothstep(4.0, 12.0, L - ref[:, :, 0])
-                      * smoothstep(-4.0, -10.0, lab[:, :, 2]) * smoothstep(0.0, 4.0, lab[:, :, 1]))
+                      * smoothstep(-4.0, -10.0, lab[:, :, 2]) * smoothstep(0.0, 4.0, lab[:, :, 1])
+                      * float(smoothstep(0.01, 0.04, sky)))
             f = f * (1.0 - 0.5 * violet)
             lab[:, :, 1] *= f
             lab[:, :, 2] *= f
@@ -1728,25 +1790,33 @@ def _run_parallel(work: list, workers: int, threads: int, report) -> bool:
 # --------------------------------------------------------------------------- #
 
 def _is_output_tree(d: Path) -> bool:
-    try:
-        return d.name in (DEFAULT_OUTPUT_DIRNAME, COMPARE_DIRNAME) or (d / LOG_FILENAME).exists()
-    except OSError:
+    """Ausgabeordner (auch früherer Läufe) erkennt man am Namen oder an einem
+    nicht leeren Manifest - nicht bloß am Protokoll, das ein Lauf ohne
+    Ergebnis ebenfalls hinterlassen kann."""
+    if d.name in (DEFAULT_OUTPUT_DIRNAME, COMPARE_DIRNAME):
         return True
+    try:
+        return bool(_load_manifest(d))
+    except OSError:
+        return False
 
 
-def discover_images(input_dir: Path, output_dir: Path, recursive: bool, pruned: Optional[list] = None) -> list:
+def discover_images(input_dir: Path, output_dir: Path, recursive: bool, pruned: Optional[list] = None,
+                    unreadable: Optional[list] = None) -> list:
     """Alle JPG/JPEG/PNG-Dateien finden. Ausgelassen werden versteckte Dateien,
     macOS-"._"-Dateien, versteckte Ordner, NAS-Systemordner ("@eaDir", "#recycle" …)
     und Ausgabeordner früherer Läufe - sonst würden Ergebnisse doppelt bearbeitet."""
     out_res = output_dir.resolve()
     in_res = input_dir.resolve()
     output_inside_input = in_res in out_res.parents
+    if unreadable is None:
+        unreadable = []
 
     def candidates():
         if not recursive:
             yield from input_dir.iterdir()
             return
-        for root, dirs, names in os.walk(input_dir):
+        for root, dirs, names in os.walk(input_dir, onerror=lambda e: unreadable.append(e)):
             rootp = Path(root)
             keep = []
             for d in dirs:
@@ -1805,6 +1875,43 @@ def _file_id(p: Path):
     return (st.st_dev, st.st_ino) if st.st_ino else None
 
 
+def _destination_problem(src: Path, dst: Path, rel_dst: str, originals: set, original_ids: set,
+                         manifest: dict) -> str:
+    """Grund, warum dst nicht beschrieben werden darf - oder "" wenn alles in Ordnung ist.
+
+    Mehrfache Absicherung: niemals Originale überschreiben - auch nicht über
+    Verknüpfungen, eingebundene Laufwerke, Groß-/Kleinschreibung oder einen
+    Unterordner der Eingabe als Ausgabeordner. Vorhandene Dateien werden nur
+    überschrieben, wenn sie nachweislich von diesem Skript stammen und seitdem
+    nicht verändert wurden."""
+    if dst.resolve() in originals or (_file_id(dst) in original_ids):
+        return "Ziel wäre eine Originaldatei"
+    if not dst.exists():
+        return ""
+    entry = manifest.get(rel_dst)
+    if isinstance(entry, list) and len(entry) >= 5:
+        # Wir wissen genau, was wir geschrieben haben: nur unverändert überschreiben.
+        if _matches_manifest(dst, entry):
+            return ""
+        return (f"{dst} wurde seit dem letzten Lauf verändert (nachbearbeitet?) – "
+                "wird nicht überschrieben; Datei löschen, um sie neu zu erzeugen")
+    if _is_our_output(dst):
+        return ""
+    return (f"{dst} existiert bereits und ist nicht als Ausgabe dieses Skripts erkennbar "
+            "(fremde Datei oder ältere Version) – Datei löschen oder anderen Ausgabeordner wählen")
+
+
+def _matches_manifest(dst: Path, entry) -> bool:
+    """Manifest-Eintrag gilt nur, wenn die Datei seit dem Schreiben unverändert ist."""
+    if not isinstance(entry, list) or len(entry) < 5:
+        return False
+    try:
+        st = dst.stat()
+    except OSError:
+        return False
+    return entry[3] == st.st_size and entry[4] == st.st_mtime_ns
+
+
 def _is_our_output(p: Path) -> bool:
     """Stammt die (vorhandene) Datei von diesem Skript? Nur solche Dateien werden überschrieben."""
     try:
@@ -1819,7 +1926,7 @@ def _all_input_ids(input_root: Path, output_dir: Path) -> set:
     unabhängig von -r - Schutz gegen Aliase, Verknüpfungen und Unterordner als Ziel."""
     out_res = output_dir.resolve()
     ids = set()
-    for root, dirs, names in os.walk(input_root):
+    for root, dirs, names in os.walk(input_root, onerror=lambda e: None):
         rootp = Path(root)
         dirs[:] = [d for d in dirs if (rootp / d).resolve() != out_res]
         for n in names:
@@ -1948,7 +2055,7 @@ def setup_logging(output_dir: Path, verbose: bool):
     console.setLevel(logging.DEBUG if verbose else logging.INFO)
     console.setFormatter(logging.Formatter("%(message)s"))
     log.addHandler(console)
-    fh = logging.FileHandler(output_dir / LOG_FILENAME, mode="a", encoding="utf-8")
+    fh = logging.FileHandler(output_dir / LOG_FILENAME, mode="a", encoding="utf-8", errors="backslashreplace")
     fh.setLevel(logging.DEBUG)
     fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)-7s %(message)s"))
     log.addHandler(fh)
@@ -1967,7 +2074,10 @@ def main(argv=None) -> int:
     parts = a.input or ["input_photos"]
     src = Path(" ".join(parts)).expanduser()
     if not src.exists():
-        if len(parts) > 1 and Path(parts[0]).expanduser().exists():
+        if len(parts) > 1 and any(Path(x).expanduser().is_file() for x in parts[1:]):
+            sys.stderr.write("Bitte nur einen Ordner oder ein einzelnes Foto angeben "
+                             "(bei mehreren Fotos den Ordner angeben).\n")
+        elif len(parts) > 1 and Path(parts[0]).expanduser().exists():
             rest = " ".join(parts[1:])
             sys.stderr.write("Nur ein Eingabeordner möglich. Einen Ausgabeordner bitte mit -o angeben, "
                              f"z. B.: -o \"{rest}\"\n")
@@ -2005,13 +2115,14 @@ def main(argv=None) -> int:
     s = settings_from_args(a)
 
     pruned: list = []
+    unreadable: list = []
     if single is not None:
         if single.suffix.lower() not in SUPPORTED_EXTENSIONS:
             log.error("Nicht unterstützter Dateityp: %s", single.name)
             return 2
         files = [single]
     else:
-        files = discover_images(input_root, output_dir, a.recursive, pruned)
+        files = discover_images(input_root, output_dir, a.recursive, pruned, unreadable)
 
     log.info("=" * 72)
     log.info("Immobilienfotos für Exposé – v%s – %s", __version__, time.strftime("%Y-%m-%d %H:%M:%S"))
@@ -2019,6 +2130,8 @@ def main(argv=None) -> int:
     log.info("Ausgabe : %s", output_dir.resolve())
     for d in pruned:
         log.info("Ordner übersprungen (versteckt, System- oder Ausgabeordner): %s", d)
+    for err in unreadable:
+        log.warning("Ordner nicht lesbar (Zugriff verweigert?): %s", getattr(err, "filename", err))
     if not files:
         if single is None and not a.recursive and discover_images(input_root, output_dir, True):
             log.warning("Keine Bilder direkt in diesem Ordner, aber in Unterordnern. "
@@ -2033,29 +2146,25 @@ def main(argv=None) -> int:
     original_ids = input_ids | {i for i in (_file_id(p) for p in files) if i}
     manifest = _load_manifest(output_dir)
     signatures = {}
-    counts = {"ok": 0, "skip": 0, "error": 0, "exists": 0}
+    counts = {"ok": 0, "skip": 0, "error": 0, "exists": 0, "blocked": 0}
     work = []
     for p, dst in jobs:
         rel_dst = dst.relative_to(output_dir).as_posix()
-        # Mehrfache Absicherung: niemals Originale überschreiben - auch nicht über
-        # Verknüpfungen, eingebundene Laufwerke, Groß-/Kleinschreibung oder einen
-        # Unterordner der Eingabe als Ausgabeordner. Vorhandene Dateien werden nur
-        # überschrieben, wenn sie nachweislich von diesem Skript stammen.
-        if dst.resolve() in originals or (_file_id(dst) in original_ids):
-            log.error("ÜBERSPRUNGEN %s: Ziel wäre eine Originaldatei", p.name)
-            counts["skip"] += 1
-            continue
-        if dst.exists() and rel_dst not in manifest and not _is_our_output(dst):
-            log.error("ÜBERSPRUNGEN %s: %s existiert bereits und stammt nicht von diesem Skript "
-                      "– bitte anderen Ausgabeordner wählen", p.name, dst)
-            counts["skip"] += 1
+        try:
+            blocked = _destination_problem(p, dst, rel_dst, originals, original_ids, manifest)
+        except (OSError, RuntimeError) as exc:
+            blocked = f"Zielpfad {dst} nicht prüfbar ({exc})"
+        if blocked:
+            log.error("BLOCKIERT %s: %s", p.name, blocked)
+            counts["blocked"] += 1
             continue
         try:
             signatures[str(p)] = (rel_dst, _source_signature(p, input_root))
         except OSError:
             pass
-        if a.skip_existing and dst.exists() and str(p) in signatures \
-                and manifest.get(rel_dst) == signatures[str(p)][1]:
+        entry = manifest.get(rel_dst)
+        if a.skip_existing and dst.exists() and str(p) in signatures and isinstance(entry, list) \
+                and entry[:3] == signatures[str(p)][1] and (_matches_manifest(dst, entry) or _is_our_output(dst)):
             log.info("vorhanden  %s", rel_dst)
             counts["exists"] += 1
             continue
@@ -2063,7 +2172,10 @@ def main(argv=None) -> int:
         if s.compare:
             rel = dst.relative_to(output_dir)
             cmp_dst = output_dir / COMPARE_DIRNAME / rel.with_name(dst.stem + "_vergleich.jpg")
-            if cmp_dst.exists() and not _is_our_output(cmp_dst):
+            # Die Vergleichsbilder gehören zur eigenen Ausgabe: wird das Ergebnis neu
+            # geschrieben, darf auch sein Vergleichsbild ersetzt werden.
+            if cmp_dst.exists() and not dst.exists() and not _is_our_output(cmp_dst):
+                log.warning("Vergleichsbild %s existiert bereits (fremde Datei) – wird nicht ersetzt", cmp_dst)
                 cmp_dst = None
         work.append((str(p), str(dst), s, str(cmp_dst) if cmp_dst else None))
 
@@ -2081,8 +2193,12 @@ def main(argv=None) -> int:
                 log.debug("        - %s", note)
             if src_path in signatures:
                 rel_dst, sig = signatures[src_path]
-                manifest[rel_dst] = sig
-                _save_manifest(output_dir, manifest)     # sofort: --skip-existing auch nach Abbruch
+                try:
+                    st = (output_dir / rel_dst).stat()
+                    manifest[rel_dst] = sig + [st.st_size, st.st_mtime_ns]
+                    _save_manifest(output_dir, manifest)     # sofort: --skip-existing auch nach Abbruch
+                except OSError:
+                    pass
         elif status == "skip":
             log.warning("SKIP    %s: %s", name, payload)
         else:
@@ -2090,6 +2206,7 @@ def main(argv=None) -> int:
             log.error("FEHLER  %s: %s", name, first)
             log.debug(payload)
 
+    manifest_before = dict(manifest)
     finished = True
     if workers == 1:
         try:
@@ -2099,18 +2216,20 @@ def main(argv=None) -> int:
             finished = False
     else:
         finished = _run_parallel(work, workers, threads, report)
-    _save_manifest(output_dir, manifest)
+    if manifest != manifest_before:
+        _save_manifest(output_dir, manifest)
     if not finished:
         log.warning("Abgebrochen durch Benutzer (Strg+C) – %d Bild(er) fertig.", counts["ok"])
         return 130
 
     log.info("-" * 72)
     extra = f", {counts['exists']} bereits vorhanden" if counts["exists"] else ""
+    extra += f", {counts['blocked']} blockiert (Ziel nicht beschreibbar)" if counts["blocked"] else ""
     log.info("Fertig in %.1f s: %d verarbeitet, %d übersprungen, %d Fehler%s.",
              time.time() - t_start, counts["ok"], counts["skip"], counts["error"], extra)
     log.info("Ergebnisse: %s", output_dir.resolve())
     log.info("Protokoll : %s", (output_dir / LOG_FILENAME).resolve())
-    return 1 if counts["error"] else 0
+    return 1 if (counts["error"] or counts["blocked"] or unreadable) else 0
 
 
 if __name__ == "__main__":

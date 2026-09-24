@@ -352,11 +352,14 @@ def test_recursive_skips_previous_outputs_and_hidden_folders(tmp_path):
     _write(src / ".thumbnails" / "c.jpg")
     _write(src / "@eaDir" / "d.jpg")
     assert P.main([str(src), "--compare", "--no-geometry"]) == 0     # erzeugt output_expose/
-    (src / "export").mkdir()
+    (src / "export").mkdir()                                           # Ausgabe eines früheren Laufs mit -o
     _write(src / "export" / "x.jpg")
-    (src / "export" / P.LOG_FILENAME).write_text("alter Lauf")
+    P._save_manifest(src / "export", {"x.jpg": ["x.jpg", 1, 1, 1, 1]})
+    (src / "nur_protokoll").mkdir()                                     # nur ein Protokoll: KEIN Ausgabeordner
+    _write(src / "nur_protokoll" / "y.jpg")
+    (src / "nur_protokoll" / P.LOG_FILENAME).write_text("Lauf ohne Ergebnis")
     found = P.discover_images(src, tmp_path / "neu", True)
-    assert sorted(p.name for p in found) == ["a.jpg", "b.jpg"]
+    assert sorted(p.name for p in found) == ["a.jpg", "b.jpg", "y.jpg"]
 
 
 def test_subfolder_hint_when_no_top_level_images(tmp_path, caplog):
@@ -600,3 +603,134 @@ def test_levels_have_no_jump():
         img[:30, :30] = hi                                               # 1.5 % > 0.2 % -> bestimmt den Weißpunkt
         g.append(P.apply_levels(img)[1]["gain"])
     assert g[0] > 1.15 and abs(g[0] - g[1]) < 0.03, g
+
+
+# --------------------------------------------------------------------------- #
+# Regressionen aus Review-Runde 3
+# --------------------------------------------------------------------------- #
+
+def _grey_room(h=600, w=900, seed=11):
+    rng = np.random.default_rng(seed)
+    img = np.clip(0.62 + rng.normal(0, 0.008, (h, w, 3)), 0, 1).astype(np.float32)   # graue Wand L* ≈ 65
+    img[int(h * 0.6):] = 0.38                                                           # Boden
+    return img
+
+
+def test_exposure_does_not_depend_on_framing():
+    img = _grey_room()
+    _, full = P.tone_and_color(img, False, P.Settings(), 0.1)
+    _, lower = P.tone_and_color(img[150:], False, P.Settings(), 0.1)     # mehr Boden im Bild
+    assert abs(full["tone"]["ev"] - lower["tone"]["ev"]) <= 0.15, (full["tone"], lower["tone"])
+
+
+def test_stain_on_bright_wall_keeps_its_contrast():
+    img = _grey_room()
+    lab = cv2.cvtColor(img, cv2.COLOR_RGB2Lab)
+    patch = lab[100:120, 200:220].copy()
+    patch[..., 0] -= 3                                                  # schwacher Fleck
+    img[100:120, 200:220] = cv2.cvtColor(patch, cv2.COLOR_Lab2RGB)
+    out, _ = P.tone_and_color(img, False, P.Settings(), 0.1)
+    li = cv2.cvtColor(img, cv2.COLOR_RGB2Lab)[..., 0]
+    lo = cv2.cvtColor(out.astype(np.float32), cv2.COLOR_RGB2Lab)[..., 0]
+    before = li[100:120, 200:220].mean() - li[100:120, 250:270].mean()
+    after = lo[100:120, 200:220].mean() - lo[100:120, 250:270].mean()
+    assert after / before >= 0.8, (before, after)
+
+
+def test_blown_window_stays_pure_white():
+    img = _grey_room() * 0.7
+    img[80:250, 300:500] = 1.0                                          # ausgebranntes Fenster
+    out, _ = P.tone_and_color(img, False, P.Settings(), 0.1)
+    assert P.to_u8(out[120:210, 340:460]).min() >= 253
+
+
+def test_lamp_glow_stays_brighter_than_ceiling():
+    h, w = 500, 800
+    yy, xx = np.mgrid[0:h, 0:w]
+    r = np.hypot(yy - 150, xx - 400)
+    ceiling = np.full((h, w, 3), 0.52, np.float32)                       # graue Decke
+    glow = np.exp(-(r / 90.0) ** 2)[..., None] * np.array([0.35, 0.22, 0.08], np.float32)
+    img = np.clip(ceiling + glow, 0, 1)
+    img[r < 12] = 1.0                                                   # Glühbirne
+    out, _ = P.tone_and_color(img, False, P.Settings(), 0.1)
+    L = cv2.cvtColor(out.astype(np.float32), cv2.COLOR_RGB2Lab)[..., 0]
+    ring = L[(r > 30) & (r < 60)].mean()
+    far = L[(r > 250) & (r < 300)].mean()
+    assert ring > far, (ring, far)
+
+
+def test_own_output_is_not_processed_again(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / "foto.jpg")
+    assert P.main([str(src), "--no-geometry"]) == 0
+    again = tmp_path / "again"
+    again.mkdir()
+    (again / "foto.jpg").write_bytes((src / "output_expose" / "foto.jpg").read_bytes())
+    P.main([str(again), "--no-geometry"])
+    assert not (again / "output_expose" / "foto.jpg").exists()
+    assert "bereits ein Ergebnis" in (again / "output_expose" / P.LOG_FILENAME).read_text(encoding="utf-8")
+
+
+def test_edited_output_is_not_overwritten_and_exit_code_signals_it(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / "foto.jpg")
+    assert P.main([str(src), "--no-geometry"]) == 0
+    out = src / "output_expose" / "foto.jpg"
+    Image.open(out).save(out, quality=80)                               # vom Nutzer nachbearbeitet
+    before = sha(out)
+    assert P.main([str(src), "--no-geometry"]) == 1
+    assert sha(out) == before
+
+
+def test_compare_image_follows_its_output(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / "foto.jpg")
+    assert P.main([str(src), "--no-geometry", "--compare"]) == 0
+    cmp = src / "output_expose" / P.COMPARE_DIRNAME / "foto_vergleich.jpg"
+    Image.new("RGB", (50, 50)).save(cmp)                                # veraltetes Vergleichsbild ohne Kennung
+    assert P.main([str(src), "--no-geometry", "--compare"]) == 0        # Ergebnis ist unser -> Vergleich auch
+    with Image.open(cmp) as im:
+        assert im.width > 50
+
+
+def test_two_image_files_get_a_clear_hint(tmp_path, capsys):
+    _write(tmp_path / "a.jpg")
+    _write(tmp_path / "b.jpg")
+    assert P.main([str(tmp_path / "a.jpg"), str(tmp_path / "b.jpg")]) == 2
+    assert "Ordner" in capsys.readouterr().err
+
+
+def test_steep_shot_still_gets_its_horizon_levelled():
+    img = synthetic_room(1400, 1050)
+    h, w = img.shape[:2]
+    cx, cy, R = P._norm_params(w, h)
+    f_n = 2 * 24 / 43.27
+    K = np.diag([f_n, f_n, 1.0])
+    Hn = K @ P.rotation_matrix(math.radians(2.5), math.radians(-28)) @ np.linalg.inv(K)
+    S = np.array([[1 / R, 0, -cx / R], [0, 1 / R, -cy / R], [0, 0, 1]])
+    warped = cv2.warpPerspective(img, np.linalg.inv(S) @ np.linalg.inv(Hn) @ S, (w, h),
+                                 flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+    small, _ = P.resize_long_edge(cv2.cvtColor(warped, cv2.COLOR_RGB2GRAY), 1200)
+    info = P.estimate_verticals(small, f_n, P.Settings())
+    assert info["ok"] and abs(info["roll"] - 2.5) < 0.5 and info["pitch"] == 0.0, info
+
+
+@pytest.mark.skipif(os.name == "nt", reason="Byte-Dateinamen nur unter POSIX")
+def test_non_utf8_filename_appears_in_log(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / os.fsdecode(b"K\xfcche.jpg"))
+    assert P.main([str(src), "--no-geometry"]) == 0
+    assert "OK      K" in (src / "output_expose" / P.LOG_FILENAME).read_text(encoding="utf-8")
+
+
+def test_noise_estimate_ignores_blown_areas():
+    rng = np.random.default_rng(12)
+    g = np.clip(100 + rng.normal(0, 4, (600, 800)), 0, 255)
+    clean = P.estimate_noise_sigma(g.astype(np.uint8))
+    g[:, :300] = 255                                                    # großes ausgebranntes Fenster
+    blown = P.estimate_noise_sigma(g.astype(np.uint8))
+    assert abs(blown - clean) < 0.3, (clean, blown)
