@@ -35,3 +35,4 @@ produktion/folge-03/upload_v2.sh
 # Immobilien-Walkthrough: Testartefakte
 working/tests/
 working/*.resolved.json
+working/*.log
