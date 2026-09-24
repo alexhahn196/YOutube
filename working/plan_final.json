@@ -4,8 +4,8 @@
  "xfade_s": 0.0,
  "grade": "hqdn3d=1.5:1.0:3:2.5,eq=contrast=1.04:brightness=0.01:saturation=1.08,curves=all='0/0 0.55/0.55 0.85/0.82 1/0.96'",
  "out_9x16": "property_walkthrough_vertical_9x16.mp4",
- "out_16x9": "property_walkthrough_16x9.mp4",
- "out_16x9_pillar": "property_walkthrough_16x9_pillarbox.mp4",
+ "out_16x9": "property_walkthrough_16x9_cropband.mp4",
+ "out_16x9_pillar": "property_walkthrough_16x9.mp4",
  "shots": [
   {
    "id": "01",
