@@ -1,0 +1,8 @@
+# Python >= 3.9
+numpy>=1.24
+# LSD-Liniendetektor ist ab OpenCV 4.5.1 wieder enthalten.
+# Wer bereits "opencv-python" installiert hat, braucht diese Zeile nicht
+# (beide Pakete gleichzeitig installiert führen zu Konflikten).
+opencv-python-headless>=4.8
+# Pillow >= 11 schreibt zusätzlich XMP-Metadaten; ältere Versionen lassen nur XMP weg.
+Pillow>=10.0
