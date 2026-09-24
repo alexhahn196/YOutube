@@ -60,13 +60,17 @@ except ImportError as exc:  # pragma: no cover - reine Nutzerhilfe
     )
     sys.exit(2)
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 DEFAULT_OUTPUT_DIRNAME = "output_expose"
 LOG_FILENAME = "verarbeitung.log"
 COMPARE_DIRNAME = "_vergleich"
 MANIFEST_NAME = ".expose_manifest.json"
+OUTPUT_MARKER = b"process_real_estate_photos"          # JPEG-Kommentar: "diese Datei stammt von uns"
+MAX_MEGAPIXELS = 120                                   # größere Bilder sprengen den Arbeitsspeicher
+NAS_SYSTEM_DIRS = {"@eaDir", "#recycle", "#snapshot", "@Recycle", "@Recently-Snapshot",
+                   "@__thumb", "@tmp", "#Recycle"}
 
 # Schutz vor Dekompressionsbomben, aber groß genug für Panoramen.
 Image.MAX_IMAGE_PIXELS = 250_000_000
@@ -108,7 +112,7 @@ class Settings:
     focal35: Optional[float] = None          # KB-Brennweite; None = EXIF oder 24 mm
     max_roll_deg: float = 8.0
     max_pitch_deg: float = 25.0
-    max_side_loss: float = 0.08              # max. Beschnitt je Bildseite (Neigung)
+    max_side_loss: float = 0.10              # max. Beschnitt je Bildseite (ungünstigste Stelle)
     max_side_loss_explicit: bool = False     # per --max-crop gesetzt -> gilt auch fürs Drehen
     min_keep_area: float = 0.72              # min. erhaltener Bildinhalt
 
@@ -317,6 +321,9 @@ def load_image(path: Path, settings: Settings) -> LoadedImage:
         fmt = im.format
         if fmt not in ("JPEG", "MPO", "PNG"):
             raise SkipImage(f"Dateiinhalt ist {fmt or 'unbekannt'}, kein JPEG/PNG")
+        megapixels = im.width * im.height / 1e6
+        if megapixels > MAX_MEGAPIXELS:
+            raise SkipImage(f"Bild ist zu groß ({megapixels:.0f} Megapixel, maximal {MAX_MEGAPIXELS})")
         if getattr(im, "n_frames", 1) > 1:
             im.seek(0)
             if fmt == "PNG":
@@ -420,11 +427,12 @@ def denoise_image(img: np.ndarray, high_bit: bool, s: Settings):
     Helligkeitsrauschen wird nur bei deutlich verrauschten Bildern und nur
     teilweise reduziert: Volles Non-Local-Means würde feine Risse, Fugen und
     kleine Flecken mit wegglätten."""
-    info = {"sigma": None, "applied": ""}
-    if not s.denoise or s.denoise_strength <= 0:
-        return img, info
+    # Das Rauschen wird immer gemessen (es steuert auch, wie stark aufgehellt werden darf).
     sigma = estimate_noise_sigma(cv2.cvtColor(to_u8(img), cv2.COLOR_RGB2GRAY))
-    info["sigma"] = round(sigma, 2)
+    info = {"sigma": round(sigma, 2), "applied": ""}
+    if not s.denoise or s.denoise_strength <= 0:
+        info["applied"] = "abgeschaltet"
+        return img, info
     if sigma < 0.6:
         return img, info
     strength = float(s.denoise_strength)
@@ -684,60 +692,69 @@ def estimate_verticals(gray_u: np.ndarray, f_n: float, s: Settings):
         r, p = _rotation_from_up(np.array([v[0] / f_n, v[1] / f_n, v[2]]))
         return math.degrees(r), math.degrees(p)
 
-    res = _vp_ransac(p1v, p2v, dv, lv) if len(lv) >= 3 else None
-    # Zweiter Durchgang: Konvergierende Sparren einer Dachschräge können mehr
-    # Linien sammeln als die echten Senkrechten. Ergibt der Sieger eine
-    # unplausible Neigung, wird unter den übrigen Linien weitergesucht.
-    if res is not None and abs(angles(res[0])[1]) > s.max_pitch_deg and (~res[1]).sum() >= 3:
-        rest = ~res[1]
-        res2 = _vp_ransac(p1v[rest], p2v[rest], dv[rest], lv[rest])
-        if res2 is not None:
-            full = np.zeros(len(lv), dtype=bool)
-            full[np.nonzero(rest)[0][res2[1]]] = True
-            if (abs(angles(res2[0])[1]) <= s.max_pitch_deg and full.sum() >= 4
-                    and lv[full].sum() >= 0.5):
-                res = (res2[0], full, res2[2])
-
-    if res is not None:
+    def evaluate(res):
+        """Roll/Pitch aus einem RANSAC-Ergebnis ableiten; None + Grund, wenn unbrauchbar."""
         v, inl, spread = res
         info["lines"] = int(inl.sum())
         wts = lv[inl]
-        if inl.sum() >= 4 and float(wts.sum()) >= 0.5:
-            mean_x = float((midv[inl, 0] * wts).sum() / wts.sum())
-            if spread >= 0.12:
-                roll_d, pitch_d = angles(v)
-                info["mode"] = "Fluchtpunkt"
-                delta = _vp_instability(p1v, p2v, lv, midv, inl, angles, (roll_d, pitch_d))
-                if delta > 1.5:
-                    info["reason"] = (f"Fluchtpunkt instabil (hängt an einzelnen Linien, "
-                                      f"Abweichung {delta:.1f}°)")
-                    return info
-                if abs(pitch_d) > s.max_pitch_deg:
-                    # Der Roll-Winkel hängt nicht von der angenommenen Brennweite ab.
-                    pitch_d = 0.0
-                    info["mode"] = "Fluchtpunkt, Neigung zu groß – nur Horizont"
-                use_vp = True
-            elif abs(mean_x) <= 0.05:
-                # Linien nur in der Bildmitte: dort ist die Neigung der Senkrechten
-                # reine Verkippung (Roll), keine Perspektive.
-                dd = dv[inl] * np.sign(dv[inl][:, 1:2] + 1e-12)
-                mean = (dd * wts[:, None]).sum(axis=0)
-                roll_d, _ = _rotation_from_up(np.array([mean[0], mean[1], 0.0]))
-                roll_d, pitch_d = math.degrees(roll_d), 0.0
-                info["mode"] = "nur Horizont (Linien zu einseitig)"
-                use_vp = True
-            else:
-                # Linien nur am Bildrand: ihre Schräge kann Perspektive statt
-                # Verkippung sein -> keine Drehung daraus ableiten.
-                info["reason"] = "Senkrechten nur am Bildrand"
-                use_vp = False
-            if use_vp:
-                info.update(roll=roll_d, pitch=pitch_d)
-                if abs(roll_d) > s.max_roll_deg:
-                    info["reason"] = f"Roll {roll_d:.1f}° unplausibel groß"
-                    return info
-                info["ok"] = True
-                return info
+        if inl.sum() < 4 or float(wts.sum()) < 0.5:
+            return None, "zu wenige verlässliche senkrechte Linien"
+        mean_x = float((midv[inl, 0] * wts).sum() / wts.sum())
+        if spread >= 0.12:
+            roll_d, pitch_d = angles(v)
+            mode = "Fluchtpunkt"
+            delta = _vp_instability(p1v, p2v, lv, midv, inl, angles, (roll_d, pitch_d))
+            if delta > 2.5:
+                return None, f"Fluchtpunkt instabil (hängt an einzelnen Linien, Abweichung {delta:.1f}°)"
+            if abs(pitch_d) > s.max_pitch_deg:
+                # Der Roll-Winkel hängt nicht von der angenommenen Brennweite ab.
+                pitch_d, mode = 0.0, "Fluchtpunkt, Neigung zu groß – nur Horizont"
+        elif abs(mean_x) <= 0.05:
+            # Linien nur in der Bildmitte: dort ist die Neigung der Senkrechten
+            # reine Verkippung (Roll), keine Perspektive.
+            dd = dv[inl] * np.sign(dv[inl][:, 1:2] + 1e-12)
+            mean = (dd * wts[:, None]).sum(axis=0)
+            roll_r, _ = _rotation_from_up(np.array([mean[0], mean[1], 0.0]))
+            roll_d, pitch_d, mode = math.degrees(roll_r), 0.0, "nur Horizont (Linien zu einseitig)"
+        else:
+            # Linien nur am Bildrand: ihre Schräge kann Perspektive statt
+            # Verkippung sein -> keine Drehung daraus ableiten.
+            return None, "Senkrechten nur am Bildrand"
+        if abs(roll_d) > s.max_roll_deg:
+            return None, f"Roll {roll_d:.1f}° unplausibel groß"
+        # Gegenprobe mit ALLEN fast senkrechten Linien: Eine echte Korrektur macht
+        # sie insgesamt deutlich gerader. Schräge Dachkanten o. Ä. können einen
+        # Schein-Fluchtpunkt liefern - dann würden andere Senkrechten schiefer.
+        before, after = _verticality(p1v, p2v, lv, f_n, roll_d, pitch_d)
+        if after > 0.85 * before:
+            return None, (f"Korrektur würde die Senkrechten nicht verbessern "
+                          f"(mittlere Schräge {before:.1f}° -> {after:.1f}°)")
+        return {"roll": roll_d, "pitch": pitch_d, "mode": mode}, ""
+
+    candidates = []
+    res1 = _vp_ransac(p1v, p2v, dv, lv) if len(lv) >= 3 else None
+    if res1 is not None:
+        # Zweiter Durchgang: Konvergierende Sparren einer Dachschräge können mehr
+        # Linien sammeln als die echten Senkrechten. Ergibt der Sieger eine
+        # unplausible Neigung, wird unter den übrigen Linien weitergesucht - der
+        # neue Kandidat muss aber selbst tragfähig sein, sonst bleibt es beim
+        # ersten (dann nur Horizont).
+        if abs(angles(res1[0])[1]) > s.max_pitch_deg and (~res1[1]).sum() >= 3:
+            rest = ~res1[1]
+            res2 = _vp_ransac(p1v[rest], p2v[rest], dv[rest], lv[rest])
+            if res2 is not None:
+                full = np.zeros(len(lv), dtype=bool)
+                full[np.nonzero(rest)[0][res2[1]]] = True
+                if (abs(angles(res2[0])[1]) <= s.max_pitch_deg and full.sum() >= 4
+                        and lv[full].sum() >= max(0.5, 0.5 * lv[res1[1]].sum()) and res2[2] >= 0.12):
+                    candidates.append((res2[0], full, res2[2]))
+        candidates.append(res1)
+    for res in candidates:
+        result, reason = evaluate(res)
+        if result is not None:
+            info.update(ok=True, **result)
+            return info
+        info["reason"] = info["reason"] or reason
 
     # Rückfall: lange, fast waagrechte Linien nahe der Bildmitte (Horizont)
     horiz = (tilt >= 84.0) & (length >= 0.25) & (np.abs((p1[:, 1] + p2[:, 1]) / 2) <= 0.25)
@@ -760,6 +777,25 @@ def estimate_verticals(gray_u: np.ndarray, f_n: float, s: Settings):
     return info
 
 
+def _verticality(p1, p2, length, f_n, roll_deg, pitch_deg):
+    """Mittlere Schräge (Grad, je Linie max. 10°, längengewichtet) fast senkrechter
+    Linien vor und nach einer Korrektur um roll/pitch."""
+    K = np.diag([f_n, f_n, 1.0])
+    H = K @ rotation_matrix(math.radians(roll_deg), math.radians(pitch_deg)) @ np.linalg.inv(K)
+
+    def mapped(p):
+        q = (H @ np.hstack([p, np.ones((len(p), 1))]).T).T
+        return q[:, :2] / q[:, 2:3]
+
+    def mean_tilt(a, b):
+        d = b - a
+        d = d * np.sign(d[:, 1:2] + 1e-12)
+        t = np.abs(np.degrees(np.arctan2(d[:, 0], d[:, 1])))
+        return float((np.minimum(t, 10.0) * length).sum() / max(length.sum(), 1e-9))
+
+    return mean_tilt(p1, p2), mean_tilt(mapped(p1), mapped(p2))
+
+
 def _homog_lines(p1, p2):
     ones = np.ones((len(p1), 1))
     lines = np.cross(np.hstack([p1, ones]), np.hstack([p2, ones]))
@@ -770,7 +806,14 @@ def _vp_instability(p1, p2, length, mid, inl, angles, base) -> float:
     """Leave-one-cluster-out: Wie stark ändern sich Roll/Pitch, wenn man die
     Linien an einer x-Position (z. B. eine einzelne Dachkante) weglässt?"""
     lines = _homog_lines(p1, p2)
-    cl = np.round(mid[:, 0] / 0.03).astype(int)
+    worst = 0.0
+    for offset in (0.0, 0.015):   # zwei Rasterlagen: Ergebnis darf nicht an der Einteilung hängen
+        worst = max(worst, _vp_instability_bins(lines, length, mid, inl, angles, base,
+                                                np.floor((mid[:, 0] + offset) / 0.03).astype(int)))
+    return worst
+
+
+def _vp_instability_bins(lines, length, mid, inl, angles, base, cl) -> float:
     worst = 0.0
     for c in np.unique(cl[inl]):
         sub = inl & (cl != c)
@@ -915,7 +958,7 @@ def _best_content_rect(valid: np.ndarray, weight: np.ndarray, px: np.ndarray, py
                     hi = mid
             if lo < 2:
                 continue
-            hw = lo - 1.5   # Sicherheitsabstand (Rasterquantisierung)
+            hw = lo - 1.5 * max(1.0, aspect)   # Sicherheitsabstand (Rasterquantisierung), beide Achsen
             b = bounds(cx, cy, hw)
             content = float(box_sum(ii_w, *b))
             cands_all.append((content, cx, cy, hw, side_losses(*b)))
@@ -1030,10 +1073,12 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
     K = np.diag([f_n, f_n, 1.0])
     Kinv = np.linalg.inv(K)
     target_pitch = pitch * s.vertical_strength
+    if pitch and s.vertical_strength == 0:
+        info["notes"].append("Senkrechten: Korrektur abgeschaltet (--vertical-strength 0)")
 
-    def attempt(pf, rf, limit):
+    def attempt(pf, rf, limit, kf=1.0):
         hm = K @ rotation_matrix(roll * rf, target_pitch * pf) @ Kinv
-        return {"pf": pf, "rf": rf, "H": hm, "plan": plan_crop(w, h, k, hm, limit)}
+        return {"pf": pf, "rf": rf, "kf": kf, "H": hm, "plan": plan_crop(w, h, k * kf, hm, limit)}
 
     def bisect(make, ok, fallback):
         best, lo, hi = fallback, 0.0, 1.0
@@ -1046,22 +1091,33 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
                 hi = mid
         return best
 
-    # 1) Horizont (+ Objektiv): Drehen kostet zwangsläufig die Ecken. Begrenzt
-    #    wird es über den erhaltenen Bildinhalt - bzw. über --max-crop, wenn das
-    #    Limit ausdrücklich gesetzt wurde.
-    def roll_ok(a):
+    def keep_ok(a):
+        """Mindest-Bildinhalt; mit ausdrücklichem --max-crop auch dessen Grenze."""
         p = a["plan"]
         if p is None or p["retention"] < s.min_keep_area:
             return False
         return not s.max_side_loss_explicit or max(p["losses"]) <= s.max_side_loss + 1e-3
 
+    # 0) Objektiv: extreme (z. B. manuelle) Werte nur so weit, wie der Beschnitt es erlaubt
+    kf = 1.0
+    if k and not keep_ok(attempt(0.0, 0.0, s.max_side_loss)):
+        kf = bisect(lambda f: attempt(0.0, 0.0, s.max_side_loss, f), keep_ok,
+                    attempt(0.0, 0.0, s.max_side_loss, 0.0))["kf"]
+        info["notes"].append(f"Objektivkorrektur nur zu {kf:.0%} angewendet (Beschnittgrenze)")
+        k = k * kf
+        info["k"] = round(k, 4)
+
+    # 1) Horizont: Drehen kostet zwangsläufig die Ecken. Begrenzt wird es über den
+    #    erhaltenen Bildinhalt - bzw. über --max-crop, wenn ausdrücklich gesetzt.
     base = attempt(0.0, 1.0, s.max_side_loss)
-    if roll and not roll_ok(base):
-        base = bisect(lambda f: attempt(0.0, f, s.max_side_loss), roll_ok,
+    if roll and not keep_ok(base):
+        base = bisect(lambda f: attempt(0.0, f, s.max_side_loss), keep_ok,
                       attempt(0.0, 0.0, s.max_side_loss))
     rf = base["rf"]
     base_loss = max(base["plan"]["losses"]) if base["plan"] is not None else 0.0
-    limit = max(s.max_side_loss, base_loss + 0.005)
+    # Die Senkrechten bekommen ihr eigenes Budget ZUSÄTZLICH zu dem, was das
+    # Ausrichten des Horizonts schon kostet - sonst bliebe für sie nichts übrig.
+    limit = s.max_side_loss if s.max_side_loss_explicit else max(s.max_side_loss, base_loss + 0.025)
 
     # 2) Stürzende Linien: volle Korrektur, solange je Bildseite höchstens das
     #    Limit wegfällt; sonst so weit abschwächen, dass es passt
@@ -1082,7 +1138,7 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
         r_eff = 0.0
     plan = chosen["plan"]
     if r_eff == 0 and p_eff == 0 and k == 0:
-        if roll or pitch:
+        if roll or target_pitch:
             info["notes"].append("Geometrie: Korrektur hätte zu viel Bild gekostet – übersprungen")
         return img, info
     if plan is None:
@@ -1093,11 +1149,13 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
         msg = (f"Senkrechten/Horizont: Drehung {_z(math.degrees(r_eff)):+.2f}°, "
                f"Neigung {_z(math.degrees(p_eff)):+.2f}° "
                f"({vinfo['lines']} Linien, {vinfo['mode']}, {focal_note})")
-        if pitch and pf < 0.001:
+        if target_pitch and pf < 0.001:
             msg += f" – Neigung nicht korrigiert (gemessen {math.degrees(pitch):+.1f}°), sonst zu viel Beschnitt"
-        elif pitch and pf < 0.999:
+        elif target_pitch and pf < 0.999:
             msg += f" – Neigung zu {pf:.0%} korrigiert (gemessen {math.degrees(pitch):+.1f}°), Beschnittgrenze"
-        if roll and rf < 0.999:
+        if roll and rf < 0.001:
+            msg += f" – Horizont nicht ausgerichtet (gemessen {math.degrees(roll):+.1f}°), sonst zu viel Beschnitt"
+        elif roll and rf < 0.999:
             msg += f" – Horizont zu {rf:.0%} ausgerichtet (gemessen {math.degrees(roll):+.1f}°), Beschnittgrenze"
         info["notes"].append(msg)
     keep_pct = int(round(plan["retention"] * 100))
@@ -1105,7 +1163,12 @@ def correct_geometry(img: np.ndarray, loaded: LoadedImage, s: Settings):
     note = (f"Zuschnitt: oben {t:.0%}, unten {b:.0%}, links {l:.0%}, rechts {r:.0%}; "
             f"{keep_pct} % des Bildinhalts erhalten")
     if max(plan["losses"]) > s.max_side_loss + 0.005:
-        note += f" (mehr als {s.max_side_loss:.0%} je Seite, weil das Ausrichten des Horizonts es erfordert)"
+        if r_eff:
+            note += (f" – ACHTUNG: mehr als {s.max_side_loss:.0%} je Seite, weil der Horizont "
+                     f"{abs(math.degrees(roll)):.1f}° schief war; bitte prüfen (mit --max-crop "
+                     f"{s.max_side_loss:.2f} wird er nur teilweise ausgerichtet)")
+        else:
+            note += f" – mehr als {s.max_side_loss:.0%} je Seite (Objektivkorrektur)"
     info["notes"].append(note)
 
     rect = plan["rect"]
@@ -1154,10 +1217,13 @@ def fast_guided_filter(p: np.ndarray, radius: int, eps: float, work_long: int = 
 def estimate_white_balance(lin: np.ndarray, s: Settings):
     """Weißabgleich auf den neutralsten Flächen des Bildes.
 
-    Wände, Decken und Fugen sind in Immobilienfotos fast immer neutral. Die
-    Kandidaten werden EINMAL im Original gewählt (engste Farbschwelle, die noch
-    genug Fläche abdeckt). Sonst bestätigen sich beige Fliesen, rosa Fassaden
-    oder Waschbeton über mehrere Durchgänge selbst als "neutral".
+    Wände, Decken und Fugen sind in Immobilienfotos fast immer neutral.
+    1. Saat: die engste Farbschwelle, die noch genug Fläche abdeckt - so zählen
+       beige Fliesen, rosa Fassaden oder Waschbeton nicht als "neutral".
+    2. Nachzentrieren auf den Farbton dieser Saat, damit ein Farbstich voll
+       erkannt wird und nicht nur sein am wenigsten getönter Rand.
+    3. Hat das Bild kaum neutrale Pixel, aber viele leicht warme (reines
+       Kunstlicht), wird weich auf eine kräftigere Korrektur übergeblendet.
     """
     small, _ = resize_long_edge(lin, 600)
     px = small.reshape(-1, 3).astype(np.float64)
@@ -1166,56 +1232,77 @@ def estimate_white_balance(lin: np.ndarray, s: Settings):
                         cv2.COLOR_LRGB2Lab).reshape(-1, 3)
     chroma = np.hypot(lab0[:, 1], lab0[:, 2])
     ok = (Y > 0.03) & (px.max(axis=1) < 0.95) & (lab0[:, 0] > 30) & (lab0[:, 0] < 98)
-    # Gleichmäßiger, starker Farbstich (nur Kunstlicht): kaum neutrale, aber
-    # viele leicht farbige Pixel. Dann darf kräftiger korrigiert werden.
-    m, uniform_cast = None, False
-    if (ok & (chroma < 6)).mean() < 0.01:
+
+    def gains_of(mask):
+        wts = (lab0[mask, 0] / 100.0) ** 2
+        mean = (px[mask] * wts[:, None]).sum(axis=0) / wts.sum()
+        g = mean.mean() / np.maximum(mean, 1e-6)
+        return g / float(g @ LUMA_REC709)
+
+    normal, used = None, 0.0
+    for thr in (6.0, 9.0, 13.0, 18.0):
+        m = ok & (chroma < thr)
+        if m.mean() < 0.05:
+            continue
+        for _ in range(2):
+            wts = (lab0[m, 0] / 100.0) ** 2
+            ca = float((lab0[m, 1] * wts).sum() / wts.sum())
+            cb = float((lab0[m, 2] * wts).sum() / wts.sum())
+            cand = ok & (np.hypot(lab0[:, 1] - ca, lab0[:, 2] - cb) < 5.0) & (chroma < 18.0)
+            if cand.mean() < 0.05:
+                break
+            m = cand
+        normal, used = gains_of(m), float(m.mean())
+        break
+
+    w_uni, uniform = float(smoothstep(0.03, 0.005, float((ok & (chroma < 6)).mean()))), None
+    if w_uni > 0:
         for thr in (20.0, 26.0, 32.0):
             cand = ok & (chroma < thr)
             # nur warme Stiche (Glühlampe/Halogen) - ein großer blauer Himmel ist kein Farbstich
             if cand.mean() > 0.40 and float(np.median(lab0[cand, 2])) > 4.0:
-                m, uniform_cast = cand, True
+                uniform = gains_of(cand)
+                used = max(used, float(cand.mean()))
                 break
-    if m is None:
-        for thr in (6.0, 9.0, 13.0, 18.0):
-            cand = ok & (chroma < thr)
-            if cand.mean() >= 0.05:
-                m = cand
-                break
-    if m is None:
+    if uniform is None:
+        w_uni = 0.0
+    if normal is None and uniform is None:
         return np.ones(3, np.float32), {"skipped": "zu wenig neutrale Flächen"}
-    wts = (lab0[m, 0] / 100.0) ** 2
-    mean = (px[m] * wts[:, None]).sum(axis=0) / wts.sum()
-    g = mean.mean() / np.maximum(mean, 1e-6)
-    gains = g / float(g @ LUMA_REC709)
+    if normal is None:
+        normal, w_uni = uniform, 1.0
+    gains = np.exp(np.log(normal) * (1 - w_uni) + np.log(uniform if uniform is not None else normal) * w_uni)
     gains = gains ** float(np.clip(s.wb_strength, 0, 1))
     # Starke Farbstiche entstehen meist durch Mischlicht (Glühlampe + Fenster).
     # Voll neutralisiert würde das Tageslicht dann blau -> Korrektur begrenzen.
-    max_ratio = 1.6 if uniform_cast else s.wb_max_ratio
+    max_ratio = math.exp(math.log(s.wb_max_ratio) * (1 - w_uni) + math.log(1.45) * w_uni)
     ratio = float(gains.max() / gains.min())
     if ratio > max_ratio:
         gains = gains ** (math.log(max_ratio) / math.log(ratio))
     gains = gains * np.array([1 + s.warmth, 1.0, 1 - s.warmth])
     gains = gains / float(gains @ LUMA_REC709)
-    return gains.astype(np.float32), {"gains": gains.round(3).tolist(),
-                                      "neutral": round(float(m.mean()), 3),
-                                      "uniform_cast": uniform_cast}
+    return gains.astype(np.float32), {"gains": gains.round(3).tolist(), "neutral": round(used, 3),
+                                      "uniform_cast": round(w_uni, 2)}
 
 
 def apply_white_balance(lin: np.ndarray, gains: np.ndarray, protect: np.ndarray) -> np.ndarray:
     """Weißabgleich anwenden - schonend bei Mischlicht und ausgebrannten Lichtern.
 
-    Kühlt die Korrektur (Kunstlicht-Stich), werden Flächen, die schon kühl sind
-    (Tageslicht-Reflexe, Fensterlicht), nicht weiter ins Blaue geschoben -
-    und umgekehrt. Ausgebrannte Lichter enthalten keine Farbinformation mehr und
-    werden gar nicht eingefärbt."""
-    g = (gains.reshape(1, 1, 3) - 1.0).astype(np.float32)
-    c = lin / np.maximum(lin.mean(axis=2, keepdims=True), 1e-4)
+    Kühlt die Korrektur einen Kunstlicht-Stich, darf kein Pixel dadurch
+    deutlich bläulich werden (Tageslicht-Reflexe, Fensterlicht bleiben, wie sie
+    sind); umgekehrt beim Wärmen. Ausgebrannte Lichter enthalten keine
+    Farbinformation mehr und werden gar nicht eingefärbt."""
+    full = lin * (1.0 + (gains.reshape(1, 1, 3) - 1.0) * (1.0 - protect[..., None]))
     if gains[2] > gains[0]:
-        g = g * (1 - smoothstep(-0.05, 0.05, c[..., 2] - c[..., 0]))[..., None]
+        ch_a, ch_b = 2, 0          # Blau-Überhang begrenzen
     elif gains[0] > gains[2]:
-        g = g * (1 - smoothstep(-0.05, 0.05, c[..., 0] - c[..., 2]))[..., None]
-    return (lin * (1.0 + g * (1.0 - protect[..., None]))).astype(np.float32)
+        ch_a, ch_b = 0, 2          # Rot-Überhang begrenzen
+    else:
+        return full.astype(np.float32)
+    d_in = (lin[..., ch_a] - lin[..., ch_b]) / np.maximum(lin.mean(axis=2), 1e-4)
+    d_out = (full[..., ch_a] - full[..., ch_b]) / np.maximum(full.mean(axis=2), 1e-4)
+    allowed = np.maximum(d_in, 0.05)
+    t = np.where(d_out > allowed, np.clip((allowed - d_in) / np.maximum(d_out - d_in, 1e-6), 0, 1), 1.0)
+    return (lin + (full - lin) * t[..., None]).astype(np.float32)
 
 
 def highlight_protect_mask(srgb: np.ndarray) -> np.ndarray:
@@ -1271,10 +1358,25 @@ def _limit_gain_in_bright_areas(lin: np.ndarray, gain: np.ndarray) -> np.ndarray
     # zwischen Dachbalken: dort würde sonst ein einzelner Kanal ausbrennen.
     # Blasse Glanzlichter dürfen dagegen hell werden - wie bei einer Kamera.
     sat = 1.0 - lin.min(axis=2) / np.maximum(lin.max(axis=2), 1e-4)
-    sat = cv2.GaussianBlur(sat.astype(np.float32), (0, 0), max(1.0, max(h, w) / 400.0))
-    region = np.maximum(region, over * smoothstep(0.45, 0.65, sat))
+    sat_w = smoothstep(0.25, 0.45, cv2.GaussianBlur(sat.astype(np.float32), (0, 0), max(1.0, max(h, w) / 400.0)))
+    region = np.maximum(region, over * sat_w)
     cap = np.maximum(math.log2(0.85) - log_mx_base, 0.0)      # hellster Kanal max. ~0.85 linear
+    # Satte Flächen (Himmel, Aussicht) nur wenig anheben - sonst werden sie flau und flach.
+    cap = cap - sat_w * np.maximum(cap - 0.35, 0.0)
     return gain - region * np.maximum(gain - cap, 0.0)
+
+
+def _wall_exposure(lin: np.ndarray) -> Optional[float]:
+    """Belichtung (EV), die helle neutrale Flächen (Wände, Decken) auf ein
+    freundliches Weiß (L* ≈ 82) bringen würde - oder None ohne solche Flächen."""
+    small, _ = resize_long_edge(lin, 512)
+    px = small.reshape(-1, 3)
+    lab = cv2.cvtColor(np.clip(px, 0, 1).reshape(1, -1, 3).astype(np.float32), cv2.COLOR_LRGB2Lab).reshape(-1, 3)
+    m = (np.hypot(lab[:, 1], lab[:, 2]) < 8) & (lab[:, 0] > 45) & (px.max(axis=1) < 0.9)
+    if m.mean() < 0.05:
+        return None
+    wall = float(np.median(px[m] @ LUMA_REC709))
+    return math.log2(0.60 / max(wall, 1e-4))
 
 
 def local_tone_map(lin: np.ndarray, protect: np.ndarray, s: Settings, noise_sigma=None):
@@ -1290,13 +1392,18 @@ def local_tone_map(lin: np.ndarray, protect: np.ndarray, s: Settings, noise_sigm
     lo, hi = np.percentile(small, [5, 95])
     key = float(small[(small >= lo) & (small <= hi)].mean())
     e = s.target_key_ev - key
-    if e >= 0:
-        clean = noise_sigma is not None and noise_sigma < 1.0
-        e = min(e, s.max_ev_up_clean if clean else s.max_ev_up)
-    elif float((small > math.log2(0.95)).mean()) < 0.02:
-        e = 0.0          # helle Räume ohne ausbrennende Lichter nicht abdunkeln
-    else:                # sonst nur deutlich zu helle Bilder, und nur teilweise
-        e = max(min(0.0, (e + 0.4) * 0.6), -s.max_ev_down)
+    if e < 0:
+        # Abdunkeln nur, wenn wirklich Lichter ausbrennen - weich eingeblendet,
+        # damit ähnliche Bilder nicht sprunghaft verschieden hell werden.
+        near_clip = float((small > math.log2(0.95)).mean())
+        e = max(min(0.0, (e + 0.4) * 0.6), -s.max_ev_down) * float(smoothstep(0.02, 0.08, near_clip))
+    # Helle neutrale Flächen (Wände, Decken) sollen einheitlich freundlich hell
+    # werden - auch wenn die Durchschnittshelligkeit schon passt (max. +1 EV mehr).
+    e_wall = _wall_exposure(lin)
+    if e_wall is not None and e_wall > e:
+        e = min(e_wall, e + 1.0)
+    clean = noise_sigma is not None and noise_sigma < 1.0
+    e = min(e, s.max_ev_up_clean if clean else s.max_ev_up)
 
     base = fast_guided_filter(logY, radius=int(0.03 * max(h, w)), eps=0.3)
     d = base + e - s.target_key_ev
@@ -1323,7 +1430,7 @@ def apply_levels(srgb: np.ndarray):
     lo = float(np.percentile(luma, 0.5))
     hi = float(np.percentile(small.max(axis=2), 99.8))   # Maximalkanal: kein Kanal clippt
     b = float(np.clip((lo - 0.015) / (1 - 0.015), 0.0, 0.02))
-    g_cap = 1.35 if hi < 0.75 else 1.10                  # ohne echte Lichter: Weiß darf weiß werden
+    g_cap = 1.10 + 0.25 * (1.0 - float(smoothstep(0.65, 0.85, hi)))   # ohne echte Lichter: Weiß darf weiß werden
     g = float(max(1.0 / (1.0 - b), min(0.975 / max(hi - b, 1e-3), g_cap)))
     return np.clip((srgb - b) * g, 0, 1), {"black": round(b, 3), "gain": round(g, 3)}
 
@@ -1335,23 +1442,33 @@ def finish_lab(srgb: np.ndarray, is_gray: bool, s: Settings,
     reference = Bild vor der Ton-/Farbbearbeitung: Die Buntheit darf gegenüber
     dem Original nur maßvoll steigen (kein Lila-Stich in aufgehellten Schatten)."""
     lab = cv2.cvtColor(srgb.astype(np.float32), cv2.COLOR_RGB2Lab)
-    L = lab[:, :, 0] / 100.0
-    c = s.contrast
-    L = L + c * L * (1 - L) * (2 * L - 1)
-    L = L * 100.0
+    L0 = lab[:, :, 0].copy()
+    # Nahe am Kanal-Maximum (sonnige Ziegeldächer, helle Fassaden) weder S-Kurve
+    # noch Dynamik noch Schärfung - sonst brennt dort ein einzelner Farbkanal aus.
+    calm = 1.0 - smoothstep(0.88, 0.97, srgb.max(axis=2))
+    x = L0 / 100.0
+    L = L0 + (100.0 * (x + s.contrast * x * (1 - x) * (2 * x - 1)) - L0) * calm
 
     if not is_gray and s.vibrance:
         a, b = lab[:, :, 1], lab[:, :, 2]
         chroma = np.hypot(a, b)
-        boost = s.vibrance * smoothstep(2.0, 10.0, chroma) * (1 - np.clip(chroma / 70.0, 0, 1)) ** 2
+        boost = s.vibrance * smoothstep(2.0, 10.0, chroma) * (1 - np.clip(chroma / 70.0, 0, 1)) ** 2 * calm
         lab[:, :, 1] = a * (1 + boost)
         lab[:, :, 2] = b * (1 + boost)
         if reference is not None:
             ref = cv2.cvtColor(reference.astype(np.float32), cv2.COLOR_RGB2Lab)
             c_in = np.hypot(ref[:, :, 1], ref[:, :, 2])
+            # Warme Töne dürfen mit der Aufhellung mitwachsen (sonst wirken
+            # aufgehellte Räume blass), kühle nicht (sonst lila Schatten).
+            grow = np.maximum((L + 16.0) / (ref[:, :, 0] + 16.0), 1.0)
+            c_ref = np.where(ref[:, :, 2] > 0, c_in * grow, c_in)
             c_out = np.hypot(lab[:, :, 1], lab[:, :, 2])
-            limit = np.maximum(c_in * 1.2, c_in + 2.0)
+            limit = np.maximum(c_ref * 1.2, c_ref + 2.0)
             f = np.where(c_out > limit, limit / np.maximum(c_out, 1e-6), 1.0)
+            # Aufgehellte, vorher dunkle Schatten mit blau-violettem Himmelslicht dämpfen.
+            violet = (smoothstep(40.0, 25.0, ref[:, :, 0]) * smoothstep(4.0, 12.0, L - ref[:, :, 0])
+                      * smoothstep(-4.0, -10.0, lab[:, :, 2]) * smoothstep(0.0, 4.0, lab[:, :, 1]))
+            f = f * (1.0 - 0.5 * violet)
             lab[:, :, 1] *= f
             lab[:, :, 2] *= f
 
@@ -1360,7 +1477,7 @@ def finish_lab(srgb: np.ndarray, is_gray: bool, s: Settings,
         detail = L - cv2.GaussianBlur(L, (0, 0), sigma)
         thr = 0.6
         detail = np.sign(detail) * np.maximum(np.abs(detail) - thr, 0)
-        L = L + np.clip(0.55 * s.sharpen * detail, -5.0, 5.0)
+        L = L + np.clip(0.55 * s.sharpen * detail, -5.0, 5.0) * calm
 
     lab[:, :, 0] = np.clip(L, 0, 100)
     if is_gray:
@@ -1414,7 +1531,7 @@ def save_jpeg(srgb: np.ndarray, dst: Path, loaded: LoadedImage, s: Settings, not
     arr = to_u8(srgb)
     im = Image.fromarray(arr[:, :, 0], "L") if loaded.is_gray else Image.fromarray(arr, "RGB")
     kwargs = dict(format="JPEG", quality=int(s.jpeg_quality), subsampling=0,
-                  optimize=True, progressive=True)
+                  optimize=True, progressive=True, comment=OUTPUT_MARKER)
     if loaded.icc_out and not loaded.is_gray:
         kwargs["icc_profile"] = loaded.icc_out
     exif = _exif_bytes(loaded.exif, im.size, notes)
@@ -1464,7 +1581,7 @@ def save_compare(before: np.ndarray, after: np.ndarray, dst: Path):
         cv2.putText(canvas, text, (x, 36), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 0), 4, cv2.LINE_AA)
         cv2.putText(canvas, text, (x, 36), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 2, cv2.LINE_AA)
     dst.parent.mkdir(parents=True, exist_ok=True)
-    Image.fromarray(canvas, "RGB").save(dst, "JPEG", quality=88)
+    Image.fromarray(canvas, "RGB").save(dst, "JPEG", quality=88, comment=OUTPUT_MARKER)
 
 
 # --------------------------------------------------------------------------- #
@@ -1479,8 +1596,7 @@ def process_image(src: Path, dst: Path, s: Settings, compare_dst: Optional[Path]
     h0, w0 = original.shape[:2]
 
     img, dn = denoise_image(original, loaded.high_bit_depth, s)
-    if dn["sigma"] is not None:
-        notes.append(f"Rauschen σ={dn['sigma']}: " + (dn["applied"] or "gering – keine Reduzierung nötig"))
+    notes.append(f"Rauschen σ={dn['sigma']}: " + (dn["applied"] or "gering – keine Reduzierung nötig"))
     img, geo = correct_geometry(img, loaded, s)
     notes.extend(geo["notes"])
 
@@ -1503,7 +1619,7 @@ def process_image(src: Path, dst: Path, s: Settings, compare_dst: Optional[Path]
 
 def _summary_line(r: dict) -> str:
     parts = [f"{r['size_in'][0]}x{r['size_in'][1]} -> {r['size_out'][0]}x{r['size_out'][1]}"]
-    if r["noise"].get("applied"):
+    if r["noise"].get("applied") and r["noise"]["applied"] != "abgeschaltet":
         parts.append("Rauschen reduziert")
     g = r["geometry"]
     if g.get("applied"):
@@ -1562,12 +1678,16 @@ def _terminate_pool(ex: ProcessPoolExecutor):
 
 def _run_parallel(work: list, workers: int, threads: int, report) -> bool:
     """Bilder parallel verarbeiten. Stürzt ein Prozess ab (z. B. zu wenig
-    Arbeitsspeicher), werden die betroffenen Bilder einzeln wiederholt, damit
-    nur das schuldige Bild als Fehler endet. Rückgabe False = Strg+C."""
+    Arbeitsspeicher), laufen die offenen Bilder erst in einem frischen Pool
+    weiter; was dort erneut abstürzt, wird einzeln wiederholt, damit nur das
+    schuldige Bild als Fehler endet. Rückgabe False = Strg+C."""
     pending = {job[0]: job for job in work}
-    ex = ProcessPoolExecutor(max_workers=workers)
-    try:
-        futs = {ex.submit(_worker, (*job, threads)): job for job in work}
+    ex = None
+
+    def run_pool(jobs, n_workers, n_threads):
+        nonlocal ex
+        ex = ProcessPoolExecutor(max_workers=n_workers)
+        futs = {ex.submit(_worker, (*job, n_threads)): job for job in jobs}
         for fut in as_completed(futs):
             job = futs[fut]
             try:
@@ -1581,19 +1701,25 @@ def _run_parallel(work: list, workers: int, threads: int, report) -> bool:
             pending.pop(job[0], None)
             report(*result)
         ex.shutdown(wait=True)
+
+    try:
+        run_pool(list(pending.values()), workers, threads)
         if pending:
             log.warning("Ein Arbeitsprozess ist abgestürzt (z. B. zu wenig Arbeitsspeicher) – "
-                        "%d Bild(er) werden einzeln neu verarbeitet.", len(pending))
-        for job in list(pending.values()):
+                        "%d Bild(er) werden erneut verarbeitet.", len(pending))
+            run_pool(list(pending.values()), max(1, workers - 1), threads)
+        for job in list(pending.values()):          # nur noch die wirklich schuldigen
             ex = ProcessPoolExecutor(max_workers=1)
             try:
-                report(*ex.submit(_worker, (*job, threads)).result())
+                report(*ex.submit(_worker, (*job, 0)).result())
             except BrokenProcessPool:
                 report("error", job[0], "Arbeitsprozess abgestürzt (vermutlich zu wenig Arbeitsspeicher)")
+            pending.pop(job[0], None)
             ex.shutdown(wait=True)
         return True
     except KeyboardInterrupt:
-        _terminate_pool(ex)
+        if ex is not None:
+            _terminate_pool(ex)
         return False
 
 
@@ -1608,9 +1734,9 @@ def _is_output_tree(d: Path) -> bool:
         return True
 
 
-def discover_images(input_dir: Path, output_dir: Path, recursive: bool) -> list:
+def discover_images(input_dir: Path, output_dir: Path, recursive: bool, pruned: Optional[list] = None) -> list:
     """Alle JPG/JPEG/PNG-Dateien finden. Ausgelassen werden versteckte Dateien,
-    macOS-"._"-Dateien, versteckte/NAS-Vorschauordner (".", "@eaDir", "#recycle")
+    macOS-"._"-Dateien, versteckte Ordner, NAS-Systemordner ("@eaDir", "#recycle" …)
     und Ausgabeordner früherer Läufe - sonst würden Ergebnisse doppelt bearbeitet."""
     out_res = output_dir.resolve()
     in_res = input_dir.resolve()
@@ -1622,8 +1748,14 @@ def discover_images(input_dir: Path, output_dir: Path, recursive: bool) -> list:
             return
         for root, dirs, names in os.walk(input_dir):
             rootp = Path(root)
-            dirs[:] = [d for d in dirs
-                       if not d.startswith((".", "@", "#")) and not _is_output_tree(rootp / d)]
+            keep = []
+            for d in dirs:
+                if d.startswith(".") or d in NAS_SYSTEM_DIRS or _is_output_tree(rootp / d):
+                    if pruned is not None:
+                        pruned.append(rootp / d)
+                else:
+                    keep.append(d)
+            dirs[:] = keep
             for n in names:
                 yield rootp / n
 
@@ -1673,6 +1805,31 @@ def _file_id(p: Path):
     return (st.st_dev, st.st_ino) if st.st_ino else None
 
 
+def _is_our_output(p: Path) -> bool:
+    """Stammt die (vorhandene) Datei von diesem Skript? Nur solche Dateien werden überschrieben."""
+    try:
+        with Image.open(p) as im:
+            return OUTPUT_MARKER in (im.info.get("comment") or b"")
+    except Exception:
+        return False
+
+
+def _all_input_ids(input_root: Path, output_dir: Path) -> set:
+    """Datei-Identitäten ALLER Bilder unter dem Eingabeordner (ohne den Ausgabeordner),
+    unabhängig von -r - Schutz gegen Aliase, Verknüpfungen und Unterordner als Ziel."""
+    out_res = output_dir.resolve()
+    ids = set()
+    for root, dirs, names in os.walk(input_root):
+        rootp = Path(root)
+        dirs[:] = [d for d in dirs if (rootp / d).resolve() != out_res]
+        for n in names:
+            if Path(n).suffix.lower() in SUPPORTED_EXTENSIONS:
+                fid = _file_id(rootp / n)
+                if fid:
+                    ids.add(fid)
+    return ids
+
+
 def _source_signature(p: Path, input_root: Path) -> list:
     st = p.stat()
     return [p.relative_to(input_root).as_posix(), st.st_size, st.st_mtime_ns]
@@ -1688,13 +1845,16 @@ def _load_manifest(output_dir: Path) -> dict:
 
 
 def _save_manifest(output_dir: Path, manifest: dict):
+    tmp = output_dir / (MANIFEST_NAME + ".tmp")
     try:
-        tmp = output_dir / (MANIFEST_NAME + ".tmp")
         with open(tmp, "w", encoding="utf-8") as fh:
-            json.dump(manifest, fh, ensure_ascii=False, indent=0)
+            json.dump(manifest, fh, ensure_ascii=True, indent=0)
         os.replace(tmp, output_dir / MANIFEST_NAME)
-    except OSError:
-        pass
+    except (OSError, ValueError):
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
 
 
 def _ranged(kind, lo=None, hi=None):
@@ -1702,6 +1862,8 @@ def _ranged(kind, lo=None, hi=None):
         try:
             v = kind(value)
         except ValueError:
+            raise argparse.ArgumentTypeError(f"'{value}' ist keine gültige Zahl")
+        if isinstance(v, float) and not math.isfinite(v):
             raise argparse.ArgumentTypeError(f"'{value}' ist keine gültige Zahl")
         if (lo is not None and v < lo) or (hi is not None and v > hi):
             rng = f"{lo} bis {hi}" if hi is not None else f"mindestens {lo}"
@@ -1743,7 +1905,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
                     help="Stärke der Senkrechtenkorrektur (1 = ganz gerade, Standard)")
     ap.add_argument("--max-crop", type=_ranged(float, 0.0, 0.3), metavar="ANTEIL",
                     help="max. Beschnitt je Bildseite durch die Geometriekorrektur "
-                         "(Standard 0.08 = 8 %%; wenn gesetzt, gilt es auch fürs Ausrichten des Horizonts)")
+                         "(Standard 0.10 = 10 %%; wenn gesetzt, gilt es auch fürs Ausrichten des Horizonts)")
     ap.add_argument("--focal35", type=_ranged(float, 8.0, 300.0), metavar="MM",
                     help="KB-Brennweite, falls nicht im EXIF (Standard 24; Ultraweitwinkel ≈ 13)")
     ap.add_argument("--no-denoise", action="store_true", help="keine Rauschreduzierung")
@@ -1805,7 +1967,11 @@ def main(argv=None) -> int:
     parts = a.input or ["input_photos"]
     src = Path(" ".join(parts)).expanduser()
     if not src.exists():
-        if len(parts) > 1:
+        if len(parts) > 1 and Path(parts[0]).expanduser().exists():
+            rest = " ".join(parts[1:])
+            sys.stderr.write("Nur ein Eingabeordner möglich. Einen Ausgabeordner bitte mit -o angeben, "
+                             f"z. B.: -o \"{rest}\"\n")
+        elif len(parts) > 1:
             sys.stderr.write("Mehrere Eingaben erkannt. Pfade mit Leerzeichen bitte in "
                              f"Anführungszeichen setzen, z. B.: \"{' '.join(parts)}\"\n")
         else:
@@ -1829,21 +1995,30 @@ def main(argv=None) -> int:
         sys.stderr.write("Der Ausgabeordner darf nicht der Eingabeordner sein "
                          "(Originale würden überschrieben).\n")
         return 2
-    setup_logging(output_dir, a.verbose)
+    # Vor dem ersten Schreibzugriff: alle Originale unter dem Eingabeordner merken
+    input_ids = _all_input_ids(input_root, output_dir)
+    try:
+        setup_logging(output_dir, a.verbose)
+    except OSError as exc:
+        sys.stderr.write(f"Ausgabeordner ist nicht beschreibbar: {exc}\n")
+        return 2
     s = settings_from_args(a)
 
+    pruned: list = []
     if single is not None:
         if single.suffix.lower() not in SUPPORTED_EXTENSIONS:
             log.error("Nicht unterstützter Dateityp: %s", single.name)
             return 2
         files = [single]
     else:
-        files = discover_images(input_root, output_dir, a.recursive)
+        files = discover_images(input_root, output_dir, a.recursive, pruned)
 
     log.info("=" * 72)
     log.info("Immobilienfotos für Exposé – v%s – %s", __version__, time.strftime("%Y-%m-%d %H:%M:%S"))
     log.info("Eingabe : %s", input_root.resolve())
     log.info("Ausgabe : %s", output_dir.resolve())
+    for d in pruned:
+        log.info("Ordner übersprungen (versteckt, System- oder Ausgabeordner): %s", d)
     if not files:
         if single is None and not a.recursive and discover_images(input_root, output_dir, True):
             log.warning("Keine Bilder direkt in diesem Ordner, aber in Unterordnern. "
@@ -1855,19 +2030,26 @@ def main(argv=None) -> int:
 
     jobs = plan_outputs(files, input_root, output_dir)
     originals = {p.resolve() for p in files}
-    original_ids = {i for i in (_file_id(p) for p in files) if i}
+    original_ids = input_ids | {i for i in (_file_id(p) for p in files) if i}
     manifest = _load_manifest(output_dir)
     signatures = {}
     counts = {"ok": 0, "skip": 0, "error": 0, "exists": 0}
     work = []
     for p, dst in jobs:
-        # doppelte Absicherung: niemals Originale überschreiben (auch nicht über
-        # Verknüpfungen, eingebundene Laufwerke oder Groß-/Kleinschreibung)
+        rel_dst = dst.relative_to(output_dir).as_posix()
+        # Mehrfache Absicherung: niemals Originale überschreiben - auch nicht über
+        # Verknüpfungen, eingebundene Laufwerke, Groß-/Kleinschreibung oder einen
+        # Unterordner der Eingabe als Ausgabeordner. Vorhandene Dateien werden nur
+        # überschrieben, wenn sie nachweislich von diesem Skript stammen.
         if dst.resolve() in originals or (_file_id(dst) in original_ids):
             log.error("ÜBERSPRUNGEN %s: Ziel wäre eine Originaldatei", p.name)
             counts["skip"] += 1
             continue
-        rel_dst = dst.relative_to(output_dir).as_posix()
+        if dst.exists() and rel_dst not in manifest and not _is_our_output(dst):
+            log.error("ÜBERSPRUNGEN %s: %s existiert bereits und stammt nicht von diesem Skript "
+                      "– bitte anderen Ausgabeordner wählen", p.name, dst)
+            counts["skip"] += 1
+            continue
         try:
             signatures[str(p)] = (rel_dst, _source_signature(p, input_root))
         except OSError:
@@ -1881,6 +2063,8 @@ def main(argv=None) -> int:
         if s.compare:
             rel = dst.relative_to(output_dir)
             cmp_dst = output_dir / COMPARE_DIRNAME / rel.with_name(dst.stem + "_vergleich.jpg")
+            if cmp_dst.exists() and not _is_our_output(cmp_dst):
+                cmp_dst = None
         work.append((str(p), str(dst), s, str(cmp_dst) if cmp_dst else None))
 
     workers = max(1, min(a.workers, len(work) or 1, 61 if os.name == "nt" else 64))
@@ -1898,6 +2082,7 @@ def main(argv=None) -> int:
             if src_path in signatures:
                 rel_dst, sig = signatures[src_path]
                 manifest[rel_dst] = sig
+                _save_manifest(output_dir, manifest)     # sofort: --skip-existing auch nach Abbruch
         elif status == "skip":
             log.warning("SKIP    %s: %s", name, payload)
         else:

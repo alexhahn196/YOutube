@@ -60,7 +60,7 @@ Nützliche Optionen:
 | `-j 4` | 4 Bilder parallel verarbeiten; braucht je Prozess ca. 1–1,5 GB RAM bei 12-MP-Fotos, gut 2 GB bei 24 MP |
 | `-q 95` | JPEG-Qualität (Standard 92) |
 | `--max-size 3000` | lange Kante auf höchstens 3000 px verkleinern (z. B. für Portale); vergrößert nie |
-| `--max-crop 0.05` | Geometriekorrektur darf je Bildseite höchstens 5 % abschneiden. Ausdrücklich gesetzt, gilt das auch für das Ausrichten des Horizonts. |
+| `--max-crop 0.06` | Geometriekorrektur darf je Bildseite höchstens 6 % abschneiden (Standard 10 %). Ausdrücklich gesetzt, gilt das auch für das Ausrichten des Horizonts. |
 | `--vertical-strength 0.8` | Senkrechten nur zu 80 % begradigen (wirkt manchmal natürlicher) |
 | `--focal35 13` | Kleinbild-Brennweite angeben, wenn das EXIF fehlt (z. B. Ultraweitwinkel) |
 | `--no-geometry` | keine Objektiv-, Horizont- oder Senkrechtenkorrektur |
@@ -73,6 +73,20 @@ Nützliche Optionen:
 
 Alle Optionen: `python process_real_estate_photos.py --help`
 (unter macOS/Linux ggf. `python3` statt `python`).
+
+## Analyse: Was lässt sich zuverlässig automatisieren?
+
+| Schritt | Automatisierbar? | Umsetzung im Skript |
+|---|---|---|
+| EXIF-Ausrichtung, Farbprofil → sRGB | zuverlässig | immer |
+| Belichtung, Schatten/Lichter, Kontrast, Schwarz-/Weißpunkt | zuverlässig, wenn moderat und kantenerhaltend | immer, mit festen Zielwerten |
+| Weißabgleich / Farbstich | gut bei einer Lichtquelle, nur Kompromiss bei Mischlicht | neutrale Flächen als Referenz, bei Mischlicht bewusst nur teilweise |
+| Rauschreduzierung | zuverlässig für Farbrauschen; Helligkeitsrauschen nur vorsichtig, sonst verschwinden Risse | Farbrauschen immer, Helligkeitsrauschen nur bei starkem Rauschen und nur teilweise |
+| Schärfen | zuverlässig, wenn leicht und mit Rauschschwelle | immer |
+| Horizont / stürzende Linien | gut, wenn genug echte Senkrechten im Bild sind; schräge Dachkanten können täuschen | Fluchtpunkt + mehrere Plausibilitätsprüfungen; im Zweifel keine Korrektur |
+| Zuschnitt | zuverlässig, solange er nur leere Ränder entfernt | nur so viel, wie die Geometrie erzwingt |
+| Objektivverzeichnung | ohne Objektivprofil nur eingeschränkt | blinde Schätzung, nur bei eindeutiger tonnenförmiger Verzeichnung; sonst `--lens-k` |
+| Ausgebrannte Fenster zurückholen | **nicht möglich** (keine Bildinformation mehr) | Lichter mit Restzeichnung werden gesenkt, reinweiße Flächen bleiben sauber weiß |
 
 ## Was das Skript macht
 
@@ -94,23 +108,32 @@ Die Reihenfolge ist bewusst gewählt.
      Konvergierende Dachsparren werden in einem zweiten Durchgang aussortiert. Hängt
      das Ergebnis an einzelnen Linien (z. B. einer schrägen Dachkante), wird lieber
      nicht korrigiert als falsch.
+   - **Plausibilitätsprüfung**: Die geplante Korrektur muss alle fast senkrechten Linien
+     im Bild deutlich gerader machen, nicht nur die, aus denen sie berechnet wurde.
+     Sonst wird nicht gedreht (schützt z. B. vor schrägen Dachkanten in Außenaufnahmen).
    - **Zuschnitt**: nur so weit, dass keine leeren Ränder entstehen. Das Seitenverhältnis
      bleibt, damit alle Bilder einheitlich wirken. Für das Begradigen der Senkrechten
-     gehen an jeder Stelle jeder Bildkante höchstens 8 % verloren. Würde die volle
-     Korrektur mehr kosten, wird sie abgeschwächt; das Protokoll nennt dann den
-     gemessenen Wert und den korrigierten Anteil. Einen schiefen Horizont auszurichten
-     kostet zwangsläufig die Bildecken; bei starker Schräglage (über ca. 3°) kann das
-     etwas mehr als 8 % sein. Mindestens 72 % des Bildinhalts bleiben immer erhalten.
+     gehen an der ungünstigsten Stelle jeder Bildkante (meist einer Ecke) höchstens 10 %
+     verloren, typischerweise bleiben rund 80 % des Bildinhalts. Würde die volle Korrektur
+     mehr kosten, wird sie abgeschwächt; das Protokoll nennt dann den gemessenen Wert und
+     den korrigierten Anteil. Einen schiefen Horizont auszurichten kostet zwangsläufig die
+     Bildecken: bei starker Schräglage (über ca. 4°) bis etwa 15 % je Seite. Das Protokoll
+     markiert solche Bilder mit „ACHTUNG“. Mindestens 72 % des Bildinhalts bleiben immer erhalten.
+     Lampen oder Armaturen direkt am Bildrand können dabei angeschnitten werden – bei
+     wichtigen Motiven lieber mit `--max-crop 0.06` oder `--vertical-strength 0.7` arbeiten.
 4. **Ton und Farbe** – mit den gleichen Zielwerten für alle Bilder, daher ein
    einheitlicher Look:
    - Weißabgleich auf den neutralsten Flächen (Wände, Decken, Fugen). Beige Fliesen,
      Holz, Ziegel oder Himmel zählen nicht. Bei Mischlicht (Lampe und Fenster) werden
      Tageslicht-Flächen nicht ins Blaue geschoben. Ein gleichmäßiger, starker
      Kunstlichtstich wird kräftiger korrigiert.
-   - Belichtung auf eine einheitliche Zielhelligkeit. Helle Räume werden nicht abgedunkelt.
+   - Belichtung auf eine einheitliche Zielhelligkeit; helle neutrale Flächen (Wände,
+     Decken) werden auf ein einheitlich freundliches Weiß gebracht. Abgedunkelt wird nur,
+     wenn wirklich Lichter ausbrennen.
    - Schatten aufhellen und echte Lichter absenken, nur großflächig und kantenerhaltend.
-     Feine Details bleiben unverändert, deshalb entsteht kein HDR-Look. Große helle
-     Flächen wie der Himmel werden so geschützt, dass kein Farbkanal ausbrennt.
+     Feine Details bleiben unverändert, deshalb entsteht kein HDR-Look. Himmel und
+     andere helle, farbige Flächen werden so geschützt, dass kein Farbkanal ausbrennt.
+     Glänzende Reflexe laufen wie bei einer Kamera ins Weiße aus.
    - Schwarz- und Weißpunkt, sanfte S-Kurve für Kontrast, Dynamik (Vibrance):
      blasse Farben werden etwas kräftiger, satte Farben bleiben, wie sie sind. Die
      Buntheit darf gegenüber dem Original nur maßvoll steigen.
@@ -118,7 +141,8 @@ Die Reihenfolge ist bewusst gewählt.
    damit Rauschen nicht mitgeschärft wird.
 6. **Speichern** – JPEG mit Qualität 92, volle Farbauflösung (4:4:4), sRGB-Profil.
    EXIF (inkl. Aufnahmedatum und Kamera), XMP und Auflösung werden übernommen,
-   die Ausrichtung wird auf „normal“ gesetzt. Das Bild wird nie vergrößert.
+   die Ausrichtung wird auf „normal“ gesetzt. Das Bild wird nie vergrößert. Ein
+   JPEG-Kommentar kennzeichnet die Datei als Ergebnis dieses Skripts.
 
 ## Was das Skript bewusst nicht tut
 
@@ -162,9 +186,15 @@ Rückgabewert: `0` = alles in Ordnung, `1` = mindestens ein Bild fehlgeschlagen,
 
 Dateinamen bleiben erhalten. JPEGs behalten ihren Namen exakt, PNGs werden zu
 `.jpg`. Gibt es `foto.jpg` und `foto.png`, heißt das zweite `foto_png.jpg`.
-Übersprungen werden versteckte Dateien, macOS-Hilfsdateien (`._foto.jpg`),
-NAS-Vorschauordner (`@eaDir`), Ausgabeordner früherer Läufe und Bilder mit weniger
-als 320 px an der kürzeren Kante.
+Übersprungen werden versteckte Dateien und Ordner, macOS-Hilfsdateien (`._foto.jpg`),
+NAS-Systemordner (`@eaDir`, `#recycle`, `#snapshot` …), Ausgabeordner früherer Läufe,
+Bilder mit weniger als 320 px an der kürzeren Kante und Bilder über 120 Megapixel.
+
+**Schutz der Originale:** Originale werden nie überschrieben – auch nicht, wenn der
+Ausgabeordner versehentlich der Eingabeordner, ein Unterordner davon oder eine
+Verknüpfung darauf ist. Im Ausgabeordner überschreibt das Skript nur Dateien, die es
+selbst erzeugt hat; fremde Dateien mit gleichem Namen bleiben unangetastet (das
+Protokoll meldet sie).
 
 ## Tests
 

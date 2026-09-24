@@ -434,5 +434,169 @@ def test_strong_uniform_tungsten_cast_is_reduced():
         lab = cv2.cvtColor(x.astype(np.float32), cv2.COLOR_RGB2Lab)[:300]
         return float(lab[..., 2].mean() / (lab[..., 0].mean() + 16))
     out, info = P.tone_and_color(img, False, P.Settings())
-    assert info["wb"].get("uniform_cast")
-    assert warmth(out) < 0.75 * warmth(img), (warmth(img), warmth(out))
+    assert info["wb"].get("uniform_cast", 0) > 0.5
+    # bewusst nur teilweise: sonst würden cremefarbene Wände grau (Obergrenze 1.45)
+    assert warmth(out) < 0.80 * warmth(img), (warmth(img), warmth(out))
+
+
+# --------------------------------------------------------------------------- #
+# Regressionen aus Review-Runde 2
+# --------------------------------------------------------------------------- #
+
+@pytest.mark.parametrize("recursive", [True, False])
+def test_output_into_input_subfolder_never_overwrites_originals(tmp_path, recursive):
+    src = tmp_path / "in"
+    (src / "sub").mkdir(parents=True)
+    _write(src / "foto.jpg", synthetic_room(800, 600, seed=1))
+    _write(src / "sub" / "foto.jpg", synthetic_room(900, 700, seed=2))
+    before = sha(src / "sub" / "foto.jpg")
+    args = [str(src), "-o", str(src / "sub"), "--no-geometry"] + (["-r"] if recursive else [])
+    P.main(args)
+    assert sha(src / "sub" / "foto.jpg") == before
+
+
+def test_foreign_file_in_output_is_not_overwritten(tmp_path):
+    src = tmp_path / "in"
+    out = tmp_path / "out"
+    src.mkdir()
+    out.mkdir()
+    _write(src / "foto.jpg")
+    _write(out / "foto.jpg", synthetic_room(640, 480, seed=3))          # gehört dem Nutzer
+    before = sha(out / "foto.jpg")
+    P.main([str(src), "-o", str(out), "--no-geometry"])
+    assert sha(out / "foto.jpg") == before
+
+
+def test_own_previous_output_is_overwritten(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / "foto.jpg")
+    assert P.main([str(src), "--no-geometry"]) == 0
+    (src / "output_expose" / P.MANIFEST_NAME).unlink()                   # auch ohne Manifest erkennbar
+    first = (src / "output_expose" / "foto.jpg").stat().st_mtime_ns
+    assert P.main([str(src), "--no-geometry"]) == 0
+    assert (src / "output_expose" / "foto.jpg").stat().st_mtime_ns != first
+
+
+@pytest.mark.skipif(os.name == "nt", reason="Byte-Dateinamen nur unter POSIX")
+def test_non_utf8_filename_keeps_manifest_working(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    name = os.fsdecode(b"K\xfcche.jpg")
+    _write(src / name)
+    assert P.main([str(src), "--no-geometry"]) == 0
+    assert P._load_manifest(src / "output_expose")                       # gültig und nicht leer
+    assert not (src / "output_expose" / (P.MANIFEST_NAME + ".tmp")).exists()
+
+
+def test_recursive_keeps_user_folders_with_hash_or_at(tmp_path):
+    src = tmp_path / "in"
+    (src / "#1 Wohnzimmer").mkdir(parents=True)
+    (src / "@Balkon").mkdir()
+    (src / "@eaDir").mkdir()
+    _write(src / "#1 Wohnzimmer" / "a.jpg")
+    _write(src / "@Balkon" / "b.jpg")
+    _write(src / "@eaDir" / "c.jpg")
+    found = P.discover_images(src, src / "output_expose", True)
+    assert sorted(p.name for p in found) == ["a.jpg", "b.jpg"]
+
+
+@pytest.mark.parametrize("args", [["--warmth", "nan"], ["--max-crop", "nan"], ["--vertical-strength", "inf"]])
+def test_non_finite_cli_values_are_rejected(tmp_path, args):
+    with pytest.raises(SystemExit) as exc:
+        P.main([str(tmp_path)] + args)
+    assert exc.value.code == 2
+
+
+def test_unwritable_log_location_gives_clean_error(tmp_path):
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / "foto.jpg")
+    (src / "output_expose" / P.LOG_FILENAME).mkdir(parents=True)          # Log-Pfad ist ein Ordner
+    assert P.main([str(src)]) == 2
+
+
+def test_too_many_megapixels_are_skipped(tmp_path, monkeypatch):
+    monkeypatch.setattr(P, "MAX_MEGAPIXELS", 0.3)
+    src = tmp_path / "in"
+    src.mkdir()
+    _write(src / "gross.jpg")                                            # 0.48 MP
+    assert P.main([str(src), "--no-geometry"]) == 0
+    assert not (src / "output_expose" / "gross.jpg").exists()
+    assert "zu groß" in (src / "output_expose" / P.LOG_FILENAME).read_text(encoding="utf-8")
+
+
+def test_second_positional_argument_gets_output_hint(tmp_path, capsys):
+    src = tmp_path / "in"
+    src.mkdir()
+    assert P.main([str(src), "ausgabe"]) == 2
+    assert "-o" in capsys.readouterr().err
+
+
+def test_roll_does_not_eat_the_vertical_budget():
+    img = synthetic_room(1400, 1050)
+    h, w = img.shape[:2]
+    cx, cy, R = P._norm_params(w, h)
+    f_n = 2 * 24 / 43.27
+    K = np.diag([f_n, f_n, 1.0])
+    Hn = K @ P.rotation_matrix(math.radians(2.5), math.radians(-8)) @ np.linalg.inv(K)
+    S = np.array([[1 / R, 0, -cx / R], [0, 1 / R, -cy / R], [0, 0, 1]])
+    warped = cv2.warpPerspective(img, np.linalg.inv(S) @ np.linalg.inv(Hn) @ S, (w, h),
+                                 flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REFLECT)
+    s = P.Settings()
+    s.lens = False
+    _, info = P.correct_geometry(warped.astype(np.float32) / 255, loaded_from(warped), s)
+    assert abs(info["roll"]) > 2.0
+    assert info["pitch"] / info["pitch_measured"] >= 0.6, info
+
+
+def test_mild_warm_cast_on_white_walls_is_mostly_removed():
+    rng = np.random.default_rng(7)
+    lin = np.clip(0.55 + rng.normal(0, 0.01, (400, 600, 3)), 0, 1)
+    lin[300:] = 0.12                                                     # Boden
+    lin = (lin * np.array([1.12, 1.0, 0.85])).astype(np.float32)          # milder Kunstlichtstich
+    img = P.linear_to_srgb(lin)
+    out, _ = P.tone_and_color(img, False, P.Settings())
+    b_in = cv2.cvtColor(img, cv2.COLOR_RGB2Lab)[:300, :, 2].mean()
+    b_out = cv2.cvtColor(out.astype(np.float32), cv2.COLOR_RGB2Lab)[:300, :, 2].mean()
+    assert b_in > 8 and b_out <= 5.0, (b_in, b_out)
+
+
+def test_grey_walls_in_bright_room_become_friendly_white():
+    rng = np.random.default_rng(8)
+    img = np.clip(0.70 + rng.normal(0, 0.01, (400, 600, 3)), 0, 1).astype(np.float32)   # L* ≈ 72
+    img[280:] = 0.40
+    out, _ = P.tone_and_color(img, False, P.Settings(), noise_sigma=0.1)
+    L_out = cv2.cvtColor(out.astype(np.float32), cv2.COLOR_RGB2Lab)[:280, :, 0].mean()
+    assert L_out >= 78, L_out
+
+
+def test_sunlit_red_roof_does_not_clip_red_channel():
+    img = np.zeros((400, 600, 3), np.float32)
+    img[:200] = (0.93, 0.55, 0.45)                                       # sonniges Ziegeldach
+    img[200:] = (0.35, 0.33, 0.30)
+    out, _ = P.tone_and_color(img, False, P.Settings())
+    u = P.to_u8(out[:200])
+    assert ((u[..., 0] >= 254) & (u.min(axis=2) < 200)).mean() < 0.02
+
+
+def test_no_denoise_does_not_change_exposure():
+    img = synthetic_room(900, 600).astype(np.float32) / 255 * 0.35
+    s1, s2 = P.Settings(), P.Settings()
+    s2.denoise = False
+    _, d1 = P.denoise_image(img, False, s1)
+    _, d2 = P.denoise_image(img, False, s2)
+    assert d1["sigma"] == d2["sigma"]
+    _, t1 = P.tone_and_color(img, False, s1, d1["sigma"])
+    _, t2 = P.tone_and_color(img, False, s2, d2["sigma"])
+    assert t1["tone"]["ev"] == t2["tone"]["ev"]
+
+
+def test_levels_have_no_jump():
+    base = np.full((200, 300, 3), 0.5, np.float32)
+    g = []
+    for hi in (0.745, 0.755):
+        img = base.copy()
+        img[:30, :30] = hi                                               # 1.5 % > 0.2 % -> bestimmt den Weißpunkt
+        g.append(P.apply_levels(img)[1]["gain"])
+    assert g[0] > 1.15 and abs(g[0] - g[1]) < 0.03, g
