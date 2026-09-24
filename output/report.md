@@ -55,3 +55,11 @@ Zwei unabhängige Prüfungen + Messung (SSIM 0,82, Kanten-IoU 0,53, Fliesenraste
 | `output/property_walkthrough_16x9_cropband.mp4` | 1920×1080, 30 fps, H.264 High, 6428 kbit/s, 29.5 s, 23.7 MB | 16:9-Alternative: Band-Crop mit Anker pro Shot (~4× Upscale) |
 
 Länge des finalen Videos: **29,5 s** (alle Fassungen). Weitere Artefakte: `working/contact_sheet.jpg` (Gesamtübersicht 1 fps), `working/sheets/` (12 Kontaktbögen), `working/edit_plan.md`, `working/analysis/` (Bewegungs-/Schärfe-Metriken), `working/pipeline/` (reproduzierbare Skripte).
+
+## 6. Nachtrag Musik (24.09.2026)
+Auf Wunsch wurde ein Musikbett unterlegt. Higgsfield bietet über MCP nur Sprach-Modelle (keine Musik-Generierung), daher wurde ein **lizenzfreies, prozedural erzeugtes Ambient-Piano-Bett** lokal synthetisiert (`working/pipeline/make_music.py`, numpy): D-Dur-Progression Dmaj7 – A/C# – Bm7 – Gmaj7, warmer Pad + Sub-Bass, sparsames Klavier-Arpeggio, algorithmischer Hall, Loudness −17 LUFS, True Peak −6 dBFS, 1,5 s Fade-in, 3,2 s Fade-out passend zum Bild. Keine Fremdrechte, keine Credits.
+- `output/property_walkthrough_vertical_9x16_music.mp4` – 9:16-Master mit Musik (Video unverändert, nur Tonspur ersetzt)
+- `output/property_walkthrough_16x9_music.mp4` – 16:9 Pillarbox mit Musik
+- `output/property_walkthrough_16x9_cropband_music.mp4` – 16:9 Band-Crop mit Musik
+- `output/ambient_piano_bed_music.mp3` – das Musikbett separat (29,5 s), z. B. für CapCut
+Ein lizenzierter Track (YouTube Audio Library, Artlist, Epidemic Sound) lässt sich mit demselben Mux-Schritt austauschen.
