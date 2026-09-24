@@ -12,6 +12,7 @@ ROOT = plan.get('root', '.')
 ORIG = os.path.join(ROOT, 'working/original_clips'); ENH = os.path.join(ROOT, 'working/enhanced'); OUT = os.path.join(ROOT, 'output')
 for d in (ORIG, ENH, OUT): os.makedirs(d, exist_ok=True)
 XF = plan.get('xfade_s', 0.2)
+CRF = str(plan.get('crf', 17))
 GRADE = plan.get('grade', "hqdn3d=1.5:1.0:3:2.5,eq=contrast=1.04:brightness=0.01:saturation=1.08")
 SHARP = plan.get('sharpen', "unsharp=5:5:0.4:5:5:0.0")
 def run(cmd):
@@ -63,7 +64,7 @@ def assemble(clips, out, w, h):
         last = 'vx'; total = offset + durs[-1]
     fc.append(f"[{last}]fade=t=in:st=0:d=0.5,fade=t=out:st={total - 0.6:.3f}:d=0.6[vout]")
     ff(*inputs, '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=48000', '-filter_complex', ';'.join(fc), '-map', '[vout]', '-map', f'{n}:a', '-shortest',
-       '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', out)
+       '-c:v', 'libx264', '-preset', 'slow', '-crf', CRF, '-profile:v', 'high', '-level', '4.1', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', out)
     return total
 if stage in ('assemble', 'all'):
     for s in shots:
@@ -86,6 +87,6 @@ if stage in ('assemble', 'all'):
     # 16:9 pillarbox alternative from the 9:16 master
     p169 = os.path.join(OUT, plan.get('out_16x9_pillar', 'property_walkthrough_16x9_pillarbox.mp4'))
     ff('-i', m916, '-filter_complex', "[0:v]split=2[bg][fg];[bg]scale=1920:1080:flags=bicubic,gblur=sigma=45,eq=brightness=-0.28:saturation=0.55[bgb];[fg]scale=-2:1080:flags=lanczos[fgs];[bgb][fgs]overlay=(W-w)/2:0,format=yuv420p[v]",
-       '-map', '[v]', '-map', '0:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'copy', '-movflags', '+faststart', p169)
+       '-map', '[v]', '-map', '0:a', '-c:v', 'libx264', '-preset', 'slow', '-crf', CRF, '-profile:v', 'high', '-pix_fmt', 'yuv420p', '-r', '30', '-c:a', 'copy', '-movflags', '+faststart', p169)
     print('16:9 pillarbox', p169)
 json.dump(plan, open(sys.argv[1].replace('.json', '.resolved.json'), 'w'), indent=1, ensure_ascii=False)

@@ -363,6 +363,8 @@
   "Bad/Gäste-WC bewusst nicht im Schnitt: das Material ist durchgehend dunkel, verwackelt und zeigt den Filmenden im Spiegel. Optional: 2:32,4–2:34,0 (1,6 s, stabilisiert, +1 Blende) nach der Küche einfügen.",
   "Stabilisierung: Das Phone-Material ist bereits elektronisch stabilisiert (Jitter meist < 0,5 px/Frame). ffmpeg vidstab/deshake verschlechterten den Jitter messbar (Schätzrauschen); verwendet wird ein konservativer Translations-Glätter (Phasenkorrelation, Gauß σ=8–10 Frames, 4–5 % Zoom), der den Jitter bei den unruhigeren Clips um 30–40 % senkt und ruhige Clips praktisch unverändert lässt.",
   "Wasserflasche im Kamin-Feuerraum: in Shot 3 durch den 16:9-Anker (36 %) außerhalb des Bildes, im 9:16-Master sichtbar (Original-Zustand, kein Retusche-Eingriff ohne Freigabe).",
+  "KI-Phase (Higgsfield): 1 Test-Generation auf Shot 06 (FLUX 3 Video Edit, 4,84 Credits). Geometrie-QC bestanden, Clip aber wegen geglätteter Texturen/Gebrauchsspuren, 4-Frame-Mikroruckeln (24 fps durch Frame-Dropping) und geringerer Auflösung (704×1248) verworfen. User-Entscheid 24.09.2026: Final ausschließlich aus authentischem Original + technischer Bildoptimierung. Kling 3.0 Omni Edit war im Free-Plan gesperrt.",
   "Übergänge: harte Schnitte, 0,5 s Fade-in, 0,6 s Fade-out. Kein Ton (Original-Ton ist Raumhall/Schritte); Musik kann in CapCut ergänzt werden."
- ]
+ ],
+ "crf": 21
 }

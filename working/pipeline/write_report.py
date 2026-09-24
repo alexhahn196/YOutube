@@ -1,4 +1,16 @@
-# Abschlussbericht – Immobilien-Walkthrough (Final, 24.09.2026)
+#!/usr/bin/env python3
+"""Render output/report.md (German) from the plan + probed outputs + AI ledger."""
+import json, subprocess, sys, os
+plan=json.load(open(sys.argv[1])); out=sys.argv[2]
+def probe(p):
+    r=subprocess.check_output(['ffprobe','-v','error','-select_streams','v:0','-show_entries','stream=width,height,r_frame_rate,bit_rate:format=duration,size','-of','json',p]).decode()
+    j=json.loads(r); s=j['streams'][0]; f=j['format']
+    return f"{s['width']}×{s['height']}, {s['r_frame_rate'].split('/')[0]} fps, H.264 High, {int(s.get('bit_rate',0))//1000} kbit/s, {float(f['duration']):.1f} s, {int(f['size'])/1e6:.1f} MB"
+def ts(s): m=int(s//60); return f"{m}:{s-60*m:04.1f}"
+shots=plan['shots']; tot=sum(s['end_s']-s['start_s'] for s in shots)
+rows="\n".join(f"| {s['id']} | {ts(s['start_s'])} – {ts(s['end_s'])} | {s['end_s']-s['start_s']:.1f} s | {s['room']} | Original + FFmpeg (Stabilisierung σ={s.get('stab_sigma',8)}, Zoom {s.get('stab_zoom',1.04)}) |" for s in shots)
+O='output/'
+L=f"""# Abschlussbericht – Immobilien-Walkthrough (Final, 24.09.2026)
 
 **Ergebnis:** Finale Fassung aus **ausschließlich authentischem Ausgangsmaterial plus technischer Bildoptimierung** (Stabilisierung, Entrauschung, Grading, Hochskalierung). Es wurde **1 KI-Test** mit Higgsfield durchgeführt (**4,84 Credits**); der KI-Clip wurde **nach Qualitätskontrolle verworfen**. Keine weiteren kostenpflichtigen Generierungen.
 
@@ -8,17 +20,10 @@
 - Auflösung: **478 × 850 px (Hochformat, ≈ 9:16)**, 29,93 fps, H.264 High, 655 kbit/s (WhatsApp-komprimiert), Ton AAC 48 kHz Stereo
 - Objekt: leere, unmöblierte Dachgeschosswohnung. Im Material vorhanden: Flur/Eingang, Wohnzimmer mit Kupferkamin und Dachschräge, Dachterrasse, Küche (entkernt), Abstellraum mit Boiler, Gäste-WC, Bad, Schlafzimmer, zweiter Balkon mit Stadtblick. **Nicht vorhanden:** Außenansicht/Fassade, Essbereich, Garten.
 
-## 2. Ausgewählte Original-Timestamps und Räume (8 Shots, 29.2 s Rohlänge)
+## 2. Ausgewählte Original-Timestamps und Räume ({len(shots)} Shots, {tot:.1f} s Rohlänge)
 | # | Original | Länge | Raum | Bearbeitung |
 |---|---|---|---|---|
-| 01 | 0:04.2 – 0:07.8 | 3.6 s | Flur (Eingangsbereich) | Original + FFmpeg (Stabilisierung σ=8, Zoom 1.04) |
-| 02 | 0:16.5 – 0:22.2 | 5.7 s | Wohnzimmer (Eintritt durch die Glastür, Fensterfront, Sonnenstreifen) | Original + FFmpeg (Stabilisierung σ=8, Zoom 1.04) |
-| 03 | 0:43.8 – 0:46.8 | 3.0 s | Wohnzimmer – Kamin (Kupferkamin unter der Holzdecke) | Original + FFmpeg (Stabilisierung σ=8, Zoom 1.04) |
-| 04 | 0:53.4 – 0:57.0 | 3.6 s | Dachterrasse (Austritt aus dem Wohnzimmer) | Original + FFmpeg (Stabilisierung σ=8, Zoom 1.04) |
-| 05 | 1:32.0 – 1:35.0 | 3.0 s | Wohnzimmer → Flur (zurück am Kamin vorbei, durch die Flurtür) | Original + FFmpeg (Stabilisierung σ=8, Zoom 1.05) |
-| 06 | 1:41.0 – 1:45.8 | 4.8 s | Küche (entkernt: alte Wandfliesen, Dachfenster, Heizkörper) | Original + FFmpeg (Stabilisierung σ=8, Zoom 1.04) |
-| 07 | 2:56.3 – 2:58.7 | 2.4 s | Schlafzimmer (Dachfenster, Heizkörper, Balkontür) | Original + FFmpeg (Stabilisierung σ=10, Zoom 1.05) |
-| 08 | 3:11.8 – 3:14.9 | 3.1 s | Balkon am Schlafzimmer (Blick über die Stadt) | Original + FFmpeg (Stabilisierung σ=10, Zoom 1.05) |
+{rows}
 
 Verwendete Räume: Flur, Wohnzimmer (2×: Eintritt, Rückweg), Kamin, Dachterrasse, Küche, Schlafzimmer, Balkon. **Nicht verwendet:** Bad und Gäste-WC (durchgehend dunkel, verwackelt, Filmender im Spiegel – User-Entscheid: weglassen), Abstellraum/Boiler, Dachziegel-/Himmel-Passagen, alle Fast-Pans, Stellen mit Schatten des Filmenden. Vollständige Begründung je Shot und Raum-Timeline: `working/edit_plan.md`.
 
@@ -50,8 +55,10 @@ Zwei unabhängige Prüfungen + Messung (SSIM 0,82, Kanten-IoU 0,53, Fliesenraste
 ## 5. Finale Dateien
 | Datei | Format | Inhalt |
 |---|---|---|
-| `output/property_walkthrough_vertical_9x16.mp4` | 1080×1920, 30 fps, H.264 High, 6712 kbit/s, 29.5 s, 24.8 MB | **9:16-Master** (nativ) |
-| `output/property_walkthrough_16x9.mp4` | 1920×1080, 30 fps, H.264 High, 3359 kbit/s, 29.5 s, 12.4 MB | **16:9-Hauptdatei**: Pillarbox (voller Bildinhalt, unscharfer Hintergrund) |
-| `output/property_walkthrough_16x9_cropband.mp4` | 1920×1080, 30 fps, H.264 High, 6428 kbit/s, 29.5 s, 23.7 MB | 16:9-Alternative: Band-Crop mit Anker pro Shot (~4× Upscale) |
+| `output/property_walkthrough_vertical_9x16.mp4` | {probe(O+'property_walkthrough_vertical_9x16.mp4')} | **9:16-Master** (nativ) |
+| `output/property_walkthrough_16x9.mp4` | {probe(O+'property_walkthrough_16x9.mp4')} | **16:9-Hauptdatei**: Pillarbox (voller Bildinhalt, unscharfer Hintergrund) |
+| `output/property_walkthrough_16x9_cropband.mp4` | {probe(O+'property_walkthrough_16x9_cropband.mp4')} | 16:9-Alternative: Band-Crop mit Anker pro Shot (~4× Upscale) |
 
 Länge des finalen Videos: **29,5 s** (alle Fassungen). Weitere Artefakte: `working/contact_sheet.jpg` (Gesamtübersicht 1 fps), `working/sheets/` (12 Kontaktbögen), `working/edit_plan.md`, `working/analysis/` (Bewegungs-/Schärfe-Metriken), `working/pipeline/` (reproduzierbare Skripte).
+"""
+open(out,'w').write(L); print('wrote', out)

@@ -8,7 +8,7 @@ L = ["# Schnittplan – Immobilien-Walkthrough (~30 s)", "",
      f"Gesamtlänge geplant: **{sum(s['end_s']-s['start_s'] for s in plan['shots']):.1f} s** ({len(plan['shots'])} Shots, Übergänge: {'harte Schnitte' if not plan.get('xfade_s') else 'Mini-Dissolve ' + str(plan['xfade_s']) + ' s'}, 0,5 s Fade-in/0,6 s Fade-out).", "",
      "| # | Original-Timestamp | Länge | Raum | Kamera | Warum ausgewählt | KI (Higgsfield) empfohlen? | 16:9-Crop-Anker |", "|---|---|---|---|---|---|---|---|"]
 for s in plan['shots']:
-    L.append(f"| {s['id']} | {ts(s['start_s'])} – {ts(s['end_s'])} | {s['end_s']-s['start_s']:.1f} s | {s['room']} | {s.get('camera','')} | {s.get('why','')} | {'ja – ' + s.get('ai_note','') if s.get('ai_recommended') else 'nein – ' + s.get('ai_note','')} | {s.get('crop16x9_center_pct',50)} % |")
+    L.append(f"| {s['id']} | {ts(s['start_s'])} – {ts(s['end_s'])} | {s['end_s']-s['start_s']:.1f} s | {s['room']} | {s.get('camera','')} | {s.get('why','')} | {('ja (empfohlen) – ' if s.get('ai_recommended') else 'nein – ') + s.get('ai_note','')} **Ergebnis: Original verwendet** | {s.get('crop16x9_center_pct',50)} % |")
 L += ["", "## Aussortiert (Beispiele)", ""]
 for r in plan.get('rejected', []): L.append(f"- {r}")
 L += ["", "## Raum-Timeline des Originals (Konsens aus 3 unabhängigen Sichtungen)", "", "| von | bis | Raum / Inhalt |", "|---|---|---|"]
